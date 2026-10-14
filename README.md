@@ -25,6 +25,9 @@ Then open `http://127.0.0.1:43123/`. The repository root `index.html` redirects 
 | Heading | No `h1` | One `h1` per view |
 | 3D | A single 2D canvas | WebGL architecture map (Connect, Lex, Lambda, Kinesis, Contact Lens, CCP) with orbit controls and failure scenarios. Reduced motion keeps a flat SVG and does not import Three.js |
 | Mobile | One 980px breakpoint | Slide-out track drawer under 980px, bottom nav under 640px |
+| Lighthouse 12.8.2, mobile, headless Chrome 154 | Not scored on the single-file page | Performance **84**, accessibility **100**. Home DOM in that run was 339 elements. FCP 1.5 s, LCP 2.0 s, CLS 0.03, TBT 590 ms |
+
+A later route check in the same browser stayed on one `h1` and under 400 nodes: home 359, a foundations lesson 321, the flow builder 308, Erlang 233, the CCP 240, Contact Lens 234, the 3D map 289. Python's `http.server` does not gzip. GitHub Pages does, so the text-compression warning in this local run is the server, not the campus.
 
 ## Studios and labs
 
@@ -64,7 +67,7 @@ python3 scripts/verify_campus.py
 
 `verify_campus.py` checks the track, lesson, lab, quiz, card, scenario, glossary, illustration, animated-flow, chart, audio, and fault floors. It requires every lesson to carry figures, an animated flow, a Try it lab, and an IaC tab. It rejects duplicate artwork, external scripts, and a second `h1`. It also round-trips a sample flow and the official flow-language example.
 
-`releases/amazon-connect-lab.zip` is the `campus` folder. Unzip it and serve that directory. Do not open `index.html` as a file URL.
+`releases/amazon-connect-lab.zip` is the `campus` folder (about 921 KB compressed). Unzip it and serve that directory. Do not open `index.html` as a file URL.
 
 ## Sources
 
