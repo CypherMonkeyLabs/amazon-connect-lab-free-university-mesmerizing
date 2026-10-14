@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Assemble the single-file Amazon Connect Lab."""
+"""Assemble the modular Amazon Connect Lab for GitHub Pages."""
 import hashlib
 import json
+import shutil
 import sys
 from pathlib import Path
 
@@ -11,6 +12,7 @@ sys.path.insert(0, str(ROOT / "content"))
 from curriculum import LESSONS, SCENARIOS, TRACKS  # noqa: E402
 from glossary import GLOSSARY  # noqa: E402
 from visuals import attach, extra_lessons, fault_records  # noqa: E402
+from iac import IAC  # noqa: E402
 from tables import (  # noqa: E402
     BLOCKS, BRIDGE, CERTS, CFN, CTR_FIELDS, ERRORS, IAM_ACTIONS, PRICE, QUOTAS, TIMELINE,
 )
@@ -140,9 +142,7 @@ def sources(lessons):
     return [{"title": title, "url": url} for url, title in sorted(found.items(), key=lambda kv: kv[1].lower())]
 
 
-def shell(css, js, data):
-    payload = json.dumps(data, ensure_ascii=False).replace("<", "\\u003c")
-    return f"""<!DOCTYPE html>
+SHELL_HTML = """<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
@@ -150,25 +150,35 @@ def shell(css, js, data):
 <title>Amazon Connect Lab</title>
 <meta name="description" content="A free offline campus for Amazon Connect: foundations, flows, routing, the CCP, Global Resiliency, a CUCM bridge, and the ecosystem around WFM, recording, E911, CRM, and agent assist.">
 <meta property="og:title" content="Amazon Connect Lab">
-<meta property="og:description" content="Eighteen tracks, twenty-four labs, and a cited glossary for Amazon Connect. One HTML file. No CDN. No account.">
+<meta property="og:description" content="Eighteen tracks, twenty-four labs, a 3D architecture map, and a cited glossary for Amazon Connect.">
 <meta property="og:image" content="og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Amazon Connect Lab">
-<meta name="twitter:description" content="Eighteen tracks, twenty-four labs, and a cited glossary for Amazon Connect. One HTML file. No CDN. No account.">
+<meta name="twitter:description" content="Eighteen tracks, twenty-four labs, a 3D architecture map, and a cited glossary for Amazon Connect.">
 <meta name="twitter:image" content="og-card.png">
-<style>
-{css}
-</style>
+<link rel="stylesheet" href="campus.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+<script>
+try {
+  var saved = JSON.parse(localStorage.getItem("acl-campus-v1") || "{}").theme;
+  if (saved) document.documentElement.dataset.theme = saved;
+} catch (err) { /* keep the default theme */ }
+</script>
 </head>
 <body>
-<a class="skip" href="#stage">Skip to content</a>
+<a class="skip" href="#view-title">Skip to content</a>
 <div class="app">
   <aside class="rail" id="rail">
-    <div class="brand"><span class="mark" aria-hidden="true"><span>AC</span></span><div><strong>Amazon Connect Lab</strong><small>Offline campus</small></div></div>
-    <nav id="track-list" aria-label="Tracks"></nav>
+    <div class="brand">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M6 22c6 6 18 6 24 0" fill="none" stroke="#ffb020" stroke-width="3" stroke-linecap="round"/><circle cx="18" cy="14" r="3" fill="#2dd4bf"/></svg></span>
+      <div><p class="brand-name">Amazon Connect Lab</p><span class="brand-kicker">Night-ops campus</span></div>
+    </div>
+    <nav id="track-list" class="track-list" aria-label="Tracks"></nav>
     <div class="rail-foot">
       <button data-go="#/labs">Labs</button>
       <button data-go="#/quiz">Quiz</button>
@@ -180,52 +190,211 @@ def shell(css, js, data):
       <button data-go="#/audio">Audio</button>
       <button data-go="#/timeline">Timeline</button>
       <button data-go="#/sources">Sources</button>
+      <button data-go="#/map">3D map</button>
+      <button data-go="#/ccp">CCP</button>
     </div>
   </aside>
   <div class="main">
     <header class="topbar">
-      <button class="icon-btn" id="menu" aria-label="Open tracks">☰</button>
-      <button class="search-launch" id="open-search" data-search="1">Search the campus <kbd>Ctrl</kbd> <kbd>K</kbd></button>
+      <button class="icon-btn" id="menu" aria-label="Open tracks" type="button">☰</button>
+      <button class="search-launch" id="open-search" type="button">Search the campus <span><kbd>Ctrl</kbd> <kbd>K</kbd></span></button>
       <div class="progress" aria-label="Lessons opened"><span id="progress-label">0%</span><div class="progress-track"><i id="progress-pip"></i></div></div>
       <div class="theme" role="group" aria-label="Theme">
-        <button data-theme="dark" aria-label="Dark theme">Dark</button>
-        <button data-theme="light" aria-label="Light theme">Light</button>
-        <button data-theme="contrast" aria-label="High contrast theme">Contrast</button>
+        <button type="button" data-theme="dark">Dark</button>
+        <button type="button" data-theme="light">Light</button>
+        <button type="button" data-theme="contrast">Contrast</button>
       </div>
       <div class="streak" aria-label="Study streak"><b id="streak-count">0</b><span>day streak</span></div>
     </header>
-    <div id="stage" tabindex="-1"></div>
+    <main id="stage" tabindex="-1">
+      <p class="meta" id="view-kicker">Free offline campus</p>
+      <h1 id="view-title">Amazon Connect Lab</h1>
+      <div id="view"><p>Loading the campus.</p></div>
+    </main>
   </div>
 </div>
+<div class="backdrop" id="backdrop" hidden></div>
+<nav class="bottom-nav" aria-label="Primary">
+  <button type="button" data-go="#/" id="nav-home" aria-label="Home"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4 4 11h2v8h5v-5h2v5h5v-8h2z"/></svg>Home</button>
+  <button type="button" id="nav-tracks" aria-label="Tracks"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/></svg>Tracks</button>
+  <button type="button" data-go="#/labs" aria-label="Labs"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v2l-1 5 4 8a4 4 0 0 1-3.5 6h-5A4 4 0 0 1 6 18l4-8-1-5z"/></svg>Labs</button>
+  <button type="button" data-go="#/quiz" aria-label="Quiz"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 .01 18.01A9 9 0 0 0 12 3zm1 14h-2v-2h2zm1.1-6.5-.9.9A2 2 0 0 0 12 13h-1v-1c0-.6.2-1.1.6-1.5l1.2-1.2A1.5 1.5 0 1 0 10 8H8a3.5 3.5 0 1 1 6.1 2.5z"/></svg>Quiz</button>
+  <button type="button" data-search="1" aria-label="Search"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>Search</button>
+</nav>
 <div class="player glass" role="region" aria-label="Lesson player">
   <div><strong id="player-title">Amazon Connect Lab</strong><div class="meta" id="player-state">Idle</div></div>
   <canvas id="wave" width="220" height="36" aria-hidden="true"></canvas>
   <select id="clip-pick" aria-label="Offline tone"></select>
-  <button class="ghost" id="player-clip">Tone</button>
-  <button class="solid" id="player-play">Play</button>
-  <button class="ghost" id="player-stop">Stop</button>
+  <button class="ghost" id="player-clip" type="button">Tone</button>
+  <button class="solid" id="player-play" type="button">Play</button>
+  <button class="ghost" id="player-stop" type="button">Stop</button>
   <audio id="clip" preload="none"></audio>
 </div>
 <div class="modal" id="search-modal" hidden>
-  <div class="dialog modal-card" role="dialog" aria-modal="true" aria-labelledby="search-label">
+  <div class="dialog modal-card glass" role="dialog" aria-modal="true" aria-labelledby="search-label">
     <label id="search-label">Search the campus</label>
-    <input id="q" type="search" placeholder="Flows, E911, skill group, 3478…" autocomplete="off">
+    <input id="q" type="search" placeholder="Flows, E911, skill group, 3478" autocomplete="off">
     <div id="hits"></div>
   </div>
 </div>
-<noscript><p>This campus needs JavaScript in the file itself. It does not load anything from the network.</p></noscript>
-<script id="campus-data" type="application/json">{payload}</script>
-<script>
-{js}
-</script>
+<noscript><p>This campus needs JavaScript. Serve the campus folder over HTTP. It does not load libraries from a CDN.</p></noscript>
+<script type="module" src="app.js"></script>
 </body>
 </html>
 """
 
+SW_JS = """const VERSION = "acl-campus-v3";
+const SHELL = __SHELL__;
+self.addEventListener("install", (event) => {
+  event.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
+});
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== VERSION).map((key) => caches.delete(key)))).then(() => self.clients.claim())
+  );
+});
+self.addEventListener("fetch", (event) => {
+  const req = event.request;
+  if (req.method !== "GET") return;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;
+  event.respondWith((async () => {
+    const cache = await caches.open(VERSION);
+    const hit = await cache.match(req);
+    if (hit) return hit;
+    try {
+      const res = await fetch(req);
+      if (res.ok) cache.put(req, res.clone());
+      return res;
+    } catch (err) {
+      if (req.mode === "navigate") {
+        const home = await cache.match("index.html");
+        if (home) return home;
+      }
+      throw err;
+    }
+  })());
+});
+"""
+
+
+def write_json(path, payload):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    text = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
+    path.write_text(text)
+    return len(text.encode())
+
+
+def split_modules(data, campus):
+    figures = {item["id"]: item for item in data["illustrations"]}
+    flows = {item["id"]: item for item in data["animatedFlows"]}
+    used_figures = set()
+    used_flows = set()
+
+    def take_figure(fid):
+        used_figures.add(fid)
+        return figures[fid]
+
+    def take_flow(fid):
+        used_flows.add(fid)
+        return flows[fid]
+
+    tracks_out = []
+    search_hits = []
+    for track in data["tracks"]:
+        lessons = []
+        slim = []
+        for lesson in data["lessons"]:
+            if lesson["track"] != track["id"]:
+                continue
+            full = dict(lesson)
+            full["figures"] = [take_figure(fid) for fid in lesson["figures"]]
+            full["animated"] = [take_flow(fid) for fid in lesson["animated"]]
+            lessons.append(full)
+            slim.append({"id": lesson["id"], "title": lesson["title"], "why": lesson["why"]})
+            hay = " ".join([lesson["title"], lesson["why"], " ".join(lesson["paras"]), " ".join(lesson["points"]), lesson["mistake"]]).lower()
+            search_hits.append({"href": "#/lesson/" + lesson["id"], "label": lesson["title"], "meta": "Lesson", "text": hay})
+        pack = {"id": track["id"], "lessons": lessons}
+        write_json(campus / "data" / "tracks" / (track["id"] + ".json"), pack)
+        tracks_out.append({
+            "id": track["id"], "title": track["title"], "kicker": track["kicker"], "hue": track["hue"],
+            "depends": track["depends"], "why": track["why"], "lessons": slim,
+        })
+
+    glossary = []
+    for term in data["glossary"]:
+        item = dict(term)
+        item["mark"] = take_figure(term["mark"])
+        glossary.append(item)
+        search_hits.append({"href": "#/glossary", "label": term["term"], "meta": "Glossary", "text": (term["term"] + " " + term["meaning"]).lower()})
+    write_json(campus / "data" / "glossary.json", {"terms": glossary})
+
+    charts = []
+    for chart in data["charts"]:
+        fig = take_figure(chart["figure"])
+        charts.append({"id": chart["id"], "title": chart["title"], "figure": chart["figure"], "svg": fig["svg"], "caption": fig["caption"]})
+    write_json(campus / "data" / "charts.json", {"charts": charts})
+
+    faults = []
+    for fault in data["faults"]:
+        item = dict(fault)
+        item["figure"] = take_figure(fault["figure"])
+        item["animated"] = take_flow(fault["animated"])
+        faults.append(item)
+    blocks = [take_figure(item["id"]) for item in data["illustrations"] if item["kind"] == "block"]
+    reference = {
+        "timeline": data["timeline"],
+        "sources": data["sources"],
+        "bridge": data["bridge"],
+        "errors": data["errors"],
+        "quotas": data["quotas"],
+        "scenarios": data["scenarios"],
+        "faults": faults,
+        "blockFigures": blocks,
+    }
+    write_json(campus / "data" / "reference.json", reference)
+    write_json(campus / "data" / "quiz.json", {"questions": data["quiz"]})
+    write_json(campus / "data" / "cards.json", {"cards": data["cards"]})
+    write_json(campus / "data" / "audio.json", {"clips": data["audio"]})
+    for lab in data["labs"]:
+        search_hits.append({"href": "#/lab/" + lab["id"], "label": lab["title"], "meta": "Lab", "text": (lab["title"] + " " + lab["summary"]).lower()})
+    write_json(campus / "data" / "search.json", {"hits": search_hits})
+
+    missing_figures = set(figures) - used_figures
+    missing_flows = set(flows) - used_flows
+    if missing_figures or missing_flows:
+        raise SystemExit("unassigned visuals figures=%s flows=%s" % (len(missing_figures), len(missing_flows)))
+
+    modules = ["data/search.json", "data/glossary.json", "data/quiz.json", "data/cards.json", "data/reference.json", "data/charts.json", "data/audio.json"]
+    modules += ["data/tracks/%s.json" % t["id"] for t in data["tracks"]]
+    counts = {
+        "tracks": len(data["tracks"]),
+        "lessons": len(data["lessons"]),
+        "labs": len(data["labs"]),
+        "quiz": len(data["quiz"]),
+        "cards": len(data["cards"]),
+        "scenarios": len(data["scenarios"]),
+        "glossary": len(data["glossary"]),
+        "illustrations": len(data["illustrations"]),
+        "animatedFlows": len(data["animatedFlows"]),
+        "charts": len(data["charts"]),
+        "audio": len(data["audio"]),
+        "faults": len(data["faults"]),
+    }
+    shell = {
+        "updated": data["updated"],
+        "counts": counts,
+        "tracks": tracks_out,
+        "labs": data["labs"],
+        "audioIndex": [{"id": a["id"], "title": a["title"], "blurb": a["blurb"]} for a in data["audio"]],
+        "iac": IAC,
+        "modules": modules,
+    }
+    write_json(campus / "data" / "shell.json", shell)
+    return counts
+
 
 def main():
-    css = (ROOT / "web" / "campus.css").read_text()
-    js = (ROOT / "web" / "app.js").read_text()
     lessons = list(LESSONS) + extra_lessons()
     facts = collect_facts(lessons)
     data = {
@@ -245,31 +414,34 @@ def main():
         "sources": sources(lessons),
     }
     attach(data)
-    html = shell(css, js, data)
-    targets = [
-        ROOT / "amazon-connect-lab.html",
-        ROOT / "campus" / "index.html",
-        ROOT / "campus" / "amazon-connect-lab.html",
-    ]
-    for path in targets:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(html)
-    (ROOT / "campus" / ".nojekyll").write_text("")
-    counts = {
-        "tracks": len(data["tracks"]),
-        "lessons": len(data["lessons"]),
-        "labs": len(data["labs"]),
-        "quiz": len(data["quiz"]),
-        "cards": len(data["cards"]),
-        "scenarios": len(data["scenarios"]),
-        "glossary": len(data["glossary"]),
-        "illustrations": len(data["illustrations"]),
-        "animatedFlows": len(data["animatedFlows"]),
-        "charts": len(data["charts"]),
-        "audio": len(data["audio"]),
-        "faults": len(data["faults"]),
-        "bytes": len(html.encode()),
-    }
+    campus = ROOT / "campus"
+    if (campus / "data").exists():
+        shutil.rmtree(campus / "data")
+    counts = split_modules(data, campus)
+    (campus / "index.html").write_text(SHELL_HTML)
+    for name in ("app.js", "scene.js", "flowlang.js", "campus.css"):
+        shutil.copyfile(ROOT / "web" / name, campus / name)
+    vendor = campus / "vendor"
+    if vendor.exists():
+        shutil.rmtree(vendor)
+    shutil.copytree(ROOT / "web" / "vendor", vendor)
+    (campus / ".nojekyll").write_text("")
+    precache = ["index.html", "campus.css", "app.js", "scene.js", "flowlang.js", "data/shell.json"]
+    for path in sorted((campus / "vendor").rglob("*")):
+        if path.is_file():
+            precache.append(str(path.relative_to(campus)))
+    if (campus / "og-card.png").exists():
+        precache.append("og-card.png")
+    (campus / "sw.js").write_text(SW_JS.replace("__SHELL__", json.dumps(precache)))
+    for stale in (ROOT / "amazon-connect-lab.html", campus / "amazon-connect-lab.html"):
+        if stale.exists():
+            stale.unlink()
+    shell_bytes = sum((campus / name).stat().st_size for name in ("index.html", "campus.css", "app.js", "flowlang.js", "scene.js"))
+    shell_bytes += (campus / "data" / "shell.json").stat().st_size
+    three_bytes = (campus / "vendor" / "three.module.min.js").stat().st_size
+    counts["shellBytes"] = shell_bytes
+    counts["threeBytes"] = three_bytes
+    counts["firstLoadBytes"] = shell_bytes + three_bytes + (campus / "vendor" / "OrbitControls.js").stat().st_size
     print(json.dumps(counts, indent=2))
     floors = {
         "tracks": 14, "lessons": 120, "labs": 20, "quiz": 300, "cards": 300,
