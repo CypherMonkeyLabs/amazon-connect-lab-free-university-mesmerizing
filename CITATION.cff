@@ -1,0 +1,7 @@
+cff-version: 1.2.0
+title: Amazon Connect Lab
+message: If you use this campus, cite it as a study guide, not as AWS documentation.
+type: software
+license: MIT
+date-released: 2026-10-14
+abstract: Offline single-file campus for Amazon Connect, including foundations, a platform bridge, and the surrounding ecosystem.
