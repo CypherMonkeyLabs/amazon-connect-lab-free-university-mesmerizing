@@ -1,6 +1,13 @@
 # Amazon Connect Lab
 
-![Amazon Connect Lab home, with the night-ops 3D architecture map](docs/screenshots/home.png)
+![Amazon Connect Lab home, night-ops theme, flat topology until the map opens](docs/screenshots/home.png)
+
+Night ops, day shift, high contrast, and the console theme:
+
+![Night ops](docs/screenshots/theme-dark.png)
+![Day shift](docs/screenshots/theme-light.png)
+![High contrast](docs/screenshots/theme-contrast.png)
+![Console](docs/screenshots/theme-console.png)
 
 Free offline campus for Amazon Connect: 18 tracks, 129 lessons, 24 browser labs, 1,590 illustrations, and 427 animated flows. One entry page. No CDN. No AWS account.
 
@@ -20,12 +27,12 @@ Then open `http://127.0.0.1:43123/`. The repository root `index.html` redirects 
 | | Before | After |
 | --- | --- | --- |
 | Entry | The same 4,906,039-byte HTML copied at the repo root, `campus/index.html`, and `campus/amazon-connect-lab.html` | One shell, `campus/index.html` (about 6 KB). Curriculum is per-track JSON fetched on demand. |
-| First load | ~4.9 MB parsed up front | 919,699 bytes (shell, CSS, app, flow language, scene, shell JSON, vendored Three.js r170, OrbitControls) |
+| First load | ~4.9 MB parsed up front | 202,646 bytes (shell, CSS, app, flow language, shell JSON). Three.js r170 loads with the map, which brings that view to 933,413 bytes |
 | DOM | ~592 nodes, the whole campus mounted at once | One view at a time, measured under 400 nodes on home, lessons, labs, and studios |
 | Heading | No `h1` | One `h1` per view |
-| 3D | A single 2D canvas | WebGL architecture map (Connect, Lex, Lambda, Kinesis, Contact Lens, CCP) with orbit controls and failure scenarios. Reduced motion keeps a flat SVG and does not import Three.js |
+| 3D | A single 2D canvas | WebGL architecture map on `#/map` (Connect, Lex, Lambda, Kinesis, Contact Lens, CCP) with orbit controls and failure scenarios. The home page stays a flat SVG and does not import Three.js. Reduced motion keeps the map flat too |
 | Mobile | One 980px breakpoint | Slide-out track drawer under 980px, bottom nav under 640px |
-| Lighthouse 12.8.2, mobile, headless Chrome 154 | Not scored on the single-file page | Performance **84**, accessibility **100**. Home DOM in that run was 339 elements. FCP 1.5 s, LCP 2.0 s, CLS 0.03, TBT 590 ms |
+| Lighthouse 12.8.2, mobile, headless Chrome 154 | Not scored on the single-file page. An earlier pass that parsed Three.js on the home page scored performance 84 with 590 ms total blocking time | Performance **99**, accessibility **100**. Total blocking time **0 ms**. FCP 1.5 s, LCP 2.0 s, CLS 0.029 |
 
 A later route check in the same browser stayed on one `h1` and under 400 nodes: home 359, a foundations lesson 321, the flow builder 308, Erlang 233, the CCP 240, Contact Lens 234, the 3D map 289. Python's `http.server` does not gzip. GitHub Pages does, so the text-compression warning in this local run is the server, not the campus.
 
@@ -42,6 +49,12 @@ Connect-specific studios:
 - **Erlang C** plots live wait probability and service level as agents and shrinkage change.
 - **CDK / CloudFormation** sits on a tab in every lesson, one snippet set per track.
 
+## Settings and tips
+
+Settings (`#/settings`) store the theme, sound effects, narration, reduced motion, and type size in `localStorage` under `acl-campus-v1`, with the streak and quiz progress. Themes are Night ops, Day shift, High contrast, and Console. Narration waits for `voiceschanged`, prefers a natural or high-quality voice, and does not select Microsoft Edge unless you pick that voice. Speed runs from 0.6× to 1.6×.
+
+Tips (`#/tips`) is one cheat sheet per track: pro tips, interview traps, and a short table. The same sheet is the Tips tab on every lesson. Counts match the single-file campus on `main` with a delta of zero: 1,590 illustrations, 427 animated flows, 25 audio clips, 24 labs, 927 quiz items, and 927 cards.
+
 Progress, theme, and streak stay in `localStorage` under `acl-campus-v1`.
 
 ## What is inside
@@ -55,7 +68,7 @@ Eighteen tracks and 129 lessons, from the AWS services Connect sits on through t
 - Integrations: Salesforce, ServiceNow, Microsoft Teams, and a PBX kept beside Connect.
 - Ecosystem: glossary, mind map, native and third-party WFM, recording and quality, conversational analytics, US E911 for CCP agents, CRM faults, AI configuration, integration maps, and future hooks.
 
-Shared campus tokens (`--cc-bg`, `--cc-surface`, `--cc-accent-1` through `--cc-accent-4`) are the night-ops palette: ink on `#0b1120`, amber, mint, indigo, and rose. Light and contrast themes are in the top bar.
+Shared campus tokens (`--cc-bg`, `--cc-surface`, `--cc-accent-1` through `--cc-accent-4`) are the night-ops palette: ink on `#0b1120`, amber, mint, indigo, and rose. Day shift, high contrast, and the console orange-on-navy theme use the same tokens.
 
 ## Rebuild
 
