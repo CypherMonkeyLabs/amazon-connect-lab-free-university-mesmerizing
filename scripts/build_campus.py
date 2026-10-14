@@ -13,6 +13,7 @@ from curriculum import LESSONS, SCENARIOS, TRACKS  # noqa: E402
 from glossary import GLOSSARY  # noqa: E402
 from visuals import attach, extra_lessons, fault_records  # noqa: E402
 from iac import IAC  # noqa: E402
+from tips import TIPS  # noqa: E402
 from tables import (  # noqa: E402
     BLOCKS, BRIDGE, CERTS, CFN, CTR_FIELDS, ERRORS, IAM_ACTIONS, PRICE, QUOTAS, TIMELINE,
 )
@@ -165,8 +166,13 @@ SHELL_HTML = """<!DOCTYPE html>
 </script>
 <script>
 try {
-  var saved = JSON.parse(localStorage.getItem("acl-campus-v1") || "{}").theme;
-  if (saved) document.documentElement.dataset.theme = saved;
+  var saved = JSON.parse(localStorage.getItem("acl-campus-v1") || "{}");
+  if (saved.theme) document.documentElement.dataset.theme = saved.theme;
+  if (saved.fontSize) document.documentElement.dataset.font = saved.fontSize;
+  var reduce = saved.reducedMotion;
+  if (reduce === true || (reduce == null && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+    document.documentElement.dataset.motion = "reduce";
+  }
 } catch (err) { /* keep the default theme */ }
 </script>
 </head>
@@ -192,6 +198,8 @@ try {
       <button data-go="#/sources">Sources</button>
       <button data-go="#/map">3D map</button>
       <button data-go="#/ccp">CCP</button>
+      <button data-go="#/tips">Tips</button>
+      <button data-go="#/settings">Settings</button>
     </div>
   </aside>
   <div class="main">
@@ -199,11 +207,7 @@ try {
       <button class="icon-btn" id="menu" aria-label="Open tracks" type="button">☰</button>
       <button class="search-launch" id="open-search" type="button">Search the campus <span><kbd>Ctrl</kbd> <kbd>K</kbd></span></button>
       <div class="progress" aria-label="Lessons opened"><span id="progress-label">0%</span><div class="progress-track"><i id="progress-pip"></i></div></div>
-      <div class="theme" role="group" aria-label="Theme">
-        <button type="button" data-theme="dark">Dark</button>
-        <button type="button" data-theme="light">Light</button>
-        <button type="button" data-theme="contrast">Contrast</button>
-      </div>
+      <button class="ghost" type="button" data-go="#/settings">Settings</button>
       <div class="streak" aria-label="Study streak"><b id="streak-count">0</b><span>day streak</span></div>
     </header>
     <main id="stage" tabindex="-1">
@@ -243,7 +247,7 @@ try {
 </html>
 """
 
-SW_JS = """const VERSION = "acl-campus-v3";
+SW_JS = """const VERSION = "acl-campus-v4";
 const SHELL = __SHELL__;
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -358,6 +362,17 @@ def split_modules(data, campus):
     write_json(campus / "data" / "audio.json", {"clips": data["audio"]})
     for lab in data["labs"]:
         search_hits.append({"href": "#/lab/" + lab["id"], "label": lab["title"], "meta": "Lab", "text": (lab["title"] + " " + lab["summary"]).lower()})
+    missing_tips = [t["id"] for t in data["tracks"] if t["id"] not in TIPS]
+    if missing_tips:
+        raise SystemExit("tips missing for " + ", ".join(missing_tips))
+    extra_tips = [key for key in TIPS if key not in {t["id"] for t in data["tracks"]}]
+    if extra_tips:
+        raise SystemExit("tips for unknown tracks " + ", ".join(extra_tips))
+    write_json(campus / "data" / "tips.json", {"tracks": TIPS})
+    for track in data["tracks"]:
+        pack = TIPS[track["id"]]
+        blob = " ".join(pack["tips"] + pack["traps"] + [term + " " + line for term, line in pack["sheet"]])
+        search_hits.append({"href": "#/tips/" + track["id"], "label": track["title"] + " cheat sheet", "meta": "Tips", "text": blob.lower()})
     write_json(campus / "data" / "search.json", {"hits": search_hits})
 
     missing_figures = set(figures) - used_figures
@@ -365,7 +380,7 @@ def split_modules(data, campus):
     if missing_figures or missing_flows:
         raise SystemExit("unassigned visuals figures=%s flows=%s" % (len(missing_figures), len(missing_flows)))
 
-    modules = ["data/search.json", "data/glossary.json", "data/quiz.json", "data/cards.json", "data/reference.json", "data/charts.json", "data/audio.json"]
+    modules = ["data/search.json", "data/glossary.json", "data/quiz.json", "data/cards.json", "data/reference.json", "data/charts.json", "data/audio.json", "data/tips.json"]
     modules += ["data/tracks/%s.json" % t["id"] for t in data["tracks"]]
     counts = {
         "tracks": len(data["tracks"]),
@@ -426,22 +441,22 @@ def main():
         shutil.rmtree(vendor)
     shutil.copytree(ROOT / "web" / "vendor", vendor)
     (campus / ".nojekyll").write_text("")
-    precache = ["index.html", "campus.css", "app.js", "scene.js", "flowlang.js", "data/shell.json"]
-    for path in sorted((campus / "vendor").rglob("*")):
-        if path.is_file():
-            precache.append(str(path.relative_to(campus)))
+    precache = ["index.html", "campus.css", "app.js", "flowlang.js", "data/shell.json"]
     if (campus / "og-card.png").exists():
         precache.append("og-card.png")
     (campus / "sw.js").write_text(SW_JS.replace("__SHELL__", json.dumps(precache)))
     for stale in (ROOT / "amazon-connect-lab.html", campus / "amazon-connect-lab.html"):
         if stale.exists():
             stale.unlink()
-    shell_bytes = sum((campus / name).stat().st_size for name in ("index.html", "campus.css", "app.js", "flowlang.js", "scene.js"))
+    shell_bytes = sum((campus / name).stat().st_size for name in ("index.html", "campus.css", "app.js", "flowlang.js"))
     shell_bytes += (campus / "data" / "shell.json").stat().st_size
     three_bytes = (campus / "vendor" / "three.module.min.js").stat().st_size
+    orbit_bytes = (campus / "vendor" / "OrbitControls.js").stat().st_size
+    scene_bytes = (campus / "scene.js").stat().st_size
     counts["shellBytes"] = shell_bytes
     counts["threeBytes"] = three_bytes
-    counts["firstLoadBytes"] = shell_bytes + three_bytes + (campus / "vendor" / "OrbitControls.js").stat().st_size
+    counts["firstLoadBytes"] = shell_bytes
+    counts["mapLoadBytes"] = shell_bytes + three_bytes + orbit_bytes + scene_bytes
     print(json.dumps(counts, indent=2))
     floors = {
         "tracks": 14, "lessons": 120, "labs": 20, "quiz": 300, "cards": 300,

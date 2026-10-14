@@ -5,7 +5,13 @@ import {
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const KEY = "acl-campus-v1";
-const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const THEMES = [
+  ["dark", "Night ops", "Amber and mint on a deep field.", "#0b1120", "#ffb020", "#2dd4bf"],
+  ["light", "Day shift", "Ink on paper.", "#f8fafc", "#9a3412", "#0f766e"],
+  ["contrast", "High contrast", "Yellow on black.", "#000000", "#ffe14a", "#ffffff"],
+  ["console", "Console", "AWS orange on navy.", "#0f1b2d", "#ff9900", "#3dcfb4"],
+];
+const FONTS = [["sm", "Small"], ["md", "Medium"], ["lg", "Large"], ["xl", "Extra large"]];
 const mem = new Map();
 const clocks = new Set();
 const hub = { shell: null, tracks: {}, search: null, quiz: null, cards: null, glossary: null, reference: null, charts: null, audio: null };
@@ -58,12 +64,48 @@ function esc(value) {
   return String(value == null ? "" : value).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
 }
 function loadState() {
-  const blank = { opened: [], labs: [], quiz: { correct: 0, answered: 0, seen: {} }, cards: { known: [] }, streak: { last: "", count: 0 }, theme: "dark", achievements: [], scenario: {} };
+  const blank = {
+    opened: [], labs: [], quiz: { correct: 0, answered: 0, seen: {} }, cards: { known: [] },
+    streak: { last: "", count: 0 }, theme: "dark", achievements: [], scenario: {},
+    sound: true, narration: true, voiceURI: "", rate: 1, reducedMotion: null, fontSize: "md",
+  };
   try { return Object.assign(blank, JSON.parse(localStorage.getItem(KEY) || "null") || {}); }
   catch (err) { return blank; }
 }
 const state = loadState();
 function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (err) { /* private mode */ } }
+function motionReduced() {
+  if (typeof state.reducedMotion === "boolean") return state.reducedMotion;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+function applyPrefs() {
+  const root = document.documentElement;
+  root.dataset.theme = state.theme || "dark";
+  root.dataset.font = state.fontSize || "md";
+  root.dataset.motion = motionReduced() ? "reduce" : "full";
+}
+function isEdgeVoice(voice) {
+  const blob = ((voice.name || "") + " " + (voice.voiceURI || "")).toLowerCase();
+  return blob.includes("microsoft") || blob.includes("edge");
+}
+function voiceRank(voice) {
+  const name = (voice.name || "").toLowerCase();
+  let score = 0;
+  if (/natural|premium|enhanced|neural|siri/.test(name)) score += 80;
+  if (name.includes("google")) score += 40;
+  if ((voice.lang || "").toLowerCase().startsWith("en")) score += 30;
+  if (voice.localService) score += 10;
+  if (isEdgeVoice(voice)) score -= 200;
+  return score;
+}
+function pickVoice(voices) {
+  if (state.voiceURI) {
+    const chosen = voices.find((voice) => voice.voiceURI === state.voiceURI);
+    if (chosen) return chosen;
+  }
+  const ranked = voices.filter((voice) => !isEdgeVoice(voice)).sort((a, b) => voiceRank(b) - voiceRank(a));
+  return ranked[0] || null;
+}
 function today() { return new Date().toISOString().slice(0, 10); }
 function touchStreak() {
   const d = today();
@@ -78,7 +120,7 @@ function award(id) {
   if (!state.achievements.includes(id)) { state.achievements.push(id); confetti(); }
 }
 function confetti() {
-  if (reduced) return;
+  if (motionReduced()) return;
   const layer = document.createElement("div");
   layer.className = "confetti";
   for (let i = 0; i < 36; i += 1) {
@@ -121,6 +163,7 @@ function toneContext() {
   return audioCtx;
 }
 function beep(freq, start, dur, type) {
+  if (state.sound === false) return;
   const ctx = toneContext();
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
@@ -178,7 +221,7 @@ function renderRail() {
     const current = route.view === "track" && route.id === t.id ? ' aria-current="true"' : "";
     return `<button class="track-link" data-go="#/track/${t.id}"${current}><i class="dot" style="--hue:${t.hue}"></i><span>${esc(t.title)}<small>${esc(t.kicker)}</small></span><small>${done}/${t.lessons.length}</small></button>`;
   }).join("");
-  document.documentElement.dataset.theme = state.theme || "dark";
+  applyPrefs();
   $("#streak-count").textContent = String(state.streak.count || 0);
   const pct = Math.round((state.opened.length / shell.counts.lessons) * 100);
   $("#progress-label").textContent = pct + "%";
@@ -246,18 +289,24 @@ async function viewFor(r) {
   if (r.view === "audio") return viewAudio();
   if (r.view === "ccp") return viewCcp();
   if (r.view === "lens") return viewLens();
+  if (r.view === "settings") return viewSettings();
+  if (r.view === "tips") return r.id ? viewTip(r.id) : viewTips();
   setTitle("Campus", "That page is not on the map");
   return `<p>The address does not match a track, lesson, lab, or studio.</p><p><button class="solid" data-go="#/">Back home</button></p>`;
 }
 
-function architecturePanel() {
+function architecturePanel(live) {
   const buttons = SCENARIOS.map(([id, label]) => `<button class="chip" data-scenario="${id}" aria-pressed="${id === "none" ? "true" : "false"}">${esc(label)}</button>`).join("");
+  const lamp = live ? "Live topology" : "Flat topology";
+  const note = live
+    ? "Drag to orbit. Scroll to zoom. Pick a failure to drop that link. Three.js loads for this view."
+    : "Flat topology on this page. Three.js stays unloaded until you open the map.";
   return `<div class="stage-3d" id="arch-host">
-      <div class="bezel-lamp"><i></i> Live topology</div>
+      <div class="bezel-lamp"><i></i> ${lamp}</div>
       <div class="arch-fallback" id="arch-fallback">${fallbackMap()}</div>
     </div>
     <div class="scenario-row" role="group" aria-label="Failure scenarios">${buttons}</div>
-    <p class="caption" id="arch-status" aria-live="polite">Drag to orbit. Scroll to zoom. Pick a failure to drop that link.</p>`;
+    <p class="caption" id="arch-status" aria-live="polite">${note}</p>`;
 }
 function fallbackMap() {
   const nodes = [
@@ -268,6 +317,92 @@ function fallbackMap() {
   return `<svg viewBox="0 0 520 300" role="img" aria-label="Flat fallback map of Connect, Lex, Lambda, Kinesis, Contact Lens, and the CCP"><line x1="250" y1="150" x2="70" y2="70" stroke="#2dd4bf"/><line x1="250" y1="150" x2="430" y2="70" stroke="#2dd4bf"/><line x1="250" y1="150" x2="430" y2="240" stroke="#2dd4bf"/><line x1="250" y1="150" x2="70" y2="240" stroke="#2dd4bf"/><line x1="250" y1="40" x2="250" y2="150" stroke="#2dd4bf"/>${boxes}</svg>`;
 }
 
+async function tipsPack() {
+  hub.tips = hub.tips || await load("data/tips.json");
+  return hub.tips;
+}
+function tipsPanel(trackId) {
+  const pack = hub.tips && hub.tips.tracks[trackId];
+  if (!pack) return `<p>The cheat sheet is still loading.</p><p><button class="ghost" data-go="#/tips/${esc(trackId)}">Open tips</button></p>`;
+  return tipBody(trackId, pack, false);
+}
+function tipBody(trackId, pack, full) {
+  const track = trackBy(trackId);
+  const title = track ? track.title : trackId;
+  const tips = pack.tips.map((line) => `<li>${esc(line)}</li>`).join("");
+  const traps = pack.traps.map((line) => `<li>${esc(line)}</li>`).join("");
+  const rows = pack.sheet.map(([term, line]) => `<tr><th scope="row">${esc(term)}</th><td>${esc(line)}</td></tr>`).join("");
+  const more = full ? "" : `<p><button class="ghost" data-go="#/tips/${esc(trackId)}">Full ${esc(title)} cheat sheet</button></p>`;
+  return `<section>
+    <h2>Pro tips</h2>
+    <ul class="tip-list">${tips}</ul>
+    <h2>Interview traps</h2>
+    <ul class="tip-list">${traps}</ul>
+    <h2>Cheat sheet</h2>
+    <div class="table-scroll glass"><table class="sheet"><tbody>${rows}</tbody></table></div>
+    <p class="cite">Source: <a href="${esc(pack.url)}">${esc(pack.source)}</a></p>
+    ${more}
+  </section>`;
+}
+async function viewTips() {
+  const tips = await tipsPack();
+  setTitle("Study layer", "Tips and traps");
+  const cards = hub.shell.tracks.map((track) => {
+    const pack = tips.tracks[track.id];
+    const line = pack ? pack.tips[0] : "";
+    return `<button class="card" data-go="#/tips/${track.id}"><p class="meta">${esc(track.kicker)}</p><h2>${esc(track.title)}</h2><p>${esc(line)}</p></button>`;
+  }).join("");
+  return `<p class="lede">One cheat sheet per track: a pro tip you can use on a shift, a trap that shows up in interviews, and the short list to reread before a design review.</p><div class="grid-cards">${cards}</div>`;
+}
+async function viewTip(id) {
+  const tips = await tipsPack();
+  const pack = tips.tracks[id];
+  const track = trackBy(id);
+  if (!pack || !track) { setTitle("Tips", "Unknown track"); return `<p>That track has no cheat sheet.</p><p><button class="ghost" data-go="#/tips">All tips</button></p>`; }
+  setTitle(track.title, track.title + " cheat sheet");
+  return `<p class="lede">${esc(track.kicker)}</p>${tipBody(id, pack, true)}<p class="actions"><button class="ghost" data-go="#/track/${id}">Open the track</button><button class="ghost" data-go="#/tips">All tracks</button></p>`;
+}
+function viewSettings() {
+  setTitle("Preferences", "Settings");
+  const themeCards = THEMES.map(([id, label, blurb, bg, a, b]) => `<button type="button" class="theme-card" data-theme="${id}" aria-pressed="${(state.theme || "dark") === id ? "true" : "false"}"><span class="swatch" aria-hidden="true"><i style="background:${bg}"></i><i style="background:${a}"></i><i style="background:${b}"></i></span><strong>${esc(label)}</strong><span class="meta">${esc(blurb)}</span></button>`).join("");
+  const fontCards = FONTS.map(([id, label]) => `<button type="button" data-font="${id}" aria-pressed="${(state.fontSize || "md") === id ? "true" : "false"}">${esc(label)}</button>`).join("");
+  const rate = Number(state.rate) || 1;
+  return `<div class="settings">
+    <p class="lede">Theme, sound, narration, motion, and type size stay in this browser.</p>
+    <fieldset><legend>Theme</legend><div class="theme-grid" role="radiogroup" aria-label="Theme">${themeCards}</div></fieldset>
+    <fieldset><legend>Sound</legend>
+      <label class="checkline"><input id="set-sound" type="checkbox"${state.sound === false ? "" : " checked"}> Sound effects</label>
+      <p class="caption">Rings, answer tones, and the other interface beeps. Clips in the Audio view still play.</p>
+    </fieldset>
+    <fieldset><legend>Narration</legend>
+      <label class="checkline"><input id="set-narration" type="checkbox"${state.narration === false ? "" : " checked"}> Read lessons aloud</label>
+      <label class="field">Voice <select id="set-voice" aria-label="Narration voice"><option value="">Waiting for voices</option></select></label>
+      <p class="caption">The list fills when the browser fires voiceschanged. Automatic prefers a natural or high-quality voice and never selects Microsoft Edge unless you pick it.</p>
+      <label class="field">Speed <input id="set-rate" type="range" min="0.6" max="1.6" step="0.1" value="${rate}"> <span id="set-rate-read">${rate.toFixed(1)}×</span></label>
+      <p><button class="ghost" type="button" id="preview-voice">Preview voice</button></p>
+    </fieldset>
+    <fieldset><legend>Motion and type</legend>
+      <label class="checkline"><input id="set-motion" type="checkbox"${motionReduced() ? " checked" : ""}> Reduced motion</label>
+      <p class="caption">Stops confetti, ladder autoplay, and the 3D scene. The map stays on the flat drawing.</p>
+      <div class="font-grid" role="radiogroup" aria-label="Font size">${fontCards}</div>
+    </fieldset>
+  </div>`;
+}
+function fillVoices() {
+  const select = $("#set-voice");
+  if (!select || !window.speechSynthesis) return;
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) {
+    select.innerHTML = `<option value="">Waiting for voices</option>`;
+    return;
+  }
+  const options = voices.slice().sort((a, b) => voiceRank(b) - voiceRank(a)).map((voice) => {
+    const note = isEdgeVoice(voice) ? " · Edge, not the default" : "";
+    return `<option value="${esc(voice.voiceURI)}">${esc(voice.name + note + " · " + voice.lang)}</option>`;
+  }).join("");
+  select.innerHTML = `<option value="">Automatic (best non-Edge voice)</option>${options}`;
+  select.value = state.voiceURI && voices.some((voice) => voice.voiceURI === state.voiceURI) ? state.voiceURI : "";
+}
 function viewHome() {
   const shell = hub.shell;
   setTitle("Free offline campus · 14 Oct 2026", "Amazon Connect, taught as a system.");
@@ -279,7 +414,8 @@ function viewHome() {
         <div class="why"><strong>Why it matters.</strong> A contact center fails in a quota, a key policy, a missing error branch, or a blocked UDP port. This campus makes those failures visible before they are expensive.</div>
         <div class="actions">
           <button class="solid" data-go="#/track/foundations">Start with Foundations</button>
-          <button class="ghost" data-go="#/map">Architecture map</button>
+          <button class="ghost" data-go="#/map">Open the 3D map</button>
+          <button class="ghost" data-go="#/tips">Tips and traps</button>
           <button class="ghost" data-go="#/lab/flow-builder">Flow builder</button>
           <button class="ghost" data-go="#/ccp">CCP</button>
         </div>
@@ -287,7 +423,7 @@ function viewHome() {
           ${stat(shell.counts.tracks, "Tracks")}${stat(shell.counts.lessons, "Lessons")}${stat(shell.counts.illustrations, "Figures")}${stat(shell.counts.animatedFlows, "Flows")}${stat(shell.counts.labs, "Labs")}${stat(shell.counts.faults, "Faults")}
         </div>
       </div>
-      <div>${architecturePanel()}</div>
+      <div>${architecturePanel(false)}</div>
     </section>
     <div class="section-head"><h2>Study order</h2><button class="ghost" data-go="#/timeline">Feature timeline</button></div>
     <div class="grid-cards">${cards}</div>
@@ -303,7 +439,7 @@ function viewHome() {
 
 function viewMap() {
   setTitle("Topology", "AWS architecture map");
-  return `<p class="lede">Connect in the middle. Lex, Lambda, Kinesis, and Contact Lens around it. The CCP is the agent edge. Orbit the scene, then drop a link.</p>${architecturePanel()}
+  return `<p class="lede">Connect in the middle. Lex, Lambda, Kinesis, and Contact Lens around it. The CCP is the agent edge. Orbit the scene, then drop a link. This is the view that loads Three.js.</p>${architecturePanel(true)}
     <div class="grid-cards" style="margin-top:12px">
       ${SCENARIOS.filter(([id]) => id !== "none").map(([id, label, copy]) => `<article class="card"><p class="meta">${esc(id)}</p><h2>${esc(label)}</h2><p>${esc(copy)}</p><p><button class="ghost" data-scenario="${id}">Show this failure</button></p></article>`).join("")}
     </div>
@@ -313,7 +449,7 @@ function viewMap() {
 async function bootScene(gen) {
   const host = $("#arch-host");
   if (!host) return;
-  if (reduced || !window.WebGLRenderingContext) {
+  if (motionReduced() || !window.WebGLRenderingContext) {
     $("#arch-status").textContent = "Reduced motion is on, so the map stays flat. The failure buttons still light the dropped link.";
     return;
   }
@@ -338,7 +474,10 @@ async function viewTrack(id) {
   setTitle("Track", t.title);
   const deps = t.depends.map(trackBy).filter(Boolean);
   const cards = t.lessons.map((l) => `<button class="lesson-card" data-go="#/lesson/${l.id}"><p class="meta">${state.opened.includes(l.id) ? "Opened" : "New"}</p><h2>${esc(l.title)}</h2><p>${esc(l.why)}</p></button>`).join("");
-  return `<div class="why"><strong>Why it matters.</strong> ${esc(t.why)}</div>
+  const tips = await tipsPack();
+  const sheet = tips.tracks[id];
+  const teaser = sheet ? `<aside class="glass tips-teaser"><p class="meta">Tips and traps</p><p><strong>Pro tip.</strong> ${esc(sheet.tips[0])}</p><p><strong>Interview trap.</strong> ${esc(sheet.traps[0])}</p><p><button class="ghost" data-go="#/tips/${id}">Open the ${esc(t.title)} cheat sheet</button></p></aside>` : "";
+  return `${teaser}<div class="why"><strong>Why it matters.</strong> ${esc(t.why)}</div>
     <p class="caption">${deps.length ? "Depends on " + deps.map((d) => esc(d.title)).join(", ") + "." : "Starts the campus. Nothing earlier is required."}</p>
     <p><button class="ghost" data-go="#/quiz/${id}">Quiz this track</button></p>
     <div class="lesson-grid">${cards}</div>`;
@@ -353,6 +492,7 @@ async function viewLesson(id) {
     hub.charts = hub.charts || await load("data/charts.json");
     lesson.chartSvg = hub.charts.charts.find((c) => c.figure === lesson.chart || c.id === lesson.chart) || null;
   }
+  await tipsPack();
   currentLesson = lesson;
   if (!state.opened.includes(id)) state.opened.push(id);
   touchStreak();
@@ -371,6 +511,7 @@ function lessonShell(lesson) {
     read: "Read",
     flow: "Flow ladder",
     iac: "CDK / CloudFormation",
+    tips: "Tips",
   };
   const tabs = Object.entries(panels).map(([id, label]) => `<button class="chip" role="tab" data-tab="${id}" aria-selected="${lessonTab === id ? "true" : "false"}">${label}</button>`).join("");
   const extra = lesson.track === "workspace" ? `<button class="ghost" data-go="#/ccp">Open the CCP</button>` : lesson.track === "analytics" ? `<button class="ghost" data-go="#/lens">Contact Lens playback</button>` : lesson.track === "routing" ? `<button class="ghost" data-go="#/lab/erlang">Erlang C calculator</button>` : "";
@@ -380,6 +521,7 @@ function lessonShell(lesson) {
 function lessonPanel(lesson, iac) {
   if (lessonTab === "flow") return ladderHtml(lesson);
   if (lessonTab === "iac") return iacHtml(iac);
+  if (lessonTab === "tips") return tipsPanel(lesson.track);
   const figures = (lesson.figures || []).slice(0, 3).map(figureHtml).join("");
   const more = (lesson.figures || []).length > 3 ? `<p><button class="ghost" id="more-figures">Show the other figures</button></p><div id="more-figures-host"></div>` : "";
   const points = lesson.points.map((p, i) => `<li><span class="num">${i + 1}</span><span>${esc(p)}</span></li>`).join("");
@@ -469,7 +611,7 @@ function paintLadder() {
 function playLadder() {
   if (!currentLesson) return;
   stopClock(ladderTimer);
-  if (reduced) { paintLadder(); return; }
+  if (motionReduced()) { paintLadder(); return; }
   ladderTimer = every(() => {
     if (!currentLesson) return stopClock(ladderTimer);
     ladderIndex = (ladderIndex + 1) % currentLesson.flow.length;
@@ -616,7 +758,7 @@ function paintPath() {
 }
 function playPath() {
   stopClock(pathTimer);
-  if (reduced) { paintPath(); return; }
+  if (motionReduced()) { paintPath(); return; }
   pathTimer = every(() => {
     const max = pathSteps().length;
     pathIndex += 1;
@@ -862,7 +1004,7 @@ function paintLens() {
 }
 function playLens() {
   stopClock(lensTimer);
-  if (reduced) { paintLens(); return; }
+  if (motionReduced()) { paintLens(); return; }
   beep(520, 0, 0.12);
   lensTimer = every(() => {
     lensTime += 0.5;
@@ -970,7 +1112,8 @@ async function viewSources() {
 }
 
 async function afterRender(gen) {
-  if (route.view === "home" || route.view === "map") await bootScene(gen);
+  if (route.view === "map") await bootScene(gen);
+  if (route.view === "settings") fillVoices();
   if (route.view === "lab" && route.id === "flow-builder") paintFlow();
   if (route.view === "lab" && route.id === "routing-designer") paintRoutes();
   if (route.view === "lab" && route.id === "translator") paintTranslator();
@@ -1122,7 +1265,21 @@ function onClick(ev) {
   }
   if (ev.target.id === "rq-add") addRouteRow();
   if (ev.target.id === "rq-run") runRoutes();
-  if (ev.target.dataset.theme) { state.theme = ev.target.dataset.theme; save(); document.documentElement.dataset.theme = state.theme; }
+  const themeBtn = ev.target.closest("button[data-theme]");
+  if (themeBtn && themeBtn.dataset.theme) {
+    state.theme = themeBtn.dataset.theme;
+    save();
+    applyPrefs();
+    $$("button[data-theme]").forEach((btn) => btn.setAttribute("aria-pressed", btn.dataset.theme === state.theme ? "true" : "false"));
+  }
+  const fontBtn = ev.target.closest("button[data-font]");
+  if (fontBtn && fontBtn.dataset.font) {
+    state.fontSize = fontBtn.dataset.font;
+    save();
+    applyPrefs();
+    $$("button[data-font]").forEach((btn) => btn.setAttribute("aria-pressed", btn.dataset.font === state.fontSize ? "true" : "false"));
+  }
+  if (ev.target.id === "preview-voice") speak("Amazon Connect Lab. This is the voice that reads a lesson.", "Voice preview", true);
   if (ev.target.dataset.kind && hub.reference) {
     $$("[data-kind]").forEach((b) => b.setAttribute("aria-pressed", b === ev.target ? "true" : "false"));
     const k = ev.target.dataset.kind;
@@ -1375,7 +1532,7 @@ function startRing() {
   stopTones();
   setCcp({ status: "Ringing", caller: "Inbound · +1 503 555 0148", seconds: 0, held: false, sentiment: 0.2 });
   ccpLog("Incoming contact. The ring is local. Answer to start the talk clock.");
-  if (!reduced) {
+  if (!motionReduced()) {
     const pulse = () => { beep(440, 0, 0.4); beep(480, 0, 0.4); };
     pulse();
     ccpTicker = every(pulse, 2000);
@@ -1417,15 +1574,39 @@ function saveWrap() {
   ccpLog("Wrap-up saved: " + code + ". Agent is Available.");
 }
 
-function speak(text, title) {
+function speak(text, title, force) {
   $("#player-title").textContent = title || "Amazon Connect Lab";
+  if (!force && state.narration === false) {
+    $("#player-state").textContent = "Narration is off. Turn it on in Settings.";
+    return;
+  }
   if (!window.speechSynthesis) { $("#player-state").textContent = "This browser has no speech synthesis."; return; }
-  window.speechSynthesis.cancel();
-  const utter = new SpeechSynthesisUtterance(text);
-  utter.onend = () => { const el = $("#player-state"); if (el) el.textContent = "Idle"; };
-  window.speechSynthesis.speak(utter);
-  $("#player-state").textContent = "Speaking";
-  drawWave();
+  const start = () => {
+    const voices = window.speechSynthesis.getVoices();
+    if (!voices.length) return false;
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.rate = Math.min(1.6, Math.max(0.6, Number(state.rate) || 1));
+    const voice = pickVoice(voices);
+    if (voice) utter.voice = voice;
+    else if (!state.voiceURI) {
+      $("#player-state").textContent = "No non-Edge voice is installed. Pick a voice in Settings if you want one.";
+      return true;
+    }
+    utter.onend = () => { const el = $("#player-state"); if (el) el.textContent = "Idle"; };
+    window.speechSynthesis.speak(utter);
+    $("#player-state").textContent = voice ? "Speaking · " + voice.name : "Speaking";
+    drawWave();
+    return true;
+  };
+  if (start()) return;
+  const onVoices = () => {
+    window.speechSynthesis.removeEventListener("voiceschanged", onVoices);
+    start();
+  };
+  window.speechSynthesis.addEventListener("voiceschanged", onVoices);
+  window.speechSynthesis.getVoices();
+  $("#player-state").textContent = "Waiting for voices";
 }
 function stopSpeak() {
   if (window.speechSynthesis) window.speechSynthesis.cancel();
@@ -1440,7 +1621,7 @@ function drawWave() {
   ctx.strokeStyle = "#2dd4bf";
   ctx.beginPath();
   for (let x = 0; x < canvas.width; x += 1) {
-    const y = 18 + Math.sin(x / 8) * (reduced ? 2 : 10);
+    const y = 18 + Math.sin(x / 8) * (motionReduced() ? 2 : 10);
     if (x === 0) ctx.moveTo(x, y);
     else ctx.lineTo(x, y);
   }
@@ -1482,8 +1663,25 @@ document.body.addEventListener("input", (ev) => {
   if (ev.target.id === "gloss-q") { glossShown = 8; $("#gloss-list").innerHTML = glossaryList(ev.target.value); }
   if (ev.target.id === "lens-scrub") { lensTime = Number(ev.target.value); paintLens(); }
   if (ev.target.id === "lens-redact") paintLens();
+  if (ev.target.id === "set-rate") {
+    state.rate = Number(ev.target.value);
+    save();
+    const read = $("#set-rate-read");
+    if (read) read.textContent = state.rate.toFixed(1) + "×";
+  }
 });
-document.body.addEventListener("change", (ev) => { if (ev.target.id === "tr-p") paintTranslator(); });
+document.body.addEventListener("change", (ev) => {
+  if (ev.target.id === "tr-p") paintTranslator();
+  if (ev.target.id === "set-sound") { state.sound = ev.target.checked; save(); }
+  if (ev.target.id === "set-narration") { state.narration = ev.target.checked; save(); }
+  if (ev.target.id === "set-motion") {
+    state.reducedMotion = ev.target.checked;
+    save();
+    applyPrefs();
+    if (motionReduced() && sceneHandle) { sceneHandle.dispose(); sceneHandle = null; }
+  }
+  if (ev.target.id === "set-voice") { state.voiceURI = ev.target.value; save(); }
+});
 document.body.addEventListener("dragstart", (ev) => { if (ev.target.dataset.pal) ev.dataTransfer.setData("text/plain", ev.target.dataset.pal); });
 document.body.addEventListener("dragover", (ev) => { if (ev.target.id === "canvas" || (ev.target.closest && ev.target.closest("#canvas"))) ev.preventDefault(); });
 document.body.addEventListener("drop", (ev) => {
@@ -1498,6 +1696,11 @@ document.body.addEventListener("drop", (ev) => {
   paintFlow();
 });
 window.addEventListener("pagehide", haltTimers);
+applyPrefs();
+if (window.speechSynthesis) {
+  window.speechSynthesis.addEventListener("voiceschanged", () => { if ($("#set-voice")) fillVoices(); });
+  window.speechSynthesis.getVoices();
+}
 if ("serviceWorker" in navigator && location.protocol !== "file:") {
   navigator.serviceWorker.register("sw.js").catch(() => { /* offline until the next visit */ });
 }

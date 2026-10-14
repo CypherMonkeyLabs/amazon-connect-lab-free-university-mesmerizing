@@ -21,8 +21,13 @@
 </script>
 <script>
 try {
-  var saved = JSON.parse(localStorage.getItem("acl-campus-v1") || "{}").theme;
-  if (saved) document.documentElement.dataset.theme = saved;
+  var saved = JSON.parse(localStorage.getItem("acl-campus-v1") || "{}");
+  if (saved.theme) document.documentElement.dataset.theme = saved.theme;
+  if (saved.fontSize) document.documentElement.dataset.font = saved.fontSize;
+  var reduce = saved.reducedMotion;
+  if (reduce === true || (reduce == null && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+    document.documentElement.dataset.motion = "reduce";
+  }
 } catch (err) { /* keep the default theme */ }
 </script>
 </head>
@@ -48,6 +53,8 @@ try {
       <button data-go="#/sources">Sources</button>
       <button data-go="#/map">3D map</button>
       <button data-go="#/ccp">CCP</button>
+      <button data-go="#/tips">Tips</button>
+      <button data-go="#/settings">Settings</button>
     </div>
   </aside>
   <div class="main">
@@ -55,11 +62,7 @@ try {
       <button class="icon-btn" id="menu" aria-label="Open tracks" type="button">☰</button>
       <button class="search-launch" id="open-search" type="button">Search the campus <span><kbd>Ctrl</kbd> <kbd>K</kbd></span></button>
       <div class="progress" aria-label="Lessons opened"><span id="progress-label">0%</span><div class="progress-track"><i id="progress-pip"></i></div></div>
-      <div class="theme" role="group" aria-label="Theme">
-        <button type="button" data-theme="dark">Dark</button>
-        <button type="button" data-theme="light">Light</button>
-        <button type="button" data-theme="contrast">Contrast</button>
-      </div>
+      <button class="ghost" type="button" data-go="#/settings">Settings</button>
       <div class="streak" aria-label="Study streak"><b id="streak-count">0</b><span>day streak</span></div>
     </header>
     <main id="stage" tabindex="-1">

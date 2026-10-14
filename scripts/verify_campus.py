@@ -148,6 +148,28 @@ def main():
             problems.append("missing track " + required)
     if set(shell.get("iac") or {}) != tracks:
         problems.append("IaC snippet missing for a track")
+    tips = load_json(CAMPUS / "data" / "tips.json")["tracks"]
+    if set(tips) != tracks:
+        problems.append("tips missing for a track")
+    for track_id, pack in tips.items():
+        if len(pack.get("tips") or []) < 3 or len(pack.get("traps") or []) < 3 or len(pack.get("sheet") or []) < 4:
+            problems.append("thin cheat sheet " + track_id)
+            break
+        if not pack.get("url") or not pack.get("source"):
+            problems.append("tips missing source " + track_id)
+            break
+    if 'route.view === "map"' not in app or 'route.view === "home" || route.view === "map"' in app:
+        problems.append("Three.js should boot only on the map view")
+    if "viewSettings" not in app or "voiceschanged" not in app:
+        problems.append("settings or voice picker missing")
+    css = (CAMPUS / "campus.css").read_text()
+    for theme in ('data-theme="light"', 'data-theme="contrast"', 'data-theme="console"', 'data-theme="dark"'):
+        if theme not in css and theme != 'data-theme="dark"':
+            problems.append("missing theme " + theme)
+    if 'data-theme="console"' not in css or 'data-theme="light"' not in css or 'data-theme="contrast"' not in css:
+        problems.append("expected four themes in css")
+    if "data-font" not in css or 'data-motion="reduce"' not in css:
+        problems.append("font size or reduced-motion setting missing")
     eco = [l for l in lessons if l["track"] == "ecosystem"]
     titles = " ".join(l["title"].lower() for l in eco)
     for needle in ("glossary", "mind map", "e911", "forecast", "recording"):
@@ -176,7 +198,7 @@ def main():
         problems.append("external stylesheet")
     if "og:image" not in html or "twitter:card" not in html:
         problems.append("missing social meta")
-    if "@media (max-width: 640px)" not in (CAMPUS / "campus.css").read_text():
+    if "@media (max-width: 640px)" not in css:
         problems.append("missing 640px mobile nav breakpoint")
     if "--cc-bg" not in (CAMPUS / "campus.css").read_text() or "--cc-accent-1" not in (CAMPUS / "campus.css").read_text():
         problems.append("campus-core tokens missing")
