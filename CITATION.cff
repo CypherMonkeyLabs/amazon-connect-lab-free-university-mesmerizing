@@ -4,4 +4,4 @@ message: If you use this campus, cite it as a study guide, not as AWS documentat
 type: software
 license: MIT
 date-released: 2026-10-14
-abstract: Offline single-file campus for Amazon Connect, including foundations, a platform bridge, and the surrounding ecosystem.
+abstract: Offline modular campus for Amazon Connect, including foundations, a flow-language builder, a platform bridge, and the surrounding ecosystem.
