@@ -244,8 +244,11 @@ def main():
         problems.append("sibling strip still points at vercel")
     for href in re.findall(r'class="next-labs".*?</nav>', html, re.S):
         for link in re.findall(r'href="([^"]+)"', href):
-            if not link.startswith("https://cipher0x9.github.io/"):
-                problems.append("sibling link is not github.io: " + link)
+            if not (
+                link.startswith("https://cyphermonkeylabs.com/")
+                or link.startswith("https://cipher0x9.github.io/")
+            ):
+                problems.append("sibling link is not a published lab host: " + link)
     license_text = (ROOT / "LICENSE").read_text()
     if "MIT" not in license_text or "CC BY-NC-SA" not in license_text:
         problems.append("LICENSE must state MIT code and CC BY-NC-SA content")

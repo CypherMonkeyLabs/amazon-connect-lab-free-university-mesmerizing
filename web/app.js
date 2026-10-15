@@ -601,8 +601,8 @@ function architectPlayer() {
     <div class="actions">
       <button type="button" class="ghost" data-clip-src="audio/use.mp3">Using the lab</button>
       <button type="button" class="ghost" data-clip-src="audio/share.mp3">Practise and share</button>
-      <a class="ghost" href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing">Rate</a>
-      <a class="ghost" href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing/issues">Comment</a>
+      <a class="ghost" href="https://github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing">Rate</a>
+      <a class="ghost" href="https://github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing/issues">Comment</a>
     </div>
     <p class="meta">The player is ready for the lab clips at audio/use.mp3 and audio/share.mp3. These two files are espeak-ng stand-ins, about 75 seconds together, until a later recording replaces them. Not a person, and not Amazon.</p>
   </section>`;
