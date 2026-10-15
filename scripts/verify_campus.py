@@ -158,8 +158,15 @@ def main():
         if not pack.get("url") or not pack.get("source"):
             problems.append("tips missing source " + track_id)
             break
-    if "bootHero" not in app or "mountHero" not in (CAMPUS / "hero.js").read_text():
+    hero_js = (CAMPUS / "hero.js").read_text()
+    if "bootHero" not in app or "mountHero" not in hero_js:
         problems.append("3D hero must start on the home view")
+    if "UnrealBloomPass" not in hero_js or not (CAMPUS / "vendor" / "postprocessing" / "UnrealBloomPass.js").exists():
+        problems.append("vendored UnrealBloomPass missing from the hero")
+    if "svgPortrait" not in (CAMPUS / "data" / "atlas.json").read_text():
+        problems.append("portrait diagrams missing")
+    if "lessonHeading" not in app or not (CAMPUS / "lesson-titles.js").exists():
+        problems.append("lesson heading translations missing")
     if 'route.view === "map"' not in app:
         problems.append("3D map still needs its own boot")
     if 'id="lang"' not in html or 'id="lightbox"' not in html:

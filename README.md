@@ -30,7 +30,7 @@ Then open `http://127.0.0.1:43123/`. The repository root `index.html` redirects 
 | First load | ~4.9 MB parsed up front | The shell stays small. Three.js r170 loads with the home hero (`hero.js`) and again on the 3D map |
 | DOM | ~592 nodes, the whole campus mounted at once | One view at a time, measured under 400 nodes on home, lessons, labs, and studios |
 | Heading | No `h1` | One `h1` per view |
-| 3D | A single 2D canvas | The home view starts a full-bleed Three.js hero (ring, orbiting nodes, particles, neon grid) with no click. `#/map` still loads the orbit-controlled architecture scene. Reduced motion or a missing WebGL context keeps a flat fallback |
+| 3D | A single 2D canvas | The home view starts a full-bleed Three.js hero behind the chrome (ring, orbiting nodes, particles, neon grid, vendored UnrealBloomPass) with no click. `#/map` still loads the orbit-controlled architecture scene, and its node colours follow the theme. Reduced motion or a missing WebGL context keeps a flat fallback |
 | Mobile | One 980px breakpoint | Slide-out track drawer under 980px, bottom nav under 640px |
 | Lighthouse 12.8.2, mobile, headless Chrome 154 | Not scored on the single-file page. An earlier pass that parsed Three.js on the home page scored performance 84 with 590 ms total blocking time | The score of performance 99 was measured before this hero. It is not a current claim for the WebGL home page |
 
@@ -51,9 +51,9 @@ Connect-specific studios:
 
 ## Settings and tips
 
-Settings (`#/settings`) store the theme, sound effects, narration, reduced motion, type size, and interface language in `localStorage` under `acl-campus-v1`, with the streak and quiz progress. Themes include Neon, Holographic, Cyberpunk, Sunset, Light, Night ops, Futuristic, Gaming, High contrast, and Console. The default is Neon. A Dark / Light control toggles Light against the last colourful theme. Interface labels switch among English, Spanish, Hindi, Telugu, French, German, Japanese, and Arabic (Arabic is right-to-left). Lessons stay in English. Narration waits for `voiceschanged`, prefers a natural or high-quality voice, and does not select Microsoft Edge unless you pick that voice. Speed runs from 0.6× to 1.6×.
+Settings (`#/settings`) store the theme, sound effects, narration, reduced motion, type size, and interface language in `localStorage` under `acl-campus-v1`, with the streak and quiz progress. Themes include Neon, Holographic, Cyberpunk, Sunset, Light, Night ops, Futuristic, Gaming, High contrast, and Console. The default is Neon. A Dark / Light control toggles Light against the last colourful theme. Interface labels and lesson headings switch among English, Spanish, Hindi, Telugu, French, German, Japanese, and Arabic (Arabic is right-to-left). Lesson bodies stay in English. Narration waits for `voiceschanged`, prefers a natural or high-quality voice, and does not select Microsoft Edge unless you pick that voice. Speed runs from 0.6× to 1.6×.
 
-The campus menu stays on screen: Diagrams, Flows, Charts, Cheat Codes, Play, Ecosystem, Downloads, and Careers. The home page opens on a Three.js call-path hero, a large inbound hop row (TCP 443 and UDP 3478), and two short architect clips in `audio/`. The Diagram Atlas is `data/atlas.json` (27 diagrams, 15 of them animated, 7 charts). Diagrams and flows are one per row and open in a lightbox with play, pause, and step. Every track page shows a chart, a counter, and an isometric icon. Anime.js, Rough.js, D3, and canvas-confetti are vendored.
+The campus menu stays on screen: Diagrams, Flows, Charts, Cheat Codes, Play, Ecosystem, Downloads, and Careers. The home page opens on a full-bleed Three.js call-path hero (UnrealBloomPass from the vendored r170 examples), a large inbound hop row (TCP 443 and UDP 3478), an animated mascot, and two short architect clips in `audio/`. Those clips are espeak-ng stand-ins; the player stays wired for a later recording at the same paths. The Diagram Atlas is `data/atlas.json` (27 diagrams, 15 of them animated, 7 charts). Each diagram also has a portrait stack so a phone can read it without sideways scrolling. Diagrams and flows are one per row and open in a lightbox with play, pause, and step. Every track page shows a chart, a counter, and a live WebGL icon. Anime.js, Rough.js, D3, and canvas-confetti are vendored.
 
 Cheat codes (`#/cheats` and `#/downloads`) are one-page HTML, PDF, and PNG sheets for ports, call flows, cutover, the firewall matrix, careers, and the 2026 timeline, plus `downloads/flashcards.json` and `downloads/amazon-connect-lab.zip`. The studio bar links the CypherMonkey Labs home, Linktree, this repository, dev.to, Hugging Face, and X. The footer links the contact form for work and for a takedown. No email address is shown. The next-lab strip uses `https://cipher0x9.github.io/<repo>/`.
 
@@ -90,7 +90,7 @@ python3 scripts/verify_campus.py
 
 Each lesson ends with the page the facts came from. The Sources view lists them. Prices are list prices from the public appendix as read for this campus on 14 October 2026. They are estimates, not invoices. Voice ID support ended on 20 May 2026. The admin guide renamed several features on 4 August 2026: Contact Lens is conversational analytics, Amazon Q in Connect is agent assist, and Voice+ is Live Sync. The AWS Certification catalog has no Amazon Connect specialty exam. Connect-specific recognition on Skill Builder is a badge, passed at 80 percent.
 
-Three.js r170 and its OrbitControls example are vendored under `web/vendor` and `campus/vendor` under the MIT license. See `NOTICE.md`.
+Three.js r170, its OrbitControls example, and the UnrealBloomPass composer (EffectComposer, RenderPass, UnrealBloomPass, CopyShader, LuminosityHighPassShader) are vendored under `web/vendor` and `campus/vendor` under the MIT license. See `NOTICE.md`.
 
 ## License
 

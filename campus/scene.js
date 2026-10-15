@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "./vendor/OrbitControls.js";
+import { toneFor } from "./palette.js";
 
 const SERVICES = [
   { id: "connect", name: "Connect", color: "#FFB020", at: [0, 0.35, 0] },
@@ -67,12 +68,8 @@ export function mountArchitecture(container) {
   }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
   renderer.setSize(width, height);
-  const themeNow = (document.documentElement.dataset.theme || "dark");
-  const clear = {
-    dark: 0x0b1120, light: 0xd7e6f8, neon: 0x07010f, holographic: 0x03141c, cyberpunk: 0x140014,
-    sunset: 0x1c0c16, futuristic: 0x050816, gaming: 0x0a0614, contrast: 0x000000, console: 0x0f1b2d,
-  }[themeNow] || 0x0b1120;
-  renderer.setClearColor(clear, 1);
+  let themeId = document.documentElement.dataset.theme || "neon";
+  renderer.setClearColor(toneFor(themeId).bg, 1);
   renderer.domElement.setAttribute("role", "img");
   renderer.domElement.setAttribute("aria-label", "Three dimensional map of Connect, Lex, Lambda, Kinesis, Contact Lens, and the CCP");
   container.appendChild(renderer.domElement);
@@ -89,22 +86,27 @@ export function mountArchitecture(container) {
   controls.maxPolarAngle = Math.PI / 2.05;
 
   scene.add(new THREE.AmbientLight(0xdbe7ff, 0.55));
-  const key = new THREE.PointLight(0xffb020, 18, 20);
+  const key = new THREE.PointLight(toneFor(themeId).a, 18, 20);
   key.position.set(3, 5, 2);
   scene.add(key);
-  const fill = new THREE.PointLight(0x818cf8, 10, 18);
+  const fill = new THREE.PointLight(toneFor(themeId).b, 10, 18);
   fill.position.set(-4, 2, -2);
   scene.add(fill);
 
-  const floor = new THREE.GridHelper(10, 12, 0x24344d, 0x1a2740);
+  const floor = new THREE.GridHelper(10, 12, toneFor(themeId).b, toneFor(themeId).a);
   floor.position.y = -1.15;
   scene.add(floor);
 
   const meshes = {};
-  SERVICES.forEach((service) => {
+  const nodeBodies = [];
+  SERVICES.forEach((service, index) => {
     const mesh = nodeMesh(service);
     meshes[service.id] = mesh;
+    mesh.userData.slot = index;
     scene.add(mesh);
+    mesh.traverse((child) => {
+      if (child.isMesh && child.geometry && child.geometry.type === "BoxGeometry") nodeBodies.push(child);
+    });
   });
 
   const linkViews = {};
@@ -136,7 +138,8 @@ export function mountArchitecture(container) {
       const view = linkViews[link.id];
       const down = scenario === link.id;
       view.down = down;
-      const color = down ? new THREE.Color("#FB7185") : new THREE.Color("#2DD4BF");
+      const tone = toneFor(themeId);
+      const color = down ? new THREE.Color("#FB7185") : new THREE.Color(tone.b);
       view.tube.material.color.copy(color);
       view.tube.material.emissive.copy(color);
       view.packet.visible = !down;
@@ -185,7 +188,29 @@ export function mountArchitecture(container) {
   const observer = new ResizeObserver(onResize);
   observer.observe(container);
 
+  function paintTheme(next) {
+    themeId = toneFor(next) ? next : themeId;
+    const tone = toneFor(themeId);
+    renderer.setClearColor(tone.bg, 1);
+    key.color.setHex(tone.a);
+    fill.color.setHex(tone.b);
+    const gridMat = floor.material;
+    if (gridMat && gridMat.color) gridMat.color.setHex(tone.b);
+    nodeBodies.forEach((body, index) => {
+      const hex = index % 3 === 0 ? tone.a : index % 3 === 1 ? tone.b : tone.c;
+      body.material.color.setHex(hex);
+      body.material.emissive.setHex(hex);
+    });
+    Object.values(linkViews).forEach((view) => {
+      view.packet.material.color.setHex(tone.a);
+      view.packet.material.emissive.setHex(tone.a);
+    });
+    applyScenario();
+  }
+  paintTheme(themeId);
+
   return {
+    setTheme(next) { paintTheme(next); },
     setScenario(next) {
       scenario = next || "none";
       applyScenario();

@@ -1,3 +1,7 @@
+import { lessonHeading } from "./lesson-titles.js";
+
+export { lessonHeading };
+
 export const LANGS = [
   ["en", "English", "ltr"],
   ["es", "Español", "ltr"],
@@ -43,7 +47,7 @@ export function pack(lang) {
     greet: GREET[code],
     menu,
     note: code === "en"
-      ? "Interface labels can switch language. The lessons stay in English."
+      ? "Lesson headings follow this switch. The lesson body stays in English."
       : GREET[code],
   };
 }
@@ -60,7 +64,14 @@ export function applyLanguage(lang) {
   const greet = document.getElementById("hero-greet");
   if (greet) greet.textContent = copy.greet;
   const note = document.getElementById("lang-note");
-  if (note) note.textContent = "Interface labels only. Lessons stay in English.";
+  if (note) note.textContent = copy.code === "en"
+    ? "Lesson headings follow this switch. The lesson body stays in English."
+    : copy.greet;
+  document.querySelectorAll("[data-en]").forEach((el) => {
+    const english = el.dataset.en;
+    if (!english) return;
+    el.textContent = lessonHeading(copy.code, english);
+  });
   const select = document.getElementById("lang");
   if (select && select.value !== copy.code) select.value = copy.code;
   return copy;

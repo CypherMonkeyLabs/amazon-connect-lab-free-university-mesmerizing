@@ -8,7 +8,8 @@ import { animate } from "./vendor/anime.esm.min.js";
 import d3 from "./vendor/d3.entry.js";
 import rough from "./vendor/rough.esm.js";
 import burst from "./vendor/confetti.module.mjs";
-import { applyLanguage } from "./i18n.js";
+import { applyLanguage, lessonHeading } from "./i18n.js";
+import { mountIcons } from "./icons.js";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -34,6 +35,7 @@ let route = { view: "home", id: "" };
 let flowState = null;
 let sceneHandle = null;
 let heroHandle = null;
+let iconHandle = null;
 let audioCtx = null;
 let liveNodes = [];
 let ladderTimer = null;
@@ -108,6 +110,8 @@ function applyPrefs() {
   });
   applyLanguage(state.lang || "en");
   if (heroHandle) heroHandle.setTheme(state.theme || "dark");
+  if (sceneHandle && sceneHandle.setTheme) sceneHandle.setTheme(state.theme || "neon");
+  if (iconHandle && iconHandle.setTheme) iconHandle.setTheme();
 }
 function studioCtx() {
   return { esc, state, save, award, load, hub, setTitle };
@@ -227,10 +231,14 @@ function parseHash() {
   return { view: view || "home", id: id ? decodeURIComponent(id) : "" };
 }
 function go(hash) { location.hash = hash; }
-function setTitle(kicker, title) {
+function setTitle(kicker, title, lessonEnglish) {
   $("#view-kicker").textContent = kicker || "Amazon Connect Lab";
-  $("#view-title").textContent = title;
-  document.title = title + " · Amazon Connect Lab";
+  const shown = lessonEnglish ? lessonHeading(state.lang, title) : title;
+  const heading = $("#view-title");
+  heading.textContent = shown;
+  if (lessonEnglish) heading.dataset.en = title;
+  else delete heading.dataset.en;
+  document.title = shown + " · Amazon Connect Lab";
 }
 function trackBy(id) { return hub.shell.tracks.find((t) => t.id === id); }
 function lessonMeta(id) {
@@ -308,6 +316,7 @@ async function render() {
   const gen = ++renderGen;
   haltTimers();
   if (heroHandle) { heroHandle.dispose(); heroHandle = null; }
+  if (iconHandle) { iconHandle.dispose(); iconHandle = null; }
   closeDrawer();
   route = parseHash();
   if ((route.view === "track" || route.view === "lesson" || route.view === "lab" || route.view === "scenario") && !route.id) {
@@ -486,16 +495,13 @@ function counted(n, label) {
   return `<div class="stat"><b data-count="${Number(n) || 0}">0</b><span>${esc(label)}</span></div>`;
 }
 function atlasFigure(item) {
-  return `<figure class="glass figure atlas-card" data-kind="${esc(item.kind)}" data-animated="${item.animated ? "1" : "0"}"><button type="button" class="atlas-open" data-open-diagram="${esc(item.id)}">${item.svg}<span class="atlas-open-label">Enlarge</span></button><figcaption><strong>${esc(item.title)}</strong> ${esc(item.caption)} <a href="${esc(item.url)}">${esc(item.source)}</a></figcaption></figure>`;
+  const portrait = item.svgPortrait || item.svg;
+  return `<figure class="glass figure atlas-card" data-kind="${esc(item.kind)}" data-animated="${item.animated ? "1" : "0"}"><button type="button" class="atlas-open" data-open-diagram="${esc(item.id)}"><span class="atlas-wide">${item.svg}</span><span class="atlas-portrait">${portrait}</span><span class="atlas-open-label">Enlarge</span></button><figcaption><strong>${esc(item.title)}</strong> ${esc(item.caption)} <a href="${esc(item.url)}">${esc(item.source)}</a></figcaption></figure>`;
 }
 function isoIcon(track) {
   const hue = (track && track.hue) || "#22e7ff";
-  const n = hashId((track && track.id) || "x") % 3;
-  const slab = `<polygon points="60,16 104,40 60,64 16,40" fill="${hue}"/><polygon points="16,40 60,64 60,100 16,76" fill="#070b16" stroke="${hue}" stroke-width="3"/><polygon points="60,64 104,40 104,76 60,100" fill="#12182c" stroke="${hue}" stroke-width="3"/>`;
-  const rings = `<ellipse cx="60" cy="46" rx="42" ry="16" fill="none" stroke="${hue}" stroke-width="7"/><ellipse cx="60" cy="62" rx="30" ry="12" fill="none" stroke="#22e7ff" stroke-width="5"/><circle cx="60" cy="36" r="9" fill="${hue}"/><ellipse cx="60" cy="78" rx="18" ry="7" fill="none" stroke="#ff2d95" stroke-width="4"/>`;
-  const cluster = `<circle cx="38" cy="42" r="16" fill="${hue}"/><circle cx="80" cy="36" r="12" fill="#22e7ff"/><circle cx="64" cy="74" r="14" fill="#ff2d95"/><path d="M38 42 L80 36 L64 74 Z" fill="none" stroke="#fff" stroke-width="3" opacity="0.8"/>`;
-  const body = n === 0 ? slab : n === 1 ? rings : cluster;
-  return `<span class="iso-icon" aria-hidden="true"><svg viewBox="0 0 120 120">${body}<ellipse cx="60" cy="108" rx="30" ry="6" fill="${hue}" opacity="0.35"/></svg></span>`;
+  const id = (track && track.id) || "track";
+  return `<canvas class="track-icon" width="96" height="96" data-icon="${esc(id)}" data-hue="${esc(hue)}" aria-label="" role="img"></canvas>`;
 }
 function progressRing() {
   const pct = hub.shell ? Math.round((state.opened.length / Math.max(1, hub.shell.counts.lessons)) * 100) : 0;
@@ -514,7 +520,7 @@ function architectPlayer() {
       <a class="ghost" href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing">Rate</a>
       <a class="ghost" href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing/issues">Comment</a>
     </div>
-    <p class="meta">Offline espeak-ng voices, about 75 seconds together. Not a person, and not Amazon.</p>
+    <p class="meta">The player is ready for the lab clips at audio/use.mp3 and audio/share.mp3. These two files are espeak-ng stand-ins, about 75 seconds together, until a later recording replaces them. Not a person, and not Amazon.</p>
   </section>`;
 }
 function openLightbox(id) {
@@ -523,7 +529,8 @@ function openLightbox(id) {
   if (!atlas || !dlg) return;
   const item = atlas.diagrams.concat(atlas.charts).find((row) => row.id === id);
   if (!item) return;
-  dlg.innerHTML = `<div class="lightbox-card"><div class="lightbox-bar"><strong>${esc(item.title)}</strong><button type="button" id="lb-play">Play</button><button type="button" id="lb-pause">Pause</button><button type="button" id="lb-step">Step</button><button type="button" id="lb-close">Close</button></div><div class="lightbox-stage" id="lb-stage">${item.svg}</div><p class="why"><strong>Why this matters.</strong> ${esc(item.caption)}</p><p class="cite">Source: <a href="${esc(item.url)}">${esc(item.source)}</a></p><ul class="legend"><li>The moving dot is the contact or the signal.</li><li>Each box is one hop. Read the caption before you trust a port number.</li></ul></div>`;
+  const portrait = item.svgPortrait || item.svg;
+  dlg.innerHTML = `<div class="lightbox-card"><div class="lightbox-bar"><strong>${esc(item.title)}</strong><button type="button" id="lb-play">Play</button><button type="button" id="lb-pause">Pause</button><button type="button" id="lb-step">Step</button><button type="button" id="lb-close">Close</button></div><div class="lightbox-stage" id="lb-stage"><span class="atlas-wide">${item.svg}</span><span class="atlas-portrait">${portrait}</span></div><p class="why"><strong>Why this matters.</strong> ${esc(item.caption)}</p><p class="cite">Source: <a href="${esc(item.url)}">${esc(item.source)}</a></p><ul class="legend"><li>The moving dot is the contact or the signal.</li><li>Each box is one hop. On a phone the hops stack downward so the words stay readable.</li></ul></div>`;
   if (typeof dlg.showModal === "function" && !dlg.open) dlg.showModal();
 }
 function paintLiveCharts() {
@@ -652,7 +659,7 @@ function trackLive(track, atlas) {
     <div class="parallax-stage">${isoIcon(track)}</div>
     <div class="live-counters">${counted(track.lessons.length, "lessons on this track")}${counted(atlas.diagrams.length, "atlas diagrams")}</div>
     <figure class="glass figure">${chart.svg}<figcaption><strong>${esc(chart.title)}</strong> ${esc(chart.caption)}</figcaption></figure>
-    <figure class="glass figure">${flow.svg}<figcaption><a href="#/flows">${esc(flow.title)}</a></figcaption></figure>
+    <figure class="glass figure"><span class="atlas-wide">${flow.svg}</span><span class="atlas-portrait">${flow.svgPortrait || flow.svg}</span><figcaption><a href="#/flows">${esc(flow.title)}</a></figcaption></figure>
   </section>`;
 }
 async function viewHome() {
@@ -666,6 +673,7 @@ async function viewHome() {
       <div id="hero-host" data-mode="boot">
         <div class="hero-fallback" aria-hidden="true"><i></i><i></i><i></i><b>Connect</b></div>
       </div>
+      <div class="mascot mascot-stage" data-pose="wave" data-look="1" data-shift="day" aria-hidden="true"></div>
       <div class="hero-hud">
         <p class="hero-greet" id="hero-greet">The call path is already moving.</p>
         <div class="hud-row">
@@ -749,7 +757,7 @@ async function viewDownloads() {
 
 function viewMap() {
   setTitle("Topology", "AWS architecture map");
-  return `<p class="lede">Connect in the middle. Lex, Lambda, Kinesis, and Contact Lens around it. The CCP is the agent edge. Orbit the scene, then drop a link. This is the view that loads Three.js.</p>${architecturePanel(true)}
+  return `<p class="lede">Connect in the middle. Lex, Lambda, Kinesis, and Contact Lens around it. The CCP is the agent edge. Orbit the scene, then drop a link. Node colours follow the theme. The home hero is a separate full-bleed scene.</p>${architecturePanel(true)}
     <div class="grid-cards" style="margin-top:12px">
       ${SCENARIOS.filter(([id]) => id !== "none").map(([id, label, copy]) => `<article class="card"><p class="meta">${esc(id)}</p><h2>${esc(label)}</h2><p>${esc(copy)}</p><p><button class="ghost" data-scenario="${id}">Show this failure</button></p></article>`).join("")}
     </div>
@@ -768,6 +776,7 @@ async function bootScene(gen) {
     if (gen !== renderGen || !$("#arch-host")) return;
     sceneHandle = mod.mountArchitecture(host);
     if (!sceneHandle) return;
+    if (sceneHandle.setTheme) sceneHandle.setTheme(state.theme || "neon");
     const fallback = $("#arch-fallback");
     if (fallback) fallback.hidden = true;
   } catch (err) {
@@ -784,7 +793,7 @@ async function viewTrack(id) {
   setTitle("Track", t.title);
   const atlas = await loadAtlas();
   const deps = t.depends.map(trackBy).filter(Boolean);
-  const cards = t.lessons.map((l) => `<button class="lesson-card" data-go="#/lesson/${l.id}"><p class="meta">${state.opened.includes(l.id) ? "Opened" : "New"}</p><h2>${esc(l.title)}</h2><p>${esc(l.why)}</p></button>`).join("");
+  const cards = t.lessons.map((l) => `<button class="lesson-card" data-go="#/lesson/${l.id}"><p class="meta">${state.opened.includes(l.id) ? "Opened" : "New"}</p><h2 data-en="${esc(l.title)}">${esc(lessonHeading(state.lang, l.title))}</h2><p>${esc(l.why)}</p></button>`).join("");
   const tips = await tipsPack();
   const sheet = tips.tracks[id];
   const teaser = sheet ? `<aside class="glass tips-teaser"><p class="meta">Tips and traps</p><p><strong>Pro tip.</strong> ${esc(sheet.tips[0])}</p><p><strong>Interview trap.</strong> ${esc(sheet.traps[0])}</p><p><button class="ghost" data-go="#/tips/${id}">Open the ${esc(t.title)} cheat sheet</button></p></aside>` : "";
@@ -812,7 +821,7 @@ async function viewLesson(id) {
   if (foundations && foundations.lessons.every((l) => state.opened.includes(l.id))) award("foundations");
   save();
   const track = trackBy(lesson.track);
-  setTitle(track.title, lesson.title);
+  setTitle(track.title, lesson.title, true);
   lessonTab = "read";
   return lessonShell(lesson);
 }
@@ -1444,7 +1453,17 @@ async function bootHero(gen) {
   }
 }
 async function afterRender(gen) {
+  const stageMascot = document.querySelector(".mascot-stage");
+  const headerMascot = document.getElementById("mascot");
+  if (stageMascot && headerMascot && !stageMascot.querySelector("svg")) {
+    const svg = headerMascot.querySelector("svg");
+    if (svg) stageMascot.appendChild(svg.cloneNode(true));
+  }
   applyLanguage(state.lang || "en");
+  if (route.view === "home" || route.view === "track") {
+    const icons = mountIcons(document);
+    if (icons) iconHandle = icons;
+  }
   if (route.view === "home") await bootHero(gen);
   if (route.view === "home" || route.view === "track") runCounters();
   if (route.view === "diagrams") paintMind();

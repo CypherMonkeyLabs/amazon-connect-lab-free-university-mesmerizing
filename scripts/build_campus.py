@@ -202,6 +202,10 @@ try {
       <path class="smile" d="M27 40q5 6 10 0" fill="none" stroke-width="1.6" stroke-linecap="round"/>
       <path class="arm" d="M16 44q-8-8 2-16" fill="none" stroke-width="2.4" stroke-linecap="round"/>
       <path class="band" d="M20 20q12-12 24 0" fill="none" stroke-width="2.2" stroke-linecap="round"/>
+      <g class="gear gear-visor"><rect x="22" y="25" width="20" height="8" rx="3" fill="#22e7ff"/></g>
+      <g class="gear gear-phones"><circle cx="14" cy="32" r="5" fill="none" stroke="#ff2d95" stroke-width="2"/><circle cx="50" cy="32" r="5" fill="none" stroke="#ff2d95" stroke-width="2"/><path d="M14 32 H8 M50 32 H56" stroke="#ff2d95" stroke-width="2"/></g>
+      <g class="gear gear-scarf"><path d="M22 44 q10 12 20 0" fill="#ff7a3c"/></g>
+      <g class="gear gear-star"><polygon points="32,6 34,13 41,13 35,17 37,24 32,20 27,24 29,17 23,13 30,13" fill="#fcee0a"/></g>
     </svg>
   </div>
 </header>
@@ -330,7 +334,7 @@ try {
 </html>
 """
 
-SW_JS = """const VERSION = "acl-campus-v16";
+SW_JS = """const VERSION = "acl-campus-v20";
 const SHELL = __SHELL__;
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -522,7 +526,7 @@ def main():
     counts = split_modules(data, campus)
     write_json(campus / "data" / "atlas.json", build_atlas())
     (campus / "index.html").write_text(SHELL_HTML)
-    for name in ("app.js", "studio.js", "scene.js", "flowlang.js", "hero.js", "i18n.js", "campus.css"):
+    for name in ("app.js", "studio.js", "scene.js", "flowlang.js", "hero.js", "i18n.js", "lesson-titles.js", "palette.js", "icons.js", "campus.css"):
         shutil.copyfile(ROOT / "web" / name, campus / name)
     audio_src = ROOT / "audio"
     audio_dst = campus / "audio"
@@ -537,7 +541,7 @@ def main():
     (campus / ".nojekyll").write_text("")
     from build_downloads import main as build_downloads  # noqa: E402
     build_downloads()
-    precache = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "i18n.js", "hero.js", "data/shell.json", "data/mastery.json", "data/atlas.json", "audio/use.mp3", "audio/share.mp3"]
+    precache = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "i18n.js", "lesson-titles.js", "palette.js", "icons.js", "hero.js", "data/shell.json", "data/mastery.json", "data/atlas.json", "audio/use.mp3", "audio/share.mp3"]
     if (campus / "og-card.png").exists():
         precache.append("og-card.png")
     (campus / "sw.js").write_text(SW_JS.replace("__SHELL__", json.dumps(precache)))

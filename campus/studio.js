@@ -62,7 +62,7 @@ export async function viewExplorer(ctx) {
   ctx.award("explorer");
   const nodes = data.explorer.map((node) => `<g class="hop-node"><rect x="${node.x - 58}" y="${node.y - 22}" width="116" height="44" rx="12" fill="#131d31" stroke="#3dcfb4"/><text x="${node.x}" y="${node.y + 5}" text-anchor="middle" fill="#f3efe4" font-size="13">${ctx.esc(node.title)}</text></g>`).join("");
   const hops = data.explorer.map((node) => `<details class="hop glass"><summary>${ctx.esc(node.title)}</summary><p>${ctx.esc(node.body)}</p><p class="cite">Source: <a href="${ctx.esc(node.url)}">${ctx.esc(node.source)}</a></p></details>`).join("");
-  return `<p class="lede">Click a hop. The packet on the line is the contact. The 3D map is the other view of the same system, and it is the one that loads Three.js.</p>
+  return `<p class="lede">Click a hop. The packet on the line is the contact. The 3D map is the other view of the same system. The home hero is a separate full-bleed scene.</p>
     <figure class="glass figure explorer-map"><svg viewBox="0 0 700 180" role="img" aria-label="Call path from the PSTN through Connect to the CCP">
       <line x1="60" y1="80" x2="620" y2="80" stroke="#e5843b" stroke-width="3"/>
       <line x1="340" y1="80" x2="480" y2="40" stroke="#8eb8ff" stroke-width="2"/>
@@ -212,25 +212,24 @@ export function shareCard(title, line) {
 }
 
 export function tickMascot(reduced) {
-  const el = document.getElementById("mascot");
-  if (!el) return;
+  const nodes = document.querySelectorAll(".mascot");
+  if (!nodes.length) return;
   const hour = new Date().getHours();
   let shift = "day";
   if (hour < 5) shift = "night";
   else if (hour < 11) shift = "morning";
   else if (hour >= 17) shift = "evening";
-  el.dataset.shift = shift;
   const poses = ["idle", "wave", "think", "celebrate"];
-  const look = Math.floor(Date.now() / 180000) % 5;
-  el.dataset.look = String(look);
   const section = (location.hash || "#/").split("/")[1] || "home";
-  el.dataset.section = section || "home";
-  if (reduced) {
-    el.dataset.pose = "idle";
-    return;
-  }
-  const index = Math.floor(Date.now() / 7000) % poses.length;
-  el.dataset.pose = poses[index];
+  const sectionLook = { home: 0, diagrams: 1, flows: 2, charts: 3, cheats: 4, play: 2, track: 3, downloads: 1, career: 4 }[section] || 0;
+  const look = (sectionLook + Math.floor(Date.now() / 180000)) % 5;
+  const pose = reduced ? "idle" : poses[Math.floor(Date.now() / 7000) % poses.length];
+  nodes.forEach((el) => {
+    el.dataset.shift = shift;
+    el.dataset.look = String(look);
+    el.dataset.section = section || "home";
+    el.dataset.pose = pose;
+  });
 }
 
 export const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];

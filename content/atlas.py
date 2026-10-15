@@ -52,6 +52,80 @@ def _hops(labels, y=86, gap=148, w=120, h=48, x0=20):
     return "".join(parts), centers
 
 
+def _labels(svg):
+    import re
+    found = re.findall(r"<text[^>]*>([^<]*)</text>", svg)
+    out = []
+    for text in found:
+        text = text.strip()
+        if not text or len(text) > 42 or text in out:
+            continue
+        out.append(text)
+    return out
+
+
+def _portrait(title, labels):
+    labels = labels or [title]
+    width = 360
+    row = 84
+    height = 20 + len(labels) * row
+    parts = []
+    if len(labels) > 1:
+        y2 = 36 + (len(labels) - 1) * row
+        parts.append(f'<line x1="28" y1="48" x2="28" y2="{y2}" stroke="#ff2d95" stroke-width="4"/>')
+        parts.append(f'<circle r="9" fill="#22e7ff"><animateMotion dur="5.5s" repeatCount="indefinite" path="M28,48 V{y2}"/></circle>')
+    for index, label in enumerate(labels):
+        y = 12 + index * row
+        words = label.split()
+        lines, cur = [], ""
+        for word in words:
+            trial = (cur + " " + word).strip()
+            if len(trial) > 16 and cur:
+                lines.append(cur)
+                cur = word
+            else:
+                cur = trial
+        if cur:
+            lines.append(cur)
+        lines = lines[:2]
+        parts.append(f'<rect x="48" y="{y}" width="296" height="70" rx="16" fill="#2a1038" stroke="#22e7ff" stroke-width="3"/>')
+        if len(lines) == 1:
+            parts.append(
+                f'<text x="196" y="{y + 44}" text-anchor="middle" fill="#f8fafc" font-size="22" '
+                f'font-family="ui-sans-serif,system-ui,sans-serif">{_esc(lines[0])}</text>'
+            )
+        else:
+            parts.append(
+                f'<text x="196" y="{y + 30}" text-anchor="middle" fill="#f8fafc" font-size="20" '
+                f'font-family="ui-sans-serif,system-ui,sans-serif">{_esc(lines[0])}</text>'
+            )
+            parts.append(
+                f'<text x="196" y="{y + 54}" text-anchor="middle" fill="#f8fafc" font-size="20" '
+                f'font-family="ui-sans-serif,system-ui,sans-serif">{_esc(lines[1])}</text>'
+            )
+    return _frame("".join(parts), title + ", portrait", width, height)
+
+
+def _portrait_bars(title, rows, unit):
+    width = 360
+    row = 78
+    height = 24 + len(rows) * row
+    peak = max((value for _, value, _ in rows), default=1) or 1
+    parts = []
+    for index, (label, value, shown) in enumerate(rows):
+        y = 16 + index * row
+        bar = 10 if value <= 0 else max(10, (value / peak) * 300)
+        parts.append(
+            f'<text x="16" y="{y + 22}" fill="#f8fafc" font-size="20" font-family="ui-sans-serif,system-ui,sans-serif">{_esc(label)}</text>'
+        )
+        parts.append(f'<rect x="16" y="{y + 32}" width="{bar:.0f}" height="24" rx="8" fill="#22e7ff"/>')
+        parts.append(
+            f'<text x="328" y="{y + 50}" text-anchor="end" fill="#ff2d95" font-size="18" '
+            f'font-family="ui-sans-serif,system-ui,sans-serif">{_esc(shown)} {_esc(unit)}</text>'
+        )
+    return _frame("".join(parts), title + ", portrait", width, height)
+
+
 def _item(item_id, title, kind, svg, caption, source, url, animated=False):
     return {
         "id": item_id,
@@ -62,6 +136,7 @@ def _item(item_id, title, kind, svg, caption, source, url, animated=False):
         "source": source,
         "url": url,
         "svg": svg,
+        "svgPortrait": _portrait(title, _labels(svg) or [title]),
     }
 
 
@@ -451,4 +526,5 @@ def build_atlas():
         unit, rows = attached[chart["id"]]
         chart["unit"] = unit
         chart["points"] = [{"label": label, "value": value, "shown": shown} for label, value, shown in rows]
+        chart["svgPortrait"] = _portrait_bars(chart["title"], rows, unit)
     return {"diagrams": diagrams, "charts": charts}

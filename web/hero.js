@@ -1,17 +1,10 @@
 import * as THREE from "three";
+import { EffectComposer } from "./vendor/postprocessing/EffectComposer.js";
+import { RenderPass } from "./vendor/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "./vendor/postprocessing/UnrealBloomPass.js";
+import { PALETTE } from "./palette.js";
 
-export const HERO_THEMES = {
-  dark: { bg: 0x07101c, a: 0xffb020, b: 0x2dd4bf, c: 0x818cf8 },
-  light: { bg: 0xd7e6f8, a: 0xc2410c, b: 0x0f766e, c: 0x4338ca },
-  neon: { bg: 0x07010f, a: 0xff2d95, b: 0x22e7ff, c: 0xc084fc },
-  holographic: { bg: 0x03141c, a: 0x5eead4, b: 0xa78bfa, c: 0x67e8f9 },
-  cyberpunk: { bg: 0x140014, a: 0xfcee0a, b: 0xff003c, c: 0x00f0ff },
-  sunset: { bg: 0x1c0c16, a: 0xff7a3c, b: 0xff2d7b, c: 0xffd166 },
-  futuristic: { bg: 0x050816, a: 0x00e5ff, b: 0x7c5cff, c: 0x5eead4 },
-  gaming: { bg: 0x0a0614, a: 0x39ff14, b: 0xff2bd6, c: 0x7df9ff },
-  contrast: { bg: 0x000000, a: 0xffe14a, b: 0xffffff, c: 0xffe14a },
-  console: { bg: 0x0f1b2d, a: 0xff9900, b: 0x3dcfb4, c: 0x7aa7ff },
-};
+export const HERO_THEMES = PALETTE;
 
 const NAMES = ["Connect", "Lex", "Lambda", "Queue", "CCP", "Kinesis"];
 
@@ -48,6 +41,8 @@ export function mountHero(container, themeId) {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, narrow ? 1.25 : 1.6));
   renderer.setClearColor(colors().bg, 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ReinhardToneMapping;
+  renderer.toneMappingExposure = 1.25;
   renderer.domElement.setAttribute("role", "img");
   renderer.domElement.setAttribute("aria-label", "Three.js hero. Connect sits in a glowing ring with Lex, Lambda, a queue, the CCP, and Kinesis. The camera drifts. No click is required.");
   container.appendChild(renderer.domElement);
@@ -135,13 +130,30 @@ export function mountHero(container, themeId) {
   let raf = 0;
   const clock = new THREE.Clock();
 
+  const gl = renderer.getContext();
+  const halfFloat = gl.getExtension("EXT_color_buffer_float") || gl.getExtension("EXT_color_buffer_half_float");
+  const bufferType = halfFloat ? THREE.HalfFloatType : THREE.UnsignedByteType;
+  let composer = null;
+  let bloomPass = null;
+  try {
+    composer = new EffectComposer(renderer, new THREE.WebGLRenderTarget(2, 2, { type: bufferType }));
+    composer.addPass(new RenderPass(scene, camera));
+    bloomPass = new UnrealBloomPass(new THREE.Vector2(2, 2), 1.2, 0.55, 0.05, bufferType);
+    composer.addPass(bloomPass);
+    container.dataset.bloom = "on";
+  } catch (err) {
+    composer = null;
+    container.dataset.bloom = "off";
+  }
+
   function resize() {
-    const width = container.clientWidth || 640;
-    const height = container.clientHeight || 480;
+    const width = container.clientWidth || window.innerWidth || 640;
+    const height = container.clientHeight || window.innerHeight || 480;
     if (width < 2 || height < 2) return;
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     renderer.setSize(width, height, false);
+    if (composer) composer.setSize(width, height);
   }
   function onPointer(event) {
     const rect = container.getBoundingClientRect();
@@ -168,7 +180,17 @@ export function mountHero(container, themeId) {
     camera.position.z = Math.sin(drift) * 8.4;
     camera.position.y = 3.1 + Math.sin(t * 0.23) * 0.35 + scrollBoost + pointer.y * 0.45;
     camera.lookAt(0, 0.15, 0);
-    renderer.render(scene, camera);
+    if (composer) {
+      try {
+        composer.render();
+      } catch (err) {
+        composer = null;
+        container.dataset.bloom = "off";
+        renderer.render(scene, camera);
+      }
+    } else {
+      renderer.render(scene, camera);
+    }
   }
 
   const resizeObserver = new ResizeObserver(resize);
@@ -211,6 +233,11 @@ export function mountHero(container, themeId) {
       window.removeEventListener("scroll", onScroll);
       pointsGeo.dispose();
       pointsMat.dispose();
+      if (bloomPass) bloomPass.dispose();
+      if (composer) {
+        composer.renderTarget1.dispose();
+        composer.renderTarget2.dispose();
+      }
       renderer.dispose();
       if (renderer.domElement.parentNode) renderer.domElement.remove();
     },
