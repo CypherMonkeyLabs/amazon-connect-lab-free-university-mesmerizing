@@ -47,7 +47,7 @@ export function pack(lang) {
     greet: GREET[code],
     menu,
     note: code === "en"
-      ? "Lesson headings follow this switch. The lesson body stays in English."
+      ? "Lesson headings follow this switch. The first lesson of each track is translated. Every other lesson body stays in English, and the page says so."
       : GREET[code],
   };
 }
@@ -65,7 +65,7 @@ export function applyLanguage(lang) {
   if (greet) greet.textContent = copy.greet;
   const note = document.getElementById("lang-note");
   if (note) note.textContent = copy.code === "en"
-    ? "Lesson headings follow this switch. The lesson body stays in English."
+    ? "Lesson headings follow this switch. The first lesson of each track is translated. Every other lesson body stays in English, and the page says so."
     : copy.greet;
   document.querySelectorAll("[data-en]").forEach((el) => {
     const english = el.dataset.en;

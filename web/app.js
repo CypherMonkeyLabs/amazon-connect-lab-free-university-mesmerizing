@@ -9,6 +9,7 @@ import d3 from "./vendor/d3.entry.js";
 import rough from "./vendor/rough.esm.js";
 import burst from "./vendor/confetti.module.mjs";
 import { applyLanguage, lessonHeading } from "./i18n.js";
+import { bodyNote, lessonBody } from "./lesson-bodies.js";
 import { mountIcons } from "./icons.js";
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -793,7 +794,13 @@ async function viewTrack(id) {
   setTitle("Track", t.title);
   const atlas = await loadAtlas();
   const deps = t.depends.map(trackBy).filter(Boolean);
-  const cards = t.lessons.map((l) => `<button class="lesson-card" data-go="#/lesson/${l.id}"><p class="meta">${state.opened.includes(l.id) ? "Opened" : "New"}</p><h2 data-en="${esc(l.title)}">${esc(lessonHeading(state.lang, l.title))}</h2><p>${esc(l.why)}</p></button>`).join("");
+  const cards = t.lessons.map((l) => {
+    const translated = lessonBody(state.lang, l.id);
+    const why = translated ? translated.why : l.why;
+    const opened = state.opened.includes(l.id) ? "Opened" : "New";
+    const mark = state.lang !== "en" && !translated ? "English · " + opened : opened;
+    return `<button class="lesson-card" data-go="#/lesson/${l.id}"><p class="meta">${esc(mark)}</p><h2 data-en="${esc(l.title)}">${esc(lessonHeading(state.lang, l.title))}</h2><p>${esc(why)}</p></button>`;
+  }).join("");
   const tips = await tipsPack();
   const sheet = tips.tracks[id];
   const teaser = sheet ? `<aside class="glass tips-teaser"><p class="meta">Tips and traps</p><p><strong>Pro tip.</strong> ${esc(sheet.tips[0])}</p><p><strong>Interview trap.</strong> ${esc(sheet.traps[0])}</p><p><button class="ghost" data-go="#/tips/${id}">Open the ${esc(t.title)} cheat sheet</button></p></aside>` : "";
@@ -844,15 +851,23 @@ function lessonPanel(lesson, iac) {
   if (lessonTab === "tips") return tipsPanel(lesson.track);
   const figures = (lesson.figures || []).slice(0, 3).map(figureHtml).join("");
   const more = (lesson.figures || []).length > 3 ? `<p><button class="ghost" id="more-figures">Show the other figures</button></p><div id="more-figures-host"></div>` : "";
-  const points = lesson.points.map((p, i) => `<li><span class="num">${i + 1}</span><span>${esc(p)}</span></li>`).join("");
+  const translated = lessonBody(state.lang, lesson.id);
+  const why = translated ? translated.why : lesson.why;
+  const paras = translated ? translated.paras : lesson.paras;
+  const pointText = translated ? translated.points : lesson.points;
+  const mistake = translated ? translated.mistake : lesson.mistake;
+  const note = bodyNote(state.lang, Boolean(translated));
+  const banner = note ? `<p class="lang-banner">${esc(note)}</p>` : "";
+  const points = pointText.map((p, i) => `<li><span class="num">${i + 1}</span><span>${esc(p)}</span></li>`).join("");
   let chart = "";
   if (lesson.chartSvg) chart = figureHtml(lesson.chartSvg);
   return `<div class="lesson"><div>
-      <div class="why"><strong>Why it matters.</strong> ${esc(lesson.why)}</div>
+      ${banner}
+      <div class="why"><strong>Why it matters.</strong> ${esc(why)}</div>
       <div class="figure-grid">${figures}</div>
-      <div class="prose reading">${lesson.paras.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+      <div class="prose reading">${paras.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
       <ol class="points">${points}</ol>
-      <p class="mistake"><strong>Common mistake.</strong> ${esc(lesson.mistake)}</p>
+      <p class="mistake"><strong>Common mistake.</strong> ${esc(mistake)}</p>
       <p class="cite">Source: <a href="${esc(lesson.cite.url)}">${esc(lesson.cite.title)}</a></p>
       ${more}
       ${lesson.id === "eco-glossary" ? `<p><button class="ghost" data-go="#/glossary">Open the glossary</button></p>` : ""}
@@ -2137,6 +2152,7 @@ document.body.addEventListener("change", (ev) => {
     applyLanguage(state.lang);
     const mascot = $("#mascot");
     if (mascot) mascot.dataset.look = String((state.lang || "en").length % 5);
+    if (route.view === "lesson" || route.view === "track") render();
   }
 });
 document.body.addEventListener("dragstart", (ev) => { if (ev.target.dataset.pal) ev.dataTransfer.setData("text/plain", ev.target.dataset.pal); });

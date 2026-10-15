@@ -334,7 +334,7 @@ try {
 </html>
 """
 
-SW_JS = """const VERSION = "acl-campus-v20";
+SW_JS = """const VERSION = "acl-campus-v21";
 const SHELL = __SHELL__;
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -526,7 +526,7 @@ def main():
     counts = split_modules(data, campus)
     write_json(campus / "data" / "atlas.json", build_atlas())
     (campus / "index.html").write_text(SHELL_HTML)
-    for name in ("app.js", "studio.js", "scene.js", "flowlang.js", "hero.js", "i18n.js", "lesson-titles.js", "palette.js", "icons.js", "campus.css"):
+    for name in ("app.js", "studio.js", "scene.js", "flowlang.js", "hero.js", "i18n.js", "lesson-titles.js", "lesson-bodies.js", "palette.js", "icons.js", "campus.css"):
         shutil.copyfile(ROOT / "web" / name, campus / name)
     audio_src = ROOT / "audio"
     audio_dst = campus / "audio"
@@ -541,7 +541,7 @@ def main():
     (campus / ".nojekyll").write_text("")
     from build_downloads import main as build_downloads  # noqa: E402
     build_downloads()
-    precache = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "i18n.js", "lesson-titles.js", "palette.js", "icons.js", "hero.js", "data/shell.json", "data/mastery.json", "data/atlas.json", "audio/use.mp3", "audio/share.mp3"]
+    precache = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "i18n.js", "lesson-titles.js", "lesson-bodies.js", "palette.js", "icons.js", "hero.js", "data/shell.json", "data/mastery.json", "data/atlas.json", "audio/use.mp3", "audio/share.mp3"]
     if (campus / "og-card.png").exists():
         precache.append("og-card.png")
     (campus / "sw.js").write_text(SW_JS.replace("__SHELL__", json.dumps(precache)))

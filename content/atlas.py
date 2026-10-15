@@ -19,9 +19,10 @@ def _esc(text):
     return str(text).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def _frame(body, label, w=760, h=220):
+def _frame(body, label, w=760, h=220, layout=""):
+    attr = f' data-layout="{layout}"' if layout else ""
     return (
-        f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="{_esc(label)}">'
+        f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="{_esc(label)}"{attr}>'
         f'<rect width="{w}" height="{h}" rx="16" fill="#0e1728"/>{body}</svg>'
     )
 
@@ -64,69 +65,196 @@ def _labels(svg):
     return out
 
 
-def _portrait(title, labels):
+def _lines(text, limit):
+    words = str(text).split()
+    lines, cur = [], ""
+    for word in words:
+        trial = (cur + " " + word).strip()
+        if len(trial) > limit and cur:
+            lines.append(cur)
+            cur = word
+        else:
+            cur = trial
+    if cur:
+        lines.append(cur)
+    return lines[:3] or [""]
+
+
+def _text_block(x, y, lines, size, anchor="middle", fill="#f8fafc"):
+    parts = []
+    for index, line in enumerate(lines):
+        parts.append(
+            f'<text x="{x}" y="{y + index * (size + 4)}" text-anchor="{anchor}" fill="{fill}" font-size="{size}" '
+            f'font-family="ui-sans-serif,system-ui,sans-serif">{_esc(line)}</text>'
+        )
+    return "".join(parts)
+
+
+def _portrait_flow(title, labels):
+    """Zigzag cards on a phone. The wide drawing is a single horizontal hop row."""
     labels = labels or [title]
     width = 360
-    row = 84
-    height = 20 + len(labels) * row
-    parts = []
-    if len(labels) > 1:
-        y2 = 36 + (len(labels) - 1) * row
-        parts.append(f'<line x1="28" y1="48" x2="28" y2="{y2}" stroke="#ff2d95" stroke-width="4"/>')
-        parts.append(f'<circle r="9" fill="#22e7ff"><animateMotion dur="5.5s" repeatCount="indefinite" path="M28,48 V{y2}"/></circle>')
+    head = 78
+    step = 112
+    height = head + len(labels) * step + 20
+    parts = [
+        '<rect x="16" y="12" width="328" height="52" rx="16" fill="#2a1038" stroke="#ff2d95" stroke-width="2"/>',
+        _text_block(180, 44, _lines(title, 24)[:1], 20),
+    ]
+    anchors = []
     for index, label in enumerate(labels):
-        y = 12 + index * row
-        words = label.split()
-        lines, cur = [], ""
-        for word in words:
-            trial = (cur + " " + word).strip()
-            if len(trial) > 16 and cur:
-                lines.append(cur)
-                cur = word
-            else:
-                cur = trial
-        if cur:
-            lines.append(cur)
-        lines = lines[:2]
-        parts.append(f'<rect x="48" y="{y}" width="296" height="70" rx="16" fill="#2a1038" stroke="#22e7ff" stroke-width="3"/>')
-        if len(lines) == 1:
-            parts.append(
-                f'<text x="196" y="{y + 44}" text-anchor="middle" fill="#f8fafc" font-size="22" '
-                f'font-family="ui-sans-serif,system-ui,sans-serif">{_esc(lines[0])}</text>'
-            )
-        else:
-            parts.append(
-                f'<text x="196" y="{y + 30}" text-anchor="middle" fill="#f8fafc" font-size="20" '
-                f'font-family="ui-sans-serif,system-ui,sans-serif">{_esc(lines[0])}</text>'
-            )
-            parts.append(
-                f'<text x="196" y="{y + 54}" text-anchor="middle" fill="#f8fafc" font-size="20" '
-                f'font-family="ui-sans-serif,system-ui,sans-serif">{_esc(lines[1])}</text>'
-            )
-    return _frame("".join(parts), title + ", portrait", width, height)
+        y = head + index * step
+        left = index % 2 == 0
+        x = 18 if left else 148
+        stroke = "#22e7ff" if left else "#ff2d95"
+        anchors.append((x + 96, y + 40))
+        parts.append(f'<rect x="{x}" y="{y}" width="194" height="86" rx="22" fill="#14081f" stroke="{stroke}" stroke-width="3"/>')
+        parts.append(f'<circle cx="{x + 24}" cy="{y + 28}" r="16" fill="{stroke}"/>')
+        parts.append(
+            f'<text x="{x + 24}" y="{y + 34}" text-anchor="middle" fill="#07010f" font-size="16" font-weight="700" '
+            f'font-family="ui-sans-serif,system-ui,sans-serif">{index + 1}</text>'
+        )
+        parts.append(_text_block(x + 112, y + 36, _lines(label, 12), 16))
+    if len(anchors) > 1:
+        x0, y0 = anchors[0]
+        path = f"M{x0},{y0}"
+        for index in range(1, len(anchors)):
+            x1, y1 = anchors[index - 1]
+            x2, y2 = anchors[index]
+            path += f" Q{(x1 + x2) / 2:.0f},{y1:.0f} {x2},{y2}"
+        parts.insert(2, f'<path d="{path}" fill="none" stroke="#c084fc" stroke-width="4"/>')
+        parts.append(f'<circle r="9" fill="#fcee0a"><animateMotion dur="6s" repeatCount="indefinite" path="{path}"/></circle>')
+    return _frame("".join(parts), title + " portrait", width, height, "portrait")
+
+
+def _portrait_tree():
+    body = (
+        '<rect x="80" y="16" width="200" height="64" rx="18" fill="#2a1038" stroke="#f472b6" stroke-width="3"/>'
+        '<text x="180" y="56" text-anchor="middle" fill="#f8fafc" font-size="22" font-family="ui-sans-serif,system-ui,sans-serif">No audio</text>'
+        '<path d="M180,80 V118 M180,118 H70 V150 M180,118 H180 V150 M180,118 H290 V150" fill="none" stroke="#ff2d95" stroke-width="4"/>'
+        '<rect x="16" y="150" width="112" height="88" rx="16" fill="#14081f" stroke="#22e7ff" stroke-width="3"/>'
+        '<text x="72" y="188" text-anchor="middle" fill="#f8fafc" font-size="16" font-family="ui-sans-serif,system-ui,sans-serif">Mic</text>'
+        '<text x="72" y="214" text-anchor="middle" fill="#22e7ff" font-size="14" font-family="ui-sans-serif,system-ui,sans-serif">permission</text>'
+        '<rect x="124" y="150" width="112" height="88" rx="16" fill="#14081f" stroke="#ff2d95" stroke-width="3"/>'
+        '<text x="180" y="188" text-anchor="middle" fill="#f8fafc" font-size="16" font-family="ui-sans-serif,system-ui,sans-serif">UDP</text>'
+        '<text x="180" y="214" text-anchor="middle" fill="#ff2d95" font-size="18" font-family="ui-sans-serif,system-ui,sans-serif">3478</text>'
+        '<rect x="232" y="150" width="112" height="88" rx="16" fill="#14081f" stroke="#fcee0a" stroke-width="3"/>'
+        '<text x="288" y="188" text-anchor="middle" fill="#f8fafc" font-size="16" font-family="ui-sans-serif,system-ui,sans-serif">VPN on</text>'
+        '<text x="288" y="214" text-anchor="middle" fill="#fcee0a" font-size="16" font-family="ui-sans-serif,system-ui,sans-serif">media</text>'
+        '<circle r="8" fill="#22e7ff"><animateMotion dur="4.5s" repeatCount="indefinite" path="M180,80 V118 H70 V150"/></circle>'
+    )
+    return _frame(body, "No-audio tree portrait", 360, 260, "portrait")
+
+
+def _portrait_arch():
+    body = (
+        '<rect x="110" y="12" width="140" height="48" rx="14" fill="#2a1038" stroke="#22e7ff" stroke-width="3"/>'
+        '<text x="180" y="42" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="ui-sans-serif,system-ui,sans-serif">CCP</text>'
+        '<path d="M180,60 V88" stroke="#22e7ff" stroke-width="3"/>'
+        '<rect x="70" y="88" width="220" height="72" rx="20" fill="#2a1038" stroke="#ff2d95" stroke-width="3"/>'
+        '<text x="180" y="132" text-anchor="middle" fill="#f8fafc" font-size="22" font-family="ui-sans-serif,system-ui,sans-serif">Connect</text>'
+        '<path d="M120,160 V190 H70 V210 M240,160 V190 H290 V210" fill="none" stroke="#c084fc" stroke-width="3"/>'
+        '<rect x="16" y="210" width="150" height="64" rx="16" fill="#14081f" stroke="#22e7ff" stroke-width="3"/>'
+        '<text x="91" y="248" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="ui-sans-serif,system-ui,sans-serif">Lex</text>'
+        '<rect x="194" y="210" width="150" height="64" rx="16" fill="#14081f" stroke="#ff2d95" stroke-width="3"/>'
+        '<text x="269" y="248" text-anchor="middle" fill="#f8fafc" font-size="18" font-family="ui-sans-serif,system-ui,sans-serif">Lambda</text>'
+        '<rect x="16" y="292" width="150" height="64" rx="16" fill="#14081f" stroke="#fcee0a" stroke-width="3"/>'
+        '<text x="91" y="330" text-anchor="middle" fill="#f8fafc" font-size="16" font-family="ui-sans-serif,system-ui,sans-serif">Analytics</text>'
+        '<rect x="194" y="292" width="150" height="64" rx="16" fill="#14081f" stroke="#22e7ff" stroke-width="3"/>'
+        '<text x="269" y="330" text-anchor="middle" fill="#f8fafc" font-size="16" font-family="ui-sans-serif,system-ui,sans-serif">Kinesis</text>'
+        '<circle r="7" fill="#fcee0a"><animateMotion dur="5s" repeatCount="indefinite" path="M180,60 V88"/></circle>'
+    )
+    return _frame(body, "Instance architecture portrait", 360, 376, "portrait")
+
+
+def _portrait_stack(title, rows):
+    """Full-width portrait cards with a down-arrow, for lists that are not a hop path."""
+    width = 360
+    step = 78
+    height = 70 + len(rows) * step
+    parts = ['<rect x="16" y="10" width="328" height="44" rx="12" fill="#2a1038" stroke="#c084fc" stroke-width="2"/>',
+             _text_block(180, 38, _lines(title, 26)[:1], 16)]
+    for index, (label, note, stroke) in enumerate(rows):
+        y = 64 + index * step
+        if index:
+            parts.append(f'<path d="M180,{y - 10} V{y}" stroke="#ff2d95" stroke-width="3" marker-end=""/>')
+            parts.append(f'<polygon points="172,{y - 2} 188,{y - 2} 180,{y + 8}" fill="#ff2d95"/>')
+        parts.append(f'<rect x="28" y="{y + 8}" width="304" height="58" rx="16" fill="#14081f" stroke="{stroke}" stroke-width="3"/>')
+        parts.append(_text_block(180, y + 32, _lines(label, 22)[:1], 18))
+        if note:
+            parts.append(_text_block(180, y + 52, _lines(note, 28)[:1], 13, fill="#c4b5fd"))
+    return _frame("".join(parts), title + " portrait", width, height, "portrait")
+
+
+def _portrait_pair(top, bottom, link):
+    body = (
+        f'<rect x="40" y="24" width="280" height="100" rx="22" fill="#14081f" stroke="#22e7ff" stroke-width="3"/>'
+        f'{_text_block(180, 82, _lines(top, 16), 22)}'
+        f'<path d="M180,124 V188" stroke="#ff2d95" stroke-width="4"/>'
+        f'<polygon points="168,176 192,176 180,196" fill="#ff2d95"/>'
+        f'<text x="200" y="164" fill="#fcee0a" font-size="16" font-family="ui-sans-serif,system-ui,sans-serif">{_esc(link)}</text>'
+        f'<rect x="40" y="200" width="280" height="100" rx="22" fill="#14081f" stroke="#ff2d95" stroke-width="3"/>'
+        f'{_text_block(180, 258, _lines(bottom, 16), 22)}'
+    )
+    return _frame(body, top + " portrait", 360, 330, "portrait")
+
+
+def _portrait_renames():
+    pairs = [("Contact Lens", "Analytics"), ("Amazon Q", "Agent assist"), ("Voice+", "Live Sync")]
+    parts = []
+    for index, (old, new) in enumerate(pairs):
+        y = 16 + index * 150
+        parts.append(f'<rect x="48" y="{y}" width="264" height="52" rx="14" fill="#1c2433" stroke="#64748b" stroke-width="2"/>')
+        parts.append(_text_block(180, y + 34, [old], 18))
+        parts.append(f'<path d="M180,{y + 52} V{y + 78}" stroke="#22e7ff" stroke-width="3"/>')
+        parts.append(f'<polygon points="170,{y + 70} 190,{y + 70} 180,{y + 84}" fill="#22e7ff"/>')
+        parts.append(f'<rect x="48" y="{y + 86}" width="264" height="52" rx="14" fill="#14081f" stroke="#22e7ff" stroke-width="3"/>')
+        parts.append(_text_block(180, y + 118, [new], 18))
+    return _frame("".join(parts), "4 August 2026 renames portrait", 360, 466, "portrait")
+
+
+def _portrait_split(left_title, left_note, right_title, right_note, mark):
+    body = (
+        f'<rect x="20" y="16" width="320" height="130" rx="20" fill="#14081f" stroke="#ffb020" stroke-width="3"/>'
+        f'{_text_block(180, 70, _lines(left_title, 18), 20)}'
+        f'{_text_block(180, 100, _lines(left_note, 28)[:2], 14, fill="#fde68a")}'
+        f'<circle cx="180" cy="176" r="22" fill="#2a1038" stroke="#f8fafc" stroke-width="2"/>'
+        f'<text x="180" y="182" text-anchor="middle" fill="#f8fafc" font-size="16" font-family="ui-sans-serif,system-ui,sans-serif">{_esc(mark)}</text>'
+        f'<rect x="20" y="214" width="320" height="130" rx="20" fill="#14081f" stroke="#22e7ff" stroke-width="3"/>'
+        f'{_text_block(180, 268, _lines(right_title, 18), 20)}'
+        f'{_text_block(180, 298, _lines(right_note, 28)[:2], 14, fill="#a5f3fc")}'
+    )
+    return _frame(body, left_title + " portrait", 360, 364, "portrait")
 
 
 def _portrait_bars(title, rows, unit):
+    """Stat cards. The wide chart is a horizontal bar row; this is a phone scoreboard."""
     width = 360
-    row = 78
-    height = 24 + len(rows) * row
+    row = 96
+    height = 68 + len(rows) * row
     peak = max((value for _, value, _ in rows), default=1) or 1
-    parts = []
+    parts = [
+        '<rect x="16" y="10" width="328" height="44" rx="12" fill="#2a1038" stroke="#22e7ff" stroke-width="2"/>',
+        _text_block(180, 38, _lines(title, 26)[:1], 16),
+    ]
     for index, (label, value, shown) in enumerate(rows):
-        y = 16 + index * row
-        bar = 10 if value <= 0 else max(10, (value / peak) * 300)
+        y = 64 + index * row
+        meter = 8 if value <= 0 else max(8, (value / peak) * 250)
+        parts.append(f'<rect x="16" y="{y}" width="328" height="84" rx="18" fill="#14081f" stroke="#ff2d95" stroke-width="2"/>')
         parts.append(
-            f'<text x="16" y="{y + 22}" fill="#f8fafc" font-size="20" font-family="ui-sans-serif,system-ui,sans-serif">{_esc(label)}</text>'
+            f'<text x="32" y="{y + 40}" fill="#fcee0a" font-size="28" font-family="ui-sans-serif,system-ui,sans-serif">{_esc(shown)}</text>'
         )
-        parts.append(f'<rect x="16" y="{y + 32}" width="{bar:.0f}" height="24" rx="8" fill="#22e7ff"/>')
+        parts.append(_text_block(32, y + 64, _lines(label, 18)[:1], 16, anchor="start"))
+        parts.append(f'<rect x="200" y="{y + 28}" width="120" height="10" rx="5" fill="#2a1038"/>')
+        parts.append(f'<rect x="200" y="{y + 28}" width="{min(120, meter / 250 * 120):.0f}" height="10" rx="5" fill="#22e7ff"/>')
         parts.append(
-            f'<text x="328" y="{y + 50}" text-anchor="end" fill="#ff2d95" font-size="18" '
-            f'font-family="ui-sans-serif,system-ui,sans-serif">{_esc(shown)} {_esc(unit)}</text>'
+            f'<text x="320" y="{y + 58}" text-anchor="end" fill="#c4b5fd" font-size="12" '
+            f'font-family="ui-sans-serif,system-ui,sans-serif">{_esc(unit)}</text>'
         )
-    return _frame("".join(parts), title + ", portrait", width, height)
+    return _frame("".join(parts), title + " portrait", width, height, "portrait")
 
 
-def _item(item_id, title, kind, svg, caption, source, url, animated=False):
+def _item(item_id, title, kind, svg, caption, source, url, animated=False, portrait=None):
     return {
         "id": item_id,
         "title": title,
@@ -136,14 +264,14 @@ def _item(item_id, title, kind, svg, caption, source, url, animated=False):
         "source": source,
         "url": url,
         "svg": svg,
-        "svgPortrait": _portrait(title, _labels(svg) or [title]),
+        "svgPortrait": portrait if portrait is not None else _portrait_flow(title, _labels(svg) or [title]),
     }
 
 
 def _flow(item_id, title, labels, caption, source, url, y=78):
     body, _ = _hops(labels, y=y)
     svg = _frame(body, title)
-    return _item(item_id, title, "flow", svg, caption, source, url, True)
+    return _item(item_id, title, "flow", svg, caption, source, url, True, _portrait_flow(title, labels))
 
 
 def _bars(title, rows, unit, ymax=None):
@@ -217,7 +345,7 @@ def build_atlas():
         "trouble-tree", "No-audio troubleshooting tree", "flow",
         _frame(tree, "No-audio troubleshooting tree"),
         "Available and silent is a media problem until proven otherwise: microphone, then UDP 3478, then a VPN on the media path.",
-        "CCP issues", DOC + "common-ccp-issues.html", True,
+        "CCP issues", DOC + "common-ccp-issues.html", True, _portrait_tree(),
     ))
     diagrams.append(_flow(
         "outbound-campaign", "Outbound campaign",
@@ -285,7 +413,7 @@ def build_atlas():
         "architecture", "Instance architecture", "diagram",
         _frame(arch, "Instance architecture"),
         "Connect in the middle. Lex, Lambda, Kinesis, conversational analytics, and the CCP around it. Open the 3D map to orbit the same picture.",
-        "Set up your network", NET, False,
+        "Set up your network", NET, False, _portrait_arch(),
     ))
     diagrams.append(_item(
         "deployment", "Repeatable deployment", "diagram",
@@ -298,6 +426,12 @@ def build_atlas():
                "Repeatable deployment"),
         "Create the instance on purpose, then repeat it. The campus ships a CloudFormation and CDK sketch per track.",
         "Create an instance", DOC + "connect-instances.html", False,
+        _portrait_stack("Four ways to create it", [
+            ("Console", "once, by hand", "#ffb020"),
+            ("CloudFormation", "the template", "#22e7ff"),
+            ("CDK", "the same template", "#c084fc"),
+            ("Terraform", "another client", "#fcee0a"),
+        ]),
     ))
     fw = (
         '<text x="24" y="36" fill="#f3efe4" font-size="16" font-family="ui-sans-serif,system-ui,sans-serif">Firewall matrix, outbound from the agent PC</text>'
@@ -311,6 +445,11 @@ def build_atlas():
         _frame(fw, "Firewall matrix", h=200),
         "TCP 443 to the instance. UDP 3478 to TurnNlb. Stateless return traffic is real, and the ephemeral range is not a single published port.",
         "Set up your network", NET, False,
+        _portrait_stack("Agent PC, outbound", [
+            ("TCP 443", "signaling", "#ffb020"),
+            ("UDP 3478", "media to TurnNlb", "#22e7ff"),
+            ("Ephemeral UDP", "return, OS-dependent", "#f472b6"),
+        ]),
     ))
     diagrams.append(_item(
         "hours-queue", "Hours gate the queue", "diagram",
@@ -324,6 +463,12 @@ def build_atlas():
         ),
         "Hours of operation, including overrides, decide whether the flow offers the queue.",
         "Hours of operation", DOC + "set-hours-operation.html", False,
+        _portrait_stack("Hours gate the queue", [
+            ("Number", "the caller dials", "#22e7ff"),
+            ("Flow", "the product they hear", "#c084fc"),
+            ("Hours check", "holiday wins", "#ffb020"),
+            ("Queue or closed", "a flow decision", "#ff2d95"),
+        ]),
     ))
     diagrams.append(_item(
         "iam-vs-profile", "IAM is not a security profile", "diagram",
@@ -335,6 +480,7 @@ def build_atlas():
         ),
         "A security profile does not replace an IAM policy, and an IAM policy does not click the admin website for you.",
         "Security profiles", DOC + "security-profiles.html", False,
+        _portrait_split("IAM", "AWS API calls", "Security profile", "Buttons in the admin site", "≠"),
     ))
     diagrams.append(_item(
         "salesforce", "Salesforce beside Connect", "diagram",
@@ -349,6 +495,11 @@ def build_atlas():
         "Salesforce CTI Adapter",
         "https://github.com/amazon-connect/amazon-connect-salesforce-cti",
         False,
+        _portrait_stack("Salesforce beside Connect", [
+            ("Salesforce", "the case", "#22e7ff"),
+            ("CTI Adapter", "the embed", "#c084fc"),
+            ("Connect CCP", "the phone", "#ff2d95"),
+        ]),
     ))
     diagrams.append(_item(
         "wfm", "Forecasting and agent scheduling", "diagram",
@@ -362,6 +513,12 @@ def build_atlas():
         ),
         "Native WFM is forecasting and agent scheduling. A third-party WFM reads agent events instead of replacing the queue.",
         "Forecasting and scheduling", DOC + "forecasting-capacity-planning-scheduling.html", False,
+        _portrait_stack("Forecast, then schedule", [
+            ("History", "what happened", "#22e7ff"),
+            ("Forecast", "what you expect", "#c084fc"),
+            ("Capacity", "how many people", "#ffb020"),
+            ("Schedule", "who works when", "#ff2d95"),
+        ]),
     ))
     diagrams.append(_item(
         "renames-2026", "4 August 2026 renames", "diagram",
@@ -378,6 +535,7 @@ def build_atlas():
         "Timeline citing document history, 4 Aug 2026",
         "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
         False,
+        _portrait_renames(),
     ))
     diagrams.append(_item(
         "number-types", "Number types", "diagram",
@@ -390,6 +548,12 @@ def build_atlas():
                "Number types"),
         "DID, toll-free, shared cost, and UIFN. Connect does not offer a CUCM-style SIP trunk page.",
         "Request phone numbers", DOC + "request-phone-number.html", False,
+        _portrait_stack("Number types", [
+            ("DID", "one carrier, local", "#22e7ff"),
+            ("Toll-free", "SOMOS, more than one carrier", "#ff2d95"),
+            ("Shared cost", "its own price unit", "#fcee0a"),
+            ("UIFN", "international free", "#c084fc"),
+        ]),
     ))
     diagrams.append(_item(
         "routing-profile", "What a routing profile holds", "diagram",
@@ -404,6 +568,12 @@ def build_atlas():
         ),
         "A routing profile is queues, channels, concurrency, priority, and delay. It is not a CUCM calling search space.",
         "Routing profiles", DOC + "routing-profiles.html", False,
+        _portrait_stack("Inside one profile", [
+            ("Profile", "who is eligible", "#ff2d95"),
+            ("Queues", "the work", "#22e7ff"),
+            ("Channels", "voice, chat, task", "#c084fc"),
+            ("Priority + delay", "who is offered first", "#fcee0a"),
+        ]),
     ))
     diagrams.append(_item(
         "region-pair", "Global Resiliency pair", "diagram",
@@ -417,6 +587,7 @@ def build_atlas():
         ),
         "Global Resiliency is a published Region pair, not an any-to-any mesh. Cross-region routing was added 31 August 2026.",
         "Set up Global Resiliency", GR, False,
+        _portrait_pair("Source Region", "Replica Region", "linked pair"),
     ))
     diagrams.append(_item(
         "ecosystem-map", "Ecosystem around the queue", "diagram",
@@ -431,6 +602,14 @@ def build_atlas():
         ]), "Ecosystem around the queue"),
         "WFM, recording, E911, CRM, agent assist, and conversational analytics sit beside the queue. They are not extra queues.",
         "Amazon Connect admin guide", DOC, False,
+        _portrait_stack("Around the queue", [
+            ("WFM", "the shift", "#22e7ff"),
+            ("Recording", "the proof", "#c084fc"),
+            ("Queue", "the live contact", "#ff2d95"),
+            ("E911", "the agent location", "#fcee0a"),
+            ("CRM", "the person", "#ffb020"),
+            ("Assist", "a suggestion", "#67e8f9"),
+        ]),
     ))
 
     charts = [

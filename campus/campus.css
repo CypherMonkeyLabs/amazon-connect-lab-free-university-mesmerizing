@@ -1377,3 +1377,49 @@ canvas.track-icon {
 :root[data-motion="reduce"] .hero-fallback i,
 :root[data-motion="reduce"] .mascot .eye { animation: none; }
 
+.lang-banner {
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--cc-line);
+  background: color-mix(in srgb, var(--cc-accent-2) 18%, transparent);
+  font-weight: 700;
+}
+
+@media (min-width: 641px) {
+  :root { --stack: 90px; }
+  .studio-bar {
+    padding: 4px 8px;
+    gap: 6px;
+    min-height: 0;
+  }
+  .studio-home, .studio-links a {
+    min-height: 30px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+  #mascot, #mascot svg { width: 32px; height: 32px; }
+  .campus-menu {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 0 8px 4px;
+    gap: 4px;
+    max-height: 40px;
+  }
+  .campus-menu a,
+  .lang-pick,
+  #theme-toggle,
+  .theme-quick button {
+    min-height: 30px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+  .lang-pick { min-height: 30px; font-size: 12px; gap: 4px; }
+  .campus-menu .theme-quick {
+    flex: none;
+    flex-wrap: nowrap;
+    width: auto;
+    overflow: visible;
+  }
+}
+

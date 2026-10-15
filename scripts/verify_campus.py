@@ -167,6 +167,13 @@ def main():
         problems.append("portrait diagrams missing")
     if "lessonHeading" not in app or not (CAMPUS / "lesson-titles.js").exists():
         problems.append("lesson heading translations missing")
+    bodies = (CAMPUS / "lesson-bodies.js").read_text() if (CAMPUS / "lesson-bodies.js").exists() else ""
+    if "lessonBody" not in app or "foundations-why" not in bodies or "eco-why" not in bodies:
+        problems.append("opening lesson body translations missing")
+    if 'data-layout=\\"portrait\\"' not in (CAMPUS / "data" / "atlas.json").read_text() and 'data-layout="portrait"' not in (CAMPUS / "data" / "atlas.json").read_text():
+        problems.append("portrait diagrams are not marked as designed layouts")
+    if "us-east-1" not in hero_js:
+        problems.append("hero is missing AWS region nodes")
     if 'route.view === "map"' not in app:
         problems.append("3D map still needs its own boot")
     if 'id="lang"' not in html or 'id="lightbox"' not in html:
