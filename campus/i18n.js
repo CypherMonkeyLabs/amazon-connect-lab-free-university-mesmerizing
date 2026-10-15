@@ -57,7 +57,7 @@ export function applyLanguage(lang) {
   const root = document.documentElement;
   root.lang = copy.code;
   root.dir = copy.dir;
-  document.querySelectorAll(".campus-menu a[data-menu]").forEach((link) => {
+  document.querySelectorAll("a[data-menu]").forEach((link) => {
     const label = copy.menu[link.dataset.menu];
     if (label) link.textContent = label;
   });
@@ -72,7 +72,9 @@ export function applyLanguage(lang) {
     if (!english) return;
     el.textContent = lessonHeading(copy.code, english);
   });
-  const select = document.getElementById("lang");
-  if (select && select.value !== copy.code) select.value = copy.code;
+  ["lang", "sheet-lang", "set-lang"].forEach((id) => {
+    const select = document.getElementById(id);
+    if (select && select.value !== copy.code) select.value = copy.code;
+  });
   return copy;
 }
