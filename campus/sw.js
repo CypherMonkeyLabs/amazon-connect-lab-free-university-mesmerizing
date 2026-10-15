@@ -1,5 +1,5 @@
-const VERSION = "acl-campus-v4";
-const SHELL = ["index.html", "campus.css", "app.js", "flowlang.js", "data/shell.json", "og-card.png"];
+const VERSION = "acl-campus-v8";
+const SHELL = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "data/shell.json", "data/mastery.json", "og-card.png"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
 });

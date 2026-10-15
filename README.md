@@ -2,7 +2,7 @@
 
 ![Amazon Connect Lab home, night-ops theme, flat topology until the map opens](docs/screenshots/home.png)
 
-Night ops, day shift, high contrast, and the console theme:
+Night ops, light, futuristic, gaming, neon, high contrast, and the console theme:
 
 ![Night ops](docs/screenshots/theme-dark.png)
 ![Day shift](docs/screenshots/theme-light.png)
@@ -51,7 +51,9 @@ Connect-specific studios:
 
 ## Settings and tips
 
-Settings (`#/settings`) store the theme, sound effects, narration, reduced motion, and type size in `localStorage` under `acl-campus-v1`, with the streak and quiz progress. Themes are Night ops, Day shift, High contrast, and Console. Narration waits for `voiceschanged`, prefers a natural or high-quality voice, and does not select Microsoft Edge unless you pick that voice. Speed runs from 0.6× to 1.6×.
+Settings (`#/settings`) store the theme, sound effects, narration, reduced motion, and type size in `localStorage` under `acl-campus-v1`, with the streak and quiz progress. Themes are Night ops, Light, Futuristic, Gaming, Neon, High contrast, and Console. Narration waits for `voiceschanged`, prefers a natural or high-quality voice, and does not select Microsoft Edge unless you pick that voice. Speed runs from 0.6× to 1.6×.
+
+Cheat codes (`#/cheats`) are one-page HTML, PDF, and PNG sheets for ports, call flows, cutover, the firewall matrix, careers, and the 2026 timeline, plus `downloads/flashcards.json` and `downloads/amazon-connect-lab.zip`. The studio bar links the CypherMonkey Labs home, Linktree, this repository, dev.to, Hugging Face, and X. The footer links the contact form for work and for a takedown. No email address is shown.
 
 Tips (`#/tips`) is one cheat sheet per track: pro tips, interview traps, and a short table. The same sheet is the Tips tab on every lesson. Counts match the single-file campus on `main` with a delta of zero: 1,590 illustrations, 427 animated flows, 25 audio clips, 24 labs, 927 quiz items, and 927 cards.
 

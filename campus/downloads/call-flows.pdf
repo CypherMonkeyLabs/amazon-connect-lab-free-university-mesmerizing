@@ -1,0 +1,62 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Length 1338 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+48 780 Td
+(Call flow ladder) Tj
+T* () Tj
+T* (One inbound voice contact, from the PSTN to after-contact work.) Tj
+T* () Tj
+T* (1. Caller ? Dials a claimed or ported number.) Tj
+T* () Tj
+T* (2. Carrier ? Hands the call to Connect telephony. This is not a CUCM SIP trunk you) Tj
+T* (administer.) Tj
+T* () Tj
+T* (3. Inbound flow ? Plays prompts, calls Lex, calls Lambda, sets attributes.) Tj
+T* () Tj
+T* (4. Queue ? Customer queue flow runs while the contact waits.) Tj
+T* () Tj
+T* (5. Routing ? The profile with the best priority and a satisfied delay receives the offer.) Tj
+T* () Tj
+T* (6. Whisper ? One side hears audio before the join. E911 copies CivicAddress here when the) Tj
+T* (dialed string is 911 or 933.) Tj
+T* () Tj
+T* (7. CCP ? WebRTC media. TCP 443 and UDP 3478.) Tj
+T* () Tj
+T* (8. After contact ? ACW, recording object, CTR, conversational analytics.) Tj
+T* () Tj
+T* (CypherMonkey · Amazon Connect Lab) Tj
+T* (cyphermonkeylabs.com · linktr.ee/cyphermonkey · github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing) Tj
+T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
+T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 4 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+4 0 obj
+<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+endobj
+5 0 obj
+<< /Type /Catalog /Pages 4 0 R >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000001469 00000 n 
+0000001595 00000 n 
+0000001652 00000 n 
+trailer
+<< /Size 6 /Root 5 0 R >>
+startxref
+1701
+%%EOF

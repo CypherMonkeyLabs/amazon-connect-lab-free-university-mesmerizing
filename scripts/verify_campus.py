@@ -183,7 +183,21 @@ def main():
         if item["answer"] not in range(len(item["choices"])):
             problems.append("bad quiz answer " + item["id"])
             break
-    blob_parts = [html, app, (CAMPUS / "campus.css").read_text(), (CAMPUS / "scene.js").read_text(), (CAMPUS / "flowlang.js").read_text(), (CAMPUS / "sw.js").read_text()]
+    studio = (CAMPUS / "studio.js").read_text() if (CAMPUS / "studio.js").exists() else ""
+    if "viewCheats" not in studio or "KONAMI" not in studio:
+        problems.append("studio.js missing cheat codes or the konami hook")
+    for theme in ('data-theme="futuristic"', 'data-theme="gaming"', 'data-theme="neon"'):
+        if theme not in css:
+            problems.append("missing theme " + theme)
+    if "cyphermonkeylabs.com" not in html or "linktr.ee/cyphermonkey" not in html:
+        problems.append("studio chrome links missing")
+    if "linkedin.com" in html.lower() or "mailto:" in html.lower():
+        problems.append("chrome includes LinkedIn or an email")
+    downloads = CAMPUS / "downloads"
+    for name in ("index.html", "ports-protocols.html", "ports-protocols.pdf", "flashcards.json", "amazon-connect-lab.zip"):
+        if not (downloads / name).exists():
+            problems.append("missing download " + name)
+    blob_parts = [html, app, studio, (CAMPUS / "campus.css").read_text(), (CAMPUS / "scene.js").read_text(), (CAMPUS / "flowlang.js").read_text(), (CAMPUS / "sw.js").read_text()]
     blob = "\n".join(blob_parts).lower()
     for host in FORBIDDEN:
         if host in blob:

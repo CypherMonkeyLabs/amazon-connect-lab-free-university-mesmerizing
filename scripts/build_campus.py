@@ -178,6 +178,31 @@ try {
 </head>
 <body>
 <a class="skip" href="#view-title">Skip to content</a>
+<header class="studio-bar">
+  <a class="studio-home" href="https://cyphermonkeylabs.com">CypherMonkey Labs</a>
+  <nav class="studio-links" aria-label="Studio">
+    <a href="https://linktr.ee/cyphermonkey">Linktree</a>
+    <a href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing">Rate this lab</a>
+    <a href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing/issues">Comment / help</a>
+    <a href="https://dev.to/cyphermonkey">dev.to</a>
+    <a href="https://huggingface.co/Cypher0x9">Hugging Face</a>
+    <a href="https://x.com/Cypher0x9">X</a>
+    <a href="downloads/amazon-connect-lab.zip" download="amazon-connect-lab.zip">Download offline</a>
+  </nav>
+  <div class="mascot" id="mascot" data-pose="idle" data-shift="day">
+    <svg viewBox="0 0 64 64" role="img" aria-label="CypherMonkey">
+      <ellipse class="ear" cx="14" cy="28" rx="8" ry="10"/>
+      <ellipse class="ear" cx="50" cy="28" rx="8" ry="10"/>
+      <circle class="face" cx="32" cy="32" r="16"/>
+      <ellipse class="muzzle" cx="32" cy="38" rx="8" ry="6"/>
+      <circle class="eye" cx="26" cy="29" r="2"/>
+      <circle class="eye" cx="38" cy="29" r="2"/>
+      <path class="smile" d="M27 40q5 6 10 0" fill="none" stroke-width="1.6" stroke-linecap="round"/>
+      <path class="arm" d="M16 44q-8-8 2-16" fill="none" stroke-width="2.4" stroke-linecap="round"/>
+      <path class="band" d="M20 20q12-12 24 0" fill="none" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+  </div>
+</header>
 <div class="app">
   <aside class="rail" id="rail">
     <div class="brand">
@@ -199,6 +224,12 @@ try {
       <button data-go="#/map">3D map</button>
       <button data-go="#/ccp">CCP</button>
       <button data-go="#/tips">Tips</button>
+      <button data-go="#/syllabus">Syllabus</button>
+      <button data-go="#/cheats">Cheat codes</button>
+      <button data-go="#/ports">Ports game</button>
+      <button data-go="#/explorer">Flow map</button>
+      <button data-go="#/daily">Daily</button>
+      <button data-go="#/career">Career</button>
       <button data-go="#/settings">Settings</button>
     </div>
   </aside>
@@ -209,11 +240,35 @@ try {
       <div class="progress" aria-label="Lessons opened"><span id="progress-label">0%</span><div class="progress-track"><i id="progress-pip"></i></div></div>
       <button class="ghost" type="button" data-go="#/settings">Settings</button>
       <div class="streak" aria-label="Study streak"><b id="streak-count">0</b><span>day streak</span></div>
+      <div class="theme-quick" role="group" aria-label="Theme">
+        <button type="button" data-theme="futuristic">Futuristic</button>
+        <button type="button" data-theme="gaming">Gaming</button>
+        <button type="button" data-theme="neon">Neon</button>
+        <button type="button" data-theme="light">Light</button>
+      </div>
     </header>
     <main id="stage" tabindex="-1">
       <p class="meta" id="view-kicker">Free offline campus</p>
       <h1 id="view-title">Amazon Connect Lab</h1>
       <div id="view"><p>Loading the campus.</p></div>
+      <footer class="site-foot">
+        <p class="sig">CypherMonkey · Amazon Connect Lab</p>
+        <p>Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content.</p>
+        <p class="foot-links"><a href="https://cyphermonkeylabs.com/#contact">Work with us</a><a href="https://cyphermonkeylabs.com/#contact">Report a concern / takedown</a></p>
+        <nav class="next-labs" aria-label="Other labs">
+          <p>Next lab</p>
+          <a href="https://cipher0x9.github.io/uc-lab-free-university-mesmerizing/">UC Lab</a>
+          <a href="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/">AI Lab</a>
+          <a href="https://cipher0x9.github.io/microsoft-voice-cc-lab-free-university-mesmerizing/">Microsoft Voice</a>
+          <a href="https://cipher0x9.github.io/five9-lab-free-university-mesmerizing/">Five9</a>
+          <a href="https://cipher0x9.github.io/genesys-cloud-lab-free-university-mesmerizing/">Genesys Cloud</a>
+          <a href="https://cipher0x9.github.io/nice-cxone-lab-free-university-mesmerizing/">NICE CXone</a>
+          <a href="https://cipher0x9.github.io/sip-universe-lab-free-university-mesmerizing/">SIP Universe</a>
+          <a href="https://cipher0x9.github.io/webex-lab-free-university-mesmerizing/">Webex Lab</a>
+          <a href="https://cypherwebex-canon-test.vercel.app">Webex Canon</a>
+          <a href="https://cipher0x9.github.io/gemini-gems-free-gallery/">Gemini Gems</a>
+        </nav>
+      </footer>
     </main>
   </div>
 </div>
@@ -247,7 +302,7 @@ try {
 </html>
 """
 
-SW_JS = """const VERSION = "acl-campus-v4";
+SW_JS = """const VERSION = "acl-campus-v8";
 const SHELL = __SHELL__;
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -434,14 +489,16 @@ def main():
         shutil.rmtree(campus / "data")
     counts = split_modules(data, campus)
     (campus / "index.html").write_text(SHELL_HTML)
-    for name in ("app.js", "scene.js", "flowlang.js", "campus.css"):
+    for name in ("app.js", "studio.js", "scene.js", "flowlang.js", "campus.css"):
         shutil.copyfile(ROOT / "web" / name, campus / name)
     vendor = campus / "vendor"
     if vendor.exists():
         shutil.rmtree(vendor)
     shutil.copytree(ROOT / "web" / "vendor", vendor)
     (campus / ".nojekyll").write_text("")
-    precache = ["index.html", "campus.css", "app.js", "flowlang.js", "data/shell.json"]
+    from build_downloads import main as build_downloads  # noqa: E402
+    build_downloads()
+    precache = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "data/shell.json", "data/mastery.json"]
     if (campus / "og-card.png").exists():
         precache.append("og-card.png")
     (campus / "sw.js").write_text(SW_JS.replace("__SHELL__", json.dumps(precache)))

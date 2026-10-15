@@ -1,6 +1,6 @@
 # Notice
 
-Amazon Connect Lab is an independent study guide. It is not published by Amazon Web Services and it is not official training.
+Amazon Connect Lab is an independent study guide. It is not published by Amazon Web Services and it is not official training. Code in this repository is MIT. The original study text is CC BY-NC-SA 4.0. AWS names, marks, and documentation remain with Amazon Web Services.
 
 Amazon Web Services, Amazon Connect, Amazon Lex, Amazon CloudWatch, and the other AWS names used in the lessons are trademarks of Amazon.com, Inc. or its affiliates. Cisco, Webex, Avaya, Genesys, Salesforce, ServiceNow, and Microsoft names belong to their owners.
 

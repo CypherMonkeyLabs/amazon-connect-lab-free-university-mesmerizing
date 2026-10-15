@@ -1,0 +1,72 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Length 2201 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+48 780 Td
+(Cutover plan) Tj
+T* () Tj
+T* (Dual-run, evidence, then the rest. Heroic cutovers are how recordings go missing.) Tj
+T* () Tj
+T* (1. Inventory: Write down numbers, queues, scripts or flows, skills, desktops, reports,) Tj
+T* (recording paths, and the WFM feed. If it is not on the list, it will be rediscovered during) Tj
+T* (the outage.) Tj
+T* () Tj
+T* (2. Map objects: Use the bridge table. A skill group, a CSQ, and a hunt pilot are not three) Tj
+T* (names for one Connect queue. Say which Connect object each one becomes.) Tj
+T* () Tj
+T* (3. Build the instance: Region, identity, hours, queues, routing profiles, and flows whose) Tj
+T* (error branches play a prompt. Logging on. One Lambda alias associated.) Tj
+T* () Tj
+T* (4. Pilot number: Claim or port one number. Keep the old platform able to take that traffic) Tj
+T* (back. Porting uses the same Support path the quota page describes.) Tj
+T* () Tj
+T* (5. Dual-run: Move a small share. Compare one ContactId, one recording object in S3, one CTR,) Tj
+T* (and one screen pop. Then compare them again the next morning.) Tj
+T* () Tj
+T* (6. Prove the agent network: From a real agent PC, not a jump host: TCP 443, UDP 3478, and an) Tj
+T* (error rate under 2 percent across more than 200 calls.) Tj
+T* () Tj
+T* (7. Prove emergency calling: For US CCP agents, validate the address, store it, and read it) Tj
+T* (back with 933. Do not place a live 911 call as a test.) Tj
+T* () Tj
+T* (8. Shift and watch: Increase traffic only after the pilot evidence exists. Keep the rollback) Tj
+T* (number for a full business cycle.) Tj
+T* () Tj
+T* (9. Decommission: Turn off the old route only after recordings and CTR delivery have been) Tj
+T* (seen for the contacts that moved.) Tj
+T* () Tj
+T* (CypherMonkey · Amazon Connect Lab) Tj
+T* (cyphermonkeylabs.com · linktr.ee/cyphermonkey · github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing) Tj
+T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
+T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 4 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+4 0 obj
+<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+endobj
+5 0 obj
+<< /Type /Catalog /Pages 4 0 R >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000002332 00000 n 
+0000002458 00000 n 
+0000002515 00000 n 
+trailer
+<< /Size 6 /Root 5 0 R >>
+startxref
+2564
+%%EOF

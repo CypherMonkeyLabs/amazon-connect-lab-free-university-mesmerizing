@@ -1,13 +1,19 @@
 import {
   FLOW_DOCS, PALETTE, PORTS, exportFlow, importFlow, sampleOrderStatus, wireMissing,
 } from "./flowlang.js";
+import {
+  KONAMI, answerDaily, answerPort, shareCard, tickMascot, viewCareer, viewCheats, viewDaily, viewExplorer, viewPorts, viewSyllabus,
+} from "./studio.js";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const KEY = "acl-campus-v1";
 const THEMES = [
   ["dark", "Night ops", "Amber and mint on a deep field.", "#0b1120", "#ffb020", "#2dd4bf"],
-  ["light", "Day shift", "Ink on paper.", "#f8fafc", "#9a3412", "#0f766e"],
+  ["light", "Light", "Ink on paper.", "#f8fafc", "#9a3412", "#0f766e"],
+  ["futuristic", "Futuristic", "Cyan glass on a night grid.", "#050816", "#00e5ff", "#7c5cff"],
+  ["gaming", "Gaming", "Lime and magenta, sharp corners.", "#0a0614", "#39ff14", "#ff2bd6"],
+  ["neon", "Neon", "Hot pink and electric cyan.", "#07010f", "#ff2d95", "#22e7ff"],
   ["contrast", "High contrast", "Yellow on black.", "#000000", "#ffe14a", "#ffffff"],
   ["console", "Console", "AWS orange on navy.", "#0f1b2d", "#ff9900", "#3dcfb4"],
 ];
@@ -68,6 +74,7 @@ function loadState() {
     opened: [], labs: [], quiz: { correct: 0, answered: 0, seen: {} }, cards: { known: [] },
     streak: { last: "", count: 0 }, theme: "dark", achievements: [], scenario: {},
     sound: true, narration: true, voiceURI: "", rate: 1, reducedMotion: null, fontSize: "md",
+    syllabus: {}, ports: { index: 0, score: 0, done: false, best: 0 }, daily: { day: "", answered: false, correct: false },
   };
   try { return Object.assign(blank, JSON.parse(localStorage.getItem(KEY) || "null") || {}); }
   catch (err) { return blank; }
@@ -83,6 +90,25 @@ function applyPrefs() {
   root.dataset.theme = state.theme || "dark";
   root.dataset.font = state.fontSize || "md";
   root.dataset.motion = motionReduced() ? "reduce" : "full";
+  const kicker = document.querySelector(".brand-kicker");
+  const theme = THEMES.find((row) => row[0] === (state.theme || "dark"));
+  if (kicker && theme) kicker.textContent = theme[1];
+}
+function studioCtx() {
+  return { esc, state, save, award, load, hub, setTitle };
+}
+let konamiAt = 0;
+function unlockEgg() {
+  award("konami");
+  document.documentElement.dataset.egg = "1";
+  state.theme = "neon";
+  save();
+  applyPrefs();
+  const banner = document.createElement("p");
+  banner.className = "egg-banner";
+  banner.textContent = "CypherMonkey found the night shift. Neon is on.";
+  document.body.appendChild(banner);
+  setTimeout(() => banner.remove(), 4200);
 }
 function isEdgeVoice(voice) {
   const blob = ((voice.name || "") + " " + (voice.voiceURI || "")).toLowerCase();
@@ -212,6 +238,8 @@ function field(label, id, value, type) {
 const ACH = {
   first: "First contact", foundations: "Foundations", streak: "Three-day streak", labs: "Five labs",
   quiz: "Twenty correct", bridge: "Bridge crossed", ecosystem: "Ecosystem opened", scenario: "Walkthrough finished",
+  ports: "Ports badge", daily: "Daily challenge", konami: "Night shift", cheat: "Cheat codes",
+  explorer: "Flow map", sandbox: "Flow sandbox",
 };
 
 function renderRail() {
@@ -261,7 +289,7 @@ async function render() {
     if (gen !== renderGen) return;
     $("#view").innerHTML = html;
     $("#search-modal").hidden = true;
-    $("#stage").focus();
+    $("#stage").focus({ preventScroll: true });
     await afterRender(gen);
   } catch (err) {
     if (gen !== renderGen) return;
@@ -291,6 +319,13 @@ async function viewFor(r) {
   if (r.view === "lens") return viewLens();
   if (r.view === "settings") return viewSettings();
   if (r.view === "tips") return r.id ? viewTip(r.id) : viewTips();
+  if (r.view === "cheats") return viewCheats(studioCtx());
+  if (r.view === "syllabus") return viewSyllabus(studioCtx());
+  if (r.view === "career") return viewCareer(studioCtx());
+  if (r.view === "explorer") return viewExplorer(studioCtx());
+  if (r.view === "ports") return viewPorts(studioCtx());
+  if (r.view === "daily") return viewDaily(studioCtx());
+  if (r.view === "sandbox") return viewLab("flow-builder");
   setTitle("Campus", "That page is not on the map");
   return `<p>The address does not match a track, lesson, lab, or studio.</p><p><button class="solid" data-go="#/">Back home</button></p>`;
 }
@@ -414,10 +449,14 @@ function viewHome() {
         <div class="why"><strong>Why it matters.</strong> A contact center fails in a quota, a key policy, a missing error branch, or a blocked UDP port. This campus makes those failures visible before they are expensive.</div>
         <div class="actions">
           <button class="solid" data-go="#/track/foundations">Start with Foundations</button>
+          <button class="ghost" data-go="#/syllabus">Syllabus</button>
           <button class="ghost" data-go="#/map">Open the 3D map</button>
-          <button class="ghost" data-go="#/tips">Tips and traps</button>
-          <button class="ghost" data-go="#/lab/flow-builder">Flow builder</button>
-          <button class="ghost" data-go="#/ccp">CCP</button>
+          <button class="ghost" data-go="#/explorer">Flow map</button>
+          <button class="ghost" data-go="#/cheats">Cheat codes</button>
+          <button class="ghost" data-go="#/ports">Ports game</button>
+          <button class="ghost" data-go="#/daily">Daily challenge</button>
+          <button class="ghost" data-go="#/sandbox">Call-flow sandbox</button>
+          <button class="ghost" data-go="#/career">Career paths</button>
         </div>
         <div class="stats-row" aria-label="Campus counts">
           ${stat(shell.counts.tracks, "Tracks")}${stat(shell.counts.lessons, "Lessons")}${stat(shell.counts.illustrations, "Figures")}${stat(shell.counts.animatedFlows, "Flows")}${stat(shell.counts.labs, "Labs")}${stat(shell.counts.faults, "Faults")}
@@ -425,6 +464,17 @@ function viewHome() {
       </div>
       <div>${architecturePanel(false)}</div>
     </section>
+    <figure class="glass figure home-ladder">
+      <svg viewBox="0 0 760 92" role="img" aria-label="Inbound call moving from the PSTN to the CCP">
+        <line x1="36" y1="46" x2="724" y2="46" stroke="currentColor" stroke-width="3" opacity="0.45"/>
+        <circle r="7" fill="#ffb020"><animateMotion dur="5.5s" repeatCount="indefinite" path="M36,46 H724"/></circle>
+        ${["PSTN", "Flow", "Lex", "Queue", "CCP"].map((label, index) => {
+          const x = 36 + index * 172;
+          return `<g><rect x="${x}" y="22" width="92" height="48" rx="12" fill="#131d31" stroke="#3dcfb4"/><text x="${x + 46}" y="51" text-anchor="middle" fill="#f3efe4" font-size="14">${label}</text></g>`;
+        }).join("")}
+      </svg>
+      <figcaption>A contact moving inbound. The flow map names the port on each hop.</figcaption>
+    </figure>
     <div class="section-head"><h2>Study order</h2><button class="ghost" data-go="#/timeline">Feature timeline</button></div>
     <div class="grid-cards">${cards}</div>
     <div class="section-head"><h2>Studios</h2></div>
@@ -530,7 +580,7 @@ function lessonPanel(lesson, iac) {
   return `<div class="lesson"><div>
       <div class="why"><strong>Why it matters.</strong> ${esc(lesson.why)}</div>
       <div class="figure-grid">${figures}</div>
-      <div class="prose">${lesson.paras.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+      <div class="prose reading">${lesson.paras.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
       <ol class="points">${points}</ol>
       <p class="mistake"><strong>Common mistake.</strong> ${esc(lesson.mistake)}</p>
       <p class="cite">Source: <a href="${esc(lesson.cite.url)}">${esc(lesson.cite.title)}</a></p>
@@ -637,6 +687,7 @@ async function viewLab(id) {
     if (state.labs.length >= 5) award("labs");
     save();
   }
+  if (id === "flow-builder") award("sandbox");
   setTitle("Lab · " + meta.track, meta.title);
   const body = LAB[id] ? LAB[id]() : `<p>This lab is not wired.</p>`;
   return `<p>${esc(meta.summary)}</p>${body}<p><button class="ghost" data-go="#/labs">All labs</button></p>`;
@@ -1265,6 +1316,30 @@ function onClick(ev) {
   }
   if (ev.target.id === "rq-add") addRouteRow();
   if (ev.target.id === "rq-run") runRoutes();
+  if (ev.target.id === "ports-reset") {
+    const best = (state.ports && state.ports.best) || 0;
+    state.ports = { index: 0, score: 0, done: false, best };
+    save();
+    render();
+    return;
+  }
+  if (ev.target.id === "ports-next") { render(); return; }
+  const portBtn = ev.target.closest("[data-port]");
+  if (portBtn && route.view === "ports") { answerPort(studioCtx(), Number(portBtn.getAttribute("data-port"))); return; }
+  const dailyBtn = ev.target.closest("[data-daily]");
+  if (dailyBtn && route.view === "daily") { answerDaily(studioCtx(), Number(dailyBtn.getAttribute("data-daily"))); return; }
+  if (ev.target.id === "share-card") {
+    shareCard(ev.target.getAttribute("data-share-title") || "Amazon Connect Lab", ev.target.getAttribute("data-share-line") || "Study card");
+    return;
+  }
+  const syllabusBox = ev.target.closest("[data-syllabus]");
+  if (syllabusBox) {
+    state.syllabus = state.syllabus || {};
+    const id = syllabusBox.getAttribute("data-syllabus");
+    if (syllabusBox.checked) state.syllabus[id] = true;
+    else delete state.syllabus[id];
+    save();
+  }
   const themeBtn = ev.target.closest("button[data-theme]");
   if (themeBtn && themeBtn.dataset.theme) {
     state.theme = themeBtn.dataset.theme;
@@ -1648,7 +1723,16 @@ async function search(query) {
   const n = query.trim().toLowerCase();
   if (!n) { $("#hits").innerHTML = ""; return; }
   if (!hub.search) hub.search = await load("data/search.json");
-  const hits = hub.search.hits.filter((h) => h.text.includes(n)).slice(0, 20);
+  const extra = [
+    { href: "#/cheats", label: "Cheat codes", meta: "Downloads", text: "cheat sheet pdf png ports firewall glossary flashcards offline zip download" },
+    { href: "#/syllabus", label: "Syllabus", meta: "Map", text: "fundamentals migration e911 wfm certification career checklist" },
+    { href: "#/ports", label: "Ports game", meta: "Game", text: "3478 443 firewall udp tcp turn ports protocols mastery" },
+    { href: "#/explorer", label: "Flow map explorer", meta: "Map", text: "pstn ccp call flow ladder signal path" },
+    { href: "#/daily", label: "Daily challenge", meta: "Quiz", text: "daily question challenge" },
+    { href: "#/career", label: "Career paths", meta: "Career", text: "interview badge certification architect" },
+    { href: "#/sandbox", label: "Call flow sandbox", meta: "Lab", text: "build your own contact flow sandbox" },
+  ];
+  const hits = hub.search.hits.concat(extra).filter((h) => h.text.includes(n)).slice(0, 20);
   $("#hits").innerHTML = hits.map((h) => `<button class="hit" data-go="${esc(h.href)}"><strong>${esc(h.label)}</strong><br><span class="meta">${esc(h.meta)}</span></button>`).join("") || `<p>No matches.</p>`;
 }
 
@@ -1657,6 +1741,15 @@ window.addEventListener("hashchange", render);
 document.addEventListener("keydown", (ev) => {
   if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === "k") { ev.preventDefault(); openSearch(); }
   if (ev.key === "Escape") { $("#search-modal").hidden = true; closeDrawer(); }
+  const typing = ev.target && (ev.target.tagName === "INPUT" || ev.target.tagName === "TEXTAREA" || ev.target.tagName === "SELECT");
+  if (typing) return;
+  const key = ev.key.length === 1 ? ev.key.toLowerCase() : ev.key;
+  if (key === KONAMI[konamiAt]) {
+    konamiAt += 1;
+    if (konamiAt === KONAMI.length) { konamiAt = 0; unlockEgg(); }
+  } else {
+    konamiAt = key === KONAMI[0] ? 1 : 0;
+  }
 });
 $("#q").addEventListener("input", (ev) => { search(ev.target.value); });
 document.body.addEventListener("input", (ev) => {
@@ -1701,6 +1794,8 @@ if (window.speechSynthesis) {
   window.speechSynthesis.addEventListener("voiceschanged", () => { if ($("#set-voice")) fillVoices(); });
   window.speechSynthesis.getVoices();
 }
+tickMascot(motionReduced());
+setInterval(() => tickMascot(motionReduced()), 7000);
 if ("serviceWorker" in navigator && location.protocol !== "file:") {
   navigator.serviceWorker.register("sw.js").catch(() => { /* offline until the next visit */ });
 }

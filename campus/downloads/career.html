@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Career paths and interview prompts · Amazon Connect Lab</title>
+<style>
+  body { margin: 0; font: 16px/1.45 "Segoe UI", sans-serif; color: #14202b; background: #f4f7fb; }
+  main { max-width: 880px; margin: 0 auto; padding: 28px 18px 48px; }
+  h1 { font-size: 32px; line-height: 1.1; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 22px 0 8px; }
+  p { margin: 8px 0; }
+  table { width: 100%; border-collapse: collapse; background: #fff; }
+  th, td { border-bottom: 1px solid #d5deea; text-align: left; vertical-align: top; padding: 8px; font-size: 14px; }
+  .flag { background: #fff4d6; }
+  a { color: #0f5c6b; }
+  .card { break-inside: avoid; border: 1px solid #d5deea; background: #fff; border-radius: 12px; padding: 12px; margin: 8px 0; }
+  .sheet-foot { margin-top: 28px; padding-top: 12px; border-top: 2px solid #e5843b; font-size: 13px; color: #3d4d5c; }
+  @media print { body { background: #fff; } a { color: inherit; text-decoration: none; } }
+</style>
+</head>
+<body>
+<main>
+<h1>Career paths and interview prompts</h1>
+<p>Badges are not certifications. Say the exam name or the badge name, not both for one credential.</p><article class='card'><h2>Connect administrator</h2><p>Instance, hours, queues, routing profiles, security profiles, quotas.</p><p>Skill Builder badges (Communications Specialist, Fundamentals, administrator track), passed at 80 percent. Not a proctored Connect specialty exam.</p><p>Source: <a href="https://aws.amazon.com/certification/">AWS Certification catalog</a></p></article><article class='card'><h2>Flow developer</h2><p>Flow types, modules, the flow language JSON, Lex slots, and the 8-second Lambda contract.</p><p>Connect Developer badge, plus AWS Certified Developer - Associate if the work is Lambda and Streams.</p><p>Source: <a href="https://aws.amazon.com/blogs/contact-center/elevate-your-amazon-connect-skills-with-specialty-training-badges/">Skill Builder badge blog</a></p></article><article class='card'><h2>Solutions architect</h2><p>Region pairs, Global Resiliency, IAM prefixes, KMS, S3, Kinesis fan-out.</p><p>AWS Certified Solutions Architect - Associate is the closest catalog exam. There is still no Connect specialty.</p><p>Source: <a href="https://aws.amazon.com/certification/">AWS Certification catalog</a></p></article><article class='card'><h2>Network engineer for the CCP</h2><p>Domain allow list, UDP 3478, stateless return traffic, VPN kept off the media path, VDI limits.</p><p>AWS Certified Advanced Networking - Specialty covers complex networks. Its last day to test is 31 December 2026.</p><p>Source: <a href="https://aws.amazon.com/certification/">AWS Certification catalog</a></p></article><article class='card'><h2>WFM and quality analyst</h2><p>Forecasting and agent scheduling, agent events, shrinkage, conversational analytics, evaluation forms.</p><p>The AI Fundamentals badge is context. It does not configure a flow. Pair it with the analytics and ecosystem tracks.</p><p>Source: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html">Forecasting and scheduling</a></p></article><h2>Interview prompts</h2><article class='card'><h2>Is there an Amazon Connect certification?</h2><p>Not a specialty exam on the AWS Certification catalog. Connect recognition is a Skill Builder badge at 80 percent. Say which badge, and do not call it certified.</p></article><article class='card'><h2>Why did the softphone fail when the agent was signed in?</h2><p>Signaling can succeed on TCP 443 while media fails on UDP 3478 to TurnNlb.</p></article><article class='card'><h2>What replaced Contact Lens and Amazon Q in Connect in 2026?</h2><p>On 4 August 2026 the admin guide renamed them conversational analytics and agent assist. IAM for assist still shows the wisdom prefix.</p></article><article class='card'><h2>How do you migrate a CUCM SIP trunk?</h2><p>You do not register Connect as a phone. The public number hits a flow. A transfer back to CUCM is Transfer to phone number, and attributes do not ride the PSTN.</p></article><article class='card'><h2>What is the honest multi-Region design?</h2><p>Global Resiliency in a published pair, shifted 10 percent at a time. A second instance you built by hand is not that pattern.</p></article><article class='card'><h2>Voice ID in a design written this year?</h2><p>Support ended 20 May 2026. Remove the blocks. Use a partner or a one-time password.</p></article>
+<footer class="sheet-foot">
+  <p>CypherMonkey · Amazon Connect Lab</p>
+  <p><a href="https://cyphermonkeylabs.com">CypherMonkey Labs</a> · <a href="https://linktr.ee/cyphermonkey">Linktree</a> · <a href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing">This lab on GitHub</a> · <a href="https://dev.to/cyphermonkey">dev.to</a> · <a href="https://huggingface.co/Cypher0x9">Hugging Face</a> · <a href="https://x.com/Cypher0x9">X</a></p>
+  <p>Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.</p>
+  <p><a href="https://cyphermonkeylabs.com/#contact">Work with us</a> · <a href="https://cyphermonkeylabs.com/#contact">Report a concern / takedown</a></p>
+</footer>
+</main>
+</body>
+</html>
