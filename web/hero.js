@@ -83,7 +83,7 @@ export function mountHero(container, themeId) {
     return null;
   }
   const narrow = (container.clientWidth || window.innerWidth) < 700;
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, narrow ? 1.25 : 1.6));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.setClearColor(colors().bg, 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ReinhardToneMapping;
@@ -254,8 +254,14 @@ export function mountHero(container, themeId) {
     const rect = container.getBoundingClientRect();
     scrollBoost = Math.max(-1.6, Math.min(1.6, -rect.top / 480));
   }
+  let onScreen = true;
   function frame() {
+    if (document.hidden || !onScreen) {
+      raf = 0;
+      return;
+    }
     raf = requestAnimationFrame(frame);
+    const reduced = document.documentElement.dataset.motion === "reduce";
     const t = clock.getElapsedTime();
     nodes.rotation.y = t * 0.16;
     labelOrbit.rotation.y = -t * 0.11;
@@ -270,10 +276,13 @@ export function mountHero(container, themeId) {
     });
     far.points.rotation.y = t * 0.012;
     near.points.rotation.y = -t * 0.04;
-    const drift = t * 0.06;
-    camera.position.x = Math.cos(drift) * 9.1 + pointer.x * 1.1;
+    const drift = reduced ? 0.4 : t * 0.06;
+    const px = reduced ? 0 : pointer.x;
+    const py = reduced ? 0 : pointer.y;
+    const scroll = reduced ? 0 : scrollBoost;
+    camera.position.x = Math.cos(drift) * 9.1 + px * 1.1;
     camera.position.z = Math.sin(drift) * 9.1;
-    camera.position.y = 3.2 + Math.sin(t * 0.2) * 0.4 + scrollBoost + pointer.y * 0.4;
+    camera.position.y = 3.2 + (reduced ? 0 : Math.sin(t * 0.2) * 0.4) + scroll + py * 0.4;
     camera.lookAt(0, 0.2, 0);
     if (composer) {
       try {
@@ -288,10 +297,28 @@ export function mountHero(container, themeId) {
     }
   }
 
+  function resume() {
+    if (raf || document.hidden || !onScreen) return;
+    raf = requestAnimationFrame(frame);
+  }
+  function onHide() {
+    if (document.hidden || !onScreen) {
+      cancelAnimationFrame(raf);
+      raf = 0;
+      return;
+    }
+    resume();
+  }
   const resizeObserver = new ResizeObserver(resize);
   resizeObserver.observe(container);
+  const viewObserver = new IntersectionObserver((entries) => {
+    onScreen = entries.some((entry) => entry.isIntersecting);
+    onHide();
+  }, { threshold: 0.02 });
+  viewObserver.observe(container);
   window.addEventListener("pointermove", onPointer, { passive: true });
   window.addEventListener("scroll", onScroll, { passive: true });
+  document.addEventListener("visibilitychange", onHide);
   resize();
   onScroll();
   raf = requestAnimationFrame(frame);
@@ -329,8 +356,10 @@ export function mountHero(container, themeId) {
     dispose() {
       cancelAnimationFrame(raf);
       resizeObserver.disconnect();
+      viewObserver.disconnect();
       window.removeEventListener("pointermove", onPointer);
       window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("visibilitychange", onHide);
       regionGeo.dispose();
       far.geo.dispose();
       far.mat.dispose();

@@ -179,6 +179,16 @@ try {
 </head>
 <body data-view="home">
 <a class="skip" href="#view-title">Skip to content</a>
+<header class="phone-bar">
+  <a class="phone-logo" href="#/">
+    <span class="mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M6 22c6 6 18 6 24 0" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="18" cy="14" r="3" fill="currentColor"/></svg></span>
+    <span>Connect Lab</span>
+  </a>
+  <button class="phone-menu-btn" id="phone-menu" type="button" aria-expanded="false" aria-controls="phone-sheet">
+    <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
+    Menu
+  </button>
+</header>
 <div class="studio-stack">
 <header class="studio-bar">
   <a class="studio-home" href="https://cyphermonkeylabs.com">CypherMonkey Labs</a>
@@ -218,6 +228,7 @@ try {
   <a href="#/track/ecosystem" data-menu="ecosystem">Ecosystem</a>
   <a href="#/downloads" data-menu="downloads">Downloads</a>
   <a href="#/career" data-menu="careers">Careers</a>
+  <a href="#/settings" data-menu="settings">Settings</a>
   <label class="lang-pick">Language
     <select id="lang" aria-label="Language">
       <option value="en">English</option>
@@ -239,6 +250,54 @@ try {
     <button type="button" data-theme="light">Light</button>
   </div>
 </nav>
+</div>
+<div id="phone-sheet" class="phone-sheet" hidden role="dialog" aria-modal="true" aria-labelledby="phone-sheet-title">
+  <div class="phone-sheet-head">
+    <p id="phone-sheet-title">Menu</p>
+    <button type="button" id="sheet-search">Search</button>
+    <button type="button" id="phone-close">Close</button>
+  </div>
+  <nav class="phone-sections" aria-label="Sections">
+    <a href="#/" data-menu="learn">Learn</a>
+    <a href="#/diagrams" data-menu="diagrams">Diagrams</a>
+    <a href="#/flows" data-menu="flows">Flows</a>
+    <a href="#/charts" data-menu="charts">Charts</a>
+    <a href="#/cheats" data-menu="cheats">Cheat Codes</a>
+    <a href="#/play" data-menu="play">Play</a>
+    <a href="#/track/ecosystem" data-menu="ecosystem">Ecosystem</a>
+    <a href="#/downloads" data-menu="downloads">Downloads</a>
+    <a href="#/career" data-menu="careers">Careers</a>
+    <a href="#/labs" data-menu="labs">Labs</a>
+    <a href="#/quiz" data-menu="quiz">Quiz</a>
+    <a href="#/cards" data-menu="cards">Cards</a>
+    <a href="#/glossary" data-menu="glossary">Glossary</a>
+    <a href="#/map" data-menu="map">Map</a>
+    <a href="#/audio" data-menu="listen">Listen</a>
+    <a href="#/timeline" data-menu="timeline">Timeline</a>
+    <a href="#/settings" data-menu="settings">Settings</a>
+  </nav>
+  <nav id="phone-tracks" class="phone-tracks" aria-label="Tracks"></nav>
+  <div class="phone-prefs">
+    <label class="lang-pick">Language
+      <select id="sheet-lang" aria-label="Language">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="hi">हिन्दी</option>
+        <option value="te">తెలుగు</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="ja">日本語</option>
+        <option value="ar">العربية</option>
+      </select>
+    </label>
+    <div class="theme-quick" role="group" aria-label="Theme">
+      <button type="button" data-theme="neon">Neon</button>
+      <button type="button" data-theme="holographic">Holographic</button>
+      <button type="button" data-theme="cyberpunk">Cyberpunk</button>
+      <button type="button" data-theme="sunset">Sunset</button>
+      <button type="button" data-theme="light">Light</button>
+    </div>
+  </div>
 </div>
 <div class="app">
   <aside class="rail" id="rail">
@@ -286,7 +345,7 @@ try {
       <footer class="site-foot">
         <p class="sig">CypherMonkey · Amazon Connect Lab</p>
         <p>Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content.</p>
-        <p class="foot-links"><a href="https://cyphermonkeylabs.com/#contact">Work with us</a><a href="https://cyphermonkeylabs.com/#contact">Report a concern / takedown</a></p>
+        <p class="foot-links"><a href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing">Rate this lab</a><a href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing/issues">Comment</a><a href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing/issues">Help</a><a href="https://cyphermonkeylabs.com/#contact">Work with us</a><a href="https://cyphermonkeylabs.com/#contact">Report a concern / takedown</a></p>
         <nav class="next-labs" aria-label="Other labs">
           <p>Next lab</p>
           <a href="https://cipher0x9.github.io/uc-lab-free-university-mesmerizing/">UC Lab</a>
@@ -304,12 +363,12 @@ try {
   </div>
 </div>
 <div class="backdrop" id="backdrop" hidden></div>
-<nav class="bottom-nav" aria-label="Primary">
-  <button type="button" data-go="#/" id="nav-home" aria-label="Home"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4 4 11h2v8h5v-5h2v5h5v-8h2z"/></svg>Home</button>
-  <button type="button" id="nav-tracks" aria-label="Tracks"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z"/></svg>Tracks</button>
-  <button type="button" data-go="#/labs" aria-label="Labs"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v2l-1 5 4 8a4 4 0 0 1-3.5 6h-5A4 4 0 0 1 6 18l4-8-1-5z"/></svg>Labs</button>
-  <button type="button" data-go="#/quiz" aria-label="Quiz"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 .01 18.01A9 9 0 0 0 12 3zm1 14h-2v-2h2zm1.1-6.5-.9.9A2 2 0 0 0 12 13h-1v-1c0-.6.2-1.1.6-1.5l1.2-1.2A1.5 1.5 0 1 0 10 8H8a3.5 3.5 0 1 1 6.1 2.5z"/></svg>Quiz</button>
-  <button type="button" data-search="1" aria-label="Search"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>Search</button>
+<nav class="bottom-nav" aria-label="Quick">
+  <a href="#/" data-quick="learn">Learn</a>
+  <a href="#/diagrams" data-quick="diagrams">Diagrams</a>
+  <a href="#/play" data-quick="play">Play</a>
+  <button type="button" id="quick-menu" aria-expanded="false" aria-controls="phone-sheet">Menu</button>
+  <a href="#/audio" data-quick="listen">Listen</a>
 </nav>
 <div class="player glass" role="region" aria-label="Lesson player">
   <div><strong id="player-title">Amazon Connect Lab</strong><div class="meta" id="player-state">Idle</div></div>
@@ -334,7 +393,7 @@ try {
 </html>
 """
 
-SW_JS = """const VERSION = "acl-campus-v21";
+SW_JS = """const VERSION = "acl-campus-v24";
 const SHELL = __SHELL__;
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));

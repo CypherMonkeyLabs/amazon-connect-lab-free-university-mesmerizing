@@ -8,7 +8,7 @@ import { animate } from "./vendor/anime.esm.min.js";
 import d3 from "./vendor/d3.entry.js";
 import rough from "./vendor/rough.esm.js";
 import burst from "./vendor/confetti.module.mjs";
-import { applyLanguage, lessonHeading } from "./i18n.js";
+import { applyLanguage, lessonHeading, LANGS } from "./i18n.js";
 import { bodyNote, lessonBody } from "./lesson-bodies.js";
 import { mountIcons } from "./icons.js";
 
@@ -281,21 +281,23 @@ function renderRail() {
   const pct = Math.round((state.opened.length / shell.counts.lessons) * 100);
   $("#progress-label").textContent = pct + "%";
   $("#progress-pip").style.width = pct + "%";
-  $$(".bottom-nav button[data-go]").forEach((btn) => {
-    const target = btn.getAttribute("data-go");
-    const on = (target === "#/" && route.view === "home") || target === "#/" + route.view || target === "#/" + route.view + "s";
-    if (on) btn.setAttribute("aria-current", "page");
+  const quickOn = {
+    learn: route.view === "home" || route.view === "track" || route.view === "lesson",
+    diagrams: route.view === "diagrams",
+    play: route.view === "play" || route.view === "ports" || route.view === "daily" || route.view === "sandbox",
+    listen: route.view === "audio",
+  };
+  $$(".bottom-nav [data-quick]").forEach((btn) => {
+    if (quickOn[btn.dataset.quick]) btn.setAttribute("aria-current", "page");
     else btn.removeAttribute("aria-current");
   });
-  const home = $("#nav-home");
-  if (home) {
-    if (route.view === "home") home.setAttribute("aria-current", "page");
-    else home.removeAttribute("aria-current");
-  }
-  $$(".campus-menu a").forEach((link) => {
+  const phoneTracks = $("#phone-tracks");
+  if (phoneTracks) phoneTracks.innerHTML = $("#track-list").innerHTML;
+  $$("a[data-menu]").forEach((link) => {
     const key = link.dataset.menu;
     let on = false;
-    if (key === "diagrams") on = route.view === "diagrams" || route.view === "map";
+    if (key === "learn") on = route.view === "home" || route.view === "track" || route.view === "lesson";
+    else if (key === "diagrams") on = route.view === "diagrams" || route.view === "map";
     else if (key === "flows") on = route.view === "flows" || route.view === "explorer";
     else if (key === "charts") on = route.view === "charts";
     else if (key === "cheats") on = route.view === "cheats";
@@ -303,6 +305,15 @@ function renderRail() {
     else if (key === "ecosystem") on = route.view === "track" && route.id === "ecosystem";
     else if (key === "downloads") on = route.view === "downloads";
     else if (key === "careers") on = route.view === "career";
+    else if (key === "listen") on = route.view === "audio";
+    else if (key === "settings") on = route.view === "settings";
+    else if (key === "labs") on = route.view === "labs" || route.view === "lab";
+    else if (key === "quiz") on = route.view === "quiz";
+    else if (key === "cards") on = route.view === "cards";
+    else if (key === "glossary") on = route.view === "glossary";
+    else if (key === "map") on = route.view === "map";
+    else if (key === "timeline") on = route.view === "timeline";
+    else on = false;
     if (on) link.setAttribute("aria-current", "page");
     else link.removeAttribute("aria-current");
   });
@@ -313,12 +324,79 @@ function closeDrawer() {
   $("#backdrop").hidden = true;
 }
 
+let phonePushed = false;
+let phoneOpener = null;
+function sheetOpen() {
+  const sheet = $("#phone-sheet");
+  return Boolean(sheet && !sheet.hidden);
+}
+function hidePhoneSheet() {
+  const sheet = $("#phone-sheet");
+  if (!sheet) return;
+  sheet.hidden = true;
+  document.body.classList.remove("menu-open");
+  const menu = $("#phone-menu");
+  const quick = $("#quick-menu");
+  if (menu) menu.setAttribute("aria-expanded", "false");
+  if (quick) quick.setAttribute("aria-expanded", "false");
+}
+function openPhoneMenu(opener) {
+  const sheet = $("#phone-sheet");
+  if (!sheet || sheetOpen()) return;
+  phoneOpener = opener || $("#phone-menu");
+  sheet.hidden = false;
+  document.body.classList.add("menu-open");
+  $("#phone-menu").setAttribute("aria-expanded", "true");
+  const quick = $("#quick-menu");
+  if (quick) quick.setAttribute("aria-expanded", "true");
+  if (!phonePushed) {
+    history.pushState({ phoneMenu: true }, "", location.href);
+    phonePushed = true;
+  }
+  const close = $("#phone-close");
+  if (close) close.focus();
+}
+function closePhoneMenu(reason, nextHash) {
+  if (!sheetOpen()) return;
+  hidePhoneSheet();
+  const restore = phoneOpener || $("#phone-menu");
+  if (reason === "back") {
+    phonePushed = false;
+    if (restore) restore.focus({ preventScroll: true });
+    return;
+  }
+  if (reason === "silent") {
+    if (phonePushed) {
+      phonePushed = false;
+      history.replaceState(null, "", location.href);
+    }
+    return;
+  }
+  if (phonePushed) {
+    phonePushed = false;
+    const hash = nextHash || "";
+    if (hash) {
+      const onPop = () => {
+        window.removeEventListener("popstate", onPop);
+        if (location.hash !== hash) location.hash = hash;
+      };
+      window.addEventListener("popstate", onPop);
+    }
+    history.back();
+    if (!hash && restore) restore.focus({ preventScroll: true });
+    return;
+  }
+  if (nextHash && location.hash !== nextHash) location.hash = nextHash;
+  if (restore && reason === "user") restore.focus({ preventScroll: true });
+}
+
 async function render() {
   const gen = ++renderGen;
   haltTimers();
   if (heroHandle) { heroHandle.dispose(); heroHandle = null; }
   if (iconHandle) { iconHandle.dispose(); iconHandle = null; }
   closeDrawer();
+  closePhoneMenu("silent");
   route = parseHash();
   if ((route.view === "track" || route.view === "lesson" || route.view === "lab" || route.view === "scenario") && !route.id) {
     location.replace("#/");
@@ -451,10 +529,15 @@ function viewSettings() {
   setTitle("Preferences", "Settings");
   const themeCards = THEMES.map(([id, label, blurb, bg, a, b]) => `<button type="button" class="theme-card" data-theme="${id}" aria-pressed="${(state.theme || "dark") === id ? "true" : "false"}"><span class="swatch" aria-hidden="true"><i style="background:${bg}"></i><i style="background:${a}"></i><i style="background:${b}"></i></span><strong>${esc(label)}</strong><span class="meta">${esc(blurb)}</span></button>`).join("");
   const fontCards = FONTS.map(([id, label]) => `<button type="button" data-font="${id}" aria-pressed="${(state.fontSize || "md") === id ? "true" : "false"}">${esc(label)}</button>`).join("");
+  const langOptions = LANGS.map(([id, label]) => `<option value="${id}"${(state.lang || "en") === id ? " selected" : ""}>${esc(label)}</option>`).join("");
   const rate = Number(state.rate) || 1;
   return `<div class="settings">
-    <p class="lede">Theme, sound, narration, motion, and type size stay in this browser.</p>
+    <p class="lede">Theme, language, sound, narration, motion, and type size stay in this browser.</p>
     <fieldset><legend>Theme</legend><div class="theme-grid" role="radiogroup" aria-label="Theme">${themeCards}</div></fieldset>
+    <fieldset><legend>Language</legend>
+      <label class="field">Language <select id="set-lang" aria-label="Language">${langOptions}</select></label>
+      <p class="caption">Headings follow this switch. The first lesson of each track is translated. Every other lesson body stays in English, and the page says so.</p>
+    </fieldset>
     <fieldset><legend>Sound</legend>
       <label class="checkline"><input id="set-sound" type="checkbox"${state.sound === false ? "" : " checked"}> Sound effects</label>
       <p class="caption">Rings, answer tones, and the other interface beeps. Clips in the Audio view still play.</p>
@@ -1467,6 +1550,30 @@ async function bootHero(gen) {
     host.dataset.mode = "flat";
   }
 }
+let revealObserver = null;
+function armReveal() {
+  if (revealObserver) {
+    revealObserver.disconnect();
+    revealObserver = null;
+  }
+  const nodes = $$("#view .card, #view .holo-card, #view article, #view section").filter((node) => !node.classList.contains("hero-stage") && !node.querySelector("#hero-host"));
+  if (motionReduced() || typeof IntersectionObserver !== "function") {
+    nodes.forEach((node) => node.classList.add("revealed"));
+    return;
+  }
+  revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("revealed");
+      revealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -32px 0px" });
+  nodes.forEach((node) => {
+    node.classList.add("reveal");
+    revealObserver.observe(node);
+  });
+}
+
 async function afterRender(gen) {
   const stageMascot = document.querySelector(".mascot-stage");
   const headerMascot = document.getElementById("mascot");
@@ -1485,6 +1592,7 @@ async function afterRender(gen) {
   if (route.view === "charts") paintLiveCharts();
   if (route.view === "map") await bootScene(gen);
   if (route.view === "settings") fillVoices();
+  armReveal();
   if (route.view === "lab" && route.id === "flow-builder") paintFlow();
   if (route.view === "lab" && route.id === "routing-designer") paintRoutes();
   if (route.view === "lab" && route.id === "translator") paintTranslator();
@@ -1542,8 +1650,42 @@ function onClick(ev) {
     });
     return;
   }
+  const menuBtn = ev.target.closest("#phone-menu, #quick-menu");
+  if (menuBtn) {
+    ev.preventDefault();
+    if (sheetOpen()) closePhoneMenu("user");
+    else openPhoneMenu(menuBtn);
+    return;
+  }
+  if (ev.target.closest("#phone-close")) {
+    ev.preventDefault();
+    closePhoneMenu("user");
+    return;
+  }
+  if (ev.target.closest("#sheet-search")) {
+    ev.preventDefault();
+    closePhoneMenu("user");
+    openSearch();
+    return;
+  }
+  const sheetLink = ev.target.closest("#phone-sheet a[href^='#']");
+  if (sheetLink) {
+    ev.preventDefault();
+    closePhoneMenu("nav", sheetLink.getAttribute("href"));
+    return;
+  }
   const goBtn = ev.target.closest("[data-go]");
-  if (goBtn) { closeDrawer(); go(goBtn.getAttribute("data-go")); return; }
+  if (goBtn) {
+    const hash = goBtn.getAttribute("data-go");
+    closeDrawer();
+    if (goBtn.closest("#phone-sheet")) {
+      closePhoneMenu("nav", hash);
+      return;
+    }
+    closePhoneMenu("silent");
+    go(hash);
+    return;
+  }
   if (ev.target.id === "menu" || ev.target.closest("#nav-tracks")) {
     $("#rail").classList.toggle("open");
     $("#backdrop").hidden = !$("#rail").classList.contains("open");
@@ -2100,17 +2242,34 @@ async function search(query) {
 
 document.addEventListener("click", onClick);
 window.addEventListener("hashchange", render);
+window.addEventListener("popstate", () => {
+  if (sheetOpen()) closePhoneMenu("back");
+});
 document.addEventListener("keydown", (ev) => {
   if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === "k") { ev.preventDefault(); openSearch(); }
-  if (ev.key === "Escape") { $("#search-modal").hidden = true; closeDrawer(); }
+  if (ev.key === "Escape") {
+    $("#search-modal").hidden = true;
+    closeDrawer();
+    if (sheetOpen()) closePhoneMenu("user");
+  }
+  if (sheetOpen() && ev.key === "Tab") {
+    const items = $$("#phone-sheet a, #phone-sheet button, #phone-sheet select").filter((el) => !el.disabled);
+    if (items.length) {
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (ev.shiftKey && document.activeElement === first) { ev.preventDefault(); last.focus(); }
+      else if (!ev.shiftKey && document.activeElement === last) { ev.preventDefault(); first.focus(); }
+    }
+  }
   const typing = ev.target && (ev.target.tagName === "INPUT" || ev.target.tagName === "TEXTAREA" || ev.target.tagName === "SELECT");
-  const menuLink = document.activeElement && document.activeElement.closest && document.activeElement.closest(".campus-menu a");
-  if (menuLink && (ev.key === "ArrowRight" || ev.key === "ArrowLeft")) {
-    const links = $$(".campus-menu a");
+  const menuLink = document.activeElement && document.activeElement.closest && document.activeElement.closest(".campus-menu a, .phone-sections a");
+  if (menuLink && (ev.key === "ArrowRight" || ev.key === "ArrowLeft" || ev.key === "ArrowDown" || ev.key === "ArrowUp")) {
+    const links = $$(menuLink.closest(".phone-sections") ? ".phone-sections a" : ".campus-menu a");
     const index = links.indexOf(menuLink);
     if (index >= 0) {
       ev.preventDefault();
-      const next = ev.key === "ArrowRight" ? links[(index + 1) % links.length] : links[(index - 1 + links.length) % links.length];
+      const forward = ev.key === "ArrowRight" || ev.key === "ArrowDown";
+      const next = forward ? links[(index + 1) % links.length] : links[(index - 1 + links.length) % links.length];
       next.focus();
     }
   }
@@ -2143,10 +2302,17 @@ document.body.addEventListener("change", (ev) => {
     state.reducedMotion = ev.target.checked;
     save();
     applyPrefs();
-    if (motionReduced() && sceneHandle) { sceneHandle.dispose(); sceneHandle = null; }
+    if (motionReduced()) {
+      if (sceneHandle) { sceneHandle.dispose(); sceneHandle = null; }
+      if (heroHandle) { heroHandle.dispose(); heroHandle = null; }
+      const host = $("#hero-host");
+      if (host) host.dataset.mode = "flat";
+    } else if (route.view === "home") {
+      bootHero(renderGen);
+    }
   }
   if (ev.target.id === "set-voice") { state.voiceURI = ev.target.value; save(); }
-  if (ev.target.id === "lang") {
+  if (ev.target.id === "lang" || ev.target.id === "sheet-lang" || ev.target.id === "set-lang") {
     state.lang = ev.target.value;
     save();
     applyLanguage(state.lang);

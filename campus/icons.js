@@ -32,7 +32,7 @@ export function mountIcons(root) {
   } catch (err) {
     return null;
   }
-  renderer.setPixelRatio(1);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.setSize(96, 96, false);
   renderer.setClearColor(0x000000, 0);
   const scene = new THREE.Scene();
@@ -61,6 +61,7 @@ export function mountIcons(root) {
   });
   let raf = 0;
   let running = true;
+  let onScreen = true;
   const scratch = document.createElement("canvas");
   scratch.width = 96;
   scratch.height = 96;
@@ -79,6 +80,10 @@ export function mountIcons(root) {
 
   function frame() {
     if (!running) return;
+    if (document.hidden || !onScreen) {
+      raf = 0;
+      return;
+    }
     raf = requestAnimationFrame(frame);
     const t = performance.now() * 0.001;
     icons.forEach((icon) => {
@@ -96,6 +101,21 @@ export function mountIcons(root) {
       rig.remove(icon.ring);
     });
   }
+  function onHide() {
+    if (!running) return;
+    if (document.hidden || !onScreen) {
+      cancelAnimationFrame(raf);
+      raf = 0;
+      return;
+    }
+    if (!raf) raf = requestAnimationFrame(frame);
+  }
+  const viewObserver = new IntersectionObserver((entries) => {
+    onScreen = entries.some((entry) => entry.isIntersecting);
+    onHide();
+  }, { threshold: 0.02 });
+  canvases.forEach((canvas) => viewObserver.observe(canvas));
+  document.addEventListener("visibilitychange", onHide);
   paintTheme();
   frame();
   return {
@@ -103,6 +123,8 @@ export function mountIcons(root) {
     dispose() {
       running = false;
       cancelAnimationFrame(raf);
+      viewObserver.disconnect();
+      document.removeEventListener("visibilitychange", onHide);
       icons.forEach((icon) => {
         icon.mesh.geometry.dispose();
         icon.mesh.material.dispose();

@@ -66,7 +66,7 @@ export function mountArchitecture(container) {
   } catch (err) {
     return null;
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.setSize(width, height);
   let themeId = document.documentElement.dataset.theme || "neon";
   renderer.setClearColor(toneFor(themeId).bg, 1);
@@ -163,8 +163,13 @@ export function mountArchitecture(container) {
   }
 
   const clock = new THREE.Clock();
+  let onScreen = true;
   function tick() {
     if (!running) return;
+    if (document.hidden || !onScreen) {
+      frame = 0;
+      return;
+    }
     frame = requestAnimationFrame(tick);
     const dt = clock.getDelta();
     Object.values(linkViews).forEach((view) => {
@@ -175,6 +180,25 @@ export function mountArchitecture(container) {
     controls.update();
     renderer.render(scene, camera);
   }
+  function resume() {
+    if (!running || frame || document.hidden || !onScreen) return;
+    clock.getDelta();
+    tick();
+  }
+  function onHide() {
+    if (document.hidden || !onScreen) {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      return;
+    }
+    resume();
+  }
+  const viewObserver = new IntersectionObserver((entries) => {
+    onScreen = entries.some((entry) => entry.isIntersecting);
+    onHide();
+  }, { threshold: 0.02 });
+  viewObserver.observe(container);
+  document.addEventListener("visibilitychange", onHide);
   applyScenario();
   tick();
 
@@ -219,6 +243,8 @@ export function mountArchitecture(container) {
       running = false;
       cancelAnimationFrame(frame);
       observer.disconnect();
+      viewObserver.disconnect();
+      document.removeEventListener("visibilitychange", onHide);
       controls.dispose();
       scene.traverse((obj) => {
         if (obj.geometry) obj.geometry.dispose();
