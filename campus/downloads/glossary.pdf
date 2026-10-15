@@ -1,0 +1,188 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Length 2262 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+48 780 Td
+(Glossary) Tj
+T* () Tj
+T* (179 terms. Each one points at the page the fact came from.) Tj
+T* () Tj
+T* (Contact: One interaction: a call, chat, task, or email. A transfer usually creates another) Tj
+T* (contact linked by PreviousContactId and NextContactId.) Tj
+T* () Tj
+T* (Instance: The Connect container in one Region. It holds users, flows, queues, and numbers. A) Tj
+T* (new account starts at two instances per Region.) Tj
+T* () Tj
+T* (Contact flow: The visual program a contact runs. The JSON form is the flow language.) Tj
+T* () Tj
+T* (Flow module: A published, reusable piece of a flow. Invoke module runs it. Return ends it.) Tj
+T* (Default quota is 200 modules.) Tj
+T* () Tj
+T* (Contact attribute: A string key and value stored on the contact. Lambda, Lex, and Set) Tj
+T* (contact attributes write them. Screen pop reads them.) Tj
+T* () Tj
+T* (Customer queue flow: The interruptible flow that runs while the customer waits, before an) Tj
+T* (agent joins.) Tj
+T* () Tj
+T* (Whisper flow: Audio played to one party immediately before the customer and agent are) Tj
+T* (joined.) Tj
+T* () Tj
+T* (Working queue: The queue selected by Set working queue. Transfer to queue uses it.) Tj
+T* () Tj
+T* (Routing profile: The list of queues an agent can receive, with channel concurrency,) Tj
+T* (priority, and delay.) Tj
+T* () Tj
+T* (Priority: A number on a queue inside a routing profile. A lower number is served first.) Tj
+T* () Tj
+T* (Delay: Seconds a contact must wait before an agent with that profile can receive it.) Tj
+T* () Tj
+T* (Routing criteria: Ordered steps that tighten or relax who can take the contact. The) Tj
+T* (successor idea to precision-queue steps.) Tj
+T* () Tj
+T* (Proficiency: A level on a predefined attribute for an agent. Default quota is 10) Tj
+T* (proficiencies per agent.) Tj
+T* () Tj
+T* (Queue: Where a contact waits. Standard queues hold customers. Agent queues hold transfers to) Tj
+T* (a specific user, 10 contacts each by default.) Tj
+T* () Tj
+T* (Hours of operation: The weekly schedule and time zone attached to a queue. Check hours of) Tj
+T* (operation reads it. Overrides cover holidays.) Tj
+T* () Tj
+T* (Quick connect: A one-click transfer target: a user, a queue, or an external number.) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Length 2224 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+48 780 Td
+() Tj
+T* (DID: A direct inward dial number. In the US it is carried by one carrier and priced per day) Tj
+T* (plus per minute.) Tj
+T* () Tj
+T* (Toll-free number: A number the caller does not pay long-distance to dial. US toll-free) Tj
+T* (numbers are registered with SOMOS and can use more than one carrier.) Tj
+T* () Tj
+T* (UIFN: Universal International Freephone number. One of the four number types Connect sells,) Tj
+T* (with DID, toll-free, and shared cost.) Tj
+T* () Tj
+T* (Porting: Moving a number from another carrier onto Connect. The quota page points you at the) Tj
+T* (same Support form used for quota increases.) Tj
+T* () Tj
+T* (CCP: Contact Control Panel. The browser phone and contact UI the agent uses.) Tj
+T* () Tj
+T* (Agent workspace: The fuller desktop around the CCP: profiles, cases, step-by-step views, and) Tj
+T* (third-party apps.) Tj
+T* () Tj
+T* (Streams API: The amazon-connect-streams library. It embeds or replaces the CCP and listens) Tj
+T* (to agent and contact events.) Tj
+T* () Tj
+T* (Softphone media: The WebRTC audio path. It needs outbound UDP 3478 to the Regional TurnNlb) Tj
+T* (domain.) Tj
+T* () Tj
+T* (TURN: The relay used when the browser cannot send media directly. The error text names) Tj
+T* (turn:TurnNlb-....elb.region.amazonaws.com:3478.) Tj
+T* () Tj
+T* (Lex V2: The bot service Get customer input calls. Connect stores intent and slots on the) Tj
+T* (contact.) Tj
+T* () Tj
+T* (Intent: What Lex thinks the caller wants. The flow branches on it.) Tj
+T* () Tj
+T* (Slot: A value Lex fills, such as an order id. The flow copies it into an attribute.) Tj
+T* () Tj
+T* (Agent assist: The 4 Aug 2026 name for the feature previously called Amazon Q in Connect,) Tj
+T* (which itself included Wisdom.) Tj
+T* () Tj
+T* (Amazon Q in Connect: The 2023 name for generative assistance. The admin guide renamed it) Tj
+T* (agent assist on 4 Aug 2026. IAM still shows the wisdom prefix.) Tj
+T* () Tj
+T* (Wisdom: The 2020 preview name for agent search and recommendations. Folded into Amazon Q in) Tj
+T* (Connect on 28 Nov 2023.) Tj
+T* () Tj
+T* (Connect assistant block: Associates an AI agents domain with the contact so recommendations) Tj
+T* (can run.) Tj
+T* () Tj
+ET
+endstream
+endobj
+4 0 obj
+<< /Length 1700 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+48 780 Td
+(Agentic CX: A block that hands the contact to an Agentic CX Designer application and routes) Tj
+T* (on the exit condition.) Tj
+T* () Tj
+T* (Live Sync: The 4 Aug 2026 name for Voice+. Priced at 0.01 USD per minute on top of the) Tj
+T* (channel. Trial through 30 Nov 2026 is not billed.) Tj
+T* () Tj
+T* (Conversational analytics: The 4 Aug 2026 name for Contact Lens: transcripts, sentiment,) Tj
+T* (redaction, summaries, and categories.) Tj
+T* () Tj
+T* (Contact Lens: The former name of conversational analytics. The product page says the) Tj
+T* (function remains.) Tj
+T* () Tj
+T* (Real-time analytics: Rules on a live contact, announced 1 Dec 2020. Default quota is 300) Tj
+T* (concurrent real-time analytics calls.) Tj
+T* () Tj
+T* (Post-contact summary: A generated summary after the contact. Preview 28 Nov 2023, generally) Tj
+T* (available 25 Mar 2024.) Tj
+T* () Tj
+T* (Evaluation form: A quality scorecard. Preview 29 Nov 2022, generally available 26 Apr 2023.) Tj
+T* (Now part of performance evaluations.) Tj
+T* () Tj
+T* (CTR: Contact trace record. The JSON document for a finished contact, streamed to Kinesis or) Tj
+T* (Firehose.) Tj
+T* () Tj
+T* (179 terms are in the HTML sheet. This PDF keeps the first 40.) Tj
+T* () Tj
+T* (CypherMonkey · Amazon Connect Lab) Tj
+T* (cyphermonkeylabs.com · linktr.ee/cyphermonkey · github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing) Tj
+T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
+T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 3 0 R >>
+endobj
+7 0 obj
+<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
+endobj
+8 0 obj
+<< /Type /Pages /Count 3 /Kids [5 0 R 6 0 R 7 0 R] >>
+endobj
+9 0 obj
+<< /Type /Catalog /Pages 8 0 R >>
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000002393 00000 n 
+0000004669 00000 n 
+0000006421 00000 n 
+0000006547 00000 n 
+0000006673 00000 n 
+0000006799 00000 n 
+0000006868 00000 n 
+trailer
+<< /Size 10 /Root 9 0 R >>
+startxref
+6917
+%%EOF

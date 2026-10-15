@@ -1,0 +1,72 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Length 1917 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+48 780 Td
+(Configuration checklist) Tj
+T* () Tj
+T* (Twelve checks before a pilot number takes real traffic.) Tj
+T* () Tj
+T* (Instance: Region chosen on purpose. Logging on. Storage bucket and key named.) Tj
+T* () Tj
+T* (Identity: SAML assertion carries routing profile, security profile, and role. Test one user.) Tj
+T* () Tj
+T* (Numbers: One pilot DID before a port. Caller ID on the queue is a number you may present.) Tj
+T* () Tj
+T* (Hours: Queue time zone, not the tester's laptop. Holiday override for the next closure.) Tj
+T* () Tj
+T* (Flows: Error, timeout, and default branches connected. Invoke module for the checks you) Tj
+T* (repeat.) Tj
+T* () Tj
+T* (Lambda: Associated with the instance. Resource policy allows connect.amazonaws.com. Returns) Tj
+T* (inside 8 seconds.) Tj
+T* () Tj
+T* (Lex: Alias associated. Speech and DTMF both tested. Fallback reaches a person.) Tj
+T* () Tj
+T* (Routing: Primary profile priority 1 and delay 0. Overflow has a higher number and a delay.) Tj
+T* () Tj
+T* (Recording: Set recording behavior, then confirm one object landed. KMS key policy trusts the) Tj
+T* (service role.) Tj
+T* () Tj
+T* (Streams: Agent events and CTRs have a consumer that tolerates duplicates and joins on) Tj
+T* (ContactId.) Tj
+T* () Tj
+T* (Network: Endpoint Connectivity tool from an agent PC. Error rate under 2 percent.) Tj
+T* () Tj
+T* (E911: Validated address on the agent profile. 933 readback. Security task on a real 911.) Tj
+T* () Tj
+T* (CypherMonkey · Amazon Connect Lab) Tj
+T* (cyphermonkeylabs.com · linktr.ee/cyphermonkey · github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing) Tj
+T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
+T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 4 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+4 0 obj
+<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+endobj
+5 0 obj
+<< /Type /Catalog /Pages 4 0 R >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000002048 00000 n 
+0000002174 00000 n 
+0000002231 00000 n 
+trailer
+<< /Size 6 /Root 5 0 R >>
+startxref
+2280
+%%EOF

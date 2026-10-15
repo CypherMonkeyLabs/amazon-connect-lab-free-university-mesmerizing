@@ -1,0 +1,76 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Length 2076 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+48 780 Td
+(Troubleshooting tree) Tj
+T* () Tj
+T* (Pick the symptom, then the capture. Change one thing.) Tj
+T* () Tj
+T* (No audio, agent shows Available ? Microphone permission, then UDP 3478, then VPN on the) Tj
+T* (media path. \(lab webrtc\)) Tj
+T* () Tj
+T* (ice_collection_timeout ? DNS for TurnNlb from that PC. \(lab webrtc\)) Tj
+T* () Tj
+T* (Flow error and an empty Lambda log ? Association and the Lambda resource policy.) Tj
+T* (AccessDenied never reaches your function. \(lab lambda-sim\)) Tj
+T* () Tj
+T* (Lambda log is fine and the flow took Error ? Response shape or the 8-second wait. \(lab) Tj
+T* (lambda-sim\)) Tj
+T* () Tj
+T* (Caller hears silence and the contact ends ? An error branch is not connected. Read the flow) Tj
+T* (log for that ContactId. \(lab flow-log-reader\)) Tj
+T* () Tj
+T* (Wrong queue answers ? Priority and delay on the profile, not the queue name. \(lab) Tj
+T* (routing-designer\)) Tj
+T* () Tj
+T* (Recording missing ? Block enabled, bucket policy, key policy, then one new test call. \(lab) Tj
+T* (find-fault\)) Tj
+T* () Tj
+T* (CTR missing after a minute ? Wait. Five quiet minutes is the point to read Firehose errors.) Tj
+T* (\(lab ctr-inspector\)) Tj
+T* () Tj
+T* (Screen pop is the wrong person ? ANI matched a household. Pop the account id the flow) Tj
+T* (collected. \(lab ecosystem-map\)) Tj
+T* () Tj
+T* (WFM adherence is blank ? One agent event, a status map, and a published schedule. \(lab) Tj
+T* (wfm-adherence\)) Tj
+T* () Tj
+T* (911 would reach headquarters ? The stored profile address is stale. Validate, store, test) Tj
+T* (with 933. \(lab e911-checker\)) Tj
+T* () Tj
+T* (CypherMonkey · Amazon Connect Lab) Tj
+T* (cyphermonkeylabs.com · linktr.ee/cyphermonkey · github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing) Tj
+T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
+T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 4 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+4 0 obj
+<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+endobj
+5 0 obj
+<< /Type /Catalog /Pages 4 0 R >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000002207 00000 n 
+0000002333 00000 n 
+0000002390 00000 n 
+trailer
+<< /Size 6 /Root 5 0 R >>
+startxref
+2439
+%%EOF

@@ -158,11 +158,34 @@ def main():
         if not pack.get("url") or not pack.get("source"):
             problems.append("tips missing source " + track_id)
             break
-    if 'route.view === "map"' not in app or 'route.view === "home" || route.view === "map"' in app:
-        problems.append("Three.js should boot only on the map view")
+    hero_js = (CAMPUS / "hero.js").read_text()
+    if "bootHero" not in app or "mountHero" not in hero_js:
+        problems.append("3D hero must start on the home view")
+    if "UnrealBloomPass" not in hero_js or not (CAMPUS / "vendor" / "postprocessing" / "UnrealBloomPass.js").exists():
+        problems.append("vendored UnrealBloomPass missing from the hero")
+    if "svgPortrait" not in (CAMPUS / "data" / "atlas.json").read_text():
+        problems.append("portrait diagrams missing")
+    if "lessonHeading" not in app or not (CAMPUS / "lesson-titles.js").exists():
+        problems.append("lesson heading translations missing")
+    bodies = (CAMPUS / "lesson-bodies.js").read_text() if (CAMPUS / "lesson-bodies.js").exists() else ""
+    if "lessonBody" not in app or "foundations-why" not in bodies or "eco-why" not in bodies:
+        problems.append("opening lesson body translations missing")
+    if 'data-layout=\\"portrait\\"' not in (CAMPUS / "data" / "atlas.json").read_text() and 'data-layout="portrait"' not in (CAMPUS / "data" / "atlas.json").read_text():
+        problems.append("portrait diagrams are not marked as designed layouts")
+    if "us-east-1" not in hero_js:
+        problems.append("hero is missing AWS region nodes")
+    if 'route.view === "map"' not in app:
+        problems.append("3D map still needs its own boot")
+    if 'id="lang"' not in html or 'id="lightbox"' not in html:
+        problems.append("language switcher or diagram lightbox missing")
+    for audio_name in ("audio/use.mp3", "audio/share.mp3", "audio/scripts/architect-use.md", "audio/scripts/architect-share.md"):
+        if not (CAMPUS / audio_name).exists():
+            problems.append("missing " + audio_name)
     if "viewSettings" not in app or "voiceschanged" not in app:
         problems.append("settings or voice picker missing")
     css = (CAMPUS / "campus.css").read_text()
+    if "holographic" not in css or "cyberpunk" not in css or "sunset" not in css:
+        problems.append("neon theme set missing holographic, cyberpunk, or sunset")
     for theme in ('data-theme="light"', 'data-theme="contrast"', 'data-theme="console"', 'data-theme="dark"'):
         if theme not in css and theme != 'data-theme="dark"':
             problems.append("missing theme " + theme)
@@ -183,7 +206,21 @@ def main():
         if item["answer"] not in range(len(item["choices"])):
             problems.append("bad quiz answer " + item["id"])
             break
-    blob_parts = [html, app, (CAMPUS / "campus.css").read_text(), (CAMPUS / "scene.js").read_text(), (CAMPUS / "flowlang.js").read_text(), (CAMPUS / "sw.js").read_text()]
+    studio = (CAMPUS / "studio.js").read_text() if (CAMPUS / "studio.js").exists() else ""
+    if "viewCheats" not in studio or "KONAMI" not in studio:
+        problems.append("studio.js missing cheat codes or the konami hook")
+    for theme in ('data-theme="futuristic"', 'data-theme="gaming"', 'data-theme="neon"'):
+        if theme not in css:
+            problems.append("missing theme " + theme)
+    if "cyphermonkeylabs.com" not in html or "linktr.ee/cyphermonkey" not in html:
+        problems.append("studio chrome links missing")
+    if "linkedin.com" in html.lower() or "mailto:" in html.lower():
+        problems.append("chrome includes LinkedIn or an email")
+    downloads = CAMPUS / "downloads"
+    for name in ("index.html", "ports-protocols.html", "ports-protocols.pdf", "flashcards.json", "amazon-connect-lab.zip"):
+        if not (downloads / name).exists():
+            problems.append("missing download " + name)
+    blob_parts = [html, app, studio, (CAMPUS / "campus.css").read_text(), (CAMPUS / "scene.js").read_text(), (CAMPUS / "flowlang.js").read_text(), (CAMPUS / "sw.js").read_text()]
     blob = "\n".join(blob_parts).lower()
     for host in FORBIDDEN:
         if host in blob:
@@ -192,6 +229,62 @@ def main():
         problems.append("missing AWS doc citations")
     if not (CAMPUS / "vendor" / "three.module.min.js").exists():
         problems.append("three.js is not vendored")
+    for vendor_name in ("anime.esm.min.js", "rough.esm.js", "d3.min.js", "d3.entry.js", "confetti.module.mjs"):
+        if not (CAMPUS / "vendor" / vendor_name).exists():
+            problems.append("missing vendor " + vendor_name)
+    for needle in ("anime.esm.min.js", "rough.esm.js", "d3.entry.js", "confetti.module.mjs", "paintMind", "runCounters"):
+        if needle not in app:
+            problems.append("app.js does not use " + needle)
+    menu_labels = ("Diagrams", "Flows", "Charts", "Cheat Codes", "Play", "Ecosystem", "Downloads", "Careers")
+    menu = html.split('class="campus-menu"', 1)[-1].split("</nav>", 1)[0] if 'class="campus-menu"' in html else ""
+    for label in menu_labels:
+        if label not in menu:
+            problems.append("campus menu missing " + label)
+    if "vercel.app" in html:
+        problems.append("sibling strip still points at vercel")
+    for href in re.findall(r'class="next-labs".*?</nav>', html, re.S):
+        for link in re.findall(r'href="([^"]+)"', href):
+            if not link.startswith("https://cipher0x9.github.io/"):
+                problems.append("sibling link is not github.io: " + link)
+    license_text = (ROOT / "LICENSE").read_text()
+    if "MIT" not in license_text or "CC BY-NC-SA" not in license_text:
+        problems.append("LICENSE must state MIT code and CC BY-NC-SA content")
+    if "MIT code, CC BY-NC-SA content" not in html:
+        problems.append("footer license line missing")
+    atlas_path = CAMPUS / "data" / "atlas.json"
+    if not atlas_path.exists():
+        problems.append("atlas.json missing")
+    else:
+        atlas = load_json(atlas_path)
+        diagrams = atlas.get("diagrams") or []
+        charts = atlas.get("charts") or []
+        animated = [item for item in diagrams if item.get("animated") and "animateMotion" in item.get("svg", "")]
+        if len(diagrams) < 25:
+            problems.append("atlas diagrams %s < 25" % len(diagrams))
+        if len(animated) < 12:
+            problems.append("atlas animated flows %s < 12" % len(animated))
+        if len(charts) < 6:
+            problems.append("atlas charts %s < 6" % len(charts))
+        kinds = {item.get("kind") for item in diagrams}
+        for kind in ("flow", "diagram"):
+            if kind not in kinds:
+                problems.append("atlas missing kind " + kind)
+    sheets = [path for path in (CAMPUS / "downloads").glob("*.html") if path.name != "index.html"]
+    if len(sheets) < 10:
+        problems.append("downloadable sheets %s < 10" % len(sheets))
+    for sheet in sheets:
+        text = sheet.read_text().lower()
+        for needle in ("cyphermonkeylabs.com", "linktr.ee/cyphermonkey", "amazon-connect-lab-free-university-mesmerizing"):
+            if needle not in text:
+                problems.append(sheet.name + " missing " + needle)
+        if "linkedin" in text or "mailto:" in text:
+            problems.append(sheet.name + " has LinkedIn or an email")
+        pdf = sheet.with_suffix(".pdf")
+        png = sheet.with_suffix(".png")
+        if not pdf.exists() or not png.exists():
+            problems.append(sheet.stem + " missing pdf or png")
+        elif b"cyphermonkeylabs.com" not in pdf.read_bytes():
+            problems.append(sheet.stem + " pdf missing the lab link")
     if re.search(r"<script[^>]+src=[\"']https?:", html, re.I):
         problems.append("external script tag")
     if re.search(r"<link[^>]+href=[\"']https?:", html, re.I):

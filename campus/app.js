@@ -1,13 +1,29 @@
 import {
   FLOW_DOCS, PALETTE, PORTS, exportFlow, importFlow, sampleOrderStatus, wireMissing,
 } from "./flowlang.js";
+import {
+  KONAMI, answerDaily, answerPort, shareCard, tickMascot, viewCareer, viewCheats, viewDaily, viewExplorer, viewPorts, viewSyllabus,
+} from "./studio.js";
+import { animate } from "./vendor/anime.esm.min.js";
+import d3 from "./vendor/d3.entry.js";
+import rough from "./vendor/rough.esm.js";
+import burst from "./vendor/confetti.module.mjs";
+import { applyLanguage, lessonHeading } from "./i18n.js";
+import { bodyNote, lessonBody } from "./lesson-bodies.js";
+import { mountIcons } from "./icons.js";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const KEY = "acl-campus-v1";
 const THEMES = [
   ["dark", "Night ops", "Amber and mint on a deep field.", "#0b1120", "#ffb020", "#2dd4bf"],
-  ["light", "Day shift", "Ink on paper.", "#f8fafc", "#9a3412", "#0f766e"],
+  ["light", "Light", "Ink on paper.", "#f8fafc", "#9a3412", "#0f766e"],
+  ["futuristic", "Futuristic", "Cyan glass on a night grid.", "#050816", "#00e5ff", "#7c5cff"],
+  ["gaming", "Gaming", "Lime and magenta, sharp corners.", "#0a0614", "#39ff14", "#ff2bd6"],
+  ["neon", "Neon", "Hot pink and electric cyan.", "#07010f", "#ff2d95", "#22e7ff"],
+  ["holographic", "Holographic", "Teal glass and violet haze.", "#03141c", "#5eead4", "#a78bfa"],
+  ["cyberpunk", "Cyberpunk", "Yellow, crimson, and cyan.", "#140014", "#fcee0a", "#ff003c"],
+  ["sunset", "Sunset", "Coral, magenta, and gold.", "#1c0c16", "#ff7a3c", "#ff2d7b"],
   ["contrast", "High contrast", "Yellow on black.", "#000000", "#ffe14a", "#ffffff"],
   ["console", "Console", "AWS orange on navy.", "#0f1b2d", "#ff9900", "#3dcfb4"],
 ];
@@ -19,6 +35,8 @@ let renderGen = 0;
 let route = { view: "home", id: "" };
 let flowState = null;
 let sceneHandle = null;
+let heroHandle = null;
+let iconHandle = null;
 let audioCtx = null;
 let liveNodes = [];
 let ladderTimer = null;
@@ -66,8 +84,10 @@ function esc(value) {
 function loadState() {
   const blank = {
     opened: [], labs: [], quiz: { correct: 0, answered: 0, seen: {} }, cards: { known: [] },
-    streak: { last: "", count: 0 }, theme: "dark", achievements: [], scenario: {},
+    streak: { last: "", count: 0 }, theme: "neon", achievements: [], scenario: {},
     sound: true, narration: true, voiceURI: "", rate: 1, reducedMotion: null, fontSize: "md",
+    syllabus: {}, ports: { index: 0, score: 0, done: false, best: 0 }, daily: { day: "", answered: false, correct: false },
+    lang: "en", themeBack: "dark",
   };
   try { return Object.assign(blank, JSON.parse(localStorage.getItem(KEY) || "null") || {}); }
   catch (err) { return blank; }
@@ -83,6 +103,32 @@ function applyPrefs() {
   root.dataset.theme = state.theme || "dark";
   root.dataset.font = state.fontSize || "md";
   root.dataset.motion = motionReduced() ? "reduce" : "full";
+  const kicker = document.querySelector(".brand-kicker");
+  const theme = THEMES.find((row) => row[0] === (state.theme || "dark"));
+  if (kicker && theme) kicker.textContent = theme[1];
+  $$(".theme-quick button[data-theme]").forEach((btn) => {
+    btn.setAttribute("aria-pressed", btn.dataset.theme === (state.theme || "dark") ? "true" : "false");
+  });
+  applyLanguage(state.lang || "en");
+  if (heroHandle) heroHandle.setTheme(state.theme || "dark");
+  if (sceneHandle && sceneHandle.setTheme) sceneHandle.setTheme(state.theme || "neon");
+  if (iconHandle && iconHandle.setTheme) iconHandle.setTheme();
+}
+function studioCtx() {
+  return { esc, state, save, award, load, hub, setTitle };
+}
+let konamiAt = 0;
+function unlockEgg() {
+  award("konami");
+  document.documentElement.dataset.egg = "1";
+  state.theme = "neon";
+  save();
+  applyPrefs();
+  const banner = document.createElement("p");
+  banner.className = "egg-banner";
+  banner.textContent = "CypherMonkey found the night shift. Neon is on.";
+  document.body.appendChild(banner);
+  setTimeout(() => banner.remove(), 4200);
 }
 function isEdgeVoice(voice) {
   const blob = ((voice.name || "") + " " + (voice.voiceURI || "")).toLowerCase();
@@ -121,6 +167,9 @@ function award(id) {
 }
 function confetti() {
   if (motionReduced()) return;
+  try {
+    burst({ particleCount: 90, spread: 72, startVelocity: 32, origin: { y: 0.25 }, disableForReducedMotion: true });
+  } catch (err) { /* the CSS layer still falls */ }
   const layer = document.createElement("div");
   layer.className = "confetti";
   for (let i = 0; i < 36; i += 1) {
@@ -183,10 +232,14 @@ function parseHash() {
   return { view: view || "home", id: id ? decodeURIComponent(id) : "" };
 }
 function go(hash) { location.hash = hash; }
-function setTitle(kicker, title) {
+function setTitle(kicker, title, lessonEnglish) {
   $("#view-kicker").textContent = kicker || "Amazon Connect Lab";
-  $("#view-title").textContent = title;
-  document.title = title + " · Amazon Connect Lab";
+  const shown = lessonEnglish ? lessonHeading(state.lang, title) : title;
+  const heading = $("#view-title");
+  heading.textContent = shown;
+  if (lessonEnglish) heading.dataset.en = title;
+  else delete heading.dataset.en;
+  document.title = shown + " · Amazon Connect Lab";
 }
 function trackBy(id) { return hub.shell.tracks.find((t) => t.id === id); }
 function lessonMeta(id) {
@@ -212,6 +265,8 @@ function field(label, id, value, type) {
 const ACH = {
   first: "First contact", foundations: "Foundations", streak: "Three-day streak", labs: "Five labs",
   quiz: "Twenty correct", bridge: "Bridge crossed", ecosystem: "Ecosystem opened", scenario: "Walkthrough finished",
+  ports: "Ports badge", daily: "Daily challenge", konami: "Night shift", cheat: "Cheat codes",
+  explorer: "Flow map", sandbox: "Flow sandbox",
 };
 
 function renderRail() {
@@ -237,6 +292,20 @@ function renderRail() {
     if (route.view === "home") home.setAttribute("aria-current", "page");
     else home.removeAttribute("aria-current");
   }
+  $$(".campus-menu a").forEach((link) => {
+    const key = link.dataset.menu;
+    let on = false;
+    if (key === "diagrams") on = route.view === "diagrams" || route.view === "map";
+    else if (key === "flows") on = route.view === "flows" || route.view === "explorer";
+    else if (key === "charts") on = route.view === "charts";
+    else if (key === "cheats") on = route.view === "cheats";
+    else if (key === "play") on = route.view === "play" || route.view === "ports" || route.view === "daily" || route.view === "sandbox";
+    else if (key === "ecosystem") on = route.view === "track" && route.id === "ecosystem";
+    else if (key === "downloads") on = route.view === "downloads";
+    else if (key === "careers") on = route.view === "career";
+    if (on) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  });
 }
 
 function closeDrawer() {
@@ -247,6 +316,8 @@ function closeDrawer() {
 async function render() {
   const gen = ++renderGen;
   haltTimers();
+  if (heroHandle) { heroHandle.dispose(); heroHandle = null; }
+  if (iconHandle) { iconHandle.dispose(); iconHandle = null; }
   closeDrawer();
   route = parseHash();
   if ((route.view === "track" || route.view === "lesson" || route.view === "lab" || route.view === "scenario") && !route.id) {
@@ -260,8 +331,10 @@ async function render() {
     const html = await viewFor(route);
     if (gen !== renderGen) return;
     $("#view").innerHTML = html;
+    document.body.dataset.view = route.view;
+    paintCrumbs();
     $("#search-modal").hidden = true;
-    $("#stage").focus();
+    $("#stage").focus({ preventScroll: true });
     await afterRender(gen);
   } catch (err) {
     if (gen !== renderGen) return;
@@ -285,12 +358,24 @@ async function viewFor(r) {
   if (r.view === "glossary") return viewGlossary();
   if (r.view === "sources") return viewSources();
   if (r.view === "charts") return viewCharts();
+  if (r.view === "diagrams") return viewDiagrams();
+  if (r.view === "flows") return viewFlows();
+  if (r.view === "play") return viewPlay();
+  if (r.view === "downloads") return viewDownloads();
+  if (r.view === "regions") return viewRegions();
   if (r.view === "faults") return viewFaults();
   if (r.view === "audio") return viewAudio();
   if (r.view === "ccp") return viewCcp();
   if (r.view === "lens") return viewLens();
   if (r.view === "settings") return viewSettings();
   if (r.view === "tips") return r.id ? viewTip(r.id) : viewTips();
+  if (r.view === "cheats") return viewCheats(studioCtx());
+  if (r.view === "syllabus") return viewSyllabus(studioCtx());
+  if (r.view === "career") return viewCareer(studioCtx());
+  if (r.view === "explorer") return viewExplorer(studioCtx());
+  if (r.view === "ports") return viewPorts(studioCtx());
+  if (r.view === "daily") return viewDaily(studioCtx());
+  if (r.view === "sandbox") return viewLab("flow-builder");
   setTitle("Campus", "That page is not on the map");
   return `<p>The address does not match a track, lesson, lab, or studio.</p><p><button class="solid" data-go="#/">Back home</button></p>`;
 }
@@ -300,7 +385,7 @@ function architecturePanel(live) {
   const lamp = live ? "Live topology" : "Flat topology";
   const note = live
     ? "Drag to orbit. Scroll to zoom. Pick a failure to drop that link. Three.js loads for this view."
-    : "Flat topology on this page. Three.js stays unloaded until you open the map.";
+    : "This drawing is the flat fallback. The home page already runs the three.js hero. Open the 3D map when you want orbit controls.";
   return `<div class="stage-3d" id="arch-host">
       <div class="bezel-lamp"><i></i> ${lamp}</div>
       <div class="arch-fallback" id="arch-fallback">${fallbackMap()}</div>
@@ -403,43 +488,277 @@ function fillVoices() {
   select.innerHTML = `<option value="">Automatic (best non-Edge voice)</option>${options}`;
   select.value = state.voiceURI && voices.some((voice) => voice.voiceURI === state.voiceURI) ? state.voiceURI : "";
 }
-function viewHome() {
-  const shell = hub.shell;
-  setTitle("Free offline campus · 14 Oct 2026", "Amazon Connect, taught as a system.");
-  const cards = shell.tracks.slice(0, 6).map((t) => `<button class="card" data-go="#/track/${t.id}"><p class="meta" style="color:${t.hue}">${t.depends.length ? "Depends on " + t.depends.map(esc).join(", ") : "Starts the campus"}</p><h2>${esc(t.title)}</h2><p>${esc(t.why)}</p><p class="meta">${t.lessons.length} lessons</p></button>`).join("");
-  const badges = Object.entries(ACH).map(([id, name]) => `<article class="card"><p class="meta">${state.achievements.includes(id) ? "Earned" : "Locked"}</p><h2>${esc(name)}</h2></article>`).join("");
-  return `<section class="hero">
-      <div class="hero-copy">
-        <p class="lede">Eighteen tracks from the AWS account under the instance through flows, routing, the CCP, and the systems beside it. Modules load as you open them. No account.</p>
-        <div class="why"><strong>Why it matters.</strong> A contact center fails in a quota, a key policy, a missing error branch, or a blocked UDP port. This campus makes those failures visible before they are expensive.</div>
-        <div class="actions">
-          <button class="solid" data-go="#/track/foundations">Start with Foundations</button>
-          <button class="ghost" data-go="#/map">Open the 3D map</button>
-          <button class="ghost" data-go="#/tips">Tips and traps</button>
-          <button class="ghost" data-go="#/lab/flow-builder">Flow builder</button>
-          <button class="ghost" data-go="#/ccp">CCP</button>
-        </div>
-        <div class="stats-row" aria-label="Campus counts">
-          ${stat(shell.counts.tracks, "Tracks")}${stat(shell.counts.lessons, "Lessons")}${stat(shell.counts.illustrations, "Figures")}${stat(shell.counts.animatedFlows, "Flows")}${stat(shell.counts.labs, "Labs")}${stat(shell.counts.faults, "Faults")}
-        </div>
-      </div>
-      <div>${architecturePanel(false)}</div>
-    </section>
-    <div class="section-head"><h2>Study order</h2><button class="ghost" data-go="#/timeline">Feature timeline</button></div>
-    <div class="grid-cards">${cards}</div>
-    <div class="section-head"><h2>Studios</h2></div>
-    <div class="grid-cards">
-      <button class="card" data-go="#/ccp"><p class="meta">Workspace</p><h2>CCP softphone</h2><p>Ring, answer, watch sentiment, then pick a wrap-up code.</p></button>
-      <button class="card" data-go="#/lens"><p class="meta">Analytics</p><h2>Contact Lens playback</h2><p>A scripted call with sentiment, categories, and card redaction.</p></button>
-      <button class="card" data-go="#/lab/erlang"><p class="meta">Routing</p><h2>Erlang C roster</h2><p>Staff to a service level, then see shrinkage lift the schedule.</p></button>
+async function loadAtlas() {
+  hub.atlas = hub.atlas || await load("data/atlas.json");
+  return hub.atlas;
+}
+function counted(n, label) {
+  return `<div class="stat"><b data-count="${Number(n) || 0}">0</b><span>${esc(label)}</span></div>`;
+}
+function atlasFigure(item) {
+  const portrait = item.svgPortrait || item.svg;
+  return `<figure class="glass figure atlas-card" data-kind="${esc(item.kind)}" data-animated="${item.animated ? "1" : "0"}"><button type="button" class="atlas-open" data-open-diagram="${esc(item.id)}"><span class="atlas-wide">${item.svg}</span><span class="atlas-portrait">${portrait}</span><span class="atlas-open-label">Enlarge</span></button><figcaption><strong>${esc(item.title)}</strong> ${esc(item.caption)} <a href="${esc(item.url)}">${esc(item.source)}</a></figcaption></figure>`;
+}
+function isoIcon(track) {
+  const hue = (track && track.hue) || "#22e7ff";
+  const id = (track && track.id) || "track";
+  return `<canvas class="track-icon" width="96" height="96" data-icon="${esc(id)}" data-hue="${esc(hue)}" aria-label="" role="img"></canvas>`;
+}
+function progressRing() {
+  const pct = hub.shell ? Math.round((state.opened.length / Math.max(1, hub.shell.counts.lessons)) * 100) : 0;
+  const length = 2 * Math.PI * 32;
+  const dash = (pct / 100) * length;
+  return `<div class="ring-wrap"><svg class="ring" viewBox="0 0 80 80" role="img" aria-label="${pct} percent of lessons opened"><circle cx="40" cy="40" r="32" class="ring-track"/><circle cx="40" cy="40" r="32" class="ring-value" stroke-dasharray="${dash.toFixed(1)} ${length.toFixed(1)}" transform="rotate(-90 40 40)"/></svg><b>${pct}%</b></div>`;
+}
+function architectPlayer() {
+  return `<section class="architect holo-card" aria-label="Architect conversation">
+    <p class="showcase-kicker">Listen</p>
+    <h2>Two architects, one minute</h2>
+    <audio id="architect-audio" controls preload="none" src="audio/use.mp3"></audio>
+    <div class="actions">
+      <button type="button" class="ghost" data-clip-src="audio/use.mp3">Using the lab</button>
+      <button type="button" class="ghost" data-clip-src="audio/share.mp3">Practise and share</button>
+      <a class="ghost" href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing">Rate</a>
+      <a class="ghost" href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing/issues">Comment</a>
     </div>
-    <div class="section-head"><h2>Achievements</h2></div>
-    <div class="grid-cards">${badges}</div>`;
+    <p class="meta">The player is ready for the lab clips at audio/use.mp3 and audio/share.mp3. These two files are espeak-ng stand-ins, about 75 seconds together, until a later recording replaces them. Not a person, and not Amazon.</p>
+  </section>`;
+}
+function openLightbox(id) {
+  const atlas = hub.atlas;
+  const dlg = $("#lightbox");
+  if (!atlas || !dlg) return;
+  const item = atlas.diagrams.concat(atlas.charts).find((row) => row.id === id);
+  if (!item) return;
+  const portrait = item.svgPortrait || item.svg;
+  dlg.innerHTML = `<div class="lightbox-card"><div class="lightbox-bar"><strong>${esc(item.title)}</strong><button type="button" id="lb-play">Play</button><button type="button" id="lb-pause">Pause</button><button type="button" id="lb-step">Step</button><button type="button" id="lb-close">Close</button></div><div class="lightbox-stage" id="lb-stage"><span class="atlas-wide">${item.svg}</span><span class="atlas-portrait">${portrait}</span></div><p class="why"><strong>Why this matters.</strong> ${esc(item.caption)}</p><p class="cite">Source: <a href="${esc(item.url)}">${esc(item.source)}</a></p><ul class="legend"><li>The moving dot is the contact or the signal.</li><li>Each box is one hop. On a phone the hops stack downward so the words stay readable.</li></ul></div>`;
+  if (typeof dlg.showModal === "function" && !dlg.open) dlg.showModal();
+}
+function paintLiveCharts() {
+  if (!d3 || !hub.atlas) return;
+  hub.atlas.charts.forEach((chart) => {
+    const host = document.querySelector(`[data-chart-host="${CSS.escape(chart.id)}"]`);
+    if (!host || !chart.points || !chart.points.length) return;
+    host.replaceChildren();
+    const width = Math.max(320, host.clientWidth || 720);
+    const height = 36 + chart.points.length * 42;
+    const left = 168;
+    const peak = Math.max(...chart.points.map((point) => Number(point.value) || 0), 1);
+    const svg = d3.select(host).append("svg").attr("viewBox", `0 0 ${width} ${height}`).attr("role", "img").attr("aria-label", chart.title);
+    const tip = d3.select(host).append("p").attr("class", "chart-tip");
+    chart.points.forEach((point, index) => {
+      const y = 12 + index * 42;
+      const span = Math.max(8, ((Number(point.value) || 0) / peak) * (width - left - 90));
+      svg.append("text").attr("x", 8).attr("y", y + 22).attr("fill", "currentColor").attr("font-size", 16).text(point.label);
+      const bar = svg.append("rect").attr("class", "live-bar").attr("x", left).attr("y", y + 6).attr("height", 22).attr("rx", 8).attr("width", 0).attr("fill", index % 2 ? "var(--cc-accent-2)" : "var(--cc-accent-1)");
+      try {
+        bar.transition().duration(motionReduced() ? 0 : 800).attr("width", span);
+      } catch (err) {
+        bar.attr("width", span);
+      }
+      svg.append("text").attr("x", left + span + 8).attr("y", y + 22).attr("fill", "currentColor").attr("font-size", 15).text(String(point.shown));
+      bar.on("mousemove", (event) => {
+        const rect = host.getBoundingClientRect();
+        tip.style("opacity", 1).style("left", (event.clientX - rect.left + 10) + "px").style("top", (event.clientY - rect.top - 28) + "px").text(`${point.label}: ${point.shown} ${chart.unit || ""}`);
+      });
+      bar.on("mouseleave", () => { tip.style("opacity", 0); });
+    });
+  });
+}
+function showcaseLink(href, kicker, svg, caption) {
+  return `<a class="showcase-card" href="${href}"><p class="showcase-kicker">${kicker}</p>${svg}<p class="meta">${esc(caption)}</p></a>`;
+}
+function paintCrumbs() {
+  const nav = $("#crumbs");
+  if (!nav || !hub.shell) return;
+  const bits = [{ href: "#/", label: "Home" }];
+  const names = {
+    diagrams: "Diagrams", flows: "Flows", charts: "Charts", cheats: "Cheat Codes",
+    play: "Play", downloads: "Downloads", career: "Careers", explorer: "Flows",
+    ports: "Play", daily: "Play", sandbox: "Play", map: "Diagrams", syllabus: "Syllabus",
+    glossary: "Glossary", faults: "Faults", labs: "Labs", quiz: "Quiz", cards: "Cards",
+    settings: "Settings", timeline: "Timeline", sources: "Sources", tips: "Tips",
+  };
+  if (route.view === "track") {
+    const track = trackBy(route.id);
+    bits.push({ href: "#/track/" + route.id, label: track ? track.title : route.id });
+  } else if (route.view === "lesson") {
+    const meta = lessonMeta(route.id);
+    if (meta) {
+      const track = trackBy(meta.track);
+      bits.push({ href: "#/track/" + meta.track, label: track ? track.title : meta.track });
+      bits.push({ href: "#/lesson/" + route.id, label: meta.title });
+    }
+  } else if (route.view !== "home") {
+    bits.push({ href: "#/" + route.view + (route.id ? "/" + route.id : ""), label: names[route.view] || route.view });
+  }
+  nav.innerHTML = bits.map((bit, index) => {
+    if (index === bits.length - 1) return `<span aria-current="page">${esc(bit.label)}</span>`;
+    return `<a href="${esc(bit.href)}">${esc(bit.label)}</a>`;
+  }).join('<span aria-hidden="true"> / </span>');
+}
+function runCounters() {
+  $$("[data-count]").forEach((el) => {
+    const to = Number(el.getAttribute("data-count")) || 0;
+    if (motionReduced()) {
+      el.textContent = String(to);
+      return;
+    }
+    const proxy = { n: 0 };
+    try {
+      animate(proxy, {
+        n: to,
+        duration: 900,
+        ease: "outQuad",
+        onUpdate: () => { el.textContent = String(Math.round(proxy.n)); },
+      });
+    } catch (err) {
+      el.textContent = String(to);
+    }
+  });
+}
+function paintRough() {
+  $$(".rough-frame").forEach((canvas) => {
+    if (canvas.dataset.drawn) return;
+    const rc = rough.canvas(canvas);
+    rc.rectangle(4, 4, Math.max(20, canvas.width - 8), Math.max(16, canvas.height - 8), {
+      stroke: "#ffb020", roughness: 1.7, strokeWidth: 2,
+    });
+    canvas.dataset.drawn = "1";
+  });
+}
+function paintMind() {
+  const host = $("#mind-host");
+  if (!host || !d3) return;
+  host.replaceChildren();
+  const root = d3.hierarchy({
+    name: "Connect",
+    children: [
+      { name: "WFM" }, { name: "Recording" }, { name: "E911" },
+      { name: "Analytics" }, { name: "CRM" }, { name: "Agent assist" },
+    ],
+  });
+  const width = 720;
+  const height = 240;
+  d3.tree().size([width - 80, height - 70])(root);
+  const svg = d3.select(host).append("svg").attr("viewBox", `0 0 ${width} ${height}`).attr("role", "img").attr("aria-label", "Ecosystem mind map drawn with d3");
+  svg.append("rect").attr("width", width).attr("height", height).attr("rx", 16).attr("fill", "var(--cc-surface)");
+  const g = svg.append("g").attr("transform", "translate(40,28)");
+  g.selectAll("path").data(root.links()).join("path")
+    .attr("d", (link) => `M${link.source.x},${link.source.y} C${link.source.x},${(link.source.y + link.target.y) / 2} ${link.target.x},${(link.source.y + link.target.y) / 2} ${link.target.x},${link.target.y}`)
+    .attr("fill", "none").attr("stroke", "var(--cc-accent-2)").attr("stroke-width", 2);
+  const node = g.selectAll("g").data(root.descendants()).join("g").attr("transform", (d) => `translate(${d.x},${d.y})`);
+  node.append("rect").attr("x", -58).attr("y", -16).attr("width", 116).attr("height", 32).attr("rx", 10).attr("fill", "var(--cc-surface-2)").attr("stroke", "var(--cc-accent-1)");
+  node.append("text").attr("text-anchor", "middle").attr("dy", "0.35em").attr("fill", "var(--cc-ink)").attr("font-size", 13).text((d) => d.data.name);
+}
+function trackLive(track, atlas) {
+  const charts = atlas.charts;
+  const flows = atlas.diagrams.filter((item) => item.animated);
+  const chart = charts[hashId(track.id) % charts.length];
+  const flow = flows[hashId(track.id + ":flow") % flows.length];
+  return `<section class="track-live" aria-label="Chart, counter, and diagram for this track">
+    <div class="parallax-stage">${isoIcon(track)}</div>
+    <div class="live-counters">${counted(track.lessons.length, "lessons on this track")}${counted(atlas.diagrams.length, "atlas diagrams")}</div>
+    <figure class="glass figure">${chart.svg}<figcaption><strong>${esc(chart.title)}</strong> ${esc(chart.caption)}</figcaption></figure>
+    <figure class="glass figure"><span class="atlas-wide">${flow.svg}</span><span class="atlas-portrait">${flow.svgPortrait || flow.svg}</span><figcaption><a href="#/flows">${esc(flow.title)}</a></figcaption></figure>
+  </section>`;
+}
+async function viewHome() {
+  const shell = hub.shell;
+  const atlas = await loadAtlas();
+  setTitle("The call path is already moving", "Amazon Connect Lab");
+  const cards = shell.tracks.map((t) => `<button class="holo-card" data-go="#/track/${t.id}">${isoIcon(t)}<p class="meta" style="color:${t.hue}">${t.lessons.length} lessons</p><h2>${esc(t.title)}</h2><p>${esc(t.why)}</p></button>`).join("");
+  const animated = atlas.diagrams.filter((item) => item.animated).length;
+  const hops = ["PSTN", "Flow", "Queue", "Agent", "CCP"];
+  return `<section class="hero-stage" aria-label="Three dimensional call path">
+      <div id="hero-host" data-mode="boot">
+        <div class="hero-fallback" aria-hidden="true"><i></i><i></i><i></i><b>Connect</b></div>
+      </div>
+      <div class="mascot mascot-stage" data-pose="wave" data-look="1" data-shift="day" aria-hidden="true"></div>
+      <div class="hero-hud">
+        <p class="hero-greet" id="hero-greet">The call path is already moving.</p>
+        <div class="hud-row">
+          ${progressRing()}
+          <div class="live-counters" aria-label="Live counts">
+            ${counted(shell.counts.tracks, "tracks")}${counted(shell.counts.lessons, "lessons")}${counted(atlas.diagrams.length, "diagrams")}${counted(animated, "flows")}${counted(atlas.charts.length, "charts")}${counted(13, "sheets")}
+          </div>
+        </div>
+        <nav class="hero-jumps" aria-label="Open a studio">
+          <a href="#/diagrams">Diagrams</a>
+          <a href="#/flows">Flows</a>
+          <a href="#/charts">Charts</a>
+          <a href="#/cheats">Cheat Codes</a>
+          <a href="#/regions">Regions</a>
+        </nav>
+      </div>
+    </section>
+    <p class="meta" id="lang-note">Interface labels only. Lessons stay in English.</p>
+    <section class="mega-path holo-card">
+      <div class="section-head"><h2>Inbound path, large enough to read</h2><button class="ghost" type="button" data-open-diagram="inbound-ladder">Enlarge</button></div>
+      <ol class="hop-row">${hops.map((hop, index) => `<li style="--i:${index}">${hop}</li>`).join("")}</ol>
+      <p class="why"><strong>Why it matters.</strong> TCP 443 can sign the agent in while UDP 3478 to TurnNlb is blocked, so the softphone stays silent.</p>
+    </section>
+    ${architectPlayer()}
+    <div class="section-head"><h2>Tracks</h2><button class="ghost" data-go="#/regions">Regions</button></div>
+    <div class="holo-grid">${cards}</div>`;
+}
+function viewRegions() {
+  setTitle("Residency", "Regions");
+  const pairs = [
+    ["us-east-1", "Northern Virginia", "US", "us-west-2", "Oregon", "US"],
+    ["eu-central-1", "Frankfurt", "DE", "eu-west-2", "London", "GB"],
+    ["ap-northeast-1", "Tokyo", "JP", "ap-northeast-3", "Osaka", "JP"],
+  ];
+  const cards = pairs.map(([a, an, ac, b, bn, bc]) => `<article class="holo-card"><p class="meta">Published Global Resiliency pair</p><h2><span class="flag">${esc(ac)}</span> ${esc(an)} <small>${esc(a)}</small></h2><p>linked with</p><h2><span class="flag">${esc(bc)}</span> ${esc(bn)} <small>${esc(b)}</small></h2></article>`).join("");
+  return `<p class="lede">Only these three pairs are cited in this campus. A city that is not in a pair is not a resiliency design.</p>
+    <div class="holo-grid">${cards}</div>
+    <article class="holo-card"><h2>Osaka delivery</h2><p class="ticker">20<span>s</span></p><p>Upper figure for delivery through Osaka, the replica for Tokyo. Numbers have to be enabled for Global Resiliency. Shift traffic in 10 percent steps.</p><p class="cite">Source: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html">Set up Global Resiliency</a></p></article>
+    <article class="holo-card"><h2>United States emergency calling</h2><p>For US CCP agents, validate the address, store it, and read it back with 933. This lab never places a live 911 call.</p><p class="cite">Source: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html">US emergency calling</a></p></article>
+    <article class="holo-card"><p class="meta">Example, not a tariff</p><h2>What this page will not invent</h2><p>Carrier coverage, PSTN price by country, and national regulations other than the US 933 test above are not copied here. A matrix of carriers would be an example, so it is omitted.</p></article>
+    <p><button class="ghost" data-go="#/lesson/foundations-regions">Open the regions lesson</button></p>`;
+}
+async function viewDiagrams() {
+  const atlas = await loadAtlas();
+  setTitle("Atlas", "Diagrams");
+  const animated = atlas.diagrams.filter((item) => item.animated).length;
+  return `<p class="lede">${atlas.diagrams.length} diagrams, drawn large. Click one to enlarge it, then play, pause, or step the packet.</p>
+    <div class="tabs" role="tablist" aria-label="Diagram filter">
+      <button class="chip" type="button" data-atlas="all" aria-pressed="true">All</button>
+      <button class="chip" type="button" data-atlas="flow" aria-pressed="false">Flows</button>
+      <button class="chip" type="button" data-atlas="diagram" aria-pressed="false">Maps</button>
+    </div>
+    <div class="figure-grid" id="atlas-grid">${atlas.diagrams.map(atlasFigure).join("")}</div>
+    <h2>Ecosystem mind map</h2>
+    <div id="mind-host" class="glass"></div>
+    <p class="cite">The mind map is drawn with d3 from the ecosystem names in this lab. Sister-product port numbers that are not in the admin guide are left off.</p>`;
+}
+async function viewFlows() {
+  const atlas = await loadAtlas();
+  const flows = atlas.diagrams.filter((item) => item.animated);
+  setTitle("Animated flows", "Flows");
+  return `<p class="lede">${flows.length} animated flows, one per row so the hop names stay readable. Enlarge any of them.</p>
+    <p class="actions"><button class="ghost" data-go="#/explorer">Hop explorer</button><button class="ghost" data-go="#/sandbox">Call-flow sandbox</button></p>
+    <div class="figure-grid">${flows.map(atlasFigure).join("")}</div>`;
+}
+function viewPlay() {
+  setTitle("Games", "Play");
+  return `<p class="lede">Ports, the daily question, the call-flow sandbox, and the signal map. The Konami sequence still switches the campus to neon.</p>
+    <div class="grid-cards">
+      <button class="card" data-go="#/ports"><p class="meta">Mastery</p><h2>Ports and protocols</h2><p>TCP 443 or UDP 3478. The wrong famous port is a miss.</p></button>
+      <button class="card" data-go="#/daily"><p class="meta">Today</p><h2>Daily challenge</h2><p>One question, then a result card you can save.</p></button>
+      <button class="card" data-go="#/sandbox"><p class="meta">Build</p><h2>Call-flow sandbox</h2><p>Wire a flow and see which port is missing.</p></button>
+      <button class="card" data-go="#/explorer"><p class="meta">Map</p><h2>Flow map explorer</h2><p>PSTN to CCP, with the port named on the hop.</p></button>
+    </div>`;
+}
+async function viewDownloads() {
+  const html = await viewCheats(studioCtx());
+  setTitle("Offline bundle", "Downloads");
+  return html;
 }
 
 function viewMap() {
   setTitle("Topology", "AWS architecture map");
-  return `<p class="lede">Connect in the middle. Lex, Lambda, Kinesis, and Contact Lens around it. The CCP is the agent edge. Orbit the scene, then drop a link. This is the view that loads Three.js.</p>${architecturePanel(true)}
+  return `<p class="lede">Connect in the middle. Lex, Lambda, Kinesis, and Contact Lens around it. The CCP is the agent edge. Orbit the scene, then drop a link. Node colours follow the theme. The home hero is a separate full-bleed scene.</p>${architecturePanel(true)}
     <div class="grid-cards" style="margin-top:12px">
       ${SCENARIOS.filter(([id]) => id !== "none").map(([id, label, copy]) => `<article class="card"><p class="meta">${esc(id)}</p><h2>${esc(label)}</h2><p>${esc(copy)}</p><p><button class="ghost" data-scenario="${id}">Show this failure</button></p></article>`).join("")}
     </div>
@@ -458,6 +777,7 @@ async function bootScene(gen) {
     if (gen !== renderGen || !$("#arch-host")) return;
     sceneHandle = mod.mountArchitecture(host);
     if (!sceneHandle) return;
+    if (sceneHandle.setTheme) sceneHandle.setTheme(state.theme || "neon");
     const fallback = $("#arch-fallback");
     if (fallback) fallback.hidden = true;
   } catch (err) {
@@ -472,12 +792,19 @@ async function viewTrack(id) {
   if (id === "bridge") award("bridge");
   if (id === "ecosystem") award("ecosystem");
   setTitle("Track", t.title);
+  const atlas = await loadAtlas();
   const deps = t.depends.map(trackBy).filter(Boolean);
-  const cards = t.lessons.map((l) => `<button class="lesson-card" data-go="#/lesson/${l.id}"><p class="meta">${state.opened.includes(l.id) ? "Opened" : "New"}</p><h2>${esc(l.title)}</h2><p>${esc(l.why)}</p></button>`).join("");
+  const cards = t.lessons.map((l) => {
+    const translated = lessonBody(state.lang, l.id);
+    const why = translated ? translated.why : l.why;
+    const opened = state.opened.includes(l.id) ? "Opened" : "New";
+    const mark = state.lang !== "en" && !translated ? "English · " + opened : opened;
+    return `<button class="lesson-card" data-go="#/lesson/${l.id}"><p class="meta">${esc(mark)}</p><h2 data-en="${esc(l.title)}">${esc(lessonHeading(state.lang, l.title))}</h2><p>${esc(why)}</p></button>`;
+  }).join("");
   const tips = await tipsPack();
   const sheet = tips.tracks[id];
   const teaser = sheet ? `<aside class="glass tips-teaser"><p class="meta">Tips and traps</p><p><strong>Pro tip.</strong> ${esc(sheet.tips[0])}</p><p><strong>Interview trap.</strong> ${esc(sheet.traps[0])}</p><p><button class="ghost" data-go="#/tips/${id}">Open the ${esc(t.title)} cheat sheet</button></p></aside>` : "";
-  return `${teaser}<div class="why"><strong>Why it matters.</strong> ${esc(t.why)}</div>
+  return `${trackLive(t, atlas)}${teaser}<div class="why"><strong>Why it matters.</strong> ${esc(t.why)}</div>
     <p class="caption">${deps.length ? "Depends on " + deps.map((d) => esc(d.title)).join(", ") + "." : "Starts the campus. Nothing earlier is required."}</p>
     <p><button class="ghost" data-go="#/quiz/${id}">Quiz this track</button></p>
     <div class="lesson-grid">${cards}</div>`;
@@ -501,7 +828,7 @@ async function viewLesson(id) {
   if (foundations && foundations.lessons.every((l) => state.opened.includes(l.id))) award("foundations");
   save();
   const track = trackBy(lesson.track);
-  setTitle(track.title, lesson.title);
+  setTitle(track.title, lesson.title, true);
   lessonTab = "read";
   return lessonShell(lesson);
 }
@@ -524,15 +851,23 @@ function lessonPanel(lesson, iac) {
   if (lessonTab === "tips") return tipsPanel(lesson.track);
   const figures = (lesson.figures || []).slice(0, 3).map(figureHtml).join("");
   const more = (lesson.figures || []).length > 3 ? `<p><button class="ghost" id="more-figures">Show the other figures</button></p><div id="more-figures-host"></div>` : "";
-  const points = lesson.points.map((p, i) => `<li><span class="num">${i + 1}</span><span>${esc(p)}</span></li>`).join("");
+  const translated = lessonBody(state.lang, lesson.id);
+  const why = translated ? translated.why : lesson.why;
+  const paras = translated ? translated.paras : lesson.paras;
+  const pointText = translated ? translated.points : lesson.points;
+  const mistake = translated ? translated.mistake : lesson.mistake;
+  const note = bodyNote(state.lang, Boolean(translated));
+  const banner = note ? `<p class="lang-banner">${esc(note)}</p>` : "";
+  const points = pointText.map((p, i) => `<li><span class="num">${i + 1}</span><span>${esc(p)}</span></li>`).join("");
   let chart = "";
   if (lesson.chartSvg) chart = figureHtml(lesson.chartSvg);
   return `<div class="lesson"><div>
-      <div class="why"><strong>Why it matters.</strong> ${esc(lesson.why)}</div>
+      ${banner}
+      <div class="why"><strong>Why it matters.</strong> ${esc(why)}</div>
       <div class="figure-grid">${figures}</div>
-      <div class="prose">${lesson.paras.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+      <div class="prose reading">${paras.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
       <ol class="points">${points}</ol>
-      <p class="mistake"><strong>Common mistake.</strong> ${esc(lesson.mistake)}</p>
+      <p class="mistake"><strong>Common mistake.</strong> ${esc(mistake)}</p>
       <p class="cite">Source: <a href="${esc(lesson.cite.url)}">${esc(lesson.cite.title)}</a></p>
       ${more}
       ${lesson.id === "eco-glossary" ? `<p><button class="ghost" data-go="#/glossary">Open the glossary</button></p>` : ""}
@@ -637,6 +972,7 @@ async function viewLab(id) {
     if (state.labs.length >= 5) award("labs");
     save();
   }
+  if (id === "flow-builder") award("sandbox");
   setTitle("Lab · " + meta.track, meta.title);
   const body = LAB[id] ? LAB[id]() : `<p>This lab is not wired.</p>`;
   return `<p>${esc(meta.summary)}</p>${body}<p><button class="ghost" data-go="#/labs">All labs</button></p>`;
@@ -1077,9 +1413,11 @@ function glossaryList(q) {
 }
 async function viewCharts() {
   hub.charts = hub.charts || await load("data/charts.json");
+  const atlas = await loadAtlas();
   chartPage = 0;
   setTitle("Charts", "Charts");
-  return `<p class="lede">Teaching charts from the published list rates, the Erlang C formula, and the quota table. Prices are estimates dated 14 October 2026.</p><div id="chart-list">${chartSlice()}</div>`;
+  const live = atlas.charts.map((chart) => `<article class="holo-card chart-card"><h2>${esc(chart.title)}</h2><div class="chart-host" data-chart-host="${esc(chart.id)}"></div><p>${esc(chart.caption)}</p><p class="cite"><a href="${esc(chart.url)}">${esc(chart.source)}</a></p></article>`).join("");
+  return `<p class="lede">${atlas.charts.length} charts. Bars grow in, and hovering a bar names the value. Prices are the 14 October 2026 appendix.</p><div class="chart-live">${live}</div><div id="chart-list">${chartSlice()}</div>`;
 }
 function chartSlice() {
   const rows = hub.charts.charts;
@@ -1111,7 +1449,40 @@ async function viewSources() {
   return `<p class="lede">Primary pages used for facts. A secondary timeline is labeled as a compilation.</p><div class="table-scroll glass"><table><thead><tr><th>Title</th><th>URL</th></tr></thead><tbody>${hub.reference.sources.map((s) => `<tr><td>${esc(s.title)}</td><td><a href="${esc(s.url)}">${esc(s.url)}</a></td></tr>`).join("")}</tbody></table></div>`;
 }
 
+async function bootHero(gen) {
+  const host = $("#hero-host");
+  if (!host) return;
+  if (motionReduced() || !window.WebGLRenderingContext) {
+    host.dataset.mode = "flat";
+    return;
+  }
+  try {
+    const mod = await import("./hero.js");
+    if (gen !== renderGen || !$("#hero-host")) return;
+    const handle = mod.mountHero(host, state.theme || "dark");
+    if (!handle) { host.dataset.mode = "flat"; return; }
+    heroHandle = handle;
+    host.dataset.mode = "webgl";
+  } catch (err) {
+    host.dataset.mode = "flat";
+  }
+}
 async function afterRender(gen) {
+  const stageMascot = document.querySelector(".mascot-stage");
+  const headerMascot = document.getElementById("mascot");
+  if (stageMascot && headerMascot && !stageMascot.querySelector("svg")) {
+    const svg = headerMascot.querySelector("svg");
+    if (svg) stageMascot.appendChild(svg.cloneNode(true));
+  }
+  applyLanguage(state.lang || "en");
+  if (route.view === "home" || route.view === "track") {
+    const icons = mountIcons(document);
+    if (icons) iconHandle = icons;
+  }
+  if (route.view === "home") await bootHero(gen);
+  if (route.view === "home" || route.view === "track") runCounters();
+  if (route.view === "diagrams") paintMind();
+  if (route.view === "charts") paintLiveCharts();
   if (route.view === "map") await bootScene(gen);
   if (route.view === "settings") fillVoices();
   if (route.view === "lab" && route.id === "flow-builder") paintFlow();
@@ -1141,6 +1512,34 @@ function onClick(ev) {
     $("#lesson-panel").innerHTML = lessonPanel(currentLesson, hub.shell.iac[currentLesson.track]);
     $$("[data-tab]").forEach((btn) => btn.setAttribute("aria-selected", btn === tab ? "true" : "false"));
     if (lessonTab === "flow") { ladderIndex = 0; paintLadder(); }
+    return;
+  }
+  const diagramBtn = ev.target.closest("[data-open-diagram]");
+  if (diagramBtn) { openLightbox(diagramBtn.getAttribute("data-open-diagram")); return; }
+  if (ev.target.id === "lb-close") { const dlg = $("#lightbox"); if (dlg && dlg.open) dlg.close(); return; }
+  if (ev.target.id === "lb-pause" || ev.target.id === "lb-play" || ev.target.id === "lb-step") {
+    const svg = $("#lb-stage svg");
+    if (svg && ev.target.id === "lb-pause") svg.pauseAnimations();
+    if (svg && ev.target.id === "lb-play") svg.unpauseAnimations();
+    if (svg && ev.target.id === "lb-step") {
+      svg.pauseAnimations();
+      try { svg.setCurrentTime((svg.getCurrentTime() || 0) + 0.4); } catch (err) { /* SMIL clock */ }
+    }
+    return;
+  }
+  const clipBtn = ev.target.closest("[data-clip-src]");
+  if (clipBtn) {
+    const audio = $("#architect-audio");
+    if (audio) { audio.src = clipBtn.getAttribute("data-clip-src"); audio.play(); }
+    return;
+  }
+  const atlasFilter = ev.target.closest("[data-atlas]");
+  if (atlasFilter && $("#atlas-grid")) {
+    const kind = atlasFilter.getAttribute("data-atlas");
+    $$("[data-atlas]").forEach((btn) => btn.setAttribute("aria-pressed", btn === atlasFilter ? "true" : "false"));
+    $$("#atlas-grid figure").forEach((fig) => {
+      fig.hidden = kind !== "all" && fig.getAttribute("data-kind") !== kind;
+    });
     return;
   }
   const goBtn = ev.target.closest("[data-go]");
@@ -1265,9 +1664,42 @@ function onClick(ev) {
   }
   if (ev.target.id === "rq-add") addRouteRow();
   if (ev.target.id === "rq-run") runRoutes();
+  if (ev.target.id === "ports-reset") {
+    const best = (state.ports && state.ports.best) || 0;
+    state.ports = { index: 0, score: 0, done: false, best };
+    save();
+    render();
+    return;
+  }
+  if (ev.target.id === "ports-next") { render(); return; }
+  const portBtn = ev.target.closest("[data-port]");
+  if (portBtn && route.view === "ports") { answerPort(studioCtx(), Number(portBtn.getAttribute("data-port"))); return; }
+  const dailyBtn = ev.target.closest("[data-daily]");
+  if (dailyBtn && route.view === "daily") { answerDaily(studioCtx(), Number(dailyBtn.getAttribute("data-daily"))); return; }
+  if (ev.target.id === "share-card") {
+    shareCard(ev.target.getAttribute("data-share-title") || "Amazon Connect Lab", ev.target.getAttribute("data-share-line") || "Study card");
+    return;
+  }
+  const syllabusBox = ev.target.closest("[data-syllabus]");
+  if (syllabusBox) {
+    state.syllabus = state.syllabus || {};
+    const id = syllabusBox.getAttribute("data-syllabus");
+    if (syllabusBox.checked) state.syllabus[id] = true;
+    else delete state.syllabus[id];
+    save();
+  }
+  if (ev.target.id === "theme-toggle") {
+    if ((state.theme || "dark") === "light") state.theme = state.themeBack || "neon";
+    else { state.themeBack = state.theme || "dark"; state.theme = "light"; }
+    save();
+    applyPrefs();
+    $$("button[data-theme]").forEach((btn) => btn.setAttribute("aria-pressed", btn.dataset.theme === state.theme ? "true" : "false"));
+    return;
+  }
   const themeBtn = ev.target.closest("button[data-theme]");
   if (themeBtn && themeBtn.dataset.theme) {
     state.theme = themeBtn.dataset.theme;
+    if (state.theme !== "light") state.themeBack = state.theme;
     save();
     applyPrefs();
     $$("button[data-theme]").forEach((btn) => btn.setAttribute("aria-pressed", btn.dataset.theme === state.theme ? "true" : "false"));
@@ -1648,7 +2080,21 @@ async function search(query) {
   const n = query.trim().toLowerCase();
   if (!n) { $("#hits").innerHTML = ""; return; }
   if (!hub.search) hub.search = await load("data/search.json");
-  const hits = hub.search.hits.filter((h) => h.text.includes(n)).slice(0, 20);
+  const extra = [
+    { href: "#/cheats", label: "Cheat codes", meta: "Downloads", text: "cheat sheet pdf png ports firewall glossary flashcards offline zip download" },
+    { href: "#/syllabus", label: "Syllabus", meta: "Map", text: "fundamentals migration e911 wfm certification career checklist" },
+    { href: "#/ports", label: "Ports game", meta: "Game", text: "3478 443 firewall udp tcp turn ports protocols mastery" },
+    { href: "#/explorer", label: "Flow map explorer", meta: "Map", text: "pstn ccp call flow ladder signal path" },
+    { href: "#/daily", label: "Daily challenge", meta: "Quiz", text: "daily question challenge" },
+    { href: "#/career", label: "Career paths", meta: "Career", text: "interview badge certification architect" },
+    { href: "#/sandbox", label: "Call flow sandbox", meta: "Lab", text: "build your own contact flow sandbox" },
+    { href: "#/diagrams", label: "Diagrams", meta: "Atlas", text: "diagram atlas architecture firewall cutover e911" },
+    { href: "#/flows", label: "Flows", meta: "Atlas", text: "animated flow ladder signal routing" },
+    { href: "#/charts", label: "Charts", meta: "Atlas", text: "chart quota price concurrency" },
+    { href: "#/play", label: "Play", meta: "Games", text: "play ports daily sandbox game" },
+    { href: "#/downloads", label: "Downloads", meta: "Cheat codes", text: "download zip offline cheat sheet pdf png" },
+  ];
+  const hits = hub.search.hits.concat(extra).filter((h) => h.text.includes(n)).slice(0, 20);
   $("#hits").innerHTML = hits.map((h) => `<button class="hit" data-go="${esc(h.href)}"><strong>${esc(h.label)}</strong><br><span class="meta">${esc(h.meta)}</span></button>`).join("") || `<p>No matches.</p>`;
 }
 
@@ -1657,6 +2103,25 @@ window.addEventListener("hashchange", render);
 document.addEventListener("keydown", (ev) => {
   if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === "k") { ev.preventDefault(); openSearch(); }
   if (ev.key === "Escape") { $("#search-modal").hidden = true; closeDrawer(); }
+  const typing = ev.target && (ev.target.tagName === "INPUT" || ev.target.tagName === "TEXTAREA" || ev.target.tagName === "SELECT");
+  const menuLink = document.activeElement && document.activeElement.closest && document.activeElement.closest(".campus-menu a");
+  if (menuLink && (ev.key === "ArrowRight" || ev.key === "ArrowLeft")) {
+    const links = $$(".campus-menu a");
+    const index = links.indexOf(menuLink);
+    if (index >= 0) {
+      ev.preventDefault();
+      const next = ev.key === "ArrowRight" ? links[(index + 1) % links.length] : links[(index - 1 + links.length) % links.length];
+      next.focus();
+    }
+  }
+  if (typing) return;
+  const key = ev.key.length === 1 ? ev.key.toLowerCase() : ev.key;
+  if (key === KONAMI[konamiAt]) {
+    konamiAt += 1;
+    if (konamiAt === KONAMI.length) { konamiAt = 0; unlockEgg(); }
+  } else {
+    konamiAt = key === KONAMI[0] ? 1 : 0;
+  }
 });
 $("#q").addEventListener("input", (ev) => { search(ev.target.value); });
 document.body.addEventListener("input", (ev) => {
@@ -1681,6 +2146,14 @@ document.body.addEventListener("change", (ev) => {
     if (motionReduced() && sceneHandle) { sceneHandle.dispose(); sceneHandle = null; }
   }
   if (ev.target.id === "set-voice") { state.voiceURI = ev.target.value; save(); }
+  if (ev.target.id === "lang") {
+    state.lang = ev.target.value;
+    save();
+    applyLanguage(state.lang);
+    const mascot = $("#mascot");
+    if (mascot) mascot.dataset.look = String((state.lang || "en").length % 5);
+    if (route.view === "lesson" || route.view === "track") render();
+  }
 });
 document.body.addEventListener("dragstart", (ev) => { if (ev.target.dataset.pal) ev.dataTransfer.setData("text/plain", ev.target.dataset.pal); });
 document.body.addEventListener("dragover", (ev) => { if (ev.target.id === "canvas" || (ev.target.closest && ev.target.closest("#canvas"))) ev.preventDefault(); });
@@ -1701,6 +2174,8 @@ if (window.speechSynthesis) {
   window.speechSynthesis.addEventListener("voiceschanged", () => { if ($("#set-voice")) fillVoices(); });
   window.speechSynthesis.getVoices();
 }
+tickMascot(motionReduced());
+setInterval(() => tickMascot(motionReduced()), 7000);
 if ("serviceWorker" in navigator && location.protocol !== "file:") {
   navigator.serviceWorker.register("sw.js").catch(() => { /* offline until the next visit */ });
 }

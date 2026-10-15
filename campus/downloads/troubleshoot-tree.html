@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Troubleshooting tree · Amazon Connect Lab</title>
+<style>
+  body { margin: 0; font: 16px/1.45 "Segoe UI", sans-serif; color: #14202b; background: #f4f7fb; }
+  main { max-width: 880px; margin: 0 auto; padding: 28px 18px 48px; }
+  h1 { font-size: 32px; line-height: 1.1; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 22px 0 8px; }
+  p { margin: 8px 0; }
+  table { width: 100%; border-collapse: collapse; background: #fff; }
+  th, td { border-bottom: 1px solid #d5deea; text-align: left; vertical-align: top; padding: 8px; font-size: 14px; }
+  .flag { background: #fff4d6; }
+  a { color: #0f5c6b; }
+  .card { break-inside: avoid; border: 1px solid #d5deea; background: #fff; border-radius: 12px; padding: 12px; margin: 8px 0; }
+  .sheet-foot { margin-top: 28px; padding-top: 12px; border-top: 2px solid #e5843b; font-size: 13px; color: #3d4d5c; }
+  @media print { body { background: #fff; } a { color: inherit; text-decoration: none; } }
+</style>
+</head>
+<body>
+<main>
+<h1>Troubleshooting tree</h1>
+<p>Pick the symptom, then the capture. Change one thing.</p><ol><li><strong>No audio, agent shows Available</strong> Microphone permission, then UDP 3478, then VPN on the media path. Lab: webrtc.</li><li><strong>ice_collection_timeout</strong> DNS for TurnNlb from that PC. Lab: webrtc.</li><li><strong>Flow error and an empty Lambda log</strong> Association and the Lambda resource policy. AccessDenied never reaches your function. Lab: lambda-sim.</li><li><strong>Lambda log is fine and the flow took Error</strong> Response shape or the 8-second wait. Lab: lambda-sim.</li><li><strong>Caller hears silence and the contact ends</strong> An error branch is not connected. Read the flow log for that ContactId. Lab: flow-log-reader.</li><li><strong>Wrong queue answers</strong> Priority and delay on the profile, not the queue name. Lab: routing-designer.</li><li><strong>Recording missing</strong> Block enabled, bucket policy, key policy, then one new test call. Lab: find-fault.</li><li><strong>CTR missing after a minute</strong> Wait. Five quiet minutes is the point to read Firehose errors. Lab: ctr-inspector.</li><li><strong>Screen pop is the wrong person</strong> ANI matched a household. Pop the account id the flow collected. Lab: ecosystem-map.</li><li><strong>WFM adherence is blank</strong> One agent event, a status map, and a published schedule. Lab: wfm-adherence.</li><li><strong>911 would reach headquarters</strong> The stored profile address is stale. Validate, store, test with 933. Lab: e911-checker.</li></ol><p>Source: <a href="https://repost.aws/knowledge-center/connect-contact-flow-errors">re:Post, flow errors</a></p>
+<footer class="sheet-foot">
+  <p>CypherMonkey · Amazon Connect Lab</p>
+  <p><a href="https://cyphermonkeylabs.com">CypherMonkey Labs</a> · <a href="https://linktr.ee/cyphermonkey">Linktree</a> · <a href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing">This lab on GitHub</a> · <a href="https://dev.to/cyphermonkey">dev.to</a> · <a href="https://huggingface.co/Cypher0x9">Hugging Face</a> · <a href="https://x.com/Cypher0x9">X</a></p>
+  <p>Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.</p>
+  <p><a href="https://cyphermonkeylabs.com/#contact">Work with us</a> · <a href="https://cyphermonkeylabs.com/#contact">Report a concern / takedown</a></p>
+</footer>
+</main>
+</body>
+</html>

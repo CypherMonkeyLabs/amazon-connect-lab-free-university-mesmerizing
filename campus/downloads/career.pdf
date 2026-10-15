@@ -1,0 +1,81 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Length 2702 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+48 780 Td
+(Career paths and interview prompts) Tj
+T* () Tj
+T* (Badges are not certifications. Say the exam name or the badge name, not both for one) Tj
+T* (credential.) Tj
+T* () Tj
+T* (Connect administrator: Skill Builder badges \(Communications Specialist, Fundamentals,) Tj
+T* (administrator track\), passed at 80 percent. Not a proctored Connect specialty exam.) Tj
+T* () Tj
+T* (Flow developer: Connect Developer badge, plus AWS Certified Developer - Associate if the) Tj
+T* (work is Lambda and Streams.) Tj
+T* () Tj
+T* (Solutions architect: AWS Certified Solutions Architect - Associate is the closest catalog) Tj
+T* (exam. There is still no Connect specialty.) Tj
+T* () Tj
+T* (Network engineer for the CCP: AWS Certified Advanced Networking - Specialty covers complex) Tj
+T* (networks. Its last day to test is 31 December 2026.) Tj
+T* () Tj
+T* (WFM and quality analyst: The AI Fundamentals badge is context. It does not configure a flow.) Tj
+T* (Pair it with the analytics and ecosystem tracks.) Tj
+T* () Tj
+T* (Q: Is there an Amazon Connect certification? A: Not a specialty exam on the AWS) Tj
+T* (Certification catalog. Connect recognition is a Skill Builder badge at 80 percent. Say which) Tj
+T* (badge, and do not call it certified.) Tj
+T* () Tj
+T* (Q: Why did the softphone fail when the agent was signed in? A: Signaling can succeed on TCP) Tj
+T* (443 while media fails on UDP 3478 to TurnNlb.) Tj
+T* () Tj
+T* (Q: What replaced Contact Lens and Amazon Q in Connect in 2026? A: On 4 August 2026 the admin) Tj
+T* (guide renamed them conversational analytics and agent assist. IAM for assist still shows the) Tj
+T* (wisdom prefix.) Tj
+T* () Tj
+T* (Q: How do you migrate a CUCM SIP trunk? A: You do not register Connect as a phone. The) Tj
+T* (public number hits a flow. A transfer back to CUCM is Transfer to phone number, and) Tj
+T* (attributes do not ride the PSTN.) Tj
+T* () Tj
+T* (Q: What is the honest multi-Region design? A: Global Resiliency in a published pair, shifted) Tj
+T* (10 percent at a time. A second instance you built by hand is not that pattern.) Tj
+T* () Tj
+T* (Q: Voice ID in a design written this year? A: Support ended 20 May 2026. Remove the blocks.) Tj
+T* (Use a partner or a one-time password.) Tj
+T* () Tj
+T* (CypherMonkey · Amazon Connect Lab) Tj
+T* (cyphermonkeylabs.com · linktr.ee/cyphermonkey · github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing) Tj
+T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
+T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 4 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+4 0 obj
+<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+endobj
+5 0 obj
+<< /Type /Catalog /Pages 4 0 R >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000002833 00000 n 
+0000002959 00000 n 
+0000003016 00000 n 
+trailer
+<< /Size 6 /Root 5 0 R >>
+startxref
+3065
+%%EOF

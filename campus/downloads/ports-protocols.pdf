@@ -1,0 +1,70 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Length 2273 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+48 780 Td
+(Ports and protocols) Tj
+T* () Tj
+T* (Agent workstation path for the Contact Control Panel. Confirm the current admin guide before) Tj
+T* (you change a firewall.) Tj
+T* () Tj
+T* (CCP and admin signaling: TCP 443 Outbound to The instance domain \(*.my.connect.aws\) and the) Tj
+T* (other domains on the documented allow list. Option 1 in the network guide is a domain allow) Tj
+T* (list. Option 2, the AWS IP ranges, is documented as not recommended.) Tj
+T* () Tj
+T* (Softphone media: UDP 3478 Outbound to TurnNlb-*.elb.<region>.amazonaws.com in the instance) Tj
+T* (Region. The usual failure string names turn:TurnNlb and port 3478. Media should not hairpin) Tj
+T* (through a VPN.) Tj
+T* () Tj
+T* (Return media on a stateless firewall: UDP Browser ephemeral range Back to the browser to The) Tj
+T* (agent workstation. There is no lasting pin. A stateless firewall has to allow the browser's) Tj
+T* (ephemeral UDP range. The exact range depends on the OS, so this row does not invent a) Tj
+T* (number.) Tj
+T* () Tj
+T* (ICE failure symptom: UDP and DNS 3478 Outbound to The same TURN name, resolved from the) Tj
+T* (agent PC. ice_collection_timeout means the browser never gathered candidates. Resolve) Tj
+T* (TurnNlb from that PC, not from a jump host.) Tj
+T* () Tj
+T* (Allow-list proof: TCP and UDP 443 and 3478 Outbound to The domains in the allow list. Test) Tj
+T* (more than 200 calls. An error rate above 2 percent points at proxy or DNS resolution.) Tj
+T* () Tj
+T* (Video: Chime media Not copied here Outbound to An Amazon Chime subnet, in addition to the) Tj
+T* (softphone path. UNVERIFIED as a port list. The network lesson says video adds a Chime subnet) Tj
+T* (and does not support VDI. Confirm the current port table on the video page before you ticket) Tj
+T* (a firewall change.) Tj
+T* () Tj
+T* (CypherMonkey · Amazon Connect Lab) Tj
+T* (cyphermonkeylabs.com · linktr.ee/cyphermonkey · github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing) Tj
+T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
+T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 4 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+4 0 obj
+<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+endobj
+5 0 obj
+<< /Type /Catalog /Pages 4 0 R >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000002404 00000 n 
+0000002530 00000 n 
+0000002587 00000 n 
+trailer
+<< /Size 6 /Root 5 0 R >>
+startxref
+2636
+%%EOF
