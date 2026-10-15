@@ -438,4 +438,17 @@ def build_atlas():
             "Invoke Lambda function block", LAMBDA,
         ),
     ]
+    attached = {
+        "chart-concurrency": ("active", [("Calls", 10, "10"), ("Real-time analytics", 300, "300"), ("Chats", 500, "500"), ("Emails", 1000, "1000"), ("Tasks", 2500, "2500")]),
+        "chart-resources": ("each", [("Phone numbers", 10, "10"), ("Flows", 100, "100"), ("Queues", 100, "100"), ("Modules", 200, "200"), ("Users", 500, "500"), ("Profiles", 500, "500")]),
+        "chart-voice-price": ("USD/min", [("Basic voice", 18, "0.018"), ("Customer voice", 38, "0.038"), ("External connector", 32, "0.032"), ("Campaign voice", 45, "0.045")]),
+        "chart-message-price": ("USD", [("Basic chat", 4, "0.004"), ("Customer chat", 10, "0.010"), ("SMS", 14, "0.014"), ("Basic email", 50, "0.050"), ("Customer email", 80, "0.080")]),
+        "chart-surprise": ("default", [("Campaign calls", 0, "0"), ("Instances / Region", 2, "2"), ("AI assistants", 5, "5"), ("Phone numbers", 10, "10"), ("Knowledge bases", 10, "10")]),
+        "chart-eighty": ("percent", [("Badge pass mark", 80, "80"), ("Quota alarm habit", 80, "80")]),
+        "chart-timing": ("seconds", [("Sync Lambda cap", 8, "8"), ("Osaka delivery, up to", 20, "20")]),
+    }
+    for chart in charts:
+        unit, rows = attached[chart["id"]]
+        chart["unit"] = unit
+        chart["points"] = [{"label": label, "value": value, "shown": shown} for label, value, shown in rows]
     return {"diagrams": diagrams, "charts": charts}

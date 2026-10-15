@@ -158,11 +158,20 @@ def main():
         if not pack.get("url") or not pack.get("source"):
             problems.append("tips missing source " + track_id)
             break
-    if 'route.view === "map"' not in app or 'route.view === "home" || route.view === "map"' in app:
-        problems.append("Three.js should boot only on the map view")
+    if "bootHero" not in app or "mountHero" not in (CAMPUS / "hero.js").read_text():
+        problems.append("3D hero must start on the home view")
+    if 'route.view === "map"' not in app:
+        problems.append("3D map still needs its own boot")
+    if 'id="lang"' not in html or 'id="lightbox"' not in html:
+        problems.append("language switcher or diagram lightbox missing")
+    for audio_name in ("audio/use.mp3", "audio/share.mp3", "audio/scripts/architect-use.md", "audio/scripts/architect-share.md"):
+        if not (CAMPUS / audio_name).exists():
+            problems.append("missing " + audio_name)
     if "viewSettings" not in app or "voiceschanged" not in app:
         problems.append("settings or voice picker missing")
     css = (CAMPUS / "campus.css").read_text()
+    if "holographic" not in css or "cyberpunk" not in css or "sunset" not in css:
+        problems.append("neon theme set missing holographic, cyberpunk, or sunset")
     for theme in ('data-theme="light"', 'data-theme="contrast"', 'data-theme="console"', 'data-theme="dark"'):
         if theme not in css and theme != 'data-theme="dark"':
             problems.append("missing theme " + theme)

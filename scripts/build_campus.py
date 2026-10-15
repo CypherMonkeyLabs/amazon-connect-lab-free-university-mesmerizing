@@ -145,7 +145,7 @@ def sources(lessons):
 
 
 SHELL_HTML = """<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="neon">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -177,7 +177,7 @@ try {
 } catch (err) { /* keep the default theme */ }
 </script>
 </head>
-<body>
+<body data-view="home">
 <a class="skip" href="#view-title">Skip to content</a>
 <div class="studio-stack">
 <header class="studio-bar">
@@ -214,10 +214,24 @@ try {
   <a href="#/track/ecosystem" data-menu="ecosystem">Ecosystem</a>
   <a href="#/downloads" data-menu="downloads">Downloads</a>
   <a href="#/career" data-menu="careers">Careers</a>
+  <label class="lang-pick">Language
+    <select id="lang" aria-label="Language">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="hi">हिन्दी</option>
+      <option value="te">తెలుగు</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="ja">日本語</option>
+      <option value="ar">العربية</option>
+    </select>
+  </label>
+  <button type="button" id="theme-toggle">Dark / Light</button>
   <div class="theme-quick" role="group" aria-label="Theme">
-    <button type="button" data-theme="futuristic">Futuristic</button>
-    <button type="button" data-theme="gaming">Gaming</button>
     <button type="button" data-theme="neon">Neon</button>
+    <button type="button" data-theme="holographic">Holographic</button>
+    <button type="button" data-theme="cyberpunk">Cyberpunk</button>
+    <button type="button" data-theme="sunset">Sunset</button>
     <button type="button" data-theme="light">Light</button>
   </div>
 </nav>
@@ -310,12 +324,13 @@ try {
   </div>
 </div>
 <noscript><p>This campus needs JavaScript. Serve the campus folder over HTTP. It does not load libraries from a CDN.</p></noscript>
+<dialog id="lightbox" class="lightbox" aria-label="Enlarged diagram"></dialog>
 <script type="module" src="app.js"></script>
 </body>
 </html>
 """
 
-SW_JS = """const VERSION = "acl-campus-v11";
+SW_JS = """const VERSION = "acl-campus-v16";
 const SHELL = __SHELL__;
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -507,8 +522,14 @@ def main():
     counts = split_modules(data, campus)
     write_json(campus / "data" / "atlas.json", build_atlas())
     (campus / "index.html").write_text(SHELL_HTML)
-    for name in ("app.js", "studio.js", "scene.js", "flowlang.js", "campus.css"):
+    for name in ("app.js", "studio.js", "scene.js", "flowlang.js", "hero.js", "i18n.js", "campus.css"):
         shutil.copyfile(ROOT / "web" / name, campus / name)
+    audio_src = ROOT / "audio"
+    audio_dst = campus / "audio"
+    if audio_dst.exists():
+        shutil.rmtree(audio_dst)
+    if audio_src.exists():
+        shutil.copytree(audio_src, audio_dst)
     vendor = campus / "vendor"
     if vendor.exists():
         shutil.rmtree(vendor)
@@ -516,7 +537,7 @@ def main():
     (campus / ".nojekyll").write_text("")
     from build_downloads import main as build_downloads  # noqa: E402
     build_downloads()
-    precache = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "data/shell.json", "data/mastery.json", "data/atlas.json"]
+    precache = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "i18n.js", "hero.js", "data/shell.json", "data/mastery.json", "data/atlas.json", "audio/use.mp3", "audio/share.mp3"]
     if (campus / "og-card.png").exists():
         precache.append("og-card.png")
     (campus / "sw.js").write_text(SW_JS.replace("__SHELL__", json.dumps(precache)))

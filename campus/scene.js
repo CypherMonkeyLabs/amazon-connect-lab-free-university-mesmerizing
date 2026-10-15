@@ -67,7 +67,12 @@ export function mountArchitecture(container) {
   }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
   renderer.setSize(width, height);
-  renderer.setClearColor(0x0b1120, 1);
+  const themeNow = (document.documentElement.dataset.theme || "dark");
+  const clear = {
+    dark: 0x0b1120, light: 0xd7e6f8, neon: 0x07010f, holographic: 0x03141c, cyberpunk: 0x140014,
+    sunset: 0x1c0c16, futuristic: 0x050816, gaming: 0x0a0614, contrast: 0x000000, console: 0x0f1b2d,
+  }[themeNow] || 0x0b1120;
+  renderer.setClearColor(clear, 1);
   renderer.domElement.setAttribute("role", "img");
   renderer.domElement.setAttribute("aria-label", "Three dimensional map of Connect, Lex, Lambda, Kinesis, Contact Lens, and the CCP");
   container.appendChild(renderer.domElement);

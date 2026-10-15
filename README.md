@@ -27,12 +27,12 @@ Then open `http://127.0.0.1:43123/`. The repository root `index.html` redirects 
 | | Before | After |
 | --- | --- | --- |
 | Entry | The same 4,906,039-byte HTML copied at the repo root, `campus/index.html`, and `campus/amazon-connect-lab.html` | One shell, `campus/index.html` (about 6 KB). Curriculum is per-track JSON fetched on demand. |
-| First load | ~4.9 MB parsed up front | 202,646 bytes (shell, CSS, app, flow language, shell JSON). Three.js r170 loads with the map, which brings that view to 933,413 bytes |
+| First load | ~4.9 MB parsed up front | The shell stays small. Three.js r170 loads with the home hero (`hero.js`) and again on the 3D map |
 | DOM | ~592 nodes, the whole campus mounted at once | One view at a time, measured under 400 nodes on home, lessons, labs, and studios |
 | Heading | No `h1` | One `h1` per view |
-| 3D | A single 2D canvas | WebGL architecture map on `#/map` (Connect, Lex, Lambda, Kinesis, Contact Lens, CCP) with orbit controls and failure scenarios. The home page stays a flat SVG and does not import Three.js. Reduced motion keeps the map flat too |
+| 3D | A single 2D canvas | The home view starts a full-bleed Three.js hero (ring, orbiting nodes, particles, neon grid) with no click. `#/map` still loads the orbit-controlled architecture scene. Reduced motion or a missing WebGL context keeps a flat fallback |
 | Mobile | One 980px breakpoint | Slide-out track drawer under 980px, bottom nav under 640px |
-| Lighthouse 12.8.2, mobile, headless Chrome 154 | Not scored on the single-file page. An earlier pass that parsed Three.js on the home page scored performance 84 with 590 ms total blocking time | Performance **99**, accessibility **100**. Total blocking time **0 ms**. FCP 1.5 s, LCP 2.0 s, CLS 0.029 |
+| Lighthouse 12.8.2, mobile, headless Chrome 154 | Not scored on the single-file page. An earlier pass that parsed Three.js on the home page scored performance 84 with 590 ms total blocking time | The score of performance 99 was measured before this hero. It is not a current claim for the WebGL home page |
 
 A later route check in the same browser stayed on one `h1` and under 400 nodes: home 359, a foundations lesson 321, the flow builder 308, Erlang 233, the CCP 240, Contact Lens 234, the 3D map 289. Python's `http.server` does not gzip. GitHub Pages does, so the text-compression warning in this local run is the server, not the campus.
 
@@ -51,9 +51,9 @@ Connect-specific studios:
 
 ## Settings and tips
 
-Settings (`#/settings`) store the theme, sound effects, narration, reduced motion, and type size in `localStorage` under `acl-campus-v1`, with the streak and quiz progress. Themes are Night ops, Light, Futuristic, Gaming, Neon, High contrast, and Console. Narration waits for `voiceschanged`, prefers a natural or high-quality voice, and does not select Microsoft Edge unless you pick that voice. Speed runs from 0.6× to 1.6×.
+Settings (`#/settings`) store the theme, sound effects, narration, reduced motion, type size, and interface language in `localStorage` under `acl-campus-v1`, with the streak and quiz progress. Themes include Neon, Holographic, Cyberpunk, Sunset, Light, Night ops, Futuristic, Gaming, High contrast, and Console. The default is Neon. A Dark / Light control toggles Light against the last colourful theme. Interface labels switch among English, Spanish, Hindi, Telugu, French, German, Japanese, and Arabic (Arabic is right-to-left). Lessons stay in English. Narration waits for `voiceschanged`, prefers a natural or high-quality voice, and does not select Microsoft Edge unless you pick that voice. Speed runs from 0.6× to 1.6×.
 
-The campus menu stays on screen: Diagrams, Flows, Charts, Cheat Codes, Play, Ecosystem, Downloads, and Careers. The home page opens on that set: an animated diagram, an animated flow, a cited chart, and the cheat-code card (TCP 443 and UDP 3478). The Diagram Atlas is `data/atlas.json` (27 diagrams, 15 of them animated, 7 charts). Every track page shows a chart, a counter, and a 3D icon. Anime.js, Rough.js, D3, and canvas-confetti are vendored. Three.js still loads only on the 3D map.
+The campus menu stays on screen: Diagrams, Flows, Charts, Cheat Codes, Play, Ecosystem, Downloads, and Careers. The home page opens on a Three.js call-path hero, a large inbound hop row (TCP 443 and UDP 3478), and two short architect clips in `audio/`. The Diagram Atlas is `data/atlas.json` (27 diagrams, 15 of them animated, 7 charts). Diagrams and flows are one per row and open in a lightbox with play, pause, and step. Every track page shows a chart, a counter, and an isometric icon. Anime.js, Rough.js, D3, and canvas-confetti are vendored.
 
 Cheat codes (`#/cheats` and `#/downloads`) are one-page HTML, PDF, and PNG sheets for ports, call flows, cutover, the firewall matrix, careers, and the 2026 timeline, plus `downloads/flashcards.json` and `downloads/amazon-connect-lab.zip`. The studio bar links the CypherMonkey Labs home, Linktree, this repository, dev.to, Hugging Face, and X. The footer links the contact form for work and for a takedown. No email address is shown. The next-lab strip uses `https://cipher0x9.github.io/<repo>/`.
 

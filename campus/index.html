@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="neon">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +31,7 @@ try {
 } catch (err) { /* keep the default theme */ }
 </script>
 </head>
-<body>
+<body data-view="home">
 <a class="skip" href="#view-title">Skip to content</a>
 <div class="studio-stack">
 <header class="studio-bar">
@@ -68,10 +68,24 @@ try {
   <a href="#/track/ecosystem" data-menu="ecosystem">Ecosystem</a>
   <a href="#/downloads" data-menu="downloads">Downloads</a>
   <a href="#/career" data-menu="careers">Careers</a>
+  <label class="lang-pick">Language
+    <select id="lang" aria-label="Language">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="hi">हिन्दी</option>
+      <option value="te">తెలుగు</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="ja">日本語</option>
+      <option value="ar">العربية</option>
+    </select>
+  </label>
+  <button type="button" id="theme-toggle">Dark / Light</button>
   <div class="theme-quick" role="group" aria-label="Theme">
-    <button type="button" data-theme="futuristic">Futuristic</button>
-    <button type="button" data-theme="gaming">Gaming</button>
     <button type="button" data-theme="neon">Neon</button>
+    <button type="button" data-theme="holographic">Holographic</button>
+    <button type="button" data-theme="cyberpunk">Cyberpunk</button>
+    <button type="button" data-theme="sunset">Sunset</button>
     <button type="button" data-theme="light">Light</button>
   </div>
 </nav>
@@ -164,6 +178,7 @@ try {
   </div>
 </div>
 <noscript><p>This campus needs JavaScript. Serve the campus folder over HTTP. It does not load libraries from a CDN.</p></noscript>
+<dialog id="lightbox" class="lightbox" aria-label="Enlarged diagram"></dialog>
 <script type="module" src="app.js"></script>
 </body>
 </html>

@@ -221,6 +221,10 @@ export function tickMascot(reduced) {
   else if (hour >= 17) shift = "evening";
   el.dataset.shift = shift;
   const poses = ["idle", "wave", "think", "celebrate"];
+  const look = Math.floor(Date.now() / 180000) % 5;
+  el.dataset.look = String(look);
+  const section = (location.hash || "#/").split("/")[1] || "home";
+  el.dataset.section = section || "home";
   if (reduced) {
     el.dataset.pose = "idle";
     return;

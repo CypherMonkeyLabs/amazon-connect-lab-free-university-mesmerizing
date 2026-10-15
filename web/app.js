@@ -8,6 +8,7 @@ import { animate } from "./vendor/anime.esm.min.js";
 import d3 from "./vendor/d3.entry.js";
 import rough from "./vendor/rough.esm.js";
 import burst from "./vendor/confetti.module.mjs";
+import { applyLanguage } from "./i18n.js";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -18,6 +19,9 @@ const THEMES = [
   ["futuristic", "Futuristic", "Cyan glass on a night grid.", "#050816", "#00e5ff", "#7c5cff"],
   ["gaming", "Gaming", "Lime and magenta, sharp corners.", "#0a0614", "#39ff14", "#ff2bd6"],
   ["neon", "Neon", "Hot pink and electric cyan.", "#07010f", "#ff2d95", "#22e7ff"],
+  ["holographic", "Holographic", "Teal glass and violet haze.", "#03141c", "#5eead4", "#a78bfa"],
+  ["cyberpunk", "Cyberpunk", "Yellow, crimson, and cyan.", "#140014", "#fcee0a", "#ff003c"],
+  ["sunset", "Sunset", "Coral, magenta, and gold.", "#1c0c16", "#ff7a3c", "#ff2d7b"],
   ["contrast", "High contrast", "Yellow on black.", "#000000", "#ffe14a", "#ffffff"],
   ["console", "Console", "AWS orange on navy.", "#0f1b2d", "#ff9900", "#3dcfb4"],
 ];
@@ -29,6 +33,7 @@ let renderGen = 0;
 let route = { view: "home", id: "" };
 let flowState = null;
 let sceneHandle = null;
+let heroHandle = null;
 let audioCtx = null;
 let liveNodes = [];
 let ladderTimer = null;
@@ -76,9 +81,10 @@ function esc(value) {
 function loadState() {
   const blank = {
     opened: [], labs: [], quiz: { correct: 0, answered: 0, seen: {} }, cards: { known: [] },
-    streak: { last: "", count: 0 }, theme: "dark", achievements: [], scenario: {},
+    streak: { last: "", count: 0 }, theme: "neon", achievements: [], scenario: {},
     sound: true, narration: true, voiceURI: "", rate: 1, reducedMotion: null, fontSize: "md",
     syllabus: {}, ports: { index: 0, score: 0, done: false, best: 0 }, daily: { day: "", answered: false, correct: false },
+    lang: "en", themeBack: "dark",
   };
   try { return Object.assign(blank, JSON.parse(localStorage.getItem(KEY) || "null") || {}); }
   catch (err) { return blank; }
@@ -100,6 +106,8 @@ function applyPrefs() {
   $$(".theme-quick button[data-theme]").forEach((btn) => {
     btn.setAttribute("aria-pressed", btn.dataset.theme === (state.theme || "dark") ? "true" : "false");
   });
+  applyLanguage(state.lang || "en");
+  if (heroHandle) heroHandle.setTheme(state.theme || "dark");
 }
 function studioCtx() {
   return { esc, state, save, award, load, hub, setTitle };
@@ -299,6 +307,7 @@ function closeDrawer() {
 async function render() {
   const gen = ++renderGen;
   haltTimers();
+  if (heroHandle) { heroHandle.dispose(); heroHandle = null; }
   closeDrawer();
   route = parseHash();
   if ((route.view === "track" || route.view === "lesson" || route.view === "lab" || route.view === "scenario") && !route.id) {
@@ -343,6 +352,7 @@ async function viewFor(r) {
   if (r.view === "flows") return viewFlows();
   if (r.view === "play") return viewPlay();
   if (r.view === "downloads") return viewDownloads();
+  if (r.view === "regions") return viewRegions();
   if (r.view === "faults") return viewFaults();
   if (r.view === "audio") return viewAudio();
   if (r.view === "ccp") return viewCcp();
@@ -365,7 +375,7 @@ function architecturePanel(live) {
   const lamp = live ? "Live topology" : "Flat topology";
   const note = live
     ? "Drag to orbit. Scroll to zoom. Pick a failure to drop that link. Three.js loads for this view."
-    : "Flat topology on this page. Three.js stays unloaded until you open the map.";
+    : "This drawing is the flat fallback. The home page already runs the three.js hero. Open the 3D map when you want orbit controls.";
   return `<div class="stage-3d" id="arch-host">
       <div class="bezel-lamp"><i></i> ${lamp}</div>
       <div class="arch-fallback" id="arch-fallback">${fallbackMap()}</div>
@@ -476,7 +486,76 @@ function counted(n, label) {
   return `<div class="stat"><b data-count="${Number(n) || 0}">0</b><span>${esc(label)}</span></div>`;
 }
 function atlasFigure(item) {
-  return `<figure class="glass figure" data-kind="${esc(item.kind)}" data-animated="${item.animated ? "1" : "0"}">${item.svg}<figcaption><strong>${esc(item.title)}</strong> ${esc(item.caption)} <a href="${esc(item.url)}">${esc(item.source)}</a></figcaption></figure>`;
+  return `<figure class="glass figure atlas-card" data-kind="${esc(item.kind)}" data-animated="${item.animated ? "1" : "0"}"><button type="button" class="atlas-open" data-open-diagram="${esc(item.id)}">${item.svg}<span class="atlas-open-label">Enlarge</span></button><figcaption><strong>${esc(item.title)}</strong> ${esc(item.caption)} <a href="${esc(item.url)}">${esc(item.source)}</a></figcaption></figure>`;
+}
+function isoIcon(track) {
+  const hue = (track && track.hue) || "#22e7ff";
+  const n = hashId((track && track.id) || "x") % 3;
+  const slab = `<polygon points="60,16 104,40 60,64 16,40" fill="${hue}"/><polygon points="16,40 60,64 60,100 16,76" fill="#070b16" stroke="${hue}" stroke-width="3"/><polygon points="60,64 104,40 104,76 60,100" fill="#12182c" stroke="${hue}" stroke-width="3"/>`;
+  const rings = `<ellipse cx="60" cy="46" rx="42" ry="16" fill="none" stroke="${hue}" stroke-width="7"/><ellipse cx="60" cy="62" rx="30" ry="12" fill="none" stroke="#22e7ff" stroke-width="5"/><circle cx="60" cy="36" r="9" fill="${hue}"/><ellipse cx="60" cy="78" rx="18" ry="7" fill="none" stroke="#ff2d95" stroke-width="4"/>`;
+  const cluster = `<circle cx="38" cy="42" r="16" fill="${hue}"/><circle cx="80" cy="36" r="12" fill="#22e7ff"/><circle cx="64" cy="74" r="14" fill="#ff2d95"/><path d="M38 42 L80 36 L64 74 Z" fill="none" stroke="#fff" stroke-width="3" opacity="0.8"/>`;
+  const body = n === 0 ? slab : n === 1 ? rings : cluster;
+  return `<span class="iso-icon" aria-hidden="true"><svg viewBox="0 0 120 120">${body}<ellipse cx="60" cy="108" rx="30" ry="6" fill="${hue}" opacity="0.35"/></svg></span>`;
+}
+function progressRing() {
+  const pct = hub.shell ? Math.round((state.opened.length / Math.max(1, hub.shell.counts.lessons)) * 100) : 0;
+  const length = 2 * Math.PI * 32;
+  const dash = (pct / 100) * length;
+  return `<div class="ring-wrap"><svg class="ring" viewBox="0 0 80 80" role="img" aria-label="${pct} percent of lessons opened"><circle cx="40" cy="40" r="32" class="ring-track"/><circle cx="40" cy="40" r="32" class="ring-value" stroke-dasharray="${dash.toFixed(1)} ${length.toFixed(1)}" transform="rotate(-90 40 40)"/></svg><b>${pct}%</b></div>`;
+}
+function architectPlayer() {
+  return `<section class="architect holo-card" aria-label="Architect conversation">
+    <p class="showcase-kicker">Listen</p>
+    <h2>Two architects, one minute</h2>
+    <audio id="architect-audio" controls preload="none" src="audio/use.mp3"></audio>
+    <div class="actions">
+      <button type="button" class="ghost" data-clip-src="audio/use.mp3">Using the lab</button>
+      <button type="button" class="ghost" data-clip-src="audio/share.mp3">Practise and share</button>
+      <a class="ghost" href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing">Rate</a>
+      <a class="ghost" href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing/issues">Comment</a>
+    </div>
+    <p class="meta">Offline espeak-ng voices, about 75 seconds together. Not a person, and not Amazon.</p>
+  </section>`;
+}
+function openLightbox(id) {
+  const atlas = hub.atlas;
+  const dlg = $("#lightbox");
+  if (!atlas || !dlg) return;
+  const item = atlas.diagrams.concat(atlas.charts).find((row) => row.id === id);
+  if (!item) return;
+  dlg.innerHTML = `<div class="lightbox-card"><div class="lightbox-bar"><strong>${esc(item.title)}</strong><button type="button" id="lb-play">Play</button><button type="button" id="lb-pause">Pause</button><button type="button" id="lb-step">Step</button><button type="button" id="lb-close">Close</button></div><div class="lightbox-stage" id="lb-stage">${item.svg}</div><p class="why"><strong>Why this matters.</strong> ${esc(item.caption)}</p><p class="cite">Source: <a href="${esc(item.url)}">${esc(item.source)}</a></p><ul class="legend"><li>The moving dot is the contact or the signal.</li><li>Each box is one hop. Read the caption before you trust a port number.</li></ul></div>`;
+  if (typeof dlg.showModal === "function" && !dlg.open) dlg.showModal();
+}
+function paintLiveCharts() {
+  if (!d3 || !hub.atlas) return;
+  hub.atlas.charts.forEach((chart) => {
+    const host = document.querySelector(`[data-chart-host="${CSS.escape(chart.id)}"]`);
+    if (!host || !chart.points || !chart.points.length) return;
+    host.replaceChildren();
+    const width = Math.max(320, host.clientWidth || 720);
+    const height = 36 + chart.points.length * 42;
+    const left = 168;
+    const peak = Math.max(...chart.points.map((point) => Number(point.value) || 0), 1);
+    const svg = d3.select(host).append("svg").attr("viewBox", `0 0 ${width} ${height}`).attr("role", "img").attr("aria-label", chart.title);
+    const tip = d3.select(host).append("p").attr("class", "chart-tip");
+    chart.points.forEach((point, index) => {
+      const y = 12 + index * 42;
+      const span = Math.max(8, ((Number(point.value) || 0) / peak) * (width - left - 90));
+      svg.append("text").attr("x", 8).attr("y", y + 22).attr("fill", "currentColor").attr("font-size", 16).text(point.label);
+      const bar = svg.append("rect").attr("class", "live-bar").attr("x", left).attr("y", y + 6).attr("height", 22).attr("rx", 8).attr("width", 0).attr("fill", index % 2 ? "var(--cc-accent-2)" : "var(--cc-accent-1)");
+      try {
+        bar.transition().duration(motionReduced() ? 0 : 800).attr("width", span);
+      } catch (err) {
+        bar.attr("width", span);
+      }
+      svg.append("text").attr("x", left + span + 8).attr("y", y + 22).attr("fill", "currentColor").attr("font-size", 15).text(String(point.shown));
+      bar.on("mousemove", (event) => {
+        const rect = host.getBoundingClientRect();
+        tip.style("opacity", 1).style("left", (event.clientX - rect.left + 10) + "px").style("top", (event.clientY - rect.top - 28) + "px").text(`${point.label}: ${point.shown} ${chart.unit || ""}`);
+      });
+      bar.on("mouseleave", () => { tip.style("opacity", 0); });
+    });
+  });
 }
 function showcaseLink(href, kicker, svg, caption) {
   return `<a class="showcase-card" href="${href}"><p class="showcase-kicker">${kicker}</p>${svg}<p class="meta">${esc(caption)}</p></a>`;
@@ -555,14 +634,14 @@ function paintMind() {
   const height = 240;
   d3.tree().size([width - 80, height - 70])(root);
   const svg = d3.select(host).append("svg").attr("viewBox", `0 0 ${width} ${height}`).attr("role", "img").attr("aria-label", "Ecosystem mind map drawn with d3");
-  svg.append("rect").attr("width", width).attr("height", height).attr("rx", 16).attr("fill", "#0e1728");
+  svg.append("rect").attr("width", width).attr("height", height).attr("rx", 16).attr("fill", "var(--cc-surface)");
   const g = svg.append("g").attr("transform", "translate(40,28)");
   g.selectAll("path").data(root.links()).join("path")
     .attr("d", (link) => `M${link.source.x},${link.source.y} C${link.source.x},${(link.source.y + link.target.y) / 2} ${link.target.x},${(link.source.y + link.target.y) / 2} ${link.target.x},${link.target.y}`)
-    .attr("fill", "none").attr("stroke", "#2dd4bf").attr("stroke-width", 2);
+    .attr("fill", "none").attr("stroke", "var(--cc-accent-2)").attr("stroke-width", 2);
   const node = g.selectAll("g").data(root.descendants()).join("g").attr("transform", (d) => `translate(${d.x},${d.y})`);
-  node.append("rect").attr("x", -58).attr("y", -16).attr("width", 116).attr("height", 32).attr("rx", 10).attr("fill", "#131d31").attr("stroke", "#ffb020");
-  node.append("text").attr("text-anchor", "middle").attr("dy", "0.35em").attr("fill", "#f3efe4").attr("font-size", 13).text((d) => d.data.name);
+  node.append("rect").attr("x", -58).attr("y", -16).attr("width", 116).attr("height", 32).attr("rx", 10).attr("fill", "var(--cc-surface-2)").attr("stroke", "var(--cc-accent-1)");
+  node.append("text").attr("text-anchor", "middle").attr("dy", "0.35em").attr("fill", "var(--cc-ink)").attr("font-size", 13).text((d) => d.data.name);
 }
 function trackLive(track, atlas) {
   const charts = atlas.charts;
@@ -570,7 +649,7 @@ function trackLive(track, atlas) {
   const chart = charts[hashId(track.id) % charts.length];
   const flow = flows[hashId(track.id + ":flow") % flows.length];
   return `<section class="track-live" aria-label="Chart, counter, and diagram for this track">
-    <div class="parallax-stage"><i class="parallax-back"></i><span class="parallax-icon" aria-hidden="true">${esc(track.title.slice(0, 1))}</span></div>
+    <div class="parallax-stage">${isoIcon(track)}</div>
     <div class="live-counters">${counted(track.lessons.length, "lessons on this track")}${counted(atlas.diagrams.length, "atlas diagrams")}</div>
     <figure class="glass figure">${chart.svg}<figcaption><strong>${esc(chart.title)}</strong> ${esc(chart.caption)}</figcaption></figure>
     <figure class="glass figure">${flow.svg}<figcaption><a href="#/flows">${esc(flow.title)}</a></figcaption></figure>
@@ -579,54 +658,61 @@ function trackLive(track, atlas) {
 async function viewHome() {
   const shell = hub.shell;
   const atlas = await loadAtlas();
-  setTitle("Diagrams, flows, charts, cheat codes", "Amazon Connect Lab");
-  const diagram = atlas.diagrams.find((item) => item.kind === "diagram") || atlas.diagrams[0];
-  const flow = atlas.diagrams.find((item) => item.animated) || atlas.diagrams[0];
-  const chart = atlas.charts[0];
-  const cards = shell.tracks.slice(0, 6).map((t) => `<button class="card" data-go="#/track/${t.id}"><p class="meta" style="color:${t.hue}">${t.depends.length ? "Depends on " + t.depends.map(esc).join(", ") : "Starts the campus"}</p><h2>${esc(t.title)}</h2><p>${esc(t.why)}</p><p class="meta">${t.lessons.length} lessons</p></button>`).join("");
-  const badges = Object.entries(ACH).map(([id, name]) => `<article class="card"><p class="meta">${state.achievements.includes(id) ? "Earned" : "Locked"}</p><h2>${esc(name)}</h2></article>`).join("");
+  setTitle("The call path is already moving", "Amazon Connect Lab");
+  const cards = shell.tracks.map((t) => `<button class="holo-card" data-go="#/track/${t.id}">${isoIcon(t)}<p class="meta" style="color:${t.hue}">${t.lessons.length} lessons</p><h2>${esc(t.title)}</h2><p>${esc(t.why)}</p></button>`).join("");
   const animated = atlas.diagrams.filter((item) => item.animated).length;
-  return `<section class="fold-hero" aria-label="Diagrams, flows, charts, and cheat codes">
-      <div class="live-counters" aria-label="Live counts">
-        ${counted(shell.counts.tracks, "tracks")}${counted(shell.counts.lessons, "lessons")}${counted(atlas.diagrams.length, "diagrams")}${counted(animated, "animated flows")}${counted(atlas.charts.length, "charts")}${counted(13, "cheat sheets")}
+  const hops = ["PSTN", "Flow", "Queue", "Agent", "CCP"];
+  return `<section class="hero-stage" aria-label="Three dimensional call path">
+      <div id="hero-host" data-mode="boot">
+        <div class="hero-fallback" aria-hidden="true"><i></i><i></i><i></i><b>Connect</b></div>
       </div>
-      <div class="showcase">
-        ${showcaseLink("#/diagrams", "Diagrams", diagram.svg, diagram.title)}
-        ${showcaseLink("#/flows", "Flows", flow.svg, flow.title)}
-        ${showcaseLink("#/charts", "Charts", chart.svg, chart.title)}
-        <a class="showcase-card" href="#/cheats">
-          <p class="showcase-kicker">Cheat Codes</p>
-          <p class="cheat-ports"><b>TCP 443</b> signaling</p>
-          <p class="cheat-ports"><b>UDP 3478</b> media to TurnNlb</p>
-          <p class="meta">HTML · PDF · PNG · flashcards · offline ZIP</p>
-          <canvas class="rough-frame" width="280" height="48" aria-hidden="true"></canvas>
-        </a>
+      <div class="hero-hud">
+        <p class="hero-greet" id="hero-greet">The call path is already moving.</p>
+        <div class="hud-row">
+          ${progressRing()}
+          <div class="live-counters" aria-label="Live counts">
+            ${counted(shell.counts.tracks, "tracks")}${counted(shell.counts.lessons, "lessons")}${counted(atlas.diagrams.length, "diagrams")}${counted(animated, "flows")}${counted(atlas.charts.length, "charts")}${counted(13, "sheets")}
+          </div>
+        </div>
+        <nav class="hero-jumps" aria-label="Open a studio">
+          <a href="#/diagrams">Diagrams</a>
+          <a href="#/flows">Flows</a>
+          <a href="#/charts">Charts</a>
+          <a href="#/cheats">Cheat Codes</a>
+          <a href="#/regions">Regions</a>
+        </nav>
       </div>
     </section>
-    <div class="why"><strong>Why it matters.</strong> A contact center fails in a quota, a key policy, a missing error branch, or a blocked UDP port. The pictures above are the same facts as the lessons.</div>
-    <p class="actions">
-      <button class="solid" data-go="#/track/foundations">Start with Foundations</button>
-      <button class="ghost" data-go="#/play">Play</button>
-      <button class="ghost" data-go="#/downloads">Downloads</button>
-      <button class="ghost" data-go="#/map">3D map</button>
-    </p>
-    <div class="section-head"><h2>Study order</h2><button class="ghost" data-go="#/timeline">Feature timeline</button></div>
-    <div class="grid-cards">${cards}</div>
-    <div>${architecturePanel(false)}</div>
-    <div class="section-head"><h2>Studios</h2></div>
-    <div class="grid-cards">
-      <button class="card" data-go="#/ccp"><p class="meta">Workspace</p><h2>CCP softphone</h2><p>Ring, answer, watch sentiment, then pick a wrap-up code.</p></button>
-      <button class="card" data-go="#/lens"><p class="meta">Analytics</p><h2>Contact Lens playback</h2><p>A scripted call with sentiment, categories, and card redaction.</p></button>
-      <button class="card" data-go="#/lab/erlang"><p class="meta">Routing</p><h2>Erlang C roster</h2><p>Staff to a service level, then see shrinkage lift the schedule.</p></button>
-    </div>
-    <div class="section-head"><h2>Achievements</h2></div>
-    <div class="grid-cards">${badges}</div>`;
+    <p class="meta" id="lang-note">Interface labels only. Lessons stay in English.</p>
+    <section class="mega-path holo-card">
+      <div class="section-head"><h2>Inbound path, large enough to read</h2><button class="ghost" type="button" data-open-diagram="inbound-ladder">Enlarge</button></div>
+      <ol class="hop-row">${hops.map((hop, index) => `<li style="--i:${index}">${hop}</li>`).join("")}</ol>
+      <p class="why"><strong>Why it matters.</strong> TCP 443 can sign the agent in while UDP 3478 to TurnNlb is blocked, so the softphone stays silent.</p>
+    </section>
+    ${architectPlayer()}
+    <div class="section-head"><h2>Tracks</h2><button class="ghost" data-go="#/regions">Regions</button></div>
+    <div class="holo-grid">${cards}</div>`;
+}
+function viewRegions() {
+  setTitle("Residency", "Regions");
+  const pairs = [
+    ["us-east-1", "Northern Virginia", "US", "us-west-2", "Oregon", "US"],
+    ["eu-central-1", "Frankfurt", "DE", "eu-west-2", "London", "GB"],
+    ["ap-northeast-1", "Tokyo", "JP", "ap-northeast-3", "Osaka", "JP"],
+  ];
+  const cards = pairs.map(([a, an, ac, b, bn, bc]) => `<article class="holo-card"><p class="meta">Published Global Resiliency pair</p><h2><span class="flag">${esc(ac)}</span> ${esc(an)} <small>${esc(a)}</small></h2><p>linked with</p><h2><span class="flag">${esc(bc)}</span> ${esc(bn)} <small>${esc(b)}</small></h2></article>`).join("");
+  return `<p class="lede">Only these three pairs are cited in this campus. A city that is not in a pair is not a resiliency design.</p>
+    <div class="holo-grid">${cards}</div>
+    <article class="holo-card"><h2>Osaka delivery</h2><p class="ticker">20<span>s</span></p><p>Upper figure for delivery through Osaka, the replica for Tokyo. Numbers have to be enabled for Global Resiliency. Shift traffic in 10 percent steps.</p><p class="cite">Source: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html">Set up Global Resiliency</a></p></article>
+    <article class="holo-card"><h2>United States emergency calling</h2><p>For US CCP agents, validate the address, store it, and read it back with 933. This lab never places a live 911 call.</p><p class="cite">Source: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html">US emergency calling</a></p></article>
+    <article class="holo-card"><p class="meta">Example, not a tariff</p><h2>What this page will not invent</h2><p>Carrier coverage, PSTN price by country, and national regulations other than the US 933 test above are not copied here. A matrix of carriers would be an example, so it is omitted.</p></article>
+    <p><button class="ghost" data-go="#/lesson/foundations-regions">Open the regions lesson</button></p>`;
 }
 async function viewDiagrams() {
   const atlas = await loadAtlas();
   setTitle("Atlas", "Diagrams");
   const animated = atlas.diagrams.filter((item) => item.animated).length;
-  return `<p class="lede">${atlas.diagrams.length} custom diagrams. ${animated} are animated call, signal, or data flows.</p>
+  return `<p class="lede">${atlas.diagrams.length} diagrams, drawn large. Click one to enlarge it, then play, pause, or step the packet.</p>
     <div class="tabs" role="tablist" aria-label="Diagram filter">
       <button class="chip" type="button" data-atlas="all" aria-pressed="true">All</button>
       <button class="chip" type="button" data-atlas="flow" aria-pressed="false">Flows</button>
@@ -641,7 +727,7 @@ async function viewFlows() {
   const atlas = await loadAtlas();
   const flows = atlas.diagrams.filter((item) => item.animated);
   setTitle("Animated flows", "Flows");
-  return `<p class="lede">${flows.length} animated flows: ladders, routing, cutover, and troubleshooting. A token moves along each path.</p>
+  return `<p class="lede">${flows.length} animated flows, one per row so the hop names stay readable. Enlarge any of them.</p>
     <p class="actions"><button class="ghost" data-go="#/explorer">Hop explorer</button><button class="ghost" data-go="#/sandbox">Call-flow sandbox</button></p>
     <div class="figure-grid">${flows.map(atlasFigure).join("")}</div>`;
 }
@@ -1306,8 +1392,8 @@ async function viewCharts() {
   const atlas = await loadAtlas();
   chartPage = 0;
   setTitle("Charts", "Charts");
-  const lead = atlas.charts.map(atlasFigure).join("");
-  return `<p class="lede">${atlas.charts.length} atlas charts from the quota table and the 14 October 2026 price appendix, then the teaching charts already in the lessons.</p><div class="figure-grid">${lead}</div><div id="chart-list">${chartSlice()}</div>`;
+  const live = atlas.charts.map((chart) => `<article class="holo-card chart-card"><h2>${esc(chart.title)}</h2><div class="chart-host" data-chart-host="${esc(chart.id)}"></div><p>${esc(chart.caption)}</p><p class="cite"><a href="${esc(chart.url)}">${esc(chart.source)}</a></p></article>`).join("");
+  return `<p class="lede">${atlas.charts.length} charts. Bars grow in, and hovering a bar names the value. Prices are the 14 October 2026 appendix.</p><div class="chart-live">${live}</div><div id="chart-list">${chartSlice()}</div>`;
 }
 function chartSlice() {
   const rows = hub.charts.charts;
@@ -1339,12 +1425,30 @@ async function viewSources() {
   return `<p class="lede">Primary pages used for facts. A secondary timeline is labeled as a compilation.</p><div class="table-scroll glass"><table><thead><tr><th>Title</th><th>URL</th></tr></thead><tbody>${hub.reference.sources.map((s) => `<tr><td>${esc(s.title)}</td><td><a href="${esc(s.url)}">${esc(s.url)}</a></td></tr>`).join("")}</tbody></table></div>`;
 }
 
-async function afterRender(gen) {
-  if (route.view === "home" || route.view === "track") {
-    runCounters();
-    if (route.view === "home") paintRough();
+async function bootHero(gen) {
+  const host = $("#hero-host");
+  if (!host) return;
+  if (motionReduced() || !window.WebGLRenderingContext) {
+    host.dataset.mode = "flat";
+    return;
   }
+  try {
+    const mod = await import("./hero.js");
+    if (gen !== renderGen || !$("#hero-host")) return;
+    const handle = mod.mountHero(host, state.theme || "dark");
+    if (!handle) { host.dataset.mode = "flat"; return; }
+    heroHandle = handle;
+    host.dataset.mode = "webgl";
+  } catch (err) {
+    host.dataset.mode = "flat";
+  }
+}
+async function afterRender(gen) {
+  applyLanguage(state.lang || "en");
+  if (route.view === "home") await bootHero(gen);
+  if (route.view === "home" || route.view === "track") runCounters();
   if (route.view === "diagrams") paintMind();
+  if (route.view === "charts") paintLiveCharts();
   if (route.view === "map") await bootScene(gen);
   if (route.view === "settings") fillVoices();
   if (route.view === "lab" && route.id === "flow-builder") paintFlow();
@@ -1374,6 +1478,25 @@ function onClick(ev) {
     $("#lesson-panel").innerHTML = lessonPanel(currentLesson, hub.shell.iac[currentLesson.track]);
     $$("[data-tab]").forEach((btn) => btn.setAttribute("aria-selected", btn === tab ? "true" : "false"));
     if (lessonTab === "flow") { ladderIndex = 0; paintLadder(); }
+    return;
+  }
+  const diagramBtn = ev.target.closest("[data-open-diagram]");
+  if (diagramBtn) { openLightbox(diagramBtn.getAttribute("data-open-diagram")); return; }
+  if (ev.target.id === "lb-close") { const dlg = $("#lightbox"); if (dlg && dlg.open) dlg.close(); return; }
+  if (ev.target.id === "lb-pause" || ev.target.id === "lb-play" || ev.target.id === "lb-step") {
+    const svg = $("#lb-stage svg");
+    if (svg && ev.target.id === "lb-pause") svg.pauseAnimations();
+    if (svg && ev.target.id === "lb-play") svg.unpauseAnimations();
+    if (svg && ev.target.id === "lb-step") {
+      svg.pauseAnimations();
+      try { svg.setCurrentTime((svg.getCurrentTime() || 0) + 0.4); } catch (err) { /* SMIL clock */ }
+    }
+    return;
+  }
+  const clipBtn = ev.target.closest("[data-clip-src]");
+  if (clipBtn) {
+    const audio = $("#architect-audio");
+    if (audio) { audio.src = clipBtn.getAttribute("data-clip-src"); audio.play(); }
     return;
   }
   const atlasFilter = ev.target.closest("[data-atlas]");
@@ -1531,9 +1654,18 @@ function onClick(ev) {
     else delete state.syllabus[id];
     save();
   }
+  if (ev.target.id === "theme-toggle") {
+    if ((state.theme || "dark") === "light") state.theme = state.themeBack || "neon";
+    else { state.themeBack = state.theme || "dark"; state.theme = "light"; }
+    save();
+    applyPrefs();
+    $$("button[data-theme]").forEach((btn) => btn.setAttribute("aria-pressed", btn.dataset.theme === state.theme ? "true" : "false"));
+    return;
+  }
   const themeBtn = ev.target.closest("button[data-theme]");
   if (themeBtn && themeBtn.dataset.theme) {
     state.theme = themeBtn.dataset.theme;
+    if (state.theme !== "light") state.themeBack = state.theme;
     save();
     applyPrefs();
     $$("button[data-theme]").forEach((btn) => btn.setAttribute("aria-pressed", btn.dataset.theme === state.theme ? "true" : "false"));
@@ -1980,6 +2112,13 @@ document.body.addEventListener("change", (ev) => {
     if (motionReduced() && sceneHandle) { sceneHandle.dispose(); sceneHandle = null; }
   }
   if (ev.target.id === "set-voice") { state.voiceURI = ev.target.value; save(); }
+  if (ev.target.id === "lang") {
+    state.lang = ev.target.value;
+    save();
+    applyLanguage(state.lang);
+    const mascot = $("#mascot");
+    if (mascot) mascot.dataset.look = String((state.lang || "en").length % 5);
+  }
 });
 document.body.addEventListener("dragstart", (ev) => { if (ev.target.dataset.pal) ev.dataTransfer.setData("text/plain", ev.target.dataset.pal); });
 document.body.addEventListener("dragover", (ev) => { if (ev.target.id === "canvas" || (ev.target.closest && ev.target.closest("#canvas"))) ev.preventDefault(); });
