@@ -1,6 +1,6 @@
 # Amazon Connect Lab
 
-![Amazon Connect Lab home, night-ops theme, flat topology until the map opens](docs/screenshots/home.png)
+![Amazon Connect Lab home, with diagrams, flows, charts, and cheat codes above the fold](docs/screenshots/home-desktop.png)
 
 Night ops, light, futuristic, gaming, neon, high contrast, and the console theme:
 
@@ -53,7 +53,9 @@ Connect-specific studios:
 
 Settings (`#/settings`) store the theme, sound effects, narration, reduced motion, and type size in `localStorage` under `acl-campus-v1`, with the streak and quiz progress. Themes are Night ops, Light, Futuristic, Gaming, Neon, High contrast, and Console. Narration waits for `voiceschanged`, prefers a natural or high-quality voice, and does not select Microsoft Edge unless you pick that voice. Speed runs from 0.6× to 1.6×.
 
-Cheat codes (`#/cheats`) are one-page HTML, PDF, and PNG sheets for ports, call flows, cutover, the firewall matrix, careers, and the 2026 timeline, plus `downloads/flashcards.json` and `downloads/amazon-connect-lab.zip`. The studio bar links the CypherMonkey Labs home, Linktree, this repository, dev.to, Hugging Face, and X. The footer links the contact form for work and for a takedown. No email address is shown.
+The campus menu stays on screen: Diagrams, Flows, Charts, Cheat Codes, Play, Ecosystem, Downloads, and Careers. The home page opens on that set: an animated diagram, an animated flow, a cited chart, and the cheat-code card (TCP 443 and UDP 3478). The Diagram Atlas is `data/atlas.json` (27 diagrams, 15 of them animated, 7 charts). Every track page shows a chart, a counter, and a 3D icon. Anime.js, Rough.js, D3, and canvas-confetti are vendored. Three.js still loads only on the 3D map.
+
+Cheat codes (`#/cheats` and `#/downloads`) are one-page HTML, PDF, and PNG sheets for ports, call flows, cutover, the firewall matrix, careers, and the 2026 timeline, plus `downloads/flashcards.json` and `downloads/amazon-connect-lab.zip`. The studio bar links the CypherMonkey Labs home, Linktree, this repository, dev.to, Hugging Face, and X. The footer links the contact form for work and for a takedown. No email address is shown. The next-lab strip uses `https://cipher0x9.github.io/<repo>/`.
 
 Tips (`#/tips`) is one cheat sheet per track: pro tips, interview traps, and a short table. The same sheet is the Tips tab on every lesson. Counts match the single-file campus on `main` with a delta of zero: 1,590 illustrations, 427 animated flows, 25 audio clips, 24 labs, 927 quiz items, and 927 cards.
 

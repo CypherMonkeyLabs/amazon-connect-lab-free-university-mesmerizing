@@ -1,5 +1,5 @@
-const VERSION = "acl-campus-v8";
-const SHELL = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "data/shell.json", "data/mastery.json", "og-card.png"];
+const VERSION = "acl-campus-v11";
+const SHELL = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "data/shell.json", "data/mastery.json", "data/atlas.json", "og-card.png"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
 });
@@ -13,6 +13,10 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+  if (url.pathname.endsWith("/sw.js")) {
+    event.respondWith(fetch(req));
+    return;
+  }
   event.respondWith((async () => {
     const cache = await caches.open(VERSION);
     const hit = await cache.match(req);

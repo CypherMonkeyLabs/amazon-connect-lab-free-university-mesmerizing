@@ -17,6 +17,7 @@ from tips import TIPS  # noqa: E402
 from tables import (  # noqa: E402
     BLOCKS, BRIDGE, CERTS, CFN, CTR_FIELDS, ERRORS, IAM_ACTIONS, PRICE, QUOTAS, TIMELINE,
 )
+from atlas import build_atlas  # noqa: E402
 
 LABS = [
     ("flow-builder", "flows", "Contact flow builder", "Drag blocks, wire ports, and run a test call.", "12"),
@@ -178,6 +179,7 @@ try {
 </head>
 <body>
 <a class="skip" href="#view-title">Skip to content</a>
+<div class="studio-stack">
 <header class="studio-bar">
   <a class="studio-home" href="https://cyphermonkeylabs.com">CypherMonkey Labs</a>
   <nav class="studio-links" aria-label="Studio">
@@ -203,6 +205,23 @@ try {
     </svg>
   </div>
 </header>
+<nav class="campus-menu" aria-label="Campus">
+  <a href="#/diagrams" data-menu="diagrams">Diagrams</a>
+  <a href="#/flows" data-menu="flows">Flows</a>
+  <a href="#/charts" data-menu="charts">Charts</a>
+  <a href="#/cheats" data-menu="cheats">Cheat Codes</a>
+  <a href="#/play" data-menu="play">Play</a>
+  <a href="#/track/ecosystem" data-menu="ecosystem">Ecosystem</a>
+  <a href="#/downloads" data-menu="downloads">Downloads</a>
+  <a href="#/career" data-menu="careers">Careers</a>
+  <div class="theme-quick" role="group" aria-label="Theme">
+    <button type="button" data-theme="futuristic">Futuristic</button>
+    <button type="button" data-theme="gaming">Gaming</button>
+    <button type="button" data-theme="neon">Neon</button>
+    <button type="button" data-theme="light">Light</button>
+  </div>
+</nav>
+</div>
 <div class="app">
   <aside class="rail" id="rail">
     <div class="brand">
@@ -240,14 +259,9 @@ try {
       <div class="progress" aria-label="Lessons opened"><span id="progress-label">0%</span><div class="progress-track"><i id="progress-pip"></i></div></div>
       <button class="ghost" type="button" data-go="#/settings">Settings</button>
       <div class="streak" aria-label="Study streak"><b id="streak-count">0</b><span>day streak</span></div>
-      <div class="theme-quick" role="group" aria-label="Theme">
-        <button type="button" data-theme="futuristic">Futuristic</button>
-        <button type="button" data-theme="gaming">Gaming</button>
-        <button type="button" data-theme="neon">Neon</button>
-        <button type="button" data-theme="light">Light</button>
-      </div>
     </header>
     <main id="stage" tabindex="-1">
+      <nav class="crumbs" id="crumbs" aria-label="Breadcrumb"><a href="#/">Home</a></nav>
       <p class="meta" id="view-kicker">Free offline campus</p>
       <h1 id="view-title">Amazon Connect Lab</h1>
       <div id="view"><p>Loading the campus.</p></div>
@@ -265,7 +279,6 @@ try {
           <a href="https://cipher0x9.github.io/nice-cxone-lab-free-university-mesmerizing/">NICE CXone</a>
           <a href="https://cipher0x9.github.io/sip-universe-lab-free-university-mesmerizing/">SIP Universe</a>
           <a href="https://cipher0x9.github.io/webex-lab-free-university-mesmerizing/">Webex Lab</a>
-          <a href="https://cypherwebex-canon-test.vercel.app">Webex Canon</a>
           <a href="https://cipher0x9.github.io/gemini-gems-free-gallery/">Gemini Gems</a>
         </nav>
       </footer>
@@ -302,7 +315,7 @@ try {
 </html>
 """
 
-SW_JS = """const VERSION = "acl-campus-v8";
+SW_JS = """const VERSION = "acl-campus-v11";
 const SHELL = __SHELL__;
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -317,6 +330,10 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+  if (url.pathname.endsWith("/sw.js")) {
+    event.respondWith(fetch(req));
+    return;
+  }
   event.respondWith((async () => {
     const cache = await caches.open(VERSION);
     const hit = await cache.match(req);
@@ -488,6 +505,7 @@ def main():
     if (campus / "data").exists():
         shutil.rmtree(campus / "data")
     counts = split_modules(data, campus)
+    write_json(campus / "data" / "atlas.json", build_atlas())
     (campus / "index.html").write_text(SHELL_HTML)
     for name in ("app.js", "studio.js", "scene.js", "flowlang.js", "campus.css"):
         shutil.copyfile(ROOT / "web" / name, campus / name)
@@ -498,7 +516,7 @@ def main():
     (campus / ".nojekyll").write_text("")
     from build_downloads import main as build_downloads  # noqa: E402
     build_downloads()
-    precache = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "data/shell.json", "data/mastery.json"]
+    precache = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "data/shell.json", "data/mastery.json", "data/atlas.json"]
     if (campus / "og-card.png").exists():
         precache.append("og-card.png")
     (campus / "sw.js").write_text(SW_JS.replace("__SHELL__", json.dumps(precache)))

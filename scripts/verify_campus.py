@@ -206,6 +206,62 @@ def main():
         problems.append("missing AWS doc citations")
     if not (CAMPUS / "vendor" / "three.module.min.js").exists():
         problems.append("three.js is not vendored")
+    for vendor_name in ("anime.esm.min.js", "rough.esm.js", "d3.min.js", "d3.entry.js", "confetti.module.mjs"):
+        if not (CAMPUS / "vendor" / vendor_name).exists():
+            problems.append("missing vendor " + vendor_name)
+    for needle in ("anime.esm.min.js", "rough.esm.js", "d3.entry.js", "confetti.module.mjs", "paintMind", "runCounters"):
+        if needle not in app:
+            problems.append("app.js does not use " + needle)
+    menu_labels = ("Diagrams", "Flows", "Charts", "Cheat Codes", "Play", "Ecosystem", "Downloads", "Careers")
+    menu = html.split('class="campus-menu"', 1)[-1].split("</nav>", 1)[0] if 'class="campus-menu"' in html else ""
+    for label in menu_labels:
+        if label not in menu:
+            problems.append("campus menu missing " + label)
+    if "vercel.app" in html:
+        problems.append("sibling strip still points at vercel")
+    for href in re.findall(r'class="next-labs".*?</nav>', html, re.S):
+        for link in re.findall(r'href="([^"]+)"', href):
+            if not link.startswith("https://cipher0x9.github.io/"):
+                problems.append("sibling link is not github.io: " + link)
+    license_text = (ROOT / "LICENSE").read_text()
+    if "MIT" not in license_text or "CC BY-NC-SA" not in license_text:
+        problems.append("LICENSE must state MIT code and CC BY-NC-SA content")
+    if "MIT code, CC BY-NC-SA content" not in html:
+        problems.append("footer license line missing")
+    atlas_path = CAMPUS / "data" / "atlas.json"
+    if not atlas_path.exists():
+        problems.append("atlas.json missing")
+    else:
+        atlas = load_json(atlas_path)
+        diagrams = atlas.get("diagrams") or []
+        charts = atlas.get("charts") or []
+        animated = [item for item in diagrams if item.get("animated") and "animateMotion" in item.get("svg", "")]
+        if len(diagrams) < 25:
+            problems.append("atlas diagrams %s < 25" % len(diagrams))
+        if len(animated) < 12:
+            problems.append("atlas animated flows %s < 12" % len(animated))
+        if len(charts) < 6:
+            problems.append("atlas charts %s < 6" % len(charts))
+        kinds = {item.get("kind") for item in diagrams}
+        for kind in ("flow", "diagram"):
+            if kind not in kinds:
+                problems.append("atlas missing kind " + kind)
+    sheets = [path for path in (CAMPUS / "downloads").glob("*.html") if path.name != "index.html"]
+    if len(sheets) < 10:
+        problems.append("downloadable sheets %s < 10" % len(sheets))
+    for sheet in sheets:
+        text = sheet.read_text().lower()
+        for needle in ("cyphermonkeylabs.com", "linktr.ee/cyphermonkey", "amazon-connect-lab-free-university-mesmerizing"):
+            if needle not in text:
+                problems.append(sheet.name + " missing " + needle)
+        if "linkedin" in text or "mailto:" in text:
+            problems.append(sheet.name + " has LinkedIn or an email")
+        pdf = sheet.with_suffix(".pdf")
+        png = sheet.with_suffix(".png")
+        if not pdf.exists() or not png.exists():
+            problems.append(sheet.stem + " missing pdf or png")
+        elif b"cyphermonkeylabs.com" not in pdf.read_bytes():
+            problems.append(sheet.stem + " pdf missing the lab link")
     if re.search(r"<script[^>]+src=[\"']https?:", html, re.I):
         problems.append("external script tag")
     if re.search(r"<link[^>]+href=[\"']https?:", html, re.I):
