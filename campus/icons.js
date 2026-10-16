@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { toneFor } from "./palette.js";
+import { toneFor, cappedPixelRatio, motionReducedNow } from "./palette.js";
 
 function shapeFor(index) {
   const kind = index % 18;
@@ -32,7 +32,7 @@ export function mountIcons(root) {
   } catch (err) {
     return null;
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(cappedPixelRatio());
   renderer.setSize(96, 96, false);
   renderer.setClearColor(0x000000, 0);
   const scene = new THREE.Scene();
@@ -78,9 +78,30 @@ export function mountIcons(root) {
     });
   }
 
+  function paintOne(t) {
+    icons.forEach((icon) => {
+      while (rig.children.length) rig.remove(rig.children[0]);
+      icon.mesh.rotation.y = t + icon.spin;
+      icon.mesh.rotation.x = 0.4;
+      icon.ring.rotation.z = t * 0.4;
+      rig.add(icon.mesh);
+      rig.add(icon.ring);
+      renderer.render(scene, camera);
+      const ctx = icon.canvas.getContext("2d");
+      ctx.clearRect(0, 0, icon.canvas.width, icon.canvas.height);
+      ctx.drawImage(renderer.domElement, 0, 0, icon.canvas.width, icon.canvas.height);
+      rig.remove(icon.mesh);
+      rig.remove(icon.ring);
+    });
+  }
   function frame() {
     if (!running) return;
     if (document.hidden || !onScreen) {
+      raf = 0;
+      return;
+    }
+    if (motionReducedNow()) {
+      paintOne(0.4);
       raf = 0;
       return;
     }
@@ -101,6 +122,11 @@ export function mountIcons(root) {
       rig.remove(icon.ring);
     });
   }
+  function applyRatio() {
+    renderer.setPixelRatio(cappedPixelRatio());
+    renderer.setSize(96, 96, false);
+  }
+  window.addEventListener("resize", applyRatio);
   function onHide() {
     if (!running) return;
     if (document.hidden || !onScreen) {
@@ -120,9 +146,16 @@ export function mountIcons(root) {
   frame();
   return {
     setTheme() { paintTheme(); },
+    setMotion() {
+      cancelAnimationFrame(raf);
+      raf = 0;
+      if (!motionReducedNow()) frame();
+      else paintOne(0.4);
+    },
     dispose() {
       running = false;
       cancelAnimationFrame(raf);
+      window.removeEventListener("resize", applyRatio);
       viewObserver.disconnect();
       document.removeEventListener("visibilitychange", onHide);
       icons.forEach((icon) => {

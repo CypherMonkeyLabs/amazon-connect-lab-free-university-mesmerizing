@@ -59,7 +59,10 @@ export function applyLanguage(lang) {
   root.dir = copy.dir;
   document.querySelectorAll("a[data-menu]").forEach((link) => {
     const label = copy.menu[link.dataset.menu];
-    if (label) link.textContent = label;
+    if (!label) return;
+    const strong = link.querySelector("strong");
+    if (strong) strong.textContent = label;
+    else link.textContent = label;
   });
   const greet = document.getElementById("hero-greet");
   if (greet) greet.textContent = copy.greet;

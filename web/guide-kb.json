@@ -1,0 +1,194 @@
+{
+  "welcome": "I am the Guide Bot for this Amazon Connect lab. I only repeat what a page here already says, and I name the source. I do not invent a port, a price, or a date.",
+  "fallback": "I do not have a cited page in this lab for that. I will not guess. Open Search, or ask about UDP 3478, Lambda, Voice ID, the 4 August 2026 names, Global Resiliency, E911, or the Ecosystem track.",
+  "chips": [
+    {"label": "Tour the campus", "action": "tour", "id": "campus"},
+    {"label": "UDP 3478", "action": "ask", "q": "What is UDP 3478?"},
+    {"label": "Quiz me", "action": "quiz"},
+    {"label": "Ecosystem", "action": "ask", "q": "What is the ecosystem?"}
+  ],
+  "tours": [
+    {
+      "id": "campus",
+      "title": "Campus tour",
+      "steps": [
+        {"href": "#/diagrams", "menu": "diagrams", "say": "Diagrams are the large pictures. Each caption names the admin-guide page it came from."},
+        {"href": "#/flows", "menu": "flows", "say": "Flows are the animated hop diagrams. The moving dot is the contact or the signal."},
+        {"href": "#/charts", "menu": "charts", "say": "Charts use the quota table and the 14 October 2026 price appendix. They are teaching shapes when the caption says so."},
+        {"href": "#/cheats", "menu": "cheats", "say": "Cheat Codes are one-page sheets. Each has HTML, PDF, and PNG."},
+        {"href": "#/track/ecosystem", "menu": "ecosystem", "say": "Ecosystem is the work beside the queue: forecasting, recording, E911, the CRM, and agent assist."}
+      ]
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Which UDP port does the softphone use toward TurnNlb?",
+      "choices": ["TCP 443", "UDP 3478", "UDP 5060", "TCP 8080"],
+      "answer": 1,
+      "why": "Sign-in can use TCP 443 while media is outbound UDP 3478 to the Regional TurnNlb domain.",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html",
+      "source": "Set up your network"
+    },
+    {
+      "q": "How long does a synchronous Lambda block wait?",
+      "choices": ["1 second", "3 seconds", "8 seconds", "60 seconds"],
+      "answer": 2,
+      "why": "The synchronous invoke cap in this lab is 8 seconds. The block's own timeout can be shorter. Async work uses a different pattern.",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html",
+      "source": "Invoke AWS Lambda functions"
+    },
+    {
+      "q": "When did Voice ID support end?",
+      "choices": ["20 May 2025", "20 May 2026", "4 August 2026", "1 September 2026"],
+      "answer": 1,
+      "why": "New customers stopped on 20 May 2025. Support ended on 20 May 2026. Remove Set Voice ID and Check Voice ID from a 2026 flow.",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazonconnect-voiceid-end-of-support.html",
+      "source": "Voice ID end of support"
+    },
+    {
+      "q": "What did the admin guide call Contact Lens after 4 August 2026?",
+      "choices": ["Agent assist", "Live Sync", "Conversational analytics", "Voice ID"],
+      "answer": 2,
+      "why": "On 4 August 2026 the documented rename is Contact Lens to conversational analytics, Amazon Q in Connect to agent assist, and Voice+ to Live Sync.",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
+      "source": "Timeline citing document history, 4 Aug 2026"
+    }
+  ],
+  "entries": [
+    {
+      "id": "turn",
+      "terms": ["udp 3478", "turn", "turnnlb", "softphone", "media", "one way audio", "silent"],
+      "title": "UDP 3478",
+      "answer": "The CCP can sign in on TCP 443 while media fails. Softphone media is outbound UDP 3478 to TurnNlb-*.elb.<region>.amazonaws.com. A stateless firewall also needs the browser's ephemeral UDP return range, and this lab does not invent that range.",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html",
+      "source": "Set up your network",
+      "href": "#/lesson/foundations-network"
+    },
+    {
+      "id": "tcp443",
+      "terms": ["tcp 443", "signaling", "sign in", "allow list"],
+      "title": "TCP 443",
+      "answer": "TCP 443 is the signaling and admin path. Opening only 443 does not open media. Media is still UDP 3478.",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html",
+      "source": "Set up your network",
+      "href": "#/diagrams"
+    },
+    {
+      "id": "lambda",
+      "terms": ["lambda", "8 seconds", "eight seconds", "timeout", "string map"],
+      "title": "Lambda contract",
+      "answer": "A synchronous Invoke AWS Lambda function block waits at most 8 seconds. The response the block validates is a string map unless you choose JSON. AccessDenied in the flow log means the function never ran.",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html",
+      "source": "Invoke AWS Lambda functions",
+      "href": "#/track/lambda"
+    },
+    {
+      "id": "voiceid",
+      "terms": ["voice id", "voiceid", "20 may 2026", "authentication"],
+      "title": "Voice ID",
+      "answer": "Voice ID stopped taking new customers on 20 May 2025 and support ended on 20 May 2026. A 2026 flow should not contain Set Voice ID or Check Voice ID.",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazonconnect-voiceid-end-of-support.html",
+      "source": "Voice ID end of support",
+      "href": "#/lesson/ai-voiceid-ended"
+    },
+    {
+      "id": "rename",
+      "terms": ["contact lens", "conversational analytics", "agent assist", "amazon q", "live sync", "4 august", "rename"],
+      "title": "4 August 2026 names",
+      "answer": "The timeline this lab cites for 4 August 2026 says the admin guide renamed Contact Lens to conversational analytics, Amazon Q in Connect to agent assist, forecasting capacity planning and scheduling to forecasting and agent scheduling, and Voice+ to Live Sync.",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
+      "source": "Timeline citing document history, 4 Aug 2026",
+      "href": "#/timeline"
+    },
+    {
+      "id": "resiliency",
+      "terms": ["global resiliency", "multi region", "10 percent", "osaka", "replica"],
+      "title": "Global Resiliency",
+      "answer": "Global Resiliency is the supported multi-Region design. Published pairs are Northern Virginia with Oregon, Frankfurt with London, and Tokyo with Osaka. Telephony shifts in 10 percent steps. Osaka delivery can take up to 20 seconds.",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html",
+      "source": "Set up Global Resiliency",
+      "href": "#/track/resiliency"
+    },
+    {
+      "id": "e911",
+      "terms": ["e911", "911", "933", "emergency", "civic address"],
+      "title": "US emergency calling",
+      "answer": "For US CCP agents, validate the address, store it on the agent profile, and read it back with 933. This lab never places a live 911 call. Direct 911 from the CCP is documented for US East (N. Virginia), US West (Oregon), and GovCloud US-West.",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
+      "source": "US emergency calling",
+      "href": "#/track/ecosystem"
+    },
+    {
+      "id": "chat",
+      "terms": ["chat quota", "500", "idle chat", "whatsapp", "sms"],
+      "title": "Chat concurrency",
+      "answer": "The default concurrent chat ceiling in the quota table is 500, shared with SMS, WhatsApp, and Apple Messages for Business. An idle chat still counts.",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
+      "source": "Service quotas",
+      "href": "#/track/channels"
+    },
+    {
+      "id": "badge",
+      "terms": ["badge", "certification", "80 percent", "skill builder", "exam"],
+      "title": "Badges are not exams",
+      "answer": "There is no AWS Certified Amazon Connect specialty exam in the catalog this lab cites. Connect Skill Builder badges pass at 80 percent. That badge is not the Solutions Architect exam.",
+      "url": "https://aws.amazon.com/blogs/contact-center/elevate-your-amazon-connect-skills-with-specialty-training-badges/",
+      "source": "Amazon Connect specialty training badges",
+      "href": "#/career"
+    },
+    {
+      "id": "price",
+      "terms": ["price", "did", "0.030", "oregon", "toll free", "appendix"],
+      "title": "Oregon DID example",
+      "answer": "The worked example this lab dates 14 October 2026 is a US DID in Oregon at 0.030 USD per day and 0.0022 USD per inbound minute. Country rates that are not in that example are not invented here.",
+      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
+      "source": "Connect Customer pricing appendix, read 14 October 2026",
+      "href": "#/charts"
+    },
+    {
+      "id": "ecosystem",
+      "terms": ["ecosystem", "wfm", "recording", "crm", "forecast", "contactid"],
+      "title": "Ecosystem",
+      "answer": "Connect owns the live contact. Forecasting and scheduling own the shift. Recording owns the proof. The CRM owns the person. E911 owns the agent's location on a 911 call. Agent assist owns a recommendation, not the decision. Sister systems need ContactId or they cannot be audited.",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html",
+      "source": "What is Amazon Connect",
+      "href": "#/track/ecosystem"
+    },
+    {
+      "id": "flows",
+      "terms": ["contact flow", "flow types", "hold flow", "whisper"],
+      "title": "Flow types",
+      "answer": "Inbound, customer queue, hold, whisper, transfer, and disconnect flows are different canvases. A hold flow is not where you transfer to a queue. End flow / Resume does not hang up. Disconnect does.",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html",
+      "source": "Create a flow",
+      "href": "#/flows"
+    },
+    {
+      "id": "queues",
+      "terms": ["queue", "routing profile", "priority", "100 queues"],
+      "title": "Queues and profiles",
+      "answer": "A queue holds the contact. A routing profile decides who is eligible. The default is 100 queues per instance. Lower priority number is offered first. Delay holds a second team in reserve.",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/routing-profiles.html",
+      "source": "Routing profiles",
+      "href": "#/track/routing"
+    },
+    {
+      "id": "lucky",
+      "terms": ["lucky", "who made this", "author", "uc engineer"],
+      "title": "Lucky",
+      "answer": "Lucky is a lifelong student and an AI enthusiast, from systems, networking, voice, and the contact center, growing into AI omni-channel agents. This campus is that study. It is wider than a UC engineer.",
+      "url": "#/",
+      "source": "About Lucky, on this campus",
+      "href": "#/"
+    },
+    {
+      "id": "sheets",
+      "terms": ["cheat", "cheat code", "cheat sheet", "download", "pdf"],
+      "title": "Cheat codes",
+      "answer": "Cheat Codes are one-page HTML, PDF, and PNG sheets for ports, call flows, cutover, the firewall matrix, careers, E911, WFM, and the 2026 timeline.",
+      "url": "#/cheats",
+      "source": "Cheat codes in this lab",
+      "href": "#/cheats"
+    }
+  ]
+}

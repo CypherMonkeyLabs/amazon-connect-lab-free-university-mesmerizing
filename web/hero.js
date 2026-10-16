@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { EffectComposer } from "./vendor/postprocessing/EffectComposer.js";
 import { RenderPass } from "./vendor/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "./vendor/postprocessing/UnrealBloomPass.js";
-import { PALETTE } from "./palette.js";
+import { PALETTE, cappedPixelRatio, motionReducedNow } from "./palette.js";
 
 export const HERO_THEMES = PALETTE;
 
@@ -82,8 +82,7 @@ export function mountHero(container, themeId) {
   } catch (err) {
     return null;
   }
-  const narrow = (container.clientWidth || window.innerWidth) < 700;
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(cappedPixelRatio());
   renderer.setClearColor(colors().bg, 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ReinhardToneMapping;
@@ -242,6 +241,7 @@ export function mountHero(container, themeId) {
     if (width < 2 || height < 2) return;
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+    renderer.setPixelRatio(cappedPixelRatio());
     renderer.setSize(width, height, false);
     if (composer) composer.setSize(width, height);
   }
@@ -260,8 +260,14 @@ export function mountHero(container, themeId) {
       raf = 0;
       return;
     }
+    if (motionReducedNow()) {
+      camera.position.set(8.2, 3.6, 9.2);
+      camera.lookAt(0, 0.2, 0);
+      renderer.render(scene, camera);
+      raf = 0;
+      return;
+    }
     raf = requestAnimationFrame(frame);
-    const reduced = document.documentElement.dataset.motion === "reduce";
     const t = clock.getElapsedTime();
     nodes.rotation.y = t * 0.16;
     labelOrbit.rotation.y = -t * 0.11;
@@ -276,13 +282,13 @@ export function mountHero(container, themeId) {
     });
     far.points.rotation.y = t * 0.012;
     near.points.rotation.y = -t * 0.04;
-    const drift = reduced ? 0.4 : t * 0.06;
-    const px = reduced ? 0 : pointer.x;
-    const py = reduced ? 0 : pointer.y;
-    const scroll = reduced ? 0 : scrollBoost;
+    const drift = t * 0.06;
+    const px = pointer.x;
+    const py = pointer.y;
+    const scroll = scrollBoost;
     camera.position.x = Math.cos(drift) * 9.1 + px * 1.1;
     camera.position.z = Math.sin(drift) * 9.1;
-    camera.position.y = 3.2 + (reduced ? 0 : Math.sin(t * 0.2) * 0.4) + scroll + py * 0.4;
+    camera.position.y = 3.2 + Math.sin(t * 0.2) * 0.4 + scroll + py * 0.4;
     camera.lookAt(0, 0.2, 0);
     if (composer) {
       try {

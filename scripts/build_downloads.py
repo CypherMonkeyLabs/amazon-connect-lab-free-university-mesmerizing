@@ -1,26 +1,25 @@
 #!/usr/bin/env python3
 """Write the Cheat Codes hub: HTML, PDF, and PNG sheets plus the offline zip."""
 import json
+import sys
 import zipfile
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+from brand import COPYRIGHT, HOME, IDENTITY, ORG_REPO, brand_nav, favicon_links  # noqa: E402
+
 CAMPUS = ROOT / "campus"
 OUT = CAMPUS / "downloads"
 
-REPO = "https://github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing"
-HOME = "https://cyphermonkeylabs.com"
 CONTACT = HOME + "/#contact"
-LINKS = [
-    (HOME, "CypherMonkey Labs"),
-    ("https://linktr.ee/cyphermonkey", "Linktree"),
-    (REPO, "This lab on GitHub"),
-    ("https://dev.to/cyphermonkey", "dev.to"),
-    ("https://huggingface.co/Cypher0x9", "Hugging Face"),
-    ("https://x.com/Cypher0x9", "X"),
-]
+PDF_FOOT = (
+    "cyphermonkeylabs.com · github.com/cipher0x9 · github.com/CypherMonkeyLabs · "
+    "github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing · "
+    "x.com/Cypher0x9 · huggingface.co/Cypher0x9"
+)
 
 DISCLAIMER = (
     "Independent educational project, not affiliated with or endorsed by any vendor. "
@@ -38,12 +37,13 @@ def font(size, bold=False):
 
 
 def footer_html():
-    anchors = " · ".join(f'<a href="{href}">{label}</a>' for href, label in LINKS)
     return f"""<footer class="sheet-foot">
   <p>CypherMonkey · Amazon Connect Lab</p>
-  <p>{anchors}</p>
+  <p>{IDENTITY}</p>
+  {brand_nav()}
+  <p class="copy">{COPYRIGHT}</p>
   <p>{DISCLAIMER}</p>
-  <p><a href="{CONTACT}">Work with us</a> · <a href="{CONTACT}">Report a concern / takedown</a></p>
+  <p><a href="{ORG_REPO}">This lab on GitHub</a> · <a href="{CONTACT}">Work with us</a> · <a href="{CONTACT}">Report a concern / takedown</a></p>
 </footer>"""
 
 
@@ -54,6 +54,7 @@ def page(title, body):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title} · Amazon Connect Lab</title>
+{favicon_links("../")}
 <style>
   body {{ margin: 0; font: 16px/1.45 "Segoe UI", sans-serif; color: #14202b; background: #f4f7fb; }}
   main {{ max-width: 880px; margin: 0 auto; padding: 28px 18px 48px; }}
@@ -66,6 +67,9 @@ def page(title, body):
   a {{ color: #0f5c6b; }}
   .card {{ break-inside: avoid; border: 1px solid #d5deea; background: #fff; border-radius: 12px; padding: 12px; margin: 8px 0; }}
   .sheet-foot {{ margin-top: 28px; padding-top: 12px; border-top: 2px solid #e5843b; font-size: 13px; color: #3d4d5c; }}
+  .brand-links {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }}
+  .brand-link {{ display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border: 1px solid #d5deea; border-radius: 999px; background: #fff; text-decoration: none; font-weight: 700; }}
+  .brand-link svg {{ width: 20px; height: 20px; flex: none; }}
   @media print {{ body {{ background: #fff; }} a {{ color: inherit; text-decoration: none; }} }}
 </style>
 </head>
@@ -125,7 +129,7 @@ def build_pdf(title, paragraphs):
         lines.append("")
     lines.extend([
         "CypherMonkey · Amazon Connect Lab",
-        "cyphermonkeylabs.com · linktr.ee/cyphermonkey · github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing",
+        PDF_FOOT,
         DISCLAIMER,
         "Work with us and report a concern: cyphermonkeylabs.com/#contact",
     ])
@@ -199,7 +203,7 @@ def poster(title, lines, path):
         y += 10
     draw.rectangle((0, 1380, 1100, 1500), fill="#10202b")
     small = font(18)
-    draw.text((48, 1400), "CypherMonkey · cyphermonkeylabs.com · linktr.ee/cyphermonkey", font=small, fill="#f3efe4")
+    draw.text((48, 1400), "CypherMonkey · cyphermonkeylabs.com · github.com/CypherMonkeyLabs", font=small, fill="#f3efe4")
     draw.text((48, 1432), "MIT code · CC BY-NC-SA content · Not affiliated with any vendor", font=small, fill="#c9d6df")
     draw.text((48, 1464), "Work with us / report a concern: cyphermonkeylabs.com/#contact", font=small, fill="#3dcfb4")
     image.save(path, "PNG")
@@ -286,8 +290,8 @@ def main():
         [f"{step['step']}. {step['title']}: {step['body']}" for step in CUTOVER])
 
     add("career", "Career paths and interview prompts",
-        "Badges are not certifications. Say the exam name or the badge name, not both for one credential.",
-        "".join(
+        IDENTITY + " Badges are not certifications. Say the exam name or the badge name, not both for one credential.",
+        f"<p>{esc(IDENTITY)}</p>" + "".join(
             f"<article class='card'><h2>{esc(row['role'])}</h2><p>{esc(row['proof'])}</p><p>{esc(row['credential'])}</p>{cite(row['url'], row['source'])}</article>"
             for row in CAREERS
         ) + "<h2>Interview prompts</h2>" + "".join(f"<article class='card'><h2>{esc(row['q'])}</h2><p>{esc(row['a'])}</p></article>" for row in INTERVIEW),

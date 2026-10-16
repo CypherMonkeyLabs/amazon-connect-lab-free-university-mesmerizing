@@ -53,7 +53,7 @@ export async function viewCareer(ctx) {
   ctx.setTitle("Career", "Paths and interview prompts");
   const roles = data.careers.map((row) => `<article class="card"><h2>${ctx.esc(row.role)}</h2><p>${ctx.esc(row.proof)}</p><p>${ctx.esc(row.credential)}</p><p class="actions"><button class="ghost" data-go="${ctx.esc(row.href)}">Open the track</button></p><p class="cite">Source: <a href="${ctx.esc(row.url)}">${ctx.esc(row.source)}</a></p></article>`).join("");
   const prompts = data.interview.map((row) => `<article class="card"><h2>${ctx.esc(row.q)}</h2><p>${ctx.esc(row.a)}</p></article>`).join("");
-  return `<p class="lede">Five roles. The credential line says badge or exam, never both for the same piece of paper.</p><div class="grid-cards">${roles}</div><div class="section-head"><h2>Interview prompts</h2><button class="ghost" data-go="#/tips">Per-track traps</button></div><div class="grid-cards">${prompts}</div>`;
+  return `<section class="about-lucky holo-card" aria-label="About Lucky"><h2>Lucky</h2><p>Lucky is a lifelong student and an AI enthusiast, from systems, networking, voice, and the contact center, growing into AI omni-channel agents. The roles below are the work in front of that study. They are not a claim to be only a UC engineer.</p></section><p class="lede">Five roles. The credential line says badge or exam, never both for the same piece of paper.</p><div class="grid-cards">${roles}</div><div class="section-head"><h2>Interview prompts</h2><button class="ghost" data-go="#/tips">Per-track traps</button></div><div class="grid-cards">${prompts}</div>`;
 }
 
 export async function viewExplorer(ctx) {
