@@ -35,7 +35,7 @@ function monkeyMarkup(id) {
 }
 
 var STEPS = [
-  { sel: "[data-tour='home']", title: "Home", text: "Home is the track map. Start here when you want the whole lab." },
+  { sel: ".section-chip[data-tour='home']", title: "Home", text: "Home is the track map. Start here when you want the whole lab." },
   { sel: "[data-tour='menu']", title: "Menu", text: "Menu opens the drawer. Each row has an icon, a name, and one line. Search sits at the top." },
   { sel: "[data-tour='learn']", title: "Learn", text: "Learn is the ten-minute path and the full course." },
   { sel: "[data-tour='diagrams']", also: "[data-tour='downloads']", title: "Diagrams", text: "Diagrams are the pictures. Downloads, in this same row, keeps the sheets and the zip." },
@@ -175,10 +175,14 @@ host.appendChild(idlePop);
 var tour = document.createElement("div");
 tour.className = "tour-layer";
 tour.hidden = true;
-tour.innerHTML = '<div class="tour-card" role="dialog" aria-modal="true" aria-label="Page tour">' +
-  '<p data-tour-step></p><p data-tour-text></p>' +
+tour.innerHTML = '<div class="tour-card" role="dialog" aria-modal="true" aria-labelledby="tour-title">' +
+  '<p class="tour-kicker"><span class="tour-num" data-tour-num>1</span> <span data-tour-count></span></p>' +
+  '<h2 id="tour-title" data-tour-title></h2>' +
+  '<p class="tour-text" data-tour-text></p>' +
+  '<div class="tour-dots" data-tour-dots></div>' +
   '<div class="tour-actions"><button type="button" data-tour-back>Back</button>' +
-  '<button type="button" data-tour-next>Next</button><button type="button" data-tour-skip>Skip</button></div></div>';
+  '<button type="button" data-tour-skip>Skip</button>' +
+  '<button type="button" data-tour-next>Next</button></div></div>';
 document.body.appendChild(tour);
 
 var stepAt = 0;
@@ -187,6 +191,81 @@ var spots = [];
 function clearSpots() {
   spots.forEach(function (node) { node.classList.remove("is-spot"); });
   spots = [];
+  tour.querySelectorAll(".tour-spot").forEach(function (node) { node.remove(); });
+}
+function overlaps(a, b, gap) {
+  return !(a.right + gap < b.left || a.left - gap > b.right || a.bottom + gap < b.top || a.top - gap > b.bottom);
+}
+function revealTarget(target) {
+  var rail = target.closest(".section-rail");
+  if (rail) {
+    var railRect = rail.getBoundingClientRect();
+    var rect = target.getBoundingClientRect();
+    var delta = (rect.left + rect.width / 2) - (railRect.left + rail.clientWidth / 2);
+    rail.scrollLeft += delta;
+    return;
+  }
+  if (target.closest(".phone-dock")) return;
+  if (getComputedStyle(target).position === "fixed") return;
+  target.scrollIntoView({ block: "nearest", inline: "nearest" });
+}
+function shownEnough(node) {
+  var rect = node.getBoundingClientRect();
+  if (rect.width < 2 || rect.height < 2) return false;
+  var viewW = Math.min(rect.right, window.innerWidth) - Math.max(rect.left, 0);
+  var viewH = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+  if (viewW < rect.width * 0.55 || viewH < rect.height * 0.55) return false;
+  var rail = node.closest(".section-rail");
+  if (!rail) return true;
+  var railRect = rail.getBoundingClientRect();
+  var overlap = Math.min(rect.right, railRect.right) - Math.max(rect.left, railRect.left);
+  return overlap >= rect.width * 0.55;
+}
+function placeCard(card, nodes) {
+  var vw = window.innerWidth;
+  var vh = window.innerHeight;
+  var margin = 10;
+  var phone = vw <= 800;
+  var dock = phone ? 92 : 0;
+  var header = phone ? 74 : 86;
+  card.style.width = Math.min(440, vw - margin * 2) + "px";
+  var cw = card.offsetWidth;
+  var ch = card.offsetHeight;
+  var left = Math.max(margin, Math.round((vw - cw) / 2));
+  if (left + cw > vw - margin) left = Math.max(margin, vw - cw - margin);
+  var blocked = [];
+  var title = document.querySelector("#main h1");
+  if (title) blocked.push({ rect: title.getBoundingClientRect(), weight: 12 });
+  nodes.forEach(function (node) {
+    blocked.push({ rect: node.getBoundingClientRect(), weight: 4 });
+  });
+  var candidates = [vh - ch - margin - dock, header];
+  blocked.forEach(function (item) {
+    candidates.push(item.rect.bottom + 16);
+    candidates.push(item.rect.top - ch - 16);
+  });
+  var best = header;
+  var bestScore = Infinity;
+  candidates.forEach(function (top) {
+    var y = top;
+    if (y + ch > vh - margin - dock) y = vh - ch - margin - dock;
+    if (y < margin) y = margin;
+    var box = { left: left, right: left + cw, top: y, bottom: y + ch };
+    var score = 0;
+    blocked.forEach(function (item) {
+      if (!overlaps(box, item.rect, 8)) return;
+      var width = Math.max(0, Math.min(box.right, item.rect.right) - Math.max(box.left, item.rect.left));
+      var height = Math.max(0, Math.min(box.bottom, item.rect.bottom) - Math.max(box.top, item.rect.top));
+      score += width * height * item.weight;
+    });
+    score += Math.abs(y - (vh - ch - margin - dock)) * 0.02;
+    if (score < bestScore) {
+      bestScore = score;
+      best = y;
+    }
+  });
+  card.style.left = left + "px";
+  card.style.top = best + "px";
 }
 function visible(selector) {
   var nodes = document.querySelectorAll(selector);
@@ -212,27 +291,40 @@ function showStep() {
   clearSpots();
   var step = STEPS[stepAt];
   var target = visible(step.sel);
-  if (target) {
-    target.classList.add("is-spot");
-    spots.push(target);
-    target.scrollIntoView({ block: "nearest", inline: "nearest" });
+  var extra = step.also ? visible(step.also) : null;
+  if (target) revealTarget(target);
+  if (extra && target && extra.closest(".section-rail") && extra.closest(".section-rail") === target.closest(".section-rail") && !shownEnough(extra)) {
+    var rail = target.closest(".section-rail");
+    var before = rail.scrollLeft;
+    revealTarget(extra);
+    if (!shownEnough(target)) rail.scrollLeft = before;
   }
-  if (step.also) {
-    var extra = visible(step.also);
-    if (extra) {
-      extra.classList.add("is-spot");
-      spots.push(extra);
-    }
-  }
-  tour.querySelector("[data-tour-step]").textContent = "Step " + (stepAt + 1) + " of " + STEPS.length + " · " + step.title;
-  tour.querySelector("[data-tour-text]").textContent = step.text;
+  if (target && shownEnough(target)) spots.push(target);
+  if (extra && shownEnough(extra)) spots.push(extra);
   var card = tour.querySelector(".tour-card");
-  var rect = target ? target.getBoundingClientRect() : { bottom: 80, left: 16 };
-  var top = rect.bottom + 12;
-  if (top > window.innerHeight - 190) top = Math.max(12, rect.top - 176);
-  if (top < 12) top = 12;
-  card.style.top = top + "px";
-  card.style.left = Math.max(12, Math.min(window.innerWidth - 400, rect.left)) + "px";
+  spots.forEach(function (node, index) {
+    var rect = node.getBoundingClientRect();
+    var spot = document.createElement("div");
+    spot.className = "tour-spot" + (index === 0 ? " is-dim" : "");
+    var left = Math.max(4, rect.left - 6);
+    var top = Math.max(4, rect.top - 6);
+    spot.style.left = left + "px";
+    spot.style.top = top + "px";
+    spot.style.width = Math.max(12, Math.min(rect.width + 12, window.innerWidth - left - 4)) + "px";
+    spot.style.height = Math.max(12, Math.min(rect.height + 12, window.innerHeight - top - 4)) + "px";
+    tour.insertBefore(spot, card);
+  });
+  tour.querySelector("[data-tour-num]").textContent = String(stepAt + 1);
+  tour.querySelector("[data-tour-count]").textContent = (stepAt + 1) + " of " + STEPS.length;
+  tour.querySelector("[data-tour-title]").textContent = step.title;
+  tour.querySelector("[data-tour-text]").textContent = step.text;
+  tour.querySelector("[data-tour-dots]").innerHTML = STEPS.map(function (_, index) {
+    return '<span' + (index === stepAt ? ' class="is-on"' : "") + "></span>";
+  }).join("");
+  var next = tour.querySelector("[data-tour-next]");
+  next.textContent = stepAt === STEPS.length - 1 ? "Done" : "Next";
+  tour.querySelector("[data-tour-back]").hidden = stepAt === 0;
+  placeCard(card, spots);
 }
 function endTour(done) {
   tour.hidden = true;
@@ -258,6 +350,12 @@ tour.querySelector("[data-tour-back]").addEventListener("click", function () {
   showStep();
 });
 tour.querySelector("[data-tour-skip]").addEventListener("click", function () { endTour(true); });
+window.addEventListener("resize", function () {
+  if (!tour.hidden) showStep();
+});
+window.addEventListener("load", function () {
+  if (!tour.hidden) showStep();
+});
 
 function maybeGreet() {
   if (localStorage.getItem("acl-greet-v1") === "done") {
@@ -632,6 +730,9 @@ if (shot === "bot") {
   openSheet();
 } else if (shot === "tour") {
   startTour();
+  var tourStep = Number(new URLSearchParams(location.search).get("n") || "1");
+  stepAt = Math.max(0, Math.min(STEPS.length - 1, (tourStep || 1) - 1));
+  showStep();
 } else if (shot === "greet") {
   localStorage.removeItem("acl-tour-v1");
   localStorage.removeItem("acl-greet-v1");
