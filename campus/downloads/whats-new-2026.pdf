@@ -3,7 +3,7 @@
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 2 0 obj
-<< /Length 2303 >>
+<< /Length 2710 >>
 stream
 BT
 /F1 11 Tf
@@ -39,6 +39,34 @@ T* (the timeline compilation dated 25 September 2026 and the pricing appendix as
 T* (October 2026. Open What's New before you quote a feature announced after that. \(AWS What's) Tj
 T* (New\)) Tj
 T* () Tj
+T* (Sources and go deeper) Tj
+T* () Tj
+T* (AWS History and Timeline regarding Amazon Connect - Overview, Functions, Features, Summary) Tj
+T* (of Updates, and Introduction to Amazon Connect Customer | hidekazu-ko \(community\)) Tj
+T* (https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html last checked) Tj
+T* (2026-10) Tj
+T* () Tj
+T* (Contact Lens for Amazon Connect is now generally available - AWS \(AWS docs\)) Tj
+T* (https://aws.amazon.com/about-aws/whats-new/2020/07/contact-lens-amazon-connect-now-generally-available/) Tj
+T* (last checked 2026-10) Tj
+T* () Tj
+T* (Amazon Connect Customer Voice ID end of support - Amazon Connect Customer \(AWS docs\)) Tj
+T* (https://docs.aws.amazon.com/connect/latest/adminguide/amazonconnect-voiceid-end-of-support.html) Tj
+T* (last checked 2026-10) Tj
+T* () Tj
+T* (Amazon Web Services - Wikipedia \(Wikipedia\)) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Length 592 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+48 780 Td
+(https://en.wikipedia.org/wiki/Amazon_Web_Services last checked 2026-10) Tj
+T* () Tj
 T* (CypherMonkey · Amazon Connect Lab) Tj
 T* (cyphermonkeylabs.com · github.com/CypherMonkeyLabs · github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing · linktr.ee/cypherMonkey) Tj
 T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
@@ -46,25 +74,30 @@ T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
 ET
 endstream
 endobj
-3 0 obj
-<< /Type /Page /Parent 4 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
-endobj
 4 0 obj
-<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
 endobj
 5 0 obj
-<< /Type /Catalog /Pages 4 0 R >>
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 3 0 R >>
+endobj
+6 0 obj
+<< /Type /Pages /Count 2 /Kids [4 0 R 5 0 R] >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
 endobj
 xref
-0 6
+0 8
 0000000000 65535 f 
 0000000009 00000 n 
 0000000079 00000 n 
-0000002434 00000 n 
-0000002560 00000 n 
-0000002617 00000 n 
+0000002841 00000 n 
+0000003484 00000 n 
+0000003610 00000 n 
+0000003736 00000 n 
+0000003799 00000 n 
 trailer
-<< /Size 6 /Root 5 0 R >>
+<< /Size 8 /Root 7 0 R >>
 startxref
-2666
+3848
 %%EOF

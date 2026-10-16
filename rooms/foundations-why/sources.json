@@ -1,0 +1,36 @@
+{
+  "room": "foundations-why",
+  "title": "What Connect actually depends on",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "AWS History and Timeline regarding Amazon Connect - Overview, Functions, Features, Summary of Updates, and Introduction to Amazon Connect Customer | hidekazu-ko",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "What is Connect Customer? - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3 | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc8446/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://www.rfc-editor.org/rfc/rfc8446"
+    },
+    {
+      "title": "Amazon Web Services - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Amazon_Web_Services",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

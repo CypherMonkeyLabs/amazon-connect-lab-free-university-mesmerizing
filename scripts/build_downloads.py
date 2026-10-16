@@ -66,6 +66,9 @@ def page(title, body):
   .flag {{ background: #fff4d6; }}
   a {{ color: #0f5c6b; }}
   .card {{ break-inside: avoid; border: 1px solid #d5deea; background: #fff; border-radius: 12px; padding: 12px; margin: 8px 0; }}
+  .sources-deeper {{ margin-top: 18px; padding-top: 8px; border-top: 2px solid #0f5c6b; }}
+  .sources-deeper li {{ margin: 6px 0; }}
+  .sources-deeper a {{ color: #0b3a8f; font-weight: 800; }}
   .sheet-foot {{ margin-top: 28px; padding-top: 12px; border-top: 2px solid #e5843b; font-size: 13px; color: #3d4d5c; }}
   .brand-links {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }}
   .brand-link {{ display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border: 1px solid #d5deea; border-radius: 999px; background: #fff; text-decoration: none; font-weight: 700; }}
@@ -185,7 +188,7 @@ def build_pdf(title, paragraphs):
     return bytes(out)
 
 
-def poster(title, lines, path):
+def poster(title, lines, path, source_lines=None):
     image = Image.new("RGB", (1100, 1500), "#07141c")
     draw = ImageDraw.Draw(image)
     draw.rectangle((0, 0, 1100, 18), fill="#e5843b")
@@ -195,12 +198,24 @@ def poster(title, lines, path):
     body = font(22)
     for line in lines:
         for part in wrap_lines(line, 62):
-            if y > 1320:
+            if y > 1180:
                 break
             fill = "#f0c56a" if part.startswith("UNVERIFIED") or part.startswith("Source") else "#e7eef6"
             draw.text((48, y), part, font=body, fill=fill)
             y += 32
         y += 10
+    if source_lines:
+        y = 1200
+        draw.text((48, y), source_lines[0][:70], font=font(20, True), fill="#f0c56a")
+        y += 28
+        for line in source_lines[1:]:
+            for part in wrap_lines(line, 70):
+                if y > 1360:
+                    break
+                draw.text((48, y), part, font=font(16), fill="#e7eef6")
+                y += 22
+            if y > 1360:
+                break
     draw.rectangle((0, 1380, 1100, 1500), fill="#10202b")
     small = font(18)
     draw.text((48, 1400), "CypherMonkey · cyphermonkeylabs.com · github.com/CypherMonkeyLabs", font=small, fill="#f3efe4")
@@ -209,10 +224,29 @@ def poster(title, lines, path):
     image.save(path, "PNG")
 
 
-def write_sheet(slug, title, intro, html_body, pdf_lines):
+def deeper_html(items):
+    from sources import KIND_LABEL
+    rows = []
+    for item in items:
+        label = KIND_LABEL[item["kind"]]
+        checked = "last checked " + item["last_checked"]
+        if item["status"] == "verified" and item.get("url"):
+            rows.append(f'<li><a href="{esc(item["url"])}">{esc(item["title"])}</a> {esc(label)}. {checked}</li>')
+        else:
+            link = f' <a href="{esc(item["url"])}">{esc(item["url"])}</a>' if item.get("url") else ""
+            note = item.get("note") or "Unverified."
+            rows.append(f"<li><strong>confirm</strong> {esc(item['title'])}. {esc(label)}. {checked}. {esc(note)}{link}</li>")
+    return '<section class="sources-deeper"><h2>Sources and go deeper</h2><ul>' + "".join(rows) + "</ul></section>"
+
+
+def write_sheet(slug, title, intro, html_body, pdf_lines, sources):
+    from sources import sources_lines
+    source_lines = sources_lines(sources)
+    html_body = html_body + deeper_html(sources)
+    printable = [intro] + list(pdf_lines) + source_lines
     (OUT / f"{slug}.html").write_text(page(title, f"<p>{esc(intro)}</p>{html_body}"))
-    (OUT / f"{slug}.pdf").write_bytes(build_pdf(title, [intro] + pdf_lines))
-    poster(title, [intro] + pdf_lines[:28], OUT / f"{slug}.png")
+    (OUT / f"{slug}.pdf").write_bytes(build_pdf(title, printable))
+    poster(title, [intro] + list(pdf_lines)[:24], OUT / f"{slug}.png", source_lines[:8])
     return slug
 
 
@@ -240,10 +274,19 @@ def offline_zip():
 def main():
     import sys
     sys.path.insert(0, str(ROOT / "content"))
+    sys.path.insert(0, str(ROOT / "scripts"))
     from mastery import (  # noqa: E402
         CALL_FLOW, CAREERS, CONFIG, CUTOVER, EXPLORER, FIREWALL, INTERVIEW, PORTS_QUIZ,
         SYLLABUS, TROUBLE_TREE, WHATS_NEW,
     )
+    from sources import (  # noqa: E402
+        E911, LENS, NET, RFC_SIP, RFC_TURN, RFC_WEBRTC, TIMELINE_URL, VOICEID, WFM, WIKI_AWS,
+        WIKI_CALL, WIKI_E911, WIKI_WEBRTC, WIKI_WFM,         from_urls, lab_sources, sources_for_named_card, sources_lines,
+        track_sources,
+    )
+    from build_campus import collect_facts  # noqa: E402
+    from curriculum import LESSONS  # noqa: E402
+    facts = {item["term"]: item for item in collect_facts(LESSONS)}
 
     OUT.mkdir(parents=True, exist_ok=True)
     glossary = json.loads((CAMPUS / "data" / "glossary.json").read_text())["terms"]
@@ -251,91 +294,122 @@ def main():
 
     sheets = []
 
-    def add(slug, title, intro, html_body, pdf_lines):
-        write_sheet(slug, title, intro, html_body, pdf_lines)
+    def add(slug, title, intro, html_body, pdf_lines, sources):
+        write_sheet(slug, title, intro, html_body, pdf_lines, sources)
         sheets.append((slug, title, intro))
 
     add("ports-protocols", "Ports and protocols",
         "Agent workstation path for the Contact Control Panel. Confirm the current admin guide before you change a firewall.",
         rows(FIREWALL, ["hop", "proto", "port", "direction", "dest", "note"], lambda item, key: esc(item[key]))
         + cite(FIREWALL[0]["url"], FIREWALL[0]["source"]),
-        [f"{row['hop']}: {row['proto']} {row['port']} {row['direction']} to {row['dest']}. {row['note']}" for row in FIREWALL])
+        [f"{row['hop']}: {row['proto']} {row['port']} {row['direction']} to {row['dest']}. {row['note']}" for row in FIREWALL],
+        from_urls([NET, RFC_TURN, RFC_WEBRTC, WIKI_WEBRTC]))
 
     add("call-flows", "Call flow ladder",
         "One inbound voice contact, from the PSTN to after-contact work.",
         "<ol>" + "".join(f"<li><strong>{esc(a)}</strong> {esc(b)}</li>" for a, b in CALL_FLOW) + "</ol>"
         + cite("https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html", "Flow types"),
-        [f"{i + 1}. {a} — {b}" for i, (a, b) in enumerate(CALL_FLOW)])
+        [f"{i + 1}. {a} — {b}" for i, (a, b) in enumerate(CALL_FLOW)],
+        track_sources("flows"))
 
     add("config-checklist", "Configuration checklist",
         "Twelve checks before a pilot number takes real traffic.",
         "<ol>" + "".join(f"<li><strong>{esc(a)}</strong> {esc(b)}</li>" for a, b in CONFIG) + "</ol>",
-        [f"{a}: {b}" for a, b in CONFIG])
+        [f"{a}: {b}" for a, b in CONFIG],
+        lab_sources())
 
     add("troubleshoot-tree", "Troubleshooting tree",
         "Pick the symptom, then the capture. Change one thing.",
         "<ol>" + "".join(f"<li><strong>{esc(a)}</strong> {esc(b)} Lab: {esc(c)}.</li>" for a, b, c in TROUBLE_TREE) + "</ol>"
         + cite("https://repost.aws/knowledge-center/connect-contact-flow-errors", "re:Post, flow errors"),
-        [f"{a} — {b} (lab {c})" for a, b, c in TROUBLE_TREE])
+        [f"{a} — {b} (lab {c})" for a, b, c in TROUBLE_TREE],
+        track_sources("troubleshoot"))
 
     add("firewall-matrix", "Firewall matrix",
         "Same ports as the ports sheet, laid out as a change ticket. The video row is unverified on purpose.",
         rows(FIREWALL, ["hop", "proto", "port", "direction", "dest", "note"], lambda item, key: esc(item[key])),
-        [f"{row['hop']} | {row['proto']} | {row['port']} | {row['note']}" for row in FIREWALL])
+        [f"{row['hop']} | {row['proto']} | {row['port']} | {row['note']}" for row in FIREWALL],
+        from_urls([NET, RFC_TURN, RFC_SIP, WIKI_WEBRTC]))
 
     add("cutover", "Cutover plan",
         "Dual-run, evidence, then the rest. Heroic cutovers are how recordings go missing.",
         "".join(f"<article class='card'><h2>{esc(step['step'] + '. ' + step['title'])}</h2><p>{esc(step['body'])}</p></article>" for step in CUTOVER)
         + cite("https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html", "Routing profiles, used as the object map"),
-        [f"{step['step']}. {step['title']}: {step['body']}" for step in CUTOVER])
+        [f"{step['step']}. {step['title']}: {step['body']}" for step in CUTOVER],
+        track_sources("bridge"))
 
     add("career", "Career paths and interview prompts",
         IDENTITY + " Badges are not certifications. Say the exam name or the badge name, not both for one credential.",
         f"<p>{esc(IDENTITY)}</p>" + "".join(
-            f"<article class='card'><h2>{esc(row['role'])}</h2><p>{esc(row['proof'])}</p><p>{esc(row['credential'])}</p>{cite(row['url'], row['source'])}</article>"
+            f"<article class='card'><h2>{esc(row['role'])}</h2><p>{esc(row['proof'])}</p><p>{esc(row['credential'])}</p>{cite(row['url'], row['source'])}"
+            f"{deeper_html(from_urls([row['url']], {row['url']: row['source']}))}</article>"
             for row in CAREERS
         ) + "<h2>Interview prompts</h2>" + "".join(f"<article class='card'><h2>{esc(row['q'])}</h2><p>{esc(row['a'])}</p></article>" for row in INTERVIEW),
-        [f"{row['role']}: {row['credential']}" for row in CAREERS] + [f"Q: {row['q']} A: {row['a']}" for row in INTERVIEW])
+        [f"{row['role']}: {row['credential']}" for row in CAREERS] + [f"Q: {row['q']} A: {row['a']}" for row in INTERVIEW],
+        track_sources("foundations"))
 
     add("whats-new-2026", "What's new, 2026",
         "Cited through the 14 October 2026 read. The last row is unverified by design.",
         rows(WHATS_NEW, ["date", "name", "summary"], lambda item, key: esc(item[key]))
         + cite(WHATS_NEW[0]["url"], WHATS_NEW[0]["source"]),
-        [f"{row['date']} {row['name']}: {row['summary']} ({row['source']})" for row in WHATS_NEW])
+        [f"{row['date']} {row['name']}: {row['summary']} ({row['source']})" for row in WHATS_NEW],
+        from_urls([TIMELINE_URL, LENS, VOICEID, WIKI_AWS]))
 
     add("e911", "E911 for CCP agents",
         "United States agents on the CCP. Test with 933. Do not place a live 911 call from this lab.",
         "<ol><li>Validate the address with the Chime ValidateE911Address API.</li><li>Store it on that agent's Customer Profile.</li><li>An outbound whisper flow copies it to CivicAddress when the dialed string is 911 or 933.</li><li>Direct 911 from the CCP is documented for US East (N. Virginia), US West (Oregon), and GovCloud US-West.</li><li>Connect does not transfer a live call to 911 and does not let an agent dial 911 while already on a call.</li></ol>"
         + cite("https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html", "US emergency calling"),
-        ["Validate with Chime ValidateE911Address.", "Store on the agent profile.", "Whisper copies CivicAddress for 911 or 933.", "Test with 933 only.", "Source: US emergency calling in the admin guide."])
+        ["Validate with Chime ValidateE911Address.", "Store on the agent profile.", "Whisper copies CivicAddress for 911 or 933.", "Test with 933 only.", "Source: US emergency calling in the admin guide."],
+        from_urls([E911, WIKI_E911, WIKI_CALL]))
 
     add("wfm", "Workforce management",
         "Native forecasting and agent scheduling, and the third-party feed.",
         "<ul><li>The 4 August 2026 name is forecasting and agent scheduling.</li><li>Agent events are the adherence feed. Historical reports are not.</li><li>A blank board on day one usually means no event, an unmapped status, or a schedule that was never published.</li><li>One Kinesis shard and two consumers is a Monday-morning lag.</li><li>Shrinkage is the fraction of paid time that is not handling contacts.</li></ul>"
         + cite("https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html", "Forecasting and scheduling"),
-        ["Native name since 4 Aug 2026: forecasting and agent scheduling.", "Agent events feed adherence.", "Publish the schedule or the board stays blank.", "Size shards for every consumer.", "Source: Forecasting and scheduling."])
+        ["Native name since 4 Aug 2026: forecasting and agent scheduling.", "Agent events feed adherence.", "Publish the schedule or the board stays blank.", "Size shards for every consumer.", "Source: Forecasting and scheduling."],
+        from_urls([WFM, WIKI_WFM, WIKI_CALL]))
 
-    gloss_html = "".join(
-        f"<article class='card'><h2>{esc(term['term'])}</h2><p>{esc(term['meaning'])}</p>{cite(term['url'], term['source'])}</article>"
-        for term in glossary
-    )
+    gloss_parts = []
+    gloss_pdf = []
+    for term in glossary:
+        items = sources_for_named_card(term["term"], term["source"], term["track"], facts)
+        gloss_parts.append(
+            f"<article class='card'><h2>{esc(term['term'])}</h2><p>{esc(term['meaning'])}</p>{cite(term['url'], term['source'])}"
+            f"{deeper_html(items)}</article>"
+        )
+    for term in glossary[:40]:
+        items = sources_for_named_card(term["term"], term["source"], term["track"], facts)
+        gloss_pdf.append(f"{term['term']}: {term['meaning']}")
+        gloss_pdf.extend(sources_lines(items))
+    gloss_pdf.append(f"{len(glossary)} terms are in the HTML sheet. This PDF keeps the first 40.")
     add("glossary", "Glossary",
         f"{len(glossary)} terms. Each one points at the page the fact came from.",
-        gloss_html,
-        [f"{term['term']}: {term['meaning']}" for term in glossary[:40]] + [f"{len(glossary)} terms are in the HTML sheet. This PDF keeps the first 40."])
+        "".join(gloss_parts),
+        gloss_pdf,
+        lab_sources())
 
     deck = []
     for card in cards:
-        deck.append({"front": card["front"], "back": card["back"], "track": card["track"], "source": card["source"]})
+        items = sources_for_named_card(card["front"], card["source"], card["track"], facts)
+        deck.append({
+            "front": card["front"], "back": card["back"], "track": card["track"],
+            "source": card["source"], "sources": items,
+        })
     (OUT / "flashcards.json").write_text(json.dumps({"deck": "Amazon Connect Lab", "cards": deck}, ensure_ascii=False))
     printable = "".join(
-        f"<article class='card'><h2>{esc(card['front'])}</h2><p>{esc(card['back'])}</p><p>{esc(card['source'])}</p></article>"
+        f"<article class='card'><h2>{esc(card['front'])}</h2><p>{esc(card['back'])}</p><p>{esc(card['source'])}</p>"
+        f"{deeper_html(card['sources'])}</article>"
         for card in deck[:80]
     )
+    flash_pdf = []
+    for card in deck[:40]:
+        flash_pdf.append(f"{card['front']} — {card['back']}")
+        flash_pdf.extend(sources_lines(card["sources"]))
     add("flashcards", "Printable flashcards",
         f"The first 80 of {len(deck)} cards are on this sheet. flashcards.json is the full deck. Print this HTML to PDF from the browser if you want a paper set.",
         printable + '<p><a href="flashcards.json">Download flashcards.json</a></p>',
-        [f"{card['front']} — {card['back']}" for card in deck[:40]])
+        flash_pdf,
+        lab_sources())
 
     add("syllabus", "Syllabus",
         "Every Round 2 section, and where it lives in the campus.",
@@ -343,7 +417,8 @@ def main():
             f"<article class='card'><h2>{esc(row['level'] + ' · ' + row['title'])}</h2><p>{esc(row['blurb'])}</p></article>"
             for row in SYLLABUS
         ),
-        [f"{row['level']}: {row['title']} — {row['blurb']}" for row in SYLLABUS])
+        [f"{row['level']}: {row['title']} — {row['blurb']}" for row in SYLLABUS],
+        lab_sources())
 
     mastery = {
         "syllabus": SYLLABUS,
@@ -360,7 +435,11 @@ def main():
 
     cards_html = "".join(link_card(slug, title, intro) for slug, title, intro in sheets)
     cards_html += '<article class="card"><h2>Full offline bundle</h2><p>The campus folder, including these sheets, as a zip. Unzip it and serve the folder over HTTP.</p><p><a href="amazon-connect-lab.zip" download>amazon-connect-lab.zip</a></p></article>'
-    (OUT / "index.html").write_text(page("Cheat codes", "<p>One sheet per topic. HTML to read, PDF to file, PNG to pin. Nothing here is fetched from a vendor site.</p>" + cards_html))
+    (OUT / "index.html").write_text(page(
+        "Cheat codes",
+        "<p>One sheet per topic. HTML to read, PDF to file, PNG to pin. Nothing here is fetched from a vendor site.</p>"
+        + cards_html + deeper_html(lab_sources()),
+    ))
 
     offline_zip()
     print(json.dumps({"sheets": len(sheets), "cards": len(deck), "zip": (OUT / "amazon-connect-lab.zip").stat().st_size}))

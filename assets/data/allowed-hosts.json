@@ -3,11 +3,13 @@
     "aws.amazon.com",
     "cyphermonkeylabs.com",
     "docs.aws.amazon.com",
+    "en.wikipedia.org",
     "github.com",
     "hidekazu-konishi.com",
     "linktr.ee",
     "registry.terraform.io",
     "repost.aws",
+    "www.rfc-editor.org",
     "www.servicenow.com"
   ]
 }

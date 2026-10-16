@@ -1,0 +1,42 @@
+{
+  "room": "route-quick",
+  "title": "Quick connects and the flows behind them",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Create quick connects in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/quick-connects.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "How Connect Customer uses routing profiles - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Standard queues and agent queues in your Connect Customer contact center - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Set the hours of operation and time zone for a queue using Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-hours-operation.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Automatic call distributor - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Automatic_call_distributor",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "room": "tel-claim",
+  "title": "Claiming and the false 'limit' on the first number",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Connect Customer service quotas - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "The voice channel in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "RFC 3261: SIP: Session Initiation Protocol | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc3261/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://www.rfc-editor.org/rfc/rfc3261"
+    },
+    {
+      "title": "RFC 3550: RTP: A Transport Protocol for Real-Time Applications | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc3550/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://www.rfc-editor.org/rfc/rfc3550"
+    },
+    {
+      "title": "Session Initiation Protocol - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Session_Initiation_Protocol",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Call centre - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Call_centre",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

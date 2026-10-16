@@ -1,0 +1,35 @@
+{
+  "room": "foundations-iam",
+  "title": "IAM is not the security profile",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Configure SAML with IAM for Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/configure-saml.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "What is IAM? - AWS Identity and Access Management",
+      "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Security in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/security.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Identity and access management - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Identity_and_access_management",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

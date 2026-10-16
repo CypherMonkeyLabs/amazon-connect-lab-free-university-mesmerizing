@@ -1,0 +1,50 @@
+{
+  "room": "an-agents",
+  "title": "Agent events are the live staffing truth",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Connect Customer agent event streams - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Connect Customer contact events - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Contact Lens for Amazon Connect is now generally available - AWS",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2020/07/contact-lens-amazon-connect-now-generally-available/",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Integrate Amazon Connect with Amazon Kinesis | AWS re:Post",
+      "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "What is Amazon Kinesis Data Streams? - Amazon Kinesis Data Streams",
+      "url": "https://docs.aws.amazon.com/streams/latest/dev/introduction.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://docs.aws.amazon.com/kinesis/latest/dev/introduction.html"
+    },
+    {
+      "title": "Amazon Kinesis - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Amazon_Kinesis",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

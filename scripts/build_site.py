@@ -26,6 +26,15 @@ sys.path.insert(0, str(ROOT / "content"))
 from curriculum import LESSONS, TRACKS  # noqa: E402
 from glossary import GLOSSARY  # noqa: E402
 from iac import IAC  # noqa: E402
+from sources import (  # noqa: E402
+    KIND_LABEL,
+    card_sources,
+    chapter_sources,
+    lab_sources,
+    room_sources,
+    sources_lines,
+    track_sources,
+)
 
 SITE = "https://cyphermonkeylabs.com"
 CONTACT = SITE + "/#contact"
@@ -95,6 +104,53 @@ def rel(depth: int, href: str) -> str:
     if href.startswith(("http://", "https://", "#")):
         return href
     return "../" * depth + href
+
+
+def sources_html(items, depth, room_id=None, room_ids=None, anchor=True):
+    rows = []
+    for item in items:
+        label = KIND_LABEL[item["kind"]]
+        checked = "last checked " + item["last_checked"]
+        if item["status"] == "verified" and item.get("url"):
+            rows.append(
+                f'<li><a href="{esc(item["url"])}">{esc(item["title"])}</a> {esc(label)}. {checked}</li>'
+            )
+        else:
+            note = item.get("note") or "Unverified."
+            link = ""
+            if item.get("url"):
+                link = f' <a href="{esc(item["url"])}">{esc(item["url"])}</a>'
+            rows.append(
+                f"<li><strong>confirm</strong> {esc(item['title'])}. {esc(label)}. {checked}. {esc(note)}{link}</li>"
+            )
+    ident = ' id="deeper"' if anchor else ""
+    ids = [room_id] if room_id else list(room_ids or [])
+    links = ""
+    if len(ids) == 1:
+        href = rel(depth, f"rooms/{ids[0]}/sources.json")
+        links = f'<p><a href="{esc(href)}">sources.json</a></p>'
+    elif ids:
+        parts = []
+        for rid in ids:
+            href = rel(depth, f"rooms/{rid}/sources.json")
+            parts.append(f'<a href="{esc(href)}">sources.json ({esc(rid)})</a>')
+        links = "<p>" + " ".join(parts) + "</p>"
+    return (
+        f'<section class="block sources-deeper"{ident} data-read>'
+        f"<h2>Sources and go deeper</h2><ul>{''.join(rows)}</ul>{links}</section>"
+    )
+
+
+def write_room_json(lesson, items):
+    payload = {
+        "room": lesson["id"],
+        "title": lesson["title"],
+        "last_checked": "2026-10",
+        "sources": items,
+    }
+    path = ROOT / "rooms" / lesson["id"] / "sources.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
 def lesson_map():
@@ -535,6 +591,9 @@ svg.fig{width:100%;height:auto}
 .brand-gh{background:#24292f}
 .brand-tree{background:radial-gradient(circle at 32% 24%,#d9f99d,#4ade80 42%,#166534 78%);box-shadow:0 0 0 3px #052e16,0 0 18px #4ade80}
 .disclaimer-panel a{color:#1e3a8a;font-weight:800}
+.sources-deeper{margin-top:18px;padding-top:8px;border-top:2px solid #7c3aed}
+.sources-deeper li{margin:6px 0}
+.sources-deeper a{color:#1e3a8a;font-weight:800}
 </style>"""
 
 
@@ -552,9 +611,11 @@ def dl(depth, kind, href, label):
     return f'<a class="dl-btn dl-{kind}" href="{esc(rel(depth, href))}" download>{esc(label)}</a>'
 
 
-def section_file(slug, section, title, inner):
+def section_file(slug, section, title, inner, sources=None, room_id=None, room_ids=None):
+    items = lab_sources() if sources is None else sources
+    ending = sources_html(items, 2, room_id=room_id, room_ids=room_ids)
     path = ROOT / "downloads" / "sections" / f"{slug}-{section}.html"
-    standalone(path, title, inner, 2)
+    standalone(path, title, inner + ending, 2)
     return f"downloads/sections/{slug}-{section}.html"
 
 
@@ -623,14 +684,14 @@ def chrome_pdf(html_path, pdf_path):
     pdf_path.parent.mkdir(parents=True, exist_ok=True)
     if pdf_path.exists():
         pdf_path.unlink()
-    chrome(["--no-pdf-header-footer", f"--print-to-pdf={pdf_path.resolve()}", html_path.resolve().as_uri()], expect_file=pdf_path)
+    chrome(["--no-pdf-header-footer", f"--print-to-pdf={pdf_path.resolve()}", html_path.resolve().as_uri()], expect_file=pdf_path, timeout=90)
 
 
 def chrome_png(html_path, png_path):
     png_path.parent.mkdir(parents=True, exist_ok=True)
     if png_path.exists():
         png_path.unlink()
-    chrome(["--window-size=1200,1600", "--hide-scrollbars", f"--screenshot={png_path.resolve()}", html_path.resolve().as_uri()], expect_file=png_path)
+    chrome(["--window-size=1200,1600", "--hide-scrollbars", f"--screenshot={png_path.resolve()}", html_path.resolve().as_uri()], expect_file=png_path, timeout=60)
     fallback = Path.cwd() / "screenshot.png"
     if not png_path.exists() and fallback.exists():
         fallback.replace(png_path)
@@ -679,21 +740,21 @@ def build():
     diagram_files = []
     flow_files = []
 
-    def add_diagram(slug, title, svg, animated=False):
+    def add_diagram(slug, title, svg, animated=False, ending=""):
         svg_rel = f"assets/diagrams/{slug}.svg"
         png_rel = f"assets/diagrams/{slug}.png"
         write_asset(svg_rel, svg)
         html_rel = f"downloads/diagrams/{slug}.html"
-        standalone(ROOT / html_rel, title, f'<img class="fig" alt="" src="../../{svg_rel}" width="1400" height="800">', 2)
+        standalone(ROOT / html_rel, title, f'<img class="fig" alt="" src="../../{svg_rel}" width="1400" height="800">{ending}', 2)
         diagram_files.append({"slug": slug, "title": title, "svg": svg_rel, "png": png_rel, "html": html_rel, "animated": animated})
         return svg_rel, png_rel, html_rel
 
-    def add_flow(slug, title, svg):
+    def add_flow(slug, title, svg, ending=""):
         svg_rel = f"assets/flows/{slug}.svg"
         png_rel = f"assets/flows/{slug}.png"
         write_asset(svg_rel, svg)
         html_rel = f"downloads/flows/{slug}.html"
-        standalone(ROOT / html_rel, title, f'<img class="fig" alt="" src="../../{svg_rel}" width="1400" height="800">', 2)
+        standalone(ROOT / html_rel, title, f'<img class="fig" alt="" src="../../{svg_rel}" width="1400" height="800">{ending}', 2)
         flow_files.append({"slug": slug, "title": title, "svg": svg_rel, "png": png_rel, "html": html_rel})
         return svg_rel, png_rel, html_rel
 
@@ -705,19 +766,26 @@ def build():
         {"label": "CCP", "detail": "The browser softphone uses TCP 443 and UDP 3478."},
         {"label": "CTR and Kinesis", "detail": "The finished contact can leave on a stream."},
     ]
-    add_flow("inbound-call-path", "Inbound call path", flow_svg("Inbound call path", hero_steps))
-    add_diagram("inbound-call-path", "Inbound call path", hero_flow_svg(), True)
+    lab_end = sources_html(lab_sources(), 2)
+    add_flow("inbound-call-path", "Inbound call path", flow_svg("Inbound call path", hero_steps), lab_end)
+    add_diagram("inbound-call-path", "Inbound call path", hero_flow_svg(), True, lab_end)
 
     for track in TRACKS:
         slug = f"mind-{track['id']}"
-        add_diagram(slug, track["title"] + " mind map", mind_svg(track, grouped[track["id"]]))
+        room_ids = [lesson["id"] for lesson in grouped[track["id"]]]
+        ending = sources_html(track_sources(track["id"]), 2, room_ids=room_ids)
+        add_diagram(slug, track["title"] + " mind map", mind_svg(track, grouped[track["id"]]), ending=ending)
 
     room_meta = []
     for lesson in LESSONS:
+        source_items = room_sources(lesson)
+        write_room_json(lesson, source_items)
+        room_end = sources_html(source_items, 1, room_id=lesson["id"])
+        download_end = sources_html(source_items, 2, room_id=lesson["id"])
         svg = diagram_svg(lesson["title"], lesson["diagram"], animated=False)
         flow = flow_svg(lesson["title"] + " flow", lesson["flow"])
-        d_svg, d_png, d_html = add_diagram(lesson["id"], lesson["title"], svg)
-        f_svg, f_png, f_html = add_flow(lesson["id"], lesson["title"] + " flow", flow)
+        d_svg, d_png, d_html = add_diagram(lesson["id"], lesson["title"], svg, ending=download_end)
+        f_svg, f_png, f_html = add_flow(lesson["id"], lesson["title"] + " flow", flow, download_end)
         questions = pick_quiz(lesson, quiz_pool[lesson["track"]])
         track = next(item for item in TRACKS if item["id"] == lesson["track"])
         confirm = '<p class="confirm">Confirm before relying. Prices, quotas, and exam names change. Use the source linked on this page.</p>' if confirm_needed(lesson) else ""
@@ -756,9 +824,12 @@ def build():
         }
         blocks = []
         for sid, (heading, inner) in sections.items():
-            href = section_file(lesson["id"], sid, lesson["title"] + " — " + heading, inner)
+            href = section_file(
+                lesson["id"], sid, lesson["title"] + " — " + heading, inner,
+                sources=source_items, room_id=lesson["id"],
+            )
             blocks.append(block(1, sid, heading, inner, href))
-        body = f'<div class="wrap"><p class="kicker">{esc(track["title"])}</p><h1>{esc(lesson["title"])}</h1>{"".join(blocks)}</div>'
+        body = f'<div class="wrap"><p class="kicker">{esc(track["title"])}</p><h1>{esc(lesson["title"])}</h1>{"".join(blocks)}{room_end}</div>'
         page(ROOT / "rooms" / f"{lesson['id']}.html", lesson["title"] + " · Connect Lab", lesson["why"], 1, "room", body)
         room_meta.append({"id": lesson["id"], "title": lesson["title"], "why": lesson["why"], "track": lesson["track"], "href": f"rooms/{lesson['id']}.html"})
 
@@ -767,8 +838,11 @@ def build():
         for lesson in grouped[track["id"]]:
             cards.append(f'<a class="card" data-card href="{esc(rel(2, "rooms/" + lesson["id"] + ".html"))}"><h2>{esc(lesson["title"])}</h2><p>{esc(lesson["why"])}</p></a>')
         learn = f'<p>{esc(track["why"])}</p><p>{len(grouped[track["id"]])} rooms. Open one, then use its quiz.</p>'
-        href = section_file("track-" + track["id"], "learn", track["title"], learn)
-        body = f'<div class="wrap"><p class="kicker">Track</p><h1>{esc(track["title"])}</h1>{block(2, "learn", "Learn it in 5 minutes", learn, href)}<div class="card-grid">{"".join(cards)}</div></div>'
+        chapter_items = chapter_sources(grouped[track["id"]])
+        room_ids = [lesson["id"] for lesson in grouped[track["id"]]]
+        chapter_end = sources_html(chapter_items, 2, room_ids=room_ids)
+        href = section_file("track-" + track["id"], "learn", track["title"], learn, sources=chapter_items, room_ids=room_ids)
+        body = f'<div class="wrap"><p class="kicker">Track</p><h1>{esc(track["title"])}</h1>{block(2, "learn", "Learn it in 5 minutes", learn, href)}<div class="card-grid">{"".join(cards)}</div>{chapter_end}</div>'
         page(ROOT / "tracks" / track["id"] / "index.html", track["title"] + " · Connect Lab", track["why"], 2, "learn", body)
 
     # PNG for every svg via rsvg
@@ -930,7 +1004,13 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
     page(ROOT / "glossary.html", "Glossary · Connect Lab", "Terms from the written rooms.", 0, "glossary",
          f'<div class="wrap"><h1>Glossary</h1><div class="table-wrap"><table><thead><tr><th>Term</th><th>Meaning</th><th>Source</th></tr></thead><tbody>{gloss_rows}</tbody></table></div></div>')
 
-    cards = [{"front": row[0], "back": row[1], "source": row[4], "url": row[3], "track": row[2]} for row in GLOSSARY]
+    cards = []
+    for row in GLOSSARY:
+        items = card_sources(row[3], row[4], row[2])
+        cards.append({
+            "front": row[0], "back": row[1], "source": row[4], "url": row[3], "track": row[2],
+            "sources": items,
+        })
     (ROOT / "assets" / "data").mkdir(parents=True, exist_ok=True)
     (ROOT / "assets" / "data" / "flashcards.json").write_text(json.dumps({"cards": cards}, indent=2), encoding="utf-8")
     (ROOT / "downloads").mkdir(parents=True, exist_ok=True)
@@ -946,7 +1026,11 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
          '<div class="wrap"><h1>Quizzes</h1><p>Answers stay cited. A wrong choice is a study miss, not a score sent anywhere.</p><div data-deck="assets/data/quiz.json" data-mode="quiz"></div></div>',
          '<script src="assets/js/study.js" defer></script>')
 
-    flash_html = "".join(f"<h2>{esc(card['front'])}</h2><p>{esc(card['back'])}</p><p>Source: {esc(card['source'])}</p>" for card in cards)
+    flash_html = "".join(
+        f"<article class=\"card\"><h2>{esc(card['front'])}</h2><p>{esc(card['back'])}</p>"
+        f"{sources_html(card['sources'], 1, anchor=False)}</article>"
+        for card in cards
+    )
     standalone(ROOT / "downloads" / "flashcards.html", "Flashcards", flash_html, 1)
 
     write_sheets(known)
@@ -985,10 +1069,11 @@ def write_sheets(known):
     ]
     for slug, title, ids in sheets:
         parts = ['<p class="confirm">Confirm before relying. Quotas, prices, and names change.</p>']
-        for item_id in ids:
-            lesson = known[item_id]
+        lessons = [known[item_id] for item_id in ids]
+        for lesson in lessons:
             parts.append(f"<h2>{esc(lesson['title'])}</h2>{prose(lesson['paras'])}{bullets(lesson['points'])}<p>Source: {esc(lesson['cite']['title'])}</p>")
-        standalone(ROOT / "downloads" / "sheets" / f"{slug}.html", title, "".join(parts), 2)
+        ending = sources_html(chapter_sources(lessons), 2, room_ids=ids)
+        standalone(ROOT / "downloads" / "sheets" / f"{slug}.html", title, "".join(parts) + ending, 2)
 
 
 def write_templates(known):
@@ -1001,13 +1086,16 @@ def write_templates(known):
     for slug, title, ids in templates:
         paragraphs = [DISCLAIMER, "Contact: " + CONTACT, title, "Confirm before relying."]
         html_parts = ['<p class="confirm">Confirm before relying.</p>']
-        for item_id in ids:
-            lesson = known[item_id]
+        lessons = [known[item_id] for item_id in ids]
+        for lesson in lessons:
             paragraphs.append(lesson["title"])
             paragraphs.extend(lesson["points"])
             paragraphs.append("Caution: " + lesson["mistake"])
             html_parts.append(f"<h2>{esc(lesson['title'])}</h2>{bullets(lesson['points'])}<p>{esc(lesson['mistake'])}</p>")
-        standalone(ROOT / "downloads" / "templates" / f"{slug}.html", title, "".join(html_parts), 2)
+        items = chapter_sources(lessons)
+        paragraphs.extend(sources_lines(items))
+        ending = sources_html(items, 2, room_ids=ids)
+        standalone(ROOT / "downloads" / "templates" / f"{slug}.html", title, "".join(html_parts) + ending, 2)
         write_docx(ROOT / "downloads" / "templates" / f"{slug}.docx", title, paragraphs)
 
 
@@ -1062,8 +1150,16 @@ def write_deck():
         for paragraph in frame.paragraphs:
             paragraph.font.size = Pt(20)
     close = prs.slides.add_slide(prs.slide_layouts[1])
-    close.shapes.title.text = "Independent study lab"
-    close.placeholders[1].text = DISCLAIMER + " Contact: " + CONTACT
+    close.shapes.title.text = "Sources and go deeper"
+    frame = close.placeholders[1].text_frame
+    frame.text = DISCLAIMER
+    for line in sources_lines(lab_sources())[1:]:
+        paragraph = frame.add_paragraph()
+        paragraph.text = line
+        paragraph.font.size = Pt(14)
+    contact = frame.add_paragraph()
+    contact.text = "Contact: " + CONTACT
+    contact.font.size = Pt(14)
     path = ROOT / "downloads" / "connect-study-deck.pptx"
     path.parent.mkdir(parents=True, exist_ok=True)
     prs.save(path)
@@ -1072,13 +1168,15 @@ def write_deck():
 def write_reference_pages(known):
     def room_page(name, current, title, lesson_ids):
         parts = [f'<div class="wrap"><h1>{esc(title)}</h1>']
-        for item_id in lesson_ids:
-            lesson = known[item_id]
+        lessons = [known[item_id] for item_id in lesson_ids]
+        for lesson in lessons:
             inner = prose(lesson["paras"]) + bullets(lesson["points"]) + f'<p>Source: <a href="{esc(lesson["cite"]["url"])}">{esc(lesson["cite"]["title"])}</a></p>'
             if confirm_needed(lesson):
                 inner = '<p class="confirm">Confirm before relying.</p>' + inner
-            href = section_file(name, item_id, lesson["title"], inner)
-            parts.append(block(0, item_id, lesson["title"], inner, href))
+            items = room_sources(lesson)
+            href = section_file(name, lesson["id"], lesson["title"], inner, sources=items, room_id=lesson["id"])
+            parts.append(block(0, lesson["id"], lesson["title"], inner, href))
+        parts.append(sources_html(chapter_sources(lessons), 0, room_ids=lesson_ids))
         parts.append("</div>")
         page(ROOT / f"{name}.html", title + " · Connect Lab", title, 0, current, "".join(parts))
 
@@ -1233,9 +1331,11 @@ def write_downloads(diagram_files, flow_files):
 </div>'''
     page(ROOT / "downloads.html", "Downloads · Connect Lab", "Sheets, cards, templates, and the zip.", 0, "downloads", body)
     (ROOT / ".nojekyll").write_text("", encoding="utf-8")
+    assert_sources()
     hosts = sorted({
         "cyphermonkeylabs.com", "github.com", "linktr.ee", "docs.aws.amazon.com", "aws.amazon.com",
         "hidekazu-konishi.com", "registry.terraform.io", "repost.aws", "www.servicenow.com",
+        "en.wikipedia.org", "www.rfc-editor.org",
     })
     (ROOT / "assets" / "data" / "allowed-hosts.json").write_text(json.dumps({"hosts": hosts}, indent=2), encoding="utf-8")
 
@@ -1250,6 +1350,47 @@ def write_kb(room_meta):
         words = re.findall(r"[a-z]{4,}", (item["title"] + " " + item["why"] + " " + item["track"]).lower())
         rooms.append({"title": item["title"], "href": item["href"], "why": item["why"], "words": words[:12]})
     (ROOT / "guide" / "kb.json").write_text(json.dumps({"pages": pages, "rooms": rooms}, indent=2), encoding="utf-8")
+
+
+def assert_sources():
+    needles = ("Sources and go deeper", "last checked 2026-10")
+    paths = list((ROOT / "rooms").glob("*.html"))
+    paths += list((ROOT / "downloads" / "sections").glob("*.html"))
+    paths += list((ROOT / "downloads" / "sheets").glob("*.html"))
+    paths += list((ROOT / "downloads" / "templates").glob("*.html"))
+    paths += list((ROOT / "downloads" / "diagrams").glob("*.html"))
+    paths += list((ROOT / "downloads" / "flows").glob("*.html"))
+    paths += list((ROOT / "tracks").glob("*/index.html"))
+    paths.append(ROOT / "downloads" / "flashcards.html")
+    missing = []
+    for path in paths:
+        text = path.read_text(encoding="utf-8")
+        if any(needle not in text for needle in needles):
+            missing.append(str(path.relative_to(ROOT)))
+    for lesson in LESSONS:
+        js_path = ROOT / "rooms" / lesson["id"] / "sources.json"
+        if not js_path.exists():
+            missing.append(str(js_path.relative_to(ROOT)))
+            continue
+        payload = json.loads(js_path.read_text(encoding="utf-8"))
+        if payload.get("last_checked") != "2026-10" or not payload.get("sources"):
+            missing.append("bad json " + lesson["id"])
+        room_html = (ROOT / "rooms" / f"{lesson['id']}.html").read_text(encoding="utf-8")
+        if f"rooms/{lesson['id']}/sources.json" not in room_html and f"{lesson['id']}/sources.json" not in room_html:
+            missing.append("room link " + lesson["id"])
+    deck = zipfile.ZipFile(ROOT / "downloads" / "connect-study-deck.pptx")
+    blob = b"".join(deck.read(name) for name in deck.namelist() if name.startswith("ppt/slides/"))
+    if b"Sources and go deeper" not in blob:
+        missing.append("deck")
+    for docx in (ROOT / "downloads" / "templates").glob("*.docx"):
+        xml = zipfile.ZipFile(docx).read("word/document.xml")
+        if b"Sources and go deeper" not in xml:
+            missing.append(docx.name)
+    cards = json.loads((ROOT / "downloads" / "flashcards.json").read_text(encoding="utf-8"))["cards"]
+    if any("sources" not in card or not card["sources"] for card in cards):
+        missing.append("flashcards json")
+    if missing:
+        raise SystemExit("sources block missing: " + ", ".join(missing[:20]))
 
 
 if __name__ == "__main__":

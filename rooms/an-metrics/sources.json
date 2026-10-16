@@ -1,0 +1,36 @@
+{
+  "room": "an-metrics",
+  "title": "Real-time boards and historical intervals",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Real-time metrics",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "confirm",
+      "note": "Opened 2026-10. The link left this article and opened the Amazon Connect Customer guide home."
+    },
+    {
+      "title": "Connect Customer agent event streams - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Connect Customer contact events - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Call centre - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Call_centre",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

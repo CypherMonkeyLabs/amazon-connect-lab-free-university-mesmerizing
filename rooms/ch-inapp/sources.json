@@ -1,0 +1,35 @@
+{
+  "room": "ch-inapp",
+  "title": "In-app, web, and video",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Agent workstation requirements for app, web, and video calling in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/videocalling-networking-requirements.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Connect Customer service quotas - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Use the flow designer in Connect Customer to create flows - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Call centre - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Call_centre",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

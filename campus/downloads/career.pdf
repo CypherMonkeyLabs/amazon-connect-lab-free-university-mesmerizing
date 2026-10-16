@@ -3,7 +3,7 @@
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 2 0 obj
-<< /Length 2891 >>
+<< /Length 2622 >>
 stream
 BT
 /F1 11 Tf
@@ -51,6 +51,33 @@ T* () Tj
 T* (Q: Voice ID in a design written this year? A: Support ended 20 May 2026. Remove the blocks.) Tj
 T* (Use a partner or a one-time password.) Tj
 T* () Tj
+T* (Sources and go deeper) Tj
+T* () Tj
+T* (What is Connect Customer? - Amazon Connect Customer \(AWS docs\)) Tj
+T* (https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html last) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Length 1172 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+48 780 Td
+(checked 2026-10) Tj
+T* () Tj
+T* (RFC 8446: The Transport Layer Security \(TLS\) Protocol Version 1.3 | RFC Editor \(RFC\)) Tj
+T* (https://www.rfc-editor.org/info/rfc8446/ last checked 2026-10) Tj
+T* () Tj
+T* (AWS History and Timeline regarding Amazon Connect - Overview, Functions, Features, Summary) Tj
+T* (of Updates, and Introduction to Amazon Connect Customer | hidekazu-ko \(community\)) Tj
+T* (https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html last checked) Tj
+T* (2026-10) Tj
+T* () Tj
+T* (Amazon Web Services - Wikipedia \(Wikipedia\)) Tj
+T* (https://en.wikipedia.org/wiki/Amazon_Web_Services last checked 2026-10) Tj
+T* () Tj
 T* (CypherMonkey · Amazon Connect Lab) Tj
 T* (cyphermonkeylabs.com · github.com/CypherMonkeyLabs · github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing · linktr.ee/cypherMonkey) Tj
 T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
@@ -58,25 +85,30 @@ T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
 ET
 endstream
 endobj
-3 0 obj
-<< /Type /Page /Parent 4 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
-endobj
 4 0 obj
-<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
 endobj
 5 0 obj
-<< /Type /Catalog /Pages 4 0 R >>
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 3 0 R >>
+endobj
+6 0 obj
+<< /Type /Pages /Count 2 /Kids [4 0 R 5 0 R] >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
 endobj
 xref
-0 6
+0 8
 0000000000 65535 f 
 0000000009 00000 n 
 0000000079 00000 n 
-0000003022 00000 n 
-0000003148 00000 n 
-0000003205 00000 n 
+0000002753 00000 n 
+0000003977 00000 n 
+0000004103 00000 n 
+0000004229 00000 n 
+0000004292 00000 n 
 trailer
-<< /Size 6 /Root 5 0 R >>
+<< /Size 8 /Root 7 0 R >>
 startxref
-3254
+4341
 %%EOF

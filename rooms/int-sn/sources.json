@@ -1,0 +1,21 @@
+{
+  "room": "int-sn",
+  "title": "ServiceNow Voice",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Docs | ServiceNow",
+      "url": "https://www.servicenow.com/docs/r/servicenow-platform/integrate-ccc-amazonconnect.html",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "ServiceNow - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/ServiceNow",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

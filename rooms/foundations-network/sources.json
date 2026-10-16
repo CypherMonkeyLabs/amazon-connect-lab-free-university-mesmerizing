@@ -1,0 +1,59 @@
+{
+  "room": "foundations-network",
+  "title": "The network path is part of the product",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Set up your network to use the Connect Customer Contact Control Panel (CCP) - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "How Contact Control Panel (CCP) uses WebRTC - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-uses-webrtc.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "RFC 5766: Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN) | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc5766/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://www.rfc-editor.org/rfc/rfc5766"
+    },
+    {
+      "title": "RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3 | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc8446/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://www.rfc-editor.org/rfc/rfc8446"
+    },
+    {
+      "title": "RFC 8825: Overview: Real-Time Protocols for Browser-Based Applications | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc8825/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://www.rfc-editor.org/rfc/rfc8825"
+    },
+    {
+      "title": "WebRTC - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/WebRTC",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Transport Layer Security - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Transport_Layer_Security",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

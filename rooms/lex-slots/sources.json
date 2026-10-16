@@ -1,0 +1,49 @@
+{
+  "room": "lex-slots",
+  "title": "Slots become attributes or they vanish",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Flow block definitions in the flow designer in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Add an Amazon Lex bot to Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "What is Amazon Lex V2? - Amazon Lex",
+      "url": "https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Use the flow designer in Connect Customer to create flows - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Amazon Lex - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Amazon_Lex",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Interactive voice response - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Interactive_voice_response",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

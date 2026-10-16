@@ -1,0 +1,35 @@
+{
+  "room": "lambda-async",
+  "title": "When the work is slower than eight seconds",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Flow block in Connect Customer: AWS Lambda function - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/invoke-lambda-function-block.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "What is AWS Lambda? - AWS Lambda",
+      "url": "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Troubleshoot Lambda function failures in Amazon Connect | AWS re:Post",
+      "url": "https://repost.aws/knowledge-center/connect-lambda-function-failures",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "AWS Lambda - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/AWS_Lambda",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

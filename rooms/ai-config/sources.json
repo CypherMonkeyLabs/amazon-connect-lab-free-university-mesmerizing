@@ -1,0 +1,36 @@
+{
+  "room": "ai-config",
+  "title": "Turn on assist only where you can show the source",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Flow block definitions in the flow designer in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Amazon Q in Connect",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "confirm",
+      "note": "Opened 2026-10. The link left this article and opened the Amazon Connect Customer guide home."
+    },
+    {
+      "title": "Contact Lens for Amazon Connect is now generally available - AWS",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2020/07/contact-lens-amazon-connect-now-generally-available/",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Call centre - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Call_centre",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

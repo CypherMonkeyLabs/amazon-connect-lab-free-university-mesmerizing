@@ -25,7 +25,8 @@
             "<h2>" + escapeHtml(item.front) + "</h2>" +
             "<details><summary>Show the meaning</summary><p>" + escapeHtml(item.back) + "</p>" +
             '<p><a href="' + escapeHtml(item.url) + '">' + escapeHtml(item.source) + "</a></p></details>" +
-            '<div class="actions"><button type="button" data-again>Again</button><button type="button" data-know>Know</button></div>';
+            '<div class="actions"><button type="button" data-again>Again</button><button type="button" data-know>Know</button></div>' +
+            sourcesBlock(item);
         } else {
           var choices = (item.choices || []).map(function (choice, index) {
             return '<button type="button" data-choice="' + index + '">' + escapeHtml(choice) + "</button>";
@@ -52,6 +53,23 @@
       host.innerHTML = "<p>The deck file did not load. Use the download buttons on this page.</p>";
     });
   });
+  function sourcesBlock(item) {
+    var list = item.sources || [];
+    if (!list.length) return "";
+    var labels = { aws: "AWS docs", rfc: "RFC", community: "community", wikipedia: "Wikipedia" };
+    var rows = list.map(function (src) {
+      var kind = labels[src.kind] || src.kind || "";
+      var checked = "last checked " + (src.last_checked || "");
+      if (src.status === "verified" && src.url) {
+        return "<li><a href=\"" + escapeHtml(src.url) + "\">" + escapeHtml(src.title) + "</a> " +
+          escapeHtml(kind) + ". " + escapeHtml(checked) + "</li>";
+      }
+      var link = src.url ? " <a href=\"" + escapeHtml(src.url) + "\">" + escapeHtml(src.url) + "</a>" : "";
+      return "<li><strong>confirm</strong> " + escapeHtml(src.title) + ". " + escapeHtml(kind) + ". " +
+        escapeHtml(checked) + ". " + escapeHtml(src.note || "") + link + "</li>";
+    }).join("");
+    return '<section class="sources-deeper"><h2>Sources and go deeper</h2><ul>' + rows + "</ul></section>";
+  }
   function escapeHtml(value) {
     return String(value == null ? "" : value).replace(/[&<>"']/g, function (ch) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];

@@ -17,6 +17,9 @@
   .flag { background: #fff4d6; }
   a { color: #0f5c6b; }
   .card { break-inside: avoid; border: 1px solid #d5deea; background: #fff; border-radius: 12px; padding: 12px; margin: 8px 0; }
+  .sources-deeper { margin-top: 18px; padding-top: 8px; border-top: 2px solid #0f5c6b; }
+  .sources-deeper li { margin: 6px 0; }
+  .sources-deeper a { color: #0b3a8f; font-weight: 800; }
   .sheet-foot { margin-top: 28px; padding-top: 12px; border-top: 2px solid #e5843b; font-size: 13px; color: #3d4d5c; }
   .brand-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
   .brand-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border: 1px solid #d5deea; border-radius: 999px; background: #fff; text-decoration: none; font-weight: 700; }
@@ -27,7 +30,7 @@
 <body>
 <main>
 <h1>E911 for CCP agents</h1>
-<p>United States agents on the CCP. Test with 933. Do not place a live 911 call from this lab.</p><ol><li>Validate the address with the Chime ValidateE911Address API.</li><li>Store it on that agent's Customer Profile.</li><li>An outbound whisper flow copies it to CivicAddress when the dialed string is 911 or 933.</li><li>Direct 911 from the CCP is documented for US East (N. Virginia), US West (Oregon), and GovCloud US-West.</li><li>Connect does not transfer a live call to 911 and does not let an agent dial 911 while already on a call.</li></ol><p>Source: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html">US emergency calling</a></p>
+<p>United States agents on the CCP. Test with 933. Do not place a live 911 call from this lab.</p><ol><li>Validate the address with the Chime ValidateE911Address API.</li><li>Store it on that agent's Customer Profile.</li><li>An outbound whisper flow copies it to CivicAddress when the dialed string is 911 or 933.</li><li>Direct 911 from the CCP is documented for US East (N. Virginia), US West (Oregon), and GovCloud US-West.</li><li>Connect does not transfer a live call to 911 and does not let an agent dial 911 while already on a call.</li></ol><p>Source: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html">US emergency calling</a></p><section class="sources-deeper"><h2>Sources and go deeper</h2><ul><li><a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html">Set up US emergency calling in Connect Customer - Amazon Connect Customer</a> AWS docs. last checked 2026-10</li><li><a href="https://en.wikipedia.org/wiki/Enhanced_9-1-1">Enhanced 911 - Wikipedia</a> Wikipedia. last checked 2026-10</li><li><a href="https://en.wikipedia.org/wiki/Call_centre">Call centre - Wikipedia</a> Wikipedia. last checked 2026-10</li></ul></section>
 <footer class="sheet-foot">
   <p>CypherMonkey · Amazon Connect Lab</p>
   <p>Lucky is a lifelong student and an AI enthusiast, from systems, networking, voice, and the contact center, growing into AI omni-channel agents.</p>

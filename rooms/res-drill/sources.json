@@ -1,0 +1,35 @@
+{
+  "room": "res-drill",
+  "title": "What a failover drill has to prove",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Create a replica of your existing Connect Customer instance - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-replica-connect-instance.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Set up Connect Customer Global Resiliency - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "AWS History and Timeline regarding Amazon Connect - Overview, Functions, Features, Summary of Updates, and Introduction to Amazon Connect Customer | hidekazu-ko",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Amazon Web Services - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Amazon_Web_Services",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

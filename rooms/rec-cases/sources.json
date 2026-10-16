@@ -1,0 +1,35 @@
+{
+  "room": "rec-cases",
+  "title": "Cases survive the transfer",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "AWS History and Timeline regarding Amazon Connect - Overview, Functions, Features, Summary of Updates, and Introduction to Amazon Connect Customer | hidekazu-ko",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Use Connect Customer Customer Profiles - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "What is Connect Customer? - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Customer relationship management - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

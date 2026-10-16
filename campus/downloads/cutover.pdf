@@ -3,7 +3,7 @@
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 2 0 obj
-<< /Length 2238 >>
+<< /Length 2474 >>
 stream
 BT
 /F1 11 Tf
@@ -41,6 +41,35 @@ T* () Tj
 T* (9. Decommission: Turn off the old route only after recordings and CTR delivery have been) Tj
 T* (seen for the contacts that moved.) Tj
 T* () Tj
+T* (Sources and go deeper) Tj
+T* () Tj
+T* (How Connect Customer uses routing profiles - Amazon Connect Customer \(AWS docs\)) Tj
+T* (https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html last checked) Tj
+T* (2026-10) Tj
+T* () Tj
+T* (The voice channel in Connect Customer - Amazon Connect Customer \(AWS docs\)) Tj
+T* (https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html last checked) Tj
+T* (2026-10) Tj
+T* () Tj
+T* (RFC 3261: SIP: Session Initiation Protocol | RFC Editor \(RFC\)) Tj
+T* (https://www.rfc-editor.org/info/rfc3261/ last checked 2026-10) Tj
+T* () Tj
+T* (Call centre - Wikipedia \(Wikipedia\) https://en.wikipedia.org/wiki/Call_centre last checked) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Length 687 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+48 780 Td
+(2026-10) Tj
+T* () Tj
+T* (Session Initiation Protocol - Wikipedia \(Wikipedia\)) Tj
+T* (https://en.wikipedia.org/wiki/Session_Initiation_Protocol last checked 2026-10) Tj
+T* () Tj
 T* (CypherMonkey · Amazon Connect Lab) Tj
 T* (cyphermonkeylabs.com · github.com/CypherMonkeyLabs · github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing · linktr.ee/cypherMonkey) Tj
 T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
@@ -48,25 +77,30 @@ T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
 ET
 endstream
 endobj
-3 0 obj
-<< /Type /Page /Parent 4 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
-endobj
 4 0 obj
-<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
 endobj
 5 0 obj
-<< /Type /Catalog /Pages 4 0 R >>
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 3 0 R >>
+endobj
+6 0 obj
+<< /Type /Pages /Count 2 /Kids [4 0 R 5 0 R] >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
 endobj
 xref
-0 6
+0 8
 0000000000 65535 f 
 0000000009 00000 n 
 0000000079 00000 n 
-0000002369 00000 n 
-0000002495 00000 n 
-0000002552 00000 n 
+0000002605 00000 n 
+0000003343 00000 n 
+0000003469 00000 n 
+0000003595 00000 n 
+0000003658 00000 n 
 trailer
-<< /Size 6 /Root 5 0 R >>
+<< /Size 8 /Root 7 0 R >>
 startxref
-2601
+3707
 %%EOF

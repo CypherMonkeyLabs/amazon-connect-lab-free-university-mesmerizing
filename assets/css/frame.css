@@ -358,6 +358,12 @@ html[data-theme="neon"] .track-card {
   border: 1px solid #d97706;
 }
 html[data-theme="dark"] .confirm { background: #451a03; color: #fef3c7; }
+.sources-deeper { margin-top: 16px; }
+.sources-deeper ul { margin: 8px 0 0; padding-left: 1.2rem; }
+.sources-deeper li { margin: 6px 0; }
+.sources-deeper a { color: #1e3a8a; font-weight: 800; }
+html[data-theme="dark"] .sources-deeper a,
+html[data-theme="neon"] .sources-deeper a { color: #67e8f9; }
 .quiz-options { display: grid; gap: 8px; }
 .quiz-options button {
   text-align: left;
