@@ -1,6 +1,6 @@
 /** Cheat codes, syllabus, ports game, flow explorer, daily challenge, and share cards. */
 
-const REPO = "https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing";
+const REPO = "https://github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing";
 const HOME = "https://cyphermonkeylabs.com";
 
 function dayKey() {

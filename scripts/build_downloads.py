@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CAMPUS = ROOT / "campus"
 OUT = CAMPUS / "downloads"
 
-REPO = "https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing"
+REPO = "https://github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing"
 HOME = "https://cyphermonkeylabs.com"
 CONTACT = HOME + "/#contact"
 LINKS = [
@@ -125,7 +125,7 @@ def build_pdf(title, paragraphs):
         lines.append("")
     lines.extend([
         "CypherMonkey · Amazon Connect Lab",
-        "cyphermonkeylabs.com · linktr.ee/cyphermonkey · github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing",
+        "cyphermonkeylabs.com · linktr.ee/cyphermonkey · github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing",
         DISCLAIMER,
         "Work with us and report a concern: cyphermonkeylabs.com/#contact",
     ])
