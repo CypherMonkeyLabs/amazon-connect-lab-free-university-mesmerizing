@@ -2,8 +2,8 @@
 
 Amazon Connect Lab follows the same idea as two other offline campuses: cited lessons, labs that do not need an account, and a static site you can publish on GitHub Pages.
 
-- UC Lab: `https://github.com/cipher0x9/uc-lab-free-university-mesmerizing`
-- AI Lab: `https://github.com/cipher0x9/ai-lab-free-university-mesmerizing`
+- UC Lab: `https://github.com/CypherMonkeyLabs/uc-lab-free-university-mesmerizing`
+- AI Lab: `https://github.com/CypherMonkeyLabs/ai-lab-free-university-mesmerizing`
 
 The visual bar those projects were measured against is the Gemini Gems gallery at `https://cipher0x9.github.io/gemini-gems-free-gallery/site/`.
 

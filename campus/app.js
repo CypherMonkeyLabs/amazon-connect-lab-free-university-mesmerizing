@@ -11,6 +11,7 @@ import burst from "./vendor/confetti.module.mjs";
 import { applyLanguage, lessonHeading, LANGS } from "./i18n.js";
 import { bodyNote, lessonBody } from "./lesson-bodies.js";
 import { mountIcons } from "./icons.js";
+import { mountGuide } from "./guide-bot.js";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -113,6 +114,8 @@ function applyPrefs() {
   if (heroHandle) heroHandle.setTheme(state.theme || "dark");
   if (sceneHandle && sceneHandle.setTheme) sceneHandle.setTheme(state.theme || "neon");
   if (iconHandle && iconHandle.setTheme) iconHandle.setTheme();
+  if (iconHandle && iconHandle.setMotion) iconHandle.setMotion();
+  if (sceneHandle && sceneHandle.setMotion) sceneHandle.setMotion();
 }
 function studioCtx() {
   return { esc, state, save, award, load, hub, setTitle };
@@ -317,6 +320,31 @@ function renderRail() {
     if (on) link.setAttribute("aria-current", "page");
     else link.removeAttribute("aria-current");
   });
+  applyMenuFilter();
+}
+
+function menuQuery(id) {
+  const input = document.getElementById(id);
+  return input ? input.value.trim().toLowerCase() : "";
+}
+
+function filterScope(scope, query) {
+  if (!scope) return;
+  scope.querySelectorAll("a[data-menu], button.track-link").forEach((el) => {
+    const blob = (el.textContent || "").toLowerCase();
+    el.hidden = Boolean(query) && !blob.includes(query);
+  });
+}
+
+function applyMenuFilter() {
+  filterScope(document.querySelector(".campus-menu"), menuQuery("menu-search"));
+  filterScope(document.getElementById("phone-sheet"), menuQuery("sheet-filter"));
+}
+
+function wireMenuSearch(id) {
+  const input = document.getElementById(id);
+  if (!input) return;
+  input.addEventListener("input", applyMenuFilter);
 }
 
 function closeDrawer() {
@@ -601,8 +629,8 @@ function architectPlayer() {
     <div class="actions">
       <button type="button" class="ghost" data-clip-src="audio/use.mp3">Using the lab</button>
       <button type="button" class="ghost" data-clip-src="audio/share.mp3">Practise and share</button>
-      <a class="ghost" href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing">Rate</a>
-      <a class="ghost" href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing/issues">Comment</a>
+      <a class="ghost" href="https://github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing">Rate</a>
+      <a class="ghost" href="https://github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing/issues">Comment</a>
     </div>
     <p class="meta">The player is ready for the lab clips at audio/use.mp3 and audio/share.mp3. These two files are espeak-ng stand-ins, about 75 seconds together, until a later recording replaces them. Not a person, and not Amazon.</p>
   </section>`;
@@ -771,6 +799,7 @@ async function viewHome() {
           <a href="#/flows">Flows</a>
           <a href="#/charts">Charts</a>
           <a href="#/cheats">Cheat Codes</a>
+          <a href="#/track/ecosystem">Ecosystem</a>
           <a href="#/regions">Regions</a>
         </nav>
       </div>
@@ -782,6 +811,18 @@ async function viewHome() {
       <p class="why"><strong>Why it matters.</strong> TCP 443 can sign the agent in while UDP 3478 to TurnNlb is blocked, so the softphone stays silent.</p>
     </section>
     ${architectPlayer()}
+    <section class="about-lucky holo-card" aria-label="About Lucky">
+      <p class="showcase-kicker">About</p>
+      <h2>Lucky</h2>
+      <p>Lucky is a lifelong student and an AI enthusiast, from systems, networking, voice, and the contact center, growing into AI omni-channel agents. This campus is that study. It is wider than a UC engineer.</p>
+    </section>
+    <section class="ecosystem-teaser holo-card" id="ecosystem" aria-label="Ecosystem">
+      <p class="showcase-kicker">Ecosystem</p>
+      <h2>The contact center is not the whole operation</h2>
+      <p>Connect owns the live contact. Forecasting and scheduling own the shift. Recording owns the proof. The CRM owns the person. United States emergency calling owns the agent's location on a 911 call from the CCP. Agent assist owns a recommendation, not the decision.</p>
+      <p class="cite">Source: <a href="https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html">What is Amazon Connect</a> · <a href="https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html">Forecasting and scheduling</a> · <a href="https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html">US emergency calling</a></p>
+      <p class="actions"><a class="solid" href="#/track/ecosystem">Open the Ecosystem track</a></p>
+    </section>
     <div class="section-head"><h2>Tracks</h2><button class="ghost" data-go="#/regions">Regions</button></div>
     <div class="holo-grid">${cards}</div>`;
 }
@@ -2307,8 +2348,10 @@ document.body.addEventListener("change", (ev) => {
       if (heroHandle) { heroHandle.dispose(); heroHandle = null; }
       const host = $("#hero-host");
       if (host) host.dataset.mode = "flat";
+      if (iconHandle && iconHandle.setMotion) iconHandle.setMotion();
     } else if (route.view === "home") {
       bootHero(renderGen);
+      if (iconHandle && iconHandle.setMotion) iconHandle.setMotion();
     }
   }
   if (ev.target.id === "set-voice") { state.voiceURI = ev.target.value; save(); }
@@ -2342,6 +2385,23 @@ if (window.speechSynthesis) {
 }
 tickMascot(motionReduced());
 setInterval(() => tickMascot(motionReduced()), 7000);
+const reduceMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
+function onReduceChange() {
+  if (typeof state.reducedMotion === "boolean") return;
+  applyPrefs();
+  if (motionReduced()) {
+    if (sceneHandle) { sceneHandle.dispose(); sceneHandle = null; }
+    if (heroHandle) { heroHandle.dispose(); heroHandle = null; }
+    const host = $("#hero-host");
+    if (host) host.dataset.mode = "flat";
+  } else if (route.view === "home") {
+    bootHero(renderGen);
+  }
+}
+if (reduceMedia.addEventListener) reduceMedia.addEventListener("change", onReduceChange);
+wireMenuSearch("menu-search");
+wireMenuSearch("sheet-filter");
+mountGuide();
 if ("serviceWorker" in navigator && location.protocol !== "file:") {
   navigator.serviceWorker.register("sw.js").catch(() => { /* offline until the next visit */ });
 }

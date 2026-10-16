@@ -14,3 +14,16 @@ export const PALETTE = {
 export function toneFor(themeId) {
   return PALETTE[themeId] || PALETTE.neon;
 }
+
+export function cappedPixelRatio() {
+  const ratio = window.devicePixelRatio || 1;
+  const mobile = window.matchMedia("(max-width: 700px)").matches;
+  return Math.min(ratio, mobile ? 1.5 : 2);
+}
+
+export function motionReducedNow() {
+  const mode = document.documentElement.dataset.motion;
+  if (mode === "reduce") return true;
+  if (mode === "full") return false;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}

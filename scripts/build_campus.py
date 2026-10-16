@@ -162,6 +162,7 @@ SHELL_HTML = """<!DOCTYPE html>
 <meta name="twitter:description" content="Eighteen tracks, twenty-four labs, a 3D architecture map, and a cited glossary for Amazon Connect.">
 <meta name="twitter:image" content="og-card.png">
 <link rel="stylesheet" href="campus.css">
+<!--FAVICON-->
 <script type="importmap">
 { "imports": { "three": "./vendor/three.module.min.js" } }
 </script>
@@ -191,16 +192,8 @@ try {
 </header>
 <div class="studio-stack">
 <header class="studio-bar">
-  <a class="studio-home" href="https://cyphermonkeylabs.com">CypherMonkey Labs</a>
-  <nav class="studio-links" aria-label="Studio">
-    <a href="https://linktr.ee/cyphermonkey">Linktree</a>
-    <a href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing">Rate this lab</a>
-    <a href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing/issues">Comment / help</a>
-    <a href="https://dev.to/cyphermonkey">dev.to</a>
-    <a href="https://huggingface.co/Cypher0x9">Hugging Face</a>
-    <a href="https://x.com/Cypher0x9">X</a>
-    <a href="downloads/amazon-connect-lab.zip" download="amazon-connect-lab.zip">Download offline</a>
-  </nav>
+  <!--BRAND-->
+  <a class="brand-link" href="downloads/amazon-connect-lab.zip" download="amazon-connect-lab.zip">Download offline</a>
   <div class="mascot" id="mascot" data-pose="idle" data-shift="day">
     <svg viewBox="0 0 64 64" role="img" aria-label="CypherMonkey">
       <ellipse class="ear" cx="14" cy="28" rx="8" ry="10"/>
@@ -220,15 +213,10 @@ try {
   </div>
 </header>
 <nav class="campus-menu" aria-label="Campus">
-  <a href="#/diagrams" data-menu="diagrams">Diagrams</a>
-  <a href="#/flows" data-menu="flows">Flows</a>
-  <a href="#/charts" data-menu="charts">Charts</a>
-  <a href="#/cheats" data-menu="cheats">Cheat Codes</a>
-  <a href="#/play" data-menu="play">Play</a>
-  <a href="#/track/ecosystem" data-menu="ecosystem">Ecosystem</a>
-  <a href="#/downloads" data-menu="downloads">Downloads</a>
-  <a href="#/career" data-menu="careers">Careers</a>
-  <a href="#/settings" data-menu="settings">Settings</a>
+  <label class="menu-search">Search the menu
+    <input id="menu-search" type="search" placeholder="Diagrams, flows, charts" autocomplete="off">
+  </label>
+  <!--CAMPUS_LINKS-->
   <label class="lang-pick">Language
     <select id="lang" aria-label="Language">
       <option value="en">English</option>
@@ -257,24 +245,12 @@ try {
     <button type="button" id="sheet-search">Search</button>
     <button type="button" id="phone-close">Close</button>
   </div>
+  <!--BRAND-->
+  <label class="menu-search">Search the menu
+    <input id="sheet-filter" type="search" placeholder="Filter sections and tracks" autocomplete="off">
+  </label>
   <nav class="phone-sections" aria-label="Sections">
-    <a href="#/" data-menu="learn">Learn</a>
-    <a href="#/diagrams" data-menu="diagrams">Diagrams</a>
-    <a href="#/flows" data-menu="flows">Flows</a>
-    <a href="#/charts" data-menu="charts">Charts</a>
-    <a href="#/cheats" data-menu="cheats">Cheat Codes</a>
-    <a href="#/play" data-menu="play">Play</a>
-    <a href="#/track/ecosystem" data-menu="ecosystem">Ecosystem</a>
-    <a href="#/downloads" data-menu="downloads">Downloads</a>
-    <a href="#/career" data-menu="careers">Careers</a>
-    <a href="#/labs" data-menu="labs">Labs</a>
-    <a href="#/quiz" data-menu="quiz">Quiz</a>
-    <a href="#/cards" data-menu="cards">Cards</a>
-    <a href="#/glossary" data-menu="glossary">Glossary</a>
-    <a href="#/map" data-menu="map">Map</a>
-    <a href="#/audio" data-menu="listen">Listen</a>
-    <a href="#/timeline" data-menu="timeline">Timeline</a>
-    <a href="#/settings" data-menu="settings">Settings</a>
+    <!--PHONE_LINKS-->
   </nav>
   <nav id="phone-tracks" class="phone-tracks" aria-label="Tracks"></nav>
   <div class="phone-prefs">
@@ -344,18 +320,21 @@ try {
       <div id="view"><p>Loading the campus.</p></div>
       <footer class="site-foot">
         <p class="sig">CypherMonkey · Amazon Connect Lab</p>
+        <p class="about-line"><!--IDENTITY--></p>
+        <!--BRAND-->
+        <p class="copy"><!--COPYRIGHT--></p>
         <p>Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content.</p>
-        <p class="foot-links"><a href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing">Rate this lab</a><a href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing/issues">Comment</a><a href="https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing/issues">Help</a><a href="https://cyphermonkeylabs.com/#contact">Work with us</a><a href="https://cyphermonkeylabs.com/#contact">Report a concern / takedown</a></p>
+        <p class="foot-links"><a href="<!--ORG_REPO-->">Rate this lab</a><a href="<!--ORG_REPO-->/issues">Comment</a><a href="<!--ORG_REPO-->/issues">Help</a><a href="https://cyphermonkeylabs.com/#contact">Work with us</a><a href="https://cyphermonkeylabs.com/#contact">Report a concern / takedown</a></p>
         <nav class="next-labs" aria-label="Other labs">
           <p>Next lab</p>
-          <a href="https://cipher0x9.github.io/uc-lab-free-university-mesmerizing/">UC Lab</a>
-          <a href="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/">AI Lab</a>
-          <a href="https://cipher0x9.github.io/microsoft-voice-cc-lab-free-university-mesmerizing/">Microsoft Voice</a>
-          <a href="https://cipher0x9.github.io/five9-lab-free-university-mesmerizing/">Five9</a>
-          <a href="https://cipher0x9.github.io/genesys-cloud-lab-free-university-mesmerizing/">Genesys Cloud</a>
-          <a href="https://cipher0x9.github.io/nice-cxone-lab-free-university-mesmerizing/">NICE CXone</a>
-          <a href="https://cipher0x9.github.io/sip-universe-lab-free-university-mesmerizing/">SIP Universe</a>
-          <a href="https://cipher0x9.github.io/webex-lab-free-university-mesmerizing/">Webex Lab</a>
+          <a href="https://cyphermonkeylabs.com/uc-lab-free-university-mesmerizing/">UC Lab</a>
+          <a href="https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/">AI Lab</a>
+          <a href="https://cyphermonkeylabs.com/microsoft-voice-cc-lab-free-university-mesmerizing/">Microsoft Voice</a>
+          <a href="https://cyphermonkeylabs.com/five9-lab-free-university-mesmerizing/">Five9</a>
+          <a href="https://cyphermonkeylabs.com/genesys-cloud-lab-free-university-mesmerizing/">Genesys Cloud</a>
+          <a href="https://cyphermonkeylabs.com/nice-cxone-lab-free-university-mesmerizing/">NICE CXone</a>
+          <a href="https://cyphermonkeylabs.com/sip-universe-lab-free-university-mesmerizing/">SIP Universe</a>
+          <a href="https://cyphermonkeylabs.com/webex-lab-free-university-mesmerizing/">Webex Lab</a>
           <a href="https://cipher0x9.github.io/gemini-gems-free-gallery/">Gemini Gems</a>
         </nav>
       </footer>
@@ -364,12 +343,28 @@ try {
 </div>
 <div class="backdrop" id="backdrop" hidden></div>
 <nav class="bottom-nav" aria-label="Quick">
-  <a href="#/" data-quick="learn">Learn</a>
-  <a href="#/diagrams" data-quick="diagrams">Diagrams</a>
-  <a href="#/play" data-quick="play">Play</a>
-  <button type="button" id="quick-menu" aria-expanded="false" aria-controls="phone-sheet">Menu</button>
-  <a href="#/audio" data-quick="listen">Listen</a>
+  <!--BOTTOM-->
 </nav>
+<div class="guide" id="guide">
+  <button class="guide-open" id="guide-open" type="button" aria-expanded="false" aria-controls="guide-panel">
+    <svg class="menu-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a7 7 0 0 0-7 7c0 2.5 1.3 4.2 2.6 5.3.7.6 1.4 1.3 1.4 2.2V19h6v-1.5c0-.9.7-1.6 1.4-2.2C17.7 14.2 19 12.5 19 10a7 7 0 0 0-7-7zM9 21h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <span>Guide</span>
+  </button>
+  <section id="guide-panel" class="guide-panel" hidden aria-label="Guide Bot">
+    <div class="guide-head">
+      <p id="guide-title">Guide Bot</p>
+      <button type="button" id="guide-close">Close</button>
+    </div>
+    <div id="guide-log" class="guide-log" role="log" aria-live="polite"></div>
+    <div id="guide-chips" class="guide-chips"></div>
+    <form id="guide-form" class="guide-form">
+      <label class="sr-only" for="guide-q">Ask the guide</label>
+      <input id="guide-q" type="text" maxlength="240" placeholder="Ask about a page in this lab" autocomplete="off">
+      <button class="guide-send" type="submit">Send</button>
+    </form>
+    <p class="guide-note">Answers come from this lab. Set window.ACL_GUIDE_ENDPOINT later for a cloud reply. A reply without a source is dropped.</p>
+  </section>
+</div>
 <div class="player glass" role="region" aria-label="Lesson player">
   <div><strong id="player-title">Amazon Connect Lab</strong><div class="meta" id="player-state">Idle</div></div>
   <canvas id="wave" width="220" height="36" aria-hidden="true"></canvas>
@@ -393,7 +388,7 @@ try {
 </html>
 """
 
-SW_JS = """const VERSION = "acl-campus-v24";
+SW_JS = """const VERSION = "acl-campus-v25";
 const SHELL = __SHELL__;
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -584,9 +579,22 @@ def main():
         shutil.rmtree(campus / "data")
     counts = split_modules(data, campus)
     write_json(campus / "data" / "atlas.json", build_atlas())
-    (campus / "index.html").write_text(SHELL_HTML)
-    for name in ("app.js", "studio.js", "scene.js", "flowlang.js", "hero.js", "i18n.js", "lesson-titles.js", "lesson-bodies.js", "palette.js", "icons.js", "campus.css"):
+    from brand import (  # noqa: E402
+        COPYRIGHT, IDENTITY, ORG_REPO, brand_nav, bottom_links, campus_links, favicon_links, phone_links,
+    )
+    html = SHELL_HTML
+    html = html.replace("<!--FAVICON-->", favicon_links())
+    html = html.replace("<!--BRAND-->", brand_nav())
+    html = html.replace("<!--CAMPUS_LINKS-->", campus_links())
+    html = html.replace("<!--PHONE_LINKS-->", phone_links())
+    html = html.replace("<!--BOTTOM-->", bottom_links())
+    html = html.replace("<!--COPYRIGHT-->", COPYRIGHT)
+    html = html.replace("<!--IDENTITY-->", IDENTITY)
+    html = html.replace("<!--ORG_REPO-->", ORG_REPO)
+    (campus / "index.html").write_text(html)
+    for name in ("app.js", "studio.js", "scene.js", "flowlang.js", "hero.js", "i18n.js", "lesson-titles.js", "lesson-bodies.js", "palette.js", "icons.js", "campus.css", "guide-bot.js"):
         shutil.copyfile(ROOT / "web" / name, campus / name)
+    shutil.copyfile(ROOT / "web" / "guide-kb.json", campus / "guide-kb.json")
     audio_src = ROOT / "audio"
     audio_dst = campus / "audio"
     if audio_dst.exists():
@@ -600,7 +608,7 @@ def main():
     (campus / ".nojekyll").write_text("")
     from build_downloads import main as build_downloads  # noqa: E402
     build_downloads()
-    precache = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "i18n.js", "lesson-titles.js", "lesson-bodies.js", "palette.js", "icons.js", "hero.js", "data/shell.json", "data/mastery.json", "data/atlas.json", "audio/use.mp3", "audio/share.mp3"]
+    precache = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "i18n.js", "lesson-titles.js", "lesson-bodies.js", "palette.js", "icons.js", "hero.js", "guide-bot.js", "guide-kb.json", "favicon.svg", "favicon.ico", "data/shell.json", "data/mastery.json", "data/atlas.json", "audio/use.mp3", "audio/share.mp3"]
     if (campus / "og-card.png").exists():
         precache.append("og-card.png")
     (campus / "sw.js").write_text(SW_JS.replace("__SHELL__", json.dumps(precache)))

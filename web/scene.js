@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "./vendor/OrbitControls.js";
-import { toneFor } from "./palette.js";
+import { toneFor, cappedPixelRatio, motionReducedNow } from "./palette.js";
 
 const SERVICES = [
   { id: "connect", name: "Connect", color: "#FFB020", at: [0, 0.35, 0] },
@@ -66,7 +66,7 @@ export function mountArchitecture(container) {
   } catch (err) {
     return null;
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(cappedPixelRatio());
   renderer.setSize(width, height);
   let themeId = document.documentElement.dataset.theme || "neon";
   renderer.setClearColor(toneFor(themeId).bg, 1);
@@ -170,6 +170,12 @@ export function mountArchitecture(container) {
       frame = 0;
       return;
     }
+    if (motionReducedNow()) {
+      controls.update();
+      renderer.render(scene, camera);
+      frame = 0;
+      return;
+    }
     frame = requestAnimationFrame(tick);
     const dt = clock.getDelta();
     Object.values(linkViews).forEach((view) => {
@@ -207,6 +213,7 @@ export function mountArchitecture(container) {
     const h = container.clientHeight || 460;
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+    renderer.setPixelRatio(cappedPixelRatio());
     renderer.setSize(w, h);
   };
   const observer = new ResizeObserver(onResize);
@@ -235,6 +242,11 @@ export function mountArchitecture(container) {
 
   return {
     setTheme(next) { paintTheme(next); },
+    setMotion() {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      tick();
+    },
     setScenario(next) {
       scenario = next || "none";
       applyScenario();

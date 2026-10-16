@@ -212,10 +212,39 @@ def main():
     for theme in ('data-theme="futuristic"', 'data-theme="gaming"', 'data-theme="neon"'):
         if theme not in css:
             problems.append("missing theme " + theme)
-    if "cyphermonkeylabs.com" not in html or "linktr.ee/cyphermonkey" not in html:
+    if "cyphermonkeylabs.com" not in html:
         problems.append("studio chrome links missing")
-    if "linkedin.com" in html.lower() or "mailto:" in html.lower():
-        problems.append("chrome includes LinkedIn or an email")
+    for label, href in (
+        ("Visit my GitHub", "https://github.com/cipher0x9"),
+        ("Visit the Labs org", "https://github.com/CypherMonkeyLabs"),
+        ("Visit Cypher Monkey Labs", "https://cyphermonkeylabs.com"),
+        ("https://x.com/Cypher0x9", "https://x.com/Cypher0x9"),
+        ("https://huggingface.co/Cypher0x9", "https://huggingface.co/Cypher0x9"),
+    ):
+        if label not in html or href not in html:
+            problems.append("brand link missing " + label)
+    if "linktr.ee" in html.lower() or "linkedin.com" in html.lower() or "mailto:" in html.lower():
+        problems.append("chrome includes Linktree, LinkedIn, or an email")
+    if "github.com/cipher0x9/amazon-connect-lab" in html:
+        problems.append("old personal repo url in the shell")
+    if "© 2026 CypherMonkeyLabs 🐒" not in html:
+        problems.append("copyright line missing")
+    if "lifelong student" not in html:
+        problems.append("Lucky identity missing")
+    if "menu-search" not in html or "sheet-filter" not in html or "bottom-nav" not in html:
+        problems.append("menu search or bottom bar missing")
+    app_js = (CAMPUS / "app.js").read_text()
+    if "Guide Bot" not in html or "guide-bot.js" not in app_js or "mountGuide" not in app_js:
+        problems.append("Guide Bot shell missing")
+    if not (CAMPUS / "guide-kb.json").exists() or not (CAMPUS / "guide-bot.js").exists():
+        problems.append("Guide Bot files missing")
+    for icon in ("favicon.svg", "favicon.ico"):
+        if not (CAMPUS / icon).exists() or icon not in html:
+            problems.append("favicon missing " + icon)
+    if "font-display: swap" not in css or "cappedPixelRatio" not in (CAMPUS / "palette.js").read_text():
+        problems.append("font-display or pixel-ratio cap missing")
+    if "motionReducedNow" not in (CAMPUS / "palette.js").read_text():
+        problems.append("reduced-motion helper missing")
     downloads = CAMPUS / "downloads"
     for name in ("index.html", "ports-protocols.html", "ports-protocols.pdf", "flashcards.json", "amazon-connect-lab.zip"):
         if not (downloads / name).exists():
@@ -244,8 +273,11 @@ def main():
         problems.append("sibling strip still points at vercel")
     for href in re.findall(r'class="next-labs".*?</nav>', html, re.S):
         for link in re.findall(r'href="([^"]+)"', href):
-            if not link.startswith("https://cipher0x9.github.io/"):
-                problems.append("sibling link is not github.io: " + link)
+            if not (
+                link.startswith("https://cyphermonkeylabs.com/")
+                or link.startswith("https://cipher0x9.github.io/")
+            ):
+                problems.append("sibling link is not a published lab host: " + link)
     license_text = (ROOT / "LICENSE").read_text()
     if "MIT" not in license_text or "CC BY-NC-SA" not in license_text:
         problems.append("LICENSE must state MIT code and CC BY-NC-SA content")
@@ -274,17 +306,27 @@ def main():
         problems.append("downloadable sheets %s < 10" % len(sheets))
     for sheet in sheets:
         text = sheet.read_text().lower()
-        for needle in ("cyphermonkeylabs.com", "linktr.ee/cyphermonkey", "amazon-connect-lab-free-university-mesmerizing"):
+        for needle in (
+            "cyphermonkeylabs.com",
+            "https://github.com/cipher0x9",
+            "https://github.com/cyphermonkeylabs/amazon-connect-lab-free-university-mesmerizing",
+            "favicon.svg",
+            "© 2026 cyphermonkeylabs",
+        ):
             if needle not in text:
                 problems.append(sheet.name + " missing " + needle)
-        if "linkedin" in text or "mailto:" in text:
-            problems.append(sheet.name + " has LinkedIn or an email")
+        if "linktr.ee" in text or "linkedin" in text or "mailto:" in text or "github.com/cipher0x9/amazon-connect-lab" in text:
+            problems.append(sheet.name + " has Linktree, LinkedIn, an email, or the old repo url")
         pdf = sheet.with_suffix(".pdf")
         png = sheet.with_suffix(".png")
         if not pdf.exists() or not png.exists():
             problems.append(sheet.stem + " missing pdf or png")
-        elif b"cyphermonkeylabs.com" not in pdf.read_bytes():
+            continue
+        pdf_bytes = pdf.read_bytes().lower()
+        if b"cyphermonkeylabs.com" not in pdf_bytes:
             problems.append(sheet.stem + " pdf missing the lab link")
+        if b"github.com/cipher0x9/amazon-connect-lab" in pdf_bytes or b"linktr.ee" in pdf_bytes:
+            problems.append(sheet.stem + " pdf still has the old repo or Linktree")
     if re.search(r"<script[^>]+src=[\"']https?:", html, re.I):
         problems.append("external script tag")
     if re.search(r"<link[^>]+href=[\"']https?:", html, re.I):
