@@ -57,11 +57,14 @@ def page(title, body):
 {favicon_links("../")}
 <style>
   body {{ margin: 0; font: 16px/1.45 "Segoe UI", sans-serif; color: #14202b; background: #f4f7fb; }}
-  main {{ max-width: 880px; margin: 0 auto; padding: 28px 18px 48px; }}
+  main {{ max-width: min(880px, 100%); margin: 0 auto; padding: 28px 18px 48px; overflow-x: auto; }}
   h1 {{ font-size: 32px; line-height: 1.1; margin: 0 0 8px; }}
   h2 {{ font-size: 20px; margin: 22px 0 8px; }}
   p {{ margin: 8px 0; }}
-  table {{ width: 100%; border-collapse: collapse; background: #fff; }}
+  .wide-scroll {{ overflow-x: auto; max-width: 100%; }}
+  table {{ width: 100%; max-width: 100%; border-collapse: collapse; background: #fff; }}
+  img, svg {{ max-width: 100%; height: auto; }}
+  a, p, li, td, th, h1, h2 {{ overflow-wrap: anywhere; }}
   th, td {{ border-bottom: 1px solid #d5deea; text-align: left; vertical-align: top; padding: 8px; font-size: 14px; }}
   .flag {{ background: #fff4d6; }}
   a {{ color: #0f5c6b; }}
@@ -97,7 +100,7 @@ def rows(items, headers, cells):
     for item in items:
         cls = ' class="flag"' if item.get("unverified") else ""
         body.append("<tr" + cls + ">" + "".join(f"<td>{cells(item, key)}</td>" for key in headers) + "</tr>")
-    return f"<table><thead><tr>{head}</tr></thead><tbody>{''.join(body)}</tbody></table>"
+    return f'<div class="wide-scroll"><table><thead><tr>{head}</tr></thead><tbody>{"".join(body)}</tbody></table></div>'
 
 
 def cite(url, source):
