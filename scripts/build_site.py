@@ -601,7 +601,8 @@ body{margin:0;font-family:system-ui,sans-serif;background:#fff7ed;color:#1e1b4b}
 .disclaimer-panel{display:flex;gap:12px;text-align:left;padding:16px;border:2px solid #0f766e;border-radius:16px;background:linear-gradient(135deg,#dcfce7,#dbeafe);color:#0b1f2a}
 .disclaimer-panel h2{margin:0 0 6px;font-size:1.1rem}
 a{color:#0b3a8f}
-svg.fig{width:100%;height:auto}
+.fig-scroll{overflow-x:auto;max-width:100%}
+img.fig,svg.fig{display:block;max-width:100%;width:100%;height:auto}
 .brand-row{display:flex;gap:12px;justify-content:center;margin:12px auto;padding:10px;width:fit-content;border-radius:18px;border:2px solid #7c3aed;box-shadow:0 0 16px rgba(124,58,237,.35)}
 .brand-icon{width:72px;height:72px;display:grid;place-items:center;border-radius:18px;color:#fff;text-decoration:none;box-shadow:0 0 16px rgba(34,211,238,.65)}
 .brand-icon svg{width:46px;height:46px}
@@ -764,7 +765,7 @@ def build():
         png_rel = f"assets/diagrams/{slug}.png"
         write_asset(svg_rel, svg)
         html_rel = f"downloads/diagrams/{slug}.html"
-        standalone(ROOT / html_rel, title, f'<img class="fig" alt="" src="../../{svg_rel}" width="1400" height="800">{ending}', 2)
+        standalone(ROOT / html_rel, title, f'<div class="fig-scroll"><img class="fig" alt="" src="../../{svg_rel}" width="1400" height="800"></div>{ending}', 2)
         diagram_files.append({"slug": slug, "title": title, "svg": svg_rel, "png": png_rel, "html": html_rel, "animated": animated})
         return svg_rel, png_rel, html_rel
 
@@ -773,7 +774,7 @@ def build():
         png_rel = f"assets/flows/{slug}.png"
         write_asset(svg_rel, svg)
         html_rel = f"downloads/flows/{slug}.html"
-        standalone(ROOT / html_rel, title, f'<img class="fig" alt="" src="../../{svg_rel}" width="1400" height="800">{ending}', 2)
+        standalone(ROOT / html_rel, title, f'<div class="fig-scroll"><img class="fig" alt="" src="../../{svg_rel}" width="1400" height="800"></div>{ending}', 2)
         flow_files.append({"slug": slug, "title": title, "svg": svg_rel, "png": png_rel, "html": html_rel})
         return svg_rel, png_rel, html_rel
 

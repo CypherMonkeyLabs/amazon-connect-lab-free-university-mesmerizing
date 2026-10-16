@@ -31,7 +31,7 @@ const THEMES = [
 const FONTS = [["sm", "Small"], ["md", "Medium"], ["lg", "Large"], ["xl", "Extra large"]];
 const mem = new Map();
 const clocks = new Set();
-const hub = { shell: null, tracks: {}, search: null, quiz: null, cards: null, glossary: null, reference: null, charts: null, audio: null };
+const hub = { shell: null, tracks: {}, search: null, quiz: null, cards: null, glossary: null, reference: null, charts: null, audio: null, tips: null, tipsError: "" };
 let renderGen = 0;
 let route = { view: "home", id: "" };
 let flowState = null;
@@ -70,12 +70,18 @@ const LENS_SCRIPT = [
   { t: 24, who: "Customer", text: "Okay. Thank you for fixing it.", score: 0.72, tags: ["Resolved"] },
 ];
 
-function load(path) {
+function load(path, force) {
+  if (force) mem.delete(path);
   if (!mem.has(path)) {
-    mem.set(path, fetch(path).then((res) => {
+    const pending = fetch(path).then((res) => {
       if (!res.ok) throw new Error("Could not load " + path);
       return res.json();
-    }));
+    });
+    const tracked = pending.catch((err) => {
+      if (mem.get(path) === tracked) mem.delete(path);
+      throw err;
+    });
+    mem.set(path, tracked);
   }
   return mem.get(path);
 }
@@ -508,14 +514,69 @@ function fallbackMap() {
   return `<svg viewBox="0 0 520 300" role="img" aria-label="Flat fallback map of Connect, Lex, Lambda, Kinesis, Contact Lens, and the CCP"><line x1="250" y1="150" x2="70" y2="70" stroke="#2dd4bf"/><line x1="250" y1="150" x2="430" y2="70" stroke="#2dd4bf"/><line x1="250" y1="150" x2="430" y2="240" stroke="#2dd4bf"/><line x1="250" y1="150" x2="70" y2="240" stroke="#2dd4bf"/><line x1="250" y1="40" x2="250" y2="150" stroke="#2dd4bf"/>${boxes}</svg>`;
 }
 
-async function tipsPack() {
-  hub.tips = hub.tips || await load("data/tips.json");
-  return hub.tips;
+let tipsPaint = 0;
+function tipsPath() {
+  // Next to this module. document-relative data/tips.json misses when the page base is not the campus folder.
+  return new URL("data/tips.json", import.meta.url).href;
 }
-function tipsPanel(trackId) {
-  const pack = hub.tips && hub.tips.tracks[trackId];
-  if (!pack) return `<p>The cheat sheet is still loading.</p><p><button class="ghost" data-go="#/tips/${esc(trackId)}">Open tips</button></p>`;
-  return tipBody(trackId, pack, false);
+function tipsCandidates() {
+  const urls = [tipsPath()];
+  const fromPage = new URL("data/tips.json", document.baseURI).href;
+  if (!urls.includes(fromPage)) urls.push(fromPage);
+  return urls;
+}
+async function tipsPack(force) {
+  if (force) {
+    hub.tips = null;
+    hub.tipsError = "";
+  } else if (hub.tips && hub.tips.tracks) {
+    return hub.tips;
+  }
+  let lastErr = null;
+  for (const url of tipsCandidates()) {
+    try {
+      const data = await load(url, !!force);
+      if (!data || !data.tracks) throw new Error("Cheat sheet pack is missing track data.");
+      hub.tips = data;
+      hub.tipsError = "";
+      return data;
+    } catch (err) {
+      lastErr = err;
+    }
+  }
+  hub.tips = null;
+  throw lastErr || new Error("The cheat sheet did not load.");
+}
+function tipsStatus(trackId, stateName, message) {
+  const retry = stateName === "error"
+    ? `<p><button class="solid" type="button" data-tips-retry="${esc(trackId)}">Try again</button></p>`
+    : "";
+  return `<section class="tips-panel" data-tips-state="${esc(stateName)}" aria-live="polite"><p>${esc(message)}</p>${retry}<p><button class="ghost" data-go="#/tips/${esc(trackId)}">Open tips</button></p></section>`;
+}
+function paintTips(trackId, force) {
+  const token = ++tipsPaint;
+  const panel = $("#lesson-panel");
+  const cached = !force && hub.tips && hub.tips.tracks && hub.tips.tracks[trackId];
+  if (cached) {
+    if (panel) panel.innerHTML = tipBody(trackId, cached, false);
+    return;
+  }
+  if (panel) panel.innerHTML = tipsStatus(trackId, "loading", "The cheat sheet is still loading.");
+  tipsPack(!!force).then((tips) => {
+    if (token !== tipsPaint || lessonTab !== "tips") return;
+    const pack = tips && tips.tracks && tips.tracks[trackId];
+    const host = $("#lesson-panel");
+    if (!host) return;
+    host.innerHTML = pack
+      ? tipBody(trackId, pack, false)
+      : tipsStatus(trackId, "error", "This track has no cheat sheet in the study pack.");
+  }).catch((err) => {
+    if (token !== tipsPaint || lessonTab !== "tips") return;
+    const host = $("#lesson-panel");
+    const message = (err && err.message) || "The cheat sheet did not load.";
+    hub.tipsError = message;
+    if (host) host.innerHTML = tipsStatus(trackId, "error", message);
+  });
 }
 function tipBody(trackId, pack, full) {
   const track = trackBy(trackId);
@@ -536,20 +597,34 @@ function tipBody(trackId, pack, full) {
   </section>`;
 }
 async function viewTips() {
-  const tips = await tipsPack();
   setTitle("Study layer", "Tips and traps");
+  let tips = null;
+  try {
+    tips = await tipsPack();
+  } catch (err) {
+    return tipsStatus("", "error", (err && err.message) || "The cheat sheet did not load.");
+  }
   const cards = hub.shell.tracks.map((track) => {
     const pack = tips.tracks[track.id];
-    const line = pack ? pack.tips[0] : "";
+    const line = pack && pack.tips ? pack.tips[0] : "";
     return `<button class="card" data-go="#/tips/${track.id}"><p class="meta">${esc(track.kicker)}</p><h2>${esc(track.title)}</h2><p>${esc(line)}</p></button>`;
   }).join("");
   return `<p class="lede">One cheat sheet per track: a pro tip you can use on a shift, a trap that shows up in interviews, and the short list to reread before a design review.</p><div class="grid-cards">${cards}</div>`;
 }
 async function viewTip(id) {
-  const tips = await tipsPack();
+  let tips = null;
+  try {
+    tips = await tipsPack();
+  } catch (err) {
+    setTitle("Tips", "Cheat sheet");
+    return tipsStatus(id, "error", (err && err.message) || "The cheat sheet did not load.");
+  }
   const pack = tips.tracks[id];
   const track = trackBy(id);
-  if (!pack || !track) { setTitle("Tips", "Unknown track"); return `<p>That track has no cheat sheet.</p><p><button class="ghost" data-go="#/tips">All tips</button></p>`; }
+  if (!pack || !track) {
+    setTitle("Tips", "Unknown track");
+    return `<p>That track has no cheat sheet in the study pack.</p><p><button class="solid" type="button" data-tips-retry="${esc(id)}">Try again</button> <button class="ghost" data-go="#/tips">All tips</button></p>`;
+  }
   setTitle(track.title, track.title + " cheat sheet");
   return `<p class="lede">${esc(track.kicker)}</p>${tipBody(id, pack, true)}<p class="actions"><button class="ghost" data-go="#/track/${id}">Open the track</button><button class="ghost" data-go="#/tips">All tracks</button></p>`;
 }
@@ -925,9 +1000,16 @@ async function viewTrack(id) {
     const mark = state.lang !== "en" && !translated ? "English · " + opened : opened;
     return `<button class="lesson-card" data-go="#/lesson/${l.id}"><p class="meta">${esc(mark)}</p><h2 data-en="${esc(l.title)}">${esc(lessonHeading(state.lang, l.title))}</h2><p>${esc(why)}</p></button>`;
   }).join("");
-  const tips = await tipsPack();
-  const sheet = tips.tracks[id];
-  const teaser = sheet ? `<aside class="glass tips-teaser"><p class="meta">Tips and traps</p><p><strong>Pro tip.</strong> ${esc(sheet.tips[0])}</p><p><strong>Interview trap.</strong> ${esc(sheet.traps[0])}</p><p><button class="ghost" data-go="#/tips/${id}">Open the ${esc(t.title)} cheat sheet</button></p></aside>` : "";
+  let sheet = null;
+  try {
+    const tips = await tipsPack();
+    sheet = tips.tracks && tips.tracks[id];
+  } catch (err) {
+    hub.tipsError = (err && err.message) || "The cheat sheet did not load.";
+  }
+  const teaser = sheet
+    ? `<aside class="glass tips-teaser"><p class="meta">Tips and traps</p><p><strong>Pro tip.</strong> ${esc(sheet.tips[0])}</p><p><strong>Interview trap.</strong> ${esc(sheet.traps[0])}</p><p><button class="ghost" data-go="#/tips/${id}">Open the ${esc(t.title)} cheat sheet</button></p></aside>`
+    : `<aside class="glass tips-teaser"><p>${esc(hub.tipsError || "This track has no cheat sheet in the study pack.")}</p><p><button class="solid" type="button" data-tips-retry="${esc(id)}">Try again</button></p></aside>`;
   return `${trackLive(t, atlas)}${teaser}<div class="why"><strong>Why it matters.</strong> ${esc(t.why)}</div>
     <p class="caption">${deps.length ? "Depends on " + deps.map((d) => esc(d.title)).join(", ") + "." : "Starts the campus. Nothing earlier is required."}</p>
     <p><button class="ghost" data-go="#/quiz/${id}">Quiz this track</button></p>
@@ -943,7 +1025,11 @@ async function viewLesson(id) {
     hub.charts = hub.charts || await load("data/charts.json");
     lesson.chartSvg = hub.charts.charts.find((c) => c.figure === lesson.chart || c.id === lesson.chart) || null;
   }
-  await tipsPack();
+  try {
+    await tipsPack();
+  } catch (err) {
+    hub.tipsError = (err && err.message) || "The cheat sheet did not load.";
+  }
   currentLesson = lesson;
   if (!state.opened.includes(id)) state.opened.push(id);
   touchStreak();
@@ -972,7 +1058,14 @@ function lessonShell(lesson) {
 function lessonPanel(lesson, iac) {
   if (lessonTab === "flow") return ladderHtml(lesson);
   if (lessonTab === "iac") return iacHtml(iac);
-  if (lessonTab === "tips") return tipsPanel(lesson.track);
+  if (lessonTab === "tips") {
+    const pack = hub.tips && hub.tips.tracks && hub.tips.tracks[lesson.track];
+    if (pack) return tipBody(lesson.track, pack, false);
+    if (hub.tipsError || (hub.tips && hub.tips.tracks)) {
+      return tipsStatus(lesson.track, "error", hub.tipsError || "This track has no cheat sheet in the study pack.");
+    }
+    return tipsStatus(lesson.track, "loading", "The cheat sheet is still loading.");
+  }
   const figures = (lesson.figures || []).slice(0, 3).map(figureHtml).join("");
   const more = (lesson.figures || []).length > 3 ? `<p><button class="ghost" id="more-figures">Show the other figures</button></p><div id="more-figures-host"></div>` : "";
   const translated = lessonBody(state.lang, lesson.id);
@@ -1641,6 +1734,7 @@ async function afterRender(gen) {
   if (route.view === "lesson" && currentLesson) {
     const tone = (hub.shell.audioIndex || [])[Math.abs(hashId(currentLesson.id)) % Math.max(1, (hub.shell.audioIndex || []).length)];
     if (tone) $("#player-title").textContent = currentLesson.title;
+    if (lessonTab === "tips") paintTips(currentLesson.track, false);
   }
   if (route.view === "lens") paintLens();
   const pick = $("#clip-pick");
@@ -1655,11 +1749,28 @@ function hashId(text) {
 }
 
 function onClick(ev) {
+  const retryTips = ev.target.closest("[data-tips-retry]");
+  if (retryTips) {
+    const trackId = retryTips.getAttribute("data-tips-retry") || (currentLesson && currentLesson.track) || "";
+    hub.tips = null;
+    hub.tipsError = "";
+    if (route.view === "lesson" && trackId) {
+      lessonTab = "tips";
+      paintTips(trackId, true);
+      return;
+    }
+    tipsPack(true).then(() => render()).catch(() => render());
+    return;
+  }
   const tab = ev.target.closest("[data-tab]");
   if (tab && currentLesson) {
     lessonTab = tab.getAttribute("data-tab");
-    $("#lesson-panel").innerHTML = lessonPanel(currentLesson, hub.shell.iac[currentLesson.track]);
     $$("[data-tab]").forEach((btn) => btn.setAttribute("aria-selected", btn === tab ? "true" : "false"));
+    if (lessonTab === "tips") {
+      paintTips(currentLesson.track, false);
+      return;
+    }
+    $("#lesson-panel").innerHTML = lessonPanel(currentLesson, hub.shell.iac[currentLesson.track]);
     if (lessonTab === "flow") { ladderIndex = 0; paintLadder(); }
     return;
   }
