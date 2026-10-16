@@ -1,0 +1,1901 @@
+{
+  "pages": [
+    {
+      "title": "Home",
+      "href": "index.html",
+      "why": "Front door and the track map",
+      "words": [
+        "home",
+        "front",
+        "door",
+        "track"
+      ]
+    },
+    {
+      "title": "Learn",
+      "href": "start.html",
+      "why": "Ten-minute path and the full course",
+      "words": [
+        "learn",
+        "minute",
+        "path",
+        "full",
+        "course"
+      ]
+    },
+    {
+      "title": "All rooms",
+      "href": "index.html",
+      "why": "Eighteen tracks, one room at a time",
+      "words": [
+        "rooms",
+        "eighteen",
+        "tracks",
+        "room",
+        "time"
+      ]
+    },
+    {
+      "title": "Mastery",
+      "href": "mastery.html",
+      "why": "Fundamentals through the bridge",
+      "words": [
+        "mastery",
+        "fundamentals",
+        "through",
+        "bridge"
+      ]
+    },
+    {
+      "title": "Ecosystem",
+      "href": "ecosystem.html",
+      "why": "Glossary, map, bridges, and hooks",
+      "words": [
+        "ecosystem",
+        "glossary",
+        "bridges",
+        "hooks"
+      ]
+    },
+    {
+      "title": "Diagrams",
+      "href": "diagrams.html",
+      "why": "Every picture as SVG, PNG, and HTML",
+      "words": [
+        "diagrams",
+        "every",
+        "picture",
+        "html"
+      ]
+    },
+    {
+      "title": "Flows",
+      "href": "flows.html",
+      "why": "Animated call and data paths",
+      "words": [
+        "flows",
+        "animated",
+        "call",
+        "data",
+        "paths"
+      ]
+    },
+    {
+      "title": "Charts",
+      "href": "charts.html",
+      "why": "Counts from this repository",
+      "words": [
+        "charts",
+        "counts",
+        "from",
+        "this",
+        "repository"
+      ]
+    },
+    {
+      "title": "Play",
+      "href": "play.html",
+      "why": "Routing, Lambda, port, and bridge drills",
+      "words": [
+        "play",
+        "routing",
+        "lambda",
+        "port",
+        "bridge",
+        "drills"
+      ]
+    },
+    {
+      "title": "Quizzes",
+      "href": "quizzes.html",
+      "why": "Practice questions with cited answers",
+      "words": [
+        "quizzes",
+        "practice",
+        "questions",
+        "with",
+        "cited",
+        "answers"
+      ]
+    },
+    {
+      "title": "Flashcards",
+      "href": "flashcards.html",
+      "why": "Know or again, stored in this browser",
+      "words": [
+        "flashcards",
+        "know",
+        "again",
+        "stored",
+        "this",
+        "browser"
+      ]
+    },
+    {
+      "title": "Interviews",
+      "href": "interviews.html",
+      "why": "Fictional practice. Not a biography",
+      "words": [
+        "interviews",
+        "fictional",
+        "practice",
+        "biography"
+      ]
+    },
+    {
+      "title": "Listen",
+      "href": "listen.html",
+      "why": "Study clips and read-along",
+      "words": [
+        "listen",
+        "study",
+        "clips",
+        "read",
+        "along"
+      ]
+    },
+    {
+      "title": "Downloads",
+      "href": "downloads.html",
+      "why": "Sheets, cards, templates, and the zip",
+      "words": [
+        "downloads",
+        "sheets",
+        "cards",
+        "templates"
+      ]
+    },
+    {
+      "title": "Glossary",
+      "href": "glossary.html",
+      "why": "Terms from the written rooms",
+      "words": [
+        "glossary",
+        "terms",
+        "from",
+        "written",
+        "rooms"
+      ]
+    },
+    {
+      "title": "Ports",
+      "href": "ports.html",
+      "why": "TCP 443 and UDP 3478 from the network lesson",
+      "words": [
+        "ports",
+        "from",
+        "network",
+        "lesson"
+      ]
+    },
+    {
+      "title": "Regions",
+      "href": "regions.html",
+      "why": "The published Global Resiliency pairs",
+      "words": [
+        "regions",
+        "published",
+        "global",
+        "resiliency",
+        "pairs"
+      ]
+    },
+    {
+      "title": "Certifications",
+      "href": "certs.html",
+      "why": "What the catalog publishes, and what it does not",
+      "words": [
+        "certifications",
+        "what",
+        "catalog",
+        "publishes",
+        "what",
+        "does"
+      ]
+    },
+    {
+      "title": "Careers",
+      "href": "careers.html",
+      "why": "Study paths. Not a job offer",
+      "words": [
+        "careers",
+        "study",
+        "paths",
+        "offer"
+      ]
+    },
+    {
+      "title": "Help",
+      "href": "help.html",
+      "why": "Menu, course, bot, and downloads",
+      "words": [
+        "help",
+        "menu",
+        "course",
+        "downloads"
+      ]
+    },
+    {
+      "title": "Legal",
+      "href": "legal.html",
+      "why": "Copyright, privacy, and removal",
+      "words": [
+        "legal",
+        "copyright",
+        "privacy",
+        "removal"
+      ]
+    }
+  ],
+  "rooms": [
+    {
+      "title": "What Connect actually depends on",
+      "href": "rooms/foundations-why.html",
+      "why": "You cannot debug a contact center if you treat AWS as a logo on the invoice.",
+      "words": [
+        "what",
+        "connect",
+        "actually",
+        "depends",
+        "cannot",
+        "debug",
+        "contact",
+        "center",
+        "treat",
+        "logo",
+        "invoice",
+        "foundations"
+      ]
+    },
+    {
+      "title": "Regions, endpoints, and why Osaka is special",
+      "href": "rooms/foundations-regions.html",
+      "why": "A Region is a capacity, latency, and residency boundary. It is not a checkbox you can flip on a live number.",
+      "words": [
+        "regions",
+        "endpoints",
+        "osaka",
+        "special",
+        "region",
+        "capacity",
+        "latency",
+        "residency",
+        "boundary",
+        "checkbox",
+        "flip",
+        "live"
+      ]
+    },
+    {
+      "title": "IAM is not the security profile",
+      "href": "rooms/foundations-iam.html",
+      "why": "Agents get a security profile. Automations get an IAM principal. Mixing the names produces a policy that cannot place a call and a user who can.",
+      "words": [
+        "security",
+        "profile",
+        "agents",
+        "security",
+        "profile",
+        "automations",
+        "principal",
+        "mixing",
+        "names",
+        "produces",
+        "policy",
+        "that"
+      ]
+    },
+    {
+      "title": "Lambda is a seam, not a place to hide a CRM",
+      "href": "rooms/foundations-lambda.html",
+      "why": "The flow will not wait for a slow system of record. Design the function for the timeout you actually have.",
+      "words": [
+        "lambda",
+        "seam",
+        "place",
+        "hide",
+        "flow",
+        "will",
+        "wait",
+        "slow",
+        "system",
+        "record",
+        "design",
+        "function"
+      ]
+    },
+    {
+      "title": "S3 holds the proof",
+      "href": "rooms/foundations-s3.html",
+      "why": "Recordings, chat transcripts, exported reports, and attachments are objects. If the bucket policy is wrong, the contact still 'succeeds' and the file is missing.",
+      "words": [
+        "holds",
+        "proof",
+        "recordings",
+        "chat",
+        "transcripts",
+        "exported",
+        "reports",
+        "attachments",
+        "objects",
+        "bucket",
+        "policy",
+        "wrong"
+      ]
+    },
+    {
+      "title": "Kinesis is how the ecosystem listens",
+      "href": "rooms/foundations-kinesis.html",
+      "why": "Anything that must react to agents or to finished contacts needs a stream, not a person refreshing a report.",
+      "words": [
+        "kinesis",
+        "ecosystem",
+        "listens",
+        "anything",
+        "that",
+        "must",
+        "react",
+        "agents",
+        "finished",
+        "contacts",
+        "needs",
+        "stream"
+      ]
+    },
+    {
+      "title": "CloudWatch tells you the flow ran",
+      "href": "rooms/foundations-cloudwatch.html",
+      "why": "Without flow logs you are guessing which block took the error branch.",
+      "words": [
+        "cloudwatch",
+        "tells",
+        "flow",
+        "without",
+        "flow",
+        "logs",
+        "guessing",
+        "which",
+        "block",
+        "took",
+        "error",
+        "branch"
+      ]
+    },
+    {
+      "title": "The network path is part of the product",
+      "href": "rooms/foundations-network.html",
+      "why": "Connect's softphone is WebRTC in the agent's browser. A firewall designed for a desk phone will block it.",
+      "words": [
+        "network",
+        "path",
+        "part",
+        "product",
+        "connect",
+        "softphone",
+        "webrtc",
+        "agent",
+        "browser",
+        "firewall",
+        "designed",
+        "desk"
+      ]
+    },
+    {
+      "title": "Certifications and the badges that are not certifications",
+      "href": "rooms/foundations-certs.html",
+      "why": "There is no Amazon Connect specialty exam on the AWS Certification catalog. Pretending a badge is that exam misleads a hiring plan.",
+      "words": [
+        "certifications",
+        "badges",
+        "that",
+        "certifications",
+        "there",
+        "amazon",
+        "connect",
+        "specialty",
+        "exam",
+        "certification",
+        "catalog",
+        "pretending"
+      ]
+    },
+    {
+      "title": "A depends-on map you can defend",
+      "href": "rooms/foundations-shared.html",
+      "why": "Every later track names the foundation it needs. If that foundation is missing, the track's lab will show the same fault.",
+      "words": [
+        "depends",
+        "defend",
+        "every",
+        "later",
+        "track",
+        "names",
+        "foundation",
+        "needs",
+        "that",
+        "foundation",
+        "missing",
+        "track"
+      ]
+    },
+    {
+      "title": "Create the instance on purpose",
+      "href": "rooms/instance-create.html",
+      "why": "The instance is the tenancy boundary for users, flows, and numbers. An accidental second instance splits reports and identity.",
+      "words": [
+        "create",
+        "instance",
+        "purpose",
+        "instance",
+        "tenancy",
+        "boundary",
+        "users",
+        "flows",
+        "numbers",
+        "accidental",
+        "second",
+        "instance"
+      ]
+    },
+    {
+      "title": "SAML attributes that make a user real",
+      "href": "rooms/instance-identity.html",
+      "why": "A successful SAML login that lands without a routing profile is a user who cannot take a contact.",
+      "words": [
+        "saml",
+        "attributes",
+        "that",
+        "make",
+        "user",
+        "real",
+        "successful",
+        "saml",
+        "login",
+        "that",
+        "lands",
+        "without"
+      ]
+    },
+    {
+      "title": "CloudFormation, CDK, and Terraform",
+      "href": "rooms/instance-iac.html",
+      "why": "Clicking the console does not review. A stack does.",
+      "words": [
+        "cloudformation",
+        "terraform",
+        "clicking",
+        "console",
+        "does",
+        "review",
+        "stack",
+        "does",
+        "instance"
+      ]
+    },
+    {
+      "title": "Prompts, statuses, and the small quotas",
+      "href": "rooms/instance-prompts.html",
+      "why": "The limits that surprise people are the ones marked not adjustable.",
+      "words": [
+        "prompts",
+        "statuses",
+        "small",
+        "quotas",
+        "limits",
+        "that",
+        "surprise",
+        "people",
+        "ones",
+        "marked",
+        "adjustable",
+        "instance"
+      ]
+    },
+    {
+      "title": "DID, toll-free, shared cost, UIFN",
+      "href": "rooms/tel-types.html",
+      "why": "The number type is a cost and a failure-domain choice.",
+      "words": [
+        "toll",
+        "free",
+        "shared",
+        "cost",
+        "uifn",
+        "number",
+        "type",
+        "cost",
+        "failure",
+        "domain",
+        "choice",
+        "telephony"
+      ]
+    },
+    {
+      "title": "Claiming and the false 'limit' on the first number",
+      "href": "rooms/tel-claim.html",
+      "why": "The first claim is a Support conversation more often than people expect.",
+      "words": [
+        "claiming",
+        "false",
+        "limit",
+        "first",
+        "number",
+        "first",
+        "claim",
+        "support",
+        "conversation",
+        "more",
+        "often",
+        "than"
+      ]
+    },
+    {
+      "title": "Porting without losing the rollback",
+      "href": "rooms/tel-port.html",
+      "why": "A port is a date with the losing carrier. It is not a flow change.",
+      "words": [
+        "porting",
+        "without",
+        "losing",
+        "rollback",
+        "port",
+        "date",
+        "with",
+        "losing",
+        "carrier",
+        "flow",
+        "change",
+        "telephony"
+      ]
+    },
+    {
+      "title": "SIP, external voice, and what is not a trunk in the CUCM sense",
+      "href": "rooms/tel-external.html",
+      "why": "Connect does not give you a CUCM SIP trunk page. It gives you native telephony, transfers to numbers, and an external voice connector for analytics.",
+      "words": [
+        "external",
+        "voice",
+        "what",
+        "trunk",
+        "cucm",
+        "sense",
+        "connect",
+        "does",
+        "give",
+        "cucm",
+        "trunk",
+        "page"
+      ]
+    },
+    {
+      "title": "Outbound calls and caller ID",
+      "href": "rooms/tel-outbound.html",
+      "why": "Outbound is a queue setting, a permission, and a country quota.",
+      "words": [
+        "outbound",
+        "calls",
+        "caller",
+        "outbound",
+        "queue",
+        "setting",
+        "permission",
+        "country",
+        "quota",
+        "telephony"
+      ]
+    },
+    {
+      "title": "Flow types are not one canvas",
+      "href": "rooms/flows-types.html",
+      "why": "Each flow type only offers the blocks that make sense there. A hold flow is not a place to transfer to a queue and hope.",
+      "words": [
+        "flow",
+        "types",
+        "canvas",
+        "each",
+        "flow",
+        "type",
+        "only",
+        "offers",
+        "blocks",
+        "that",
+        "make",
+        "sense"
+      ]
+    },
+    {
+      "title": "The block catalog, grouped by job",
+      "href": "rooms/flows-blocks.html",
+      "why": "You do not memorize fifty icons. You group them by the job they do.",
+      "words": [
+        "block",
+        "catalog",
+        "grouped",
+        "memorize",
+        "fifty",
+        "icons",
+        "group",
+        "them",
+        "they",
+        "flows"
+      ]
+    },
+    {
+      "title": "Attributes are the only memory the next system gets",
+      "href": "rooms/flows-attributes.html",
+      "why": "If it is not an attribute, the CRM, the whisper, and the CTR cannot see it.",
+      "words": [
+        "attributes",
+        "only",
+        "memory",
+        "next",
+        "system",
+        "gets",
+        "attribute",
+        "whisper",
+        "cannot",
+        "flows"
+      ]
+    },
+    {
+      "title": "Modules are how you stop copying flows",
+      "href": "rooms/flows-modules.html",
+      "why": "A copied inbound flow drifts. A module has one published body.",
+      "words": [
+        "modules",
+        "stop",
+        "copying",
+        "flows",
+        "copied",
+        "inbound",
+        "flow",
+        "drifts",
+        "module",
+        "published",
+        "body",
+        "flows"
+      ]
+    },
+    {
+      "title": "Every error branch is a product decision",
+      "href": "rooms/flows-errors.html",
+      "why": "An unconnected error output hangs up. That is a choice, even if you did not mean it.",
+      "words": [
+        "every",
+        "error",
+        "branch",
+        "product",
+        "decision",
+        "unconnected",
+        "error",
+        "output",
+        "hangs",
+        "that",
+        "choice",
+        "even"
+      ]
+    },
+    {
+      "title": "The flow language is how instances share a design",
+      "href": "rooms/flows-language.html",
+      "why": "The designer is a view. The JSON is what you review and promote.",
+      "words": [
+        "flow",
+        "language",
+        "instances",
+        "share",
+        "design",
+        "designer",
+        "view",
+        "json",
+        "what",
+        "review",
+        "promote",
+        "flows"
+      ]
+    },
+    {
+      "title": "Get customer input is the Lex block",
+      "href": "rooms/lex-get-input.html",
+      "why": "There is no separate 'Lex block' to hunt for. Get customer input is where the bot is selected.",
+      "words": [
+        "customer",
+        "input",
+        "block",
+        "there",
+        "separate",
+        "block",
+        "hunt",
+        "customer",
+        "input",
+        "where",
+        "selected"
+      ]
+    },
+    {
+      "title": "Slots become attributes or they vanish",
+      "href": "rooms/lex-slots.html",
+      "why": "The agent cannot see a slot you did not copy.",
+      "words": [
+        "slots",
+        "become",
+        "attributes",
+        "they",
+        "vanish",
+        "agent",
+        "cannot",
+        "slot",
+        "copy"
+      ]
+    },
+    {
+      "title": "Fallback is a route, not a failure",
+      "href": "rooms/lex-fallback.html",
+      "why": "Callers who say something unexpected are still customers.",
+      "words": [
+        "fallback",
+        "route",
+        "failure",
+        "callers",
+        "something",
+        "unexpected",
+        "still",
+        "customers"
+      ]
+    },
+    {
+      "title": "Wisdom, Q, and agent assist are one lineage",
+      "href": "rooms/ai-names.html",
+      "why": "Using the old name in a design review is fine. Using it as the only name in a 2026 runbook is not.",
+      "words": [
+        "wisdom",
+        "agent",
+        "assist",
+        "lineage",
+        "using",
+        "name",
+        "design",
+        "review",
+        "fine",
+        "using",
+        "only",
+        "name"
+      ]
+    },
+    {
+      "title": "Turn on assist only where you can show the source",
+      "href": "rooms/ai-config.html",
+      "why": "A generated sentence without a cited article is not knowledge. It is a guess in the agent's ear.",
+      "words": [
+        "turn",
+        "assist",
+        "only",
+        "where",
+        "show",
+        "source",
+        "generated",
+        "sentence",
+        "without",
+        "cited",
+        "article",
+        "knowledge"
+      ]
+    },
+    {
+      "title": "Agentic CX is a flow exit, not a magic queue",
+      "href": "rooms/ai-agentic.html",
+      "why": "The application returns an exit condition. Your flow must have a branch for each one, including failure.",
+      "words": [
+        "agentic",
+        "flow",
+        "exit",
+        "magic",
+        "queue",
+        "application",
+        "returns",
+        "exit",
+        "condition",
+        "your",
+        "flow",
+        "must"
+      ]
+    },
+    {
+      "title": "Voice ID has ended",
+      "href": "rooms/ai-voiceid-ended.html",
+      "why": "On 14 October 2026 this feature is already past its end of support. Leave the blocks out.",
+      "words": [
+        "voice",
+        "ended",
+        "october",
+        "this",
+        "feature",
+        "already",
+        "past",
+        "support",
+        "leave",
+        "blocks"
+      ]
+    },
+    {
+      "title": "The response contract",
+      "href": "rooms/lambda-contract.html",
+      "why": "Connect does not debug your function. It branches.",
+      "words": [
+        "response",
+        "contract",
+        "connect",
+        "does",
+        "debug",
+        "your",
+        "function",
+        "branches",
+        "lambda"
+      ]
+    },
+    {
+      "title": "When the work is slower than eight seconds",
+      "href": "rooms/lambda-async.html",
+      "why": "Silence is a defect. Async plus a prompt is the pattern.",
+      "words": [
+        "when",
+        "work",
+        "slower",
+        "than",
+        "eight",
+        "seconds",
+        "silence",
+        "defect",
+        "async",
+        "plus",
+        "prompt",
+        "pattern"
+      ]
+    },
+    {
+      "title": "Association, resource policy, and the log that says AccessDenied",
+      "href": "rooms/lambda-perms.html",
+      "why": "The flow log is telling the truth. The function never ran.",
+      "words": [
+        "association",
+        "resource",
+        "policy",
+        "that",
+        "says",
+        "accessdenied",
+        "flow",
+        "telling",
+        "truth",
+        "function",
+        "never",
+        "lambda"
+      ]
+    },
+    {
+      "title": "Queues wait. Profiles decide who is eligible.",
+      "href": "rooms/route-queue.html",
+      "why": "A queue with nobody whose profile includes it is a silent parking lot.",
+      "words": [
+        "queues",
+        "wait",
+        "profiles",
+        "decide",
+        "eligible",
+        "queue",
+        "with",
+        "nobody",
+        "whose",
+        "profile",
+        "includes",
+        "silent"
+      ]
+    },
+    {
+      "title": "Priority, delay, and concurrency",
+      "href": "rooms/route-profile.html",
+      "why": "Lower priority number wins. Delay keeps a second team in reserve. Concurrency is how many of each channel an agent holds.",
+      "words": [
+        "priority",
+        "delay",
+        "concurrency",
+        "lower",
+        "priority",
+        "number",
+        "wins",
+        "delay",
+        "keeps",
+        "second",
+        "team",
+        "reserve"
+      ]
+    },
+    {
+      "title": "Hours and overrides",
+      "href": "rooms/route-hours.html",
+      "why": "The check uses the queue's hours and the queue's time zone. Your laptop's clock is irrelevant.",
+      "words": [
+        "hours",
+        "overrides",
+        "check",
+        "uses",
+        "queue",
+        "hours",
+        "queue",
+        "time",
+        "zone",
+        "your",
+        "laptop",
+        "clock"
+      ]
+    },
+    {
+      "title": "Quick connects and the flows behind them",
+      "href": "rooms/route-quick.html",
+      "why": "A quick connect is a target plus a flow. The flow is where you record, whisper, and set attributes.",
+      "words": [
+        "quick",
+        "connects",
+        "flows",
+        "behind",
+        "them",
+        "quick",
+        "connect",
+        "target",
+        "plus",
+        "flow",
+        "flow",
+        "where"
+      ]
+    },
+    {
+      "title": "The CCP is a web app with a telephone inside",
+      "href": "rooms/ws-ccp.html",
+      "why": "Sign-in can succeed when media cannot. Those are different allow lists.",
+      "words": [
+        "with",
+        "telephone",
+        "inside",
+        "sign",
+        "succeed",
+        "when",
+        "media",
+        "cannot",
+        "those",
+        "different",
+        "allow",
+        "lists"
+      ]
+    },
+    {
+      "title": "The workspace is where the ecosystem becomes visible",
+      "href": "rooms/ws-workspace.html",
+      "why": "Profiles, cases, views, and third-party apps belong here, not in a second monitor full of URLs.",
+      "words": [
+        "workspace",
+        "where",
+        "ecosystem",
+        "becomes",
+        "visible",
+        "profiles",
+        "cases",
+        "views",
+        "third",
+        "party",
+        "apps",
+        "belong"
+      ]
+    },
+    {
+      "title": "Streams is the supported way to embed the CCP",
+      "href": "rooms/ws-streams.html",
+      "why": "If you must hide the CCP inside another app, use amazon-connect-streams. Do not scrape the page.",
+      "words": [
+        "streams",
+        "supported",
+        "embed",
+        "must",
+        "hide",
+        "inside",
+        "another",
+        "amazon",
+        "connect",
+        "streams",
+        "scrape",
+        "page"
+      ]
+    },
+    {
+      "title": "VDI, VPN, and the audio path",
+      "href": "rooms/ws-vdi.html",
+      "why": "The browser that runs the CCP must be the browser whose network can reach TURN.",
+      "words": [
+        "audio",
+        "path",
+        "browser",
+        "that",
+        "runs",
+        "must",
+        "browser",
+        "whose",
+        "network",
+        "reach",
+        "turn",
+        "workspace"
+      ]
+    },
+    {
+      "title": "Profiles are the customer, not the contact",
+      "href": "rooms/rec-profiles.html",
+      "why": "The contact ends. The profile is how the next contact knows who called.",
+      "words": [
+        "profiles",
+        "customer",
+        "contact",
+        "contact",
+        "ends",
+        "profile",
+        "next",
+        "contact",
+        "knows",
+        "called",
+        "records"
+      ]
+    },
+    {
+      "title": "Cases survive the transfer",
+      "href": "rooms/rec-cases.html",
+      "why": "A case is the issue. Contacts are the attempts to close it.",
+      "words": [
+        "cases",
+        "survive",
+        "transfer",
+        "case",
+        "issue",
+        "contacts",
+        "attempts",
+        "close",
+        "records"
+      ]
+    },
+    {
+      "title": "Tasks are the channel with no audio",
+      "href": "rooms/rec-tasks.html",
+      "why": "A promise to call back, a form to review, and a follow-up are tasks. They have quotas and an expiry.",
+      "words": [
+        "tasks",
+        "channel",
+        "with",
+        "audio",
+        "promise",
+        "call",
+        "back",
+        "form",
+        "review",
+        "follow",
+        "tasks",
+        "they"
+      ]
+    },
+    {
+      "title": "One customer, three objects",
+      "href": "rooms/rec-join.html",
+      "why": "Profile, case, and contact answer different questions. Collapsing them makes reporting lie.",
+      "words": [
+        "customer",
+        "three",
+        "objects",
+        "profile",
+        "case",
+        "contact",
+        "answer",
+        "different",
+        "questions",
+        "collapsing",
+        "them",
+        "makes"
+      ]
+    },
+    {
+      "title": "Chat, SMS, WhatsApp, and the idle-chat quota",
+      "href": "rooms/ch-chat.html",
+      "why": "A chat that has gone quiet is still an active chat. The default ceiling is 500, shared with SMS, WhatsApp, and Apple Messages for Business.",
+      "words": [
+        "chat",
+        "whatsapp",
+        "idle",
+        "chat",
+        "quota",
+        "chat",
+        "that",
+        "gone",
+        "quiet",
+        "still",
+        "active",
+        "chat"
+      ]
+    },
+    {
+      "title": "Email is a contact with a 90-day thread",
+      "href": "rooms/ch-email.html",
+      "why": "An email is not a chat transcript and not a case, though it can create both.",
+      "words": [
+        "email",
+        "contact",
+        "with",
+        "thread",
+        "email",
+        "chat",
+        "transcript",
+        "case",
+        "though",
+        "create",
+        "both",
+        "channels"
+      ]
+    },
+    {
+      "title": "Campaigns dial only after the quota is not zero",
+      "href": "rooms/ch-campaigns.html",
+      "why": "The default concurrent campaign call quota is 0. The symptom is a fast busy, and it is not a carrier outage.",
+      "words": [
+        "campaigns",
+        "dial",
+        "only",
+        "after",
+        "quota",
+        "zero",
+        "default",
+        "concurrent",
+        "campaign",
+        "call",
+        "quota",
+        "symptom"
+      ]
+    },
+    {
+      "title": "In-app, web, and video",
+      "href": "rooms/ch-inapp.html",
+      "why": "The customer does not dial. The widget starts a contact. You still pay for voice minutes plus the media type.",
+      "words": [
+        "video",
+        "customer",
+        "does",
+        "dial",
+        "widget",
+        "starts",
+        "contact",
+        "still",
+        "voice",
+        "minutes",
+        "plus",
+        "media"
+      ]
+    },
+    {
+      "title": "Read a CTR before you build a dashboard",
+      "href": "rooms/an-ctr.html",
+      "why": "The CTR is the finished contact. Real-time metrics are a picture of now. They answer different questions.",
+      "words": [
+        "read",
+        "before",
+        "build",
+        "dashboard",
+        "finished",
+        "contact",
+        "real",
+        "time",
+        "metrics",
+        "picture",
+        "they",
+        "answer"
+      ]
+    },
+    {
+      "title": "Real-time boards and historical intervals",
+      "href": "rooms/an-metrics.html",
+      "why": "Service level is a historical interval unless you say you are looking at the live queue.",
+      "words": [
+        "real",
+        "time",
+        "boards",
+        "historical",
+        "intervals",
+        "service",
+        "level",
+        "historical",
+        "interval",
+        "unless",
+        "looking",
+        "live"
+      ]
+    },
+    {
+      "title": "Conversational analytics is Contact Lens under a new name",
+      "href": "rooms/an-lens.html",
+      "why": "The function did not vanish on 4 August 2026. The admin guide changed the name.",
+      "words": [
+        "conversational",
+        "analytics",
+        "contact",
+        "lens",
+        "under",
+        "name",
+        "function",
+        "vanish",
+        "august",
+        "admin",
+        "guide",
+        "changed"
+      ]
+    },
+    {
+      "title": "Agent events are the live staffing truth",
+      "href": "rooms/an-agents.html",
+      "why": "The real-time board is a view. The event stream is the feed other systems can trust.",
+      "words": [
+        "agent",
+        "events",
+        "live",
+        "staffing",
+        "truth",
+        "real",
+        "time",
+        "board",
+        "view",
+        "event",
+        "stream",
+        "feed"
+      ]
+    },
+    {
+      "title": "Encryption is a key policy",
+      "href": "rooms/sec-kms.html",
+      "why": "A customer-managed key you created and then forgot to share with Connect is an outage, not a security win.",
+      "words": [
+        "encryption",
+        "policy",
+        "customer",
+        "managed",
+        "created",
+        "then",
+        "forgot",
+        "share",
+        "with",
+        "connect",
+        "outage",
+        "security"
+      ]
+    },
+    {
+      "title": "SAML, least privilege, and the admin you forgot",
+      "href": "rooms/sec-saml.html",
+      "why": "Federation does not remove the need for a break-glass admin, and it does not make that admin safe.",
+      "words": [
+        "saml",
+        "least",
+        "privilege",
+        "admin",
+        "forgot",
+        "federation",
+        "does",
+        "remove",
+        "need",
+        "break",
+        "glass",
+        "admin"
+      ]
+    },
+    {
+      "title": "Quotas are a project plan",
+      "href": "rooms/sec-quotas.html",
+      "why": "The default numbers in the docs are for new accounts. Your account can be lower because defaults have changed over the years.",
+      "words": [
+        "quotas",
+        "project",
+        "plan",
+        "default",
+        "numbers",
+        "docs",
+        "accounts",
+        "your",
+        "account",
+        "lower",
+        "because",
+        "defaults"
+      ]
+    },
+    {
+      "title": "How to talk about the price without inventing it",
+      "href": "rooms/sec-price.html",
+      "why": "The rate card is public and dated. An estimate that hides the date is a guess.",
+      "words": [
+        "talk",
+        "about",
+        "price",
+        "without",
+        "inventing",
+        "rate",
+        "card",
+        "public",
+        "dated",
+        "estimate",
+        "that",
+        "hides"
+      ]
+    },
+    {
+      "title": "Only one multi-Region design is supported",
+      "href": "rooms/res-pair.html",
+      "why": "AWS says Global Resiliency is the supported multi-Region approach, and that unsupported designs can affect quotas and the SLA story.",
+      "words": [
+        "only",
+        "multi",
+        "region",
+        "design",
+        "supported",
+        "says",
+        "global",
+        "resiliency",
+        "supported",
+        "multi",
+        "region",
+        "approach"
+      ]
+    },
+    {
+      "title": "What a failover drill has to prove",
+      "href": "rooms/res-drill.html",
+      "why": "A drill that only signs an admin in has not tested a customer call.",
+      "words": [
+        "what",
+        "failover",
+        "drill",
+        "prove",
+        "drill",
+        "that",
+        "only",
+        "signs",
+        "admin",
+        "tested",
+        "customer",
+        "call"
+      ]
+    },
+    {
+      "title": "Migration patterns that survive contact with a Monday",
+      "href": "rooms/res-migrate.html",
+      "why": "The pattern is dual-run, a small number, evidence, then the rest. Heroic cutovers are how recordings go missing.",
+      "words": [
+        "migration",
+        "patterns",
+        "that",
+        "survive",
+        "contact",
+        "with",
+        "monday",
+        "pattern",
+        "dual",
+        "small",
+        "number",
+        "evidence"
+      ]
+    },
+    {
+      "title": "Leg, id, counter, capture",
+      "href": "rooms/ts-method.html",
+      "why": "The same four questions work on a CUCM trunk and on a Connect flow.",
+      "words": [
+        "counter",
+        "capture",
+        "same",
+        "four",
+        "questions",
+        "work",
+        "cucm",
+        "trunk",
+        "connect",
+        "flow",
+        "troubleshoot"
+      ]
+    },
+    {
+      "title": "Audio quality is a path, not a codec myth",
+      "href": "rooms/ts-audio.html",
+      "why": "Connect's softphone does not ask you to pick G.711. The failures are path failures.",
+      "words": [
+        "audio",
+        "quality",
+        "path",
+        "codec",
+        "myth",
+        "connect",
+        "softphone",
+        "does",
+        "pick",
+        "failures",
+        "path",
+        "failures"
+      ]
+    },
+    {
+      "title": "A flow log you can actually search",
+      "href": "rooms/ts-flowlogs.html",
+      "why": "The query is short. The discipline is saving the ContactId before you hang up the test phone.",
+      "words": [
+        "flow",
+        "actually",
+        "search",
+        "query",
+        "short",
+        "discipline",
+        "saving",
+        "contactid",
+        "before",
+        "hang",
+        "test",
+        "phone"
+      ]
+    },
+    {
+      "title": "Faults worth memorizing",
+      "href": "rooms/ts-faults.html",
+      "why": "A short list beats a wiki nobody opens during an incident.",
+      "words": [
+        "faults",
+        "worth",
+        "memorizing",
+        "short",
+        "list",
+        "beats",
+        "wiki",
+        "nobody",
+        "opens",
+        "during",
+        "incident",
+        "troubleshoot"
+      ]
+    },
+    {
+      "title": "The mapping table you put in the migration pack",
+      "href": "rooms/br-map.html",
+      "why": "Names from the old platform are not Connect resources. Write the map before you build the queues.",
+      "words": [
+        "mapping",
+        "table",
+        "migration",
+        "pack",
+        "names",
+        "from",
+        "platform",
+        "connect",
+        "resources",
+        "write",
+        "before",
+        "build"
+      ]
+    },
+    {
+      "title": "A migration playbook",
+      "href": "rooms/br-playbook.html",
+      "why": "The order is identity, network, flows, a pilot number, reports, then the port.",
+      "words": [
+        "migration",
+        "playbook",
+        "order",
+        "identity",
+        "network",
+        "flows",
+        "pilot",
+        "number",
+        "reports",
+        "then",
+        "port",
+        "bridge"
+      ]
+    },
+    {
+      "title": "Pitfalls that show up in every platform",
+      "href": "rooms/br-pitfalls.html",
+      "why": "The platforms differ. The mistakes repeat.",
+      "words": [
+        "pitfalls",
+        "that",
+        "show",
+        "every",
+        "platform",
+        "platforms",
+        "differ",
+        "mistakes",
+        "repeat",
+        "bridge"
+      ]
+    },
+    {
+      "title": "CUIC and the Connect report are different clocks",
+      "href": "rooms/br-reports.html",
+      "why": "If you do not write both formulas, the business will say the new platform is slower or faster than it is.",
+      "words": [
+        "cuic",
+        "connect",
+        "report",
+        "different",
+        "clocks",
+        "write",
+        "both",
+        "formulas",
+        "business",
+        "will",
+        "platform",
+        "slower"
+      ]
+    },
+    {
+      "title": "Salesforce: CTI Adapter and SCC-AC",
+      "href": "rooms/int-sf.html",
+      "why": "Voice stays on Connect. The question is which system owns the digital channels and the case.",
+      "words": [
+        "salesforce",
+        "adapter",
+        "voice",
+        "stays",
+        "connect",
+        "question",
+        "which",
+        "system",
+        "owns",
+        "digital",
+        "channels",
+        "case"
+      ]
+    },
+    {
+      "title": "ServiceNow Voice",
+      "href": "rooms/int-sn.html",
+      "why": "ServiceNow can own assignment while Connect owns the conversation, if you map the queues on purpose.",
+      "words": [
+        "servicenow",
+        "voice",
+        "servicenow",
+        "assignment",
+        "while",
+        "connect",
+        "owns",
+        "conversation",
+        "queues",
+        "purpose",
+        "integrations"
+      ]
+    },
+    {
+      "title": "Teams is a chat client in the published pattern",
+      "href": "rooms/int-teams.html",
+      "why": "The AWS blog's Teams integration is not a SIP trunk into Teams Phone.",
+      "words": [
+        "teams",
+        "chat",
+        "client",
+        "published",
+        "pattern",
+        "blog",
+        "teams",
+        "integration",
+        "trunk",
+        "into",
+        "teams",
+        "phone"
+      ]
+    },
+    {
+      "title": "CUCM and Webex beside Connect",
+      "href": "rooms/int-cucm.html",
+      "why": "There is no AWS-managed CUCM CTI adapter in the docs this campus cites. The seam is the phone number.",
+      "words": [
+        "cucm",
+        "webex",
+        "beside",
+        "connect",
+        "there",
+        "managed",
+        "cucm",
+        "adapter",
+        "docs",
+        "this",
+        "campus",
+        "cites"
+      ]
+    },
+    {
+      "title": "The contact center is not the whole operation",
+      "href": "rooms/eco-why.html",
+      "why": "WFM, quality, emergency location, and the CRM fail quietly when they are bolted on after go-live.",
+      "words": [
+        "contact",
+        "center",
+        "whole",
+        "operation",
+        "quality",
+        "emergency",
+        "location",
+        "fail",
+        "quietly",
+        "when",
+        "they",
+        "bolted"
+      ]
+    },
+    {
+      "title": "Glossary",
+      "href": "rooms/eco-glossary.html",
+      "why": "A migration argument is usually two definitions of the same word.",
+      "words": [
+        "glossary",
+        "migration",
+        "argument",
+        "usually",
+        "definitions",
+        "same",
+        "word",
+        "ecosystem"
+      ]
+    },
+    {
+      "title": "Mind map",
+      "href": "rooms/eco-mind.html",
+      "why": "If you cannot point at the box that owns a function, you will build it twice.",
+      "words": [
+        "mind",
+        "cannot",
+        "point",
+        "that",
+        "owns",
+        "function",
+        "will",
+        "build",
+        "twice",
+        "ecosystem"
+      ]
+    },
+    {
+      "title": "Native forecasting and scheduling",
+      "href": "rooms/eco-wfm.html",
+      "why": "Native WFM is in the product. Third-party WFM is justified when you already live in that suite, not because Connect 'cannot schedule'.",
+      "words": [
+        "native",
+        "forecasting",
+        "scheduling",
+        "native",
+        "product",
+        "third",
+        "party",
+        "justified",
+        "when",
+        "already",
+        "live",
+        "that"
+      ]
+    },
+    {
+      "title": "Third-party WFM configuration and faults",
+      "href": "rooms/eco-wfm-3p.html",
+      "why": "The integration is the agent event stream plus a historical extract. If either is late, adherence is fiction.",
+      "words": [
+        "third",
+        "party",
+        "configuration",
+        "faults",
+        "integration",
+        "agent",
+        "event",
+        "stream",
+        "plus",
+        "historical",
+        "extract",
+        "either"
+      ]
+    },
+    {
+      "title": "Recording and screen capture",
+      "href": "rooms/eco-rec.html",
+      "why": "If the object is not in S3, you do not have a recording, no matter what the flow block said.",
+      "words": [
+        "recording",
+        "screen",
+        "capture",
+        "object",
+        "have",
+        "recording",
+        "matter",
+        "what",
+        "flow",
+        "block",
+        "said",
+        "ecosystem"
+      ]
+    },
+    {
+      "title": "Third-party recorders and live media",
+      "href": "rooms/eco-kvs.html",
+      "why": "Some QM suites want the audio while the call is up. That is Kinesis Video Streams, not a second SIP trunk.",
+      "words": [
+        "third",
+        "party",
+        "recorders",
+        "live",
+        "media",
+        "some",
+        "suites",
+        "want",
+        "audio",
+        "while",
+        "call",
+        "that"
+      ]
+    },
+    {
+      "title": "Quality management on top of analytics",
+      "href": "rooms/eco-qm.html",
+      "why": "A score without the recording is an opinion. A recording without a form is an archive.",
+      "words": [
+        "quality",
+        "management",
+        "analytics",
+        "score",
+        "without",
+        "recording",
+        "opinion",
+        "recording",
+        "without",
+        "form",
+        "archive",
+        "ecosystem"
+      ]
+    },
+    {
+      "title": "Configure conversational analytics and fix the empty transcript",
+      "href": "rooms/eco-lens-ops.html",
+      "why": "Analytics that is not enabled on the contact produces an empty search and a false 'the feature is down'.",
+      "words": [
+        "configure",
+        "conversational",
+        "analytics",
+        "empty",
+        "transcript",
+        "analytics",
+        "that",
+        "enabled",
+        "contact",
+        "produces",
+        "empty",
+        "search"
+      ]
+    },
+    {
+      "title": "E911 for agents on the CCP",
+      "href": "rooms/eco-e911.html",
+      "why": "A contact-center platform is not automatically an emergency-calling design. In the US Regions where this exists, you still have to store a real address.",
+      "words": [
+        "agents",
+        "contact",
+        "center",
+        "platform",
+        "automatically",
+        "emergency",
+        "calling",
+        "design",
+        "regions",
+        "where",
+        "this",
+        "exists"
+      ]
+    },
+    {
+      "title": "CRM configuration and the faults that look like routing bugs",
+      "href": "rooms/eco-crm.html",
+      "why": "A wrong screen pop is often an attribute bug, not a Salesforce bug.",
+      "words": [
+        "configuration",
+        "faults",
+        "that",
+        "look",
+        "like",
+        "routing",
+        "bugs",
+        "wrong",
+        "screen",
+        "often",
+        "attribute",
+        "salesforce"
+      ]
+    },
+    {
+      "title": "AI agents: configure, cite, and a way out",
+      "href": "rooms/eco-ai-ops.html",
+      "why": "An agent who cannot reach a person is not assisted. They are stuck.",
+      "words": [
+        "agents",
+        "configure",
+        "cite",
+        "agent",
+        "cannot",
+        "reach",
+        "person",
+        "assisted",
+        "they",
+        "stuck",
+        "ecosystem"
+      ]
+    },
+    {
+      "title": "Integration maps",
+      "href": "rooms/eco-map.html",
+      "why": "A map is a list of seams with a key on each line. A poster of logos is not a map.",
+      "words": [
+        "integration",
+        "maps",
+        "list",
+        "seams",
+        "with",
+        "each",
+        "line",
+        "poster",
+        "logos",
+        "ecosystem"
+      ]
+    },
+    {
+      "title": "Future hooks, not future rewrites",
+      "href": "rooms/eco-future.html",
+      "why": "Add the next system on a hook that already exists. Do not scrape the CCP and do not fork the flow for every vendor.",
+      "words": [
+        "future",
+        "hooks",
+        "future",
+        "rewrites",
+        "next",
+        "system",
+        "hook",
+        "that",
+        "already",
+        "exists",
+        "scrape",
+        "fork"
+      ]
+    },
+    {
+      "title": "Feature timeline",
+      "href": "rooms/foundations-timeline.html",
+      "why": "Names moved. Features mostly stayed. Voice ID did not.",
+      "words": [
+        "feature",
+        "timeline",
+        "names",
+        "moved",
+        "features",
+        "mostly",
+        "stayed",
+        "voice",
+        "foundations"
+      ]
+    }
+  ]
+}

@@ -1,14 +1,14 @@
 # How to get a copy
 
-The campus is a static site. Open it over HTTP so the modules can load.
+The study site is static. Open the repository root over HTTP so the guide module can load.
 
-- Browse `campus/` on GitHub Pages once this folder is published. The repository root redirects there.
-- Download `releases/amazon-connect-lab.zip`, unzip it, and serve the `campus` folder:
+- Browse the repository root on GitHub Pages. `index.html` is the front door.
+- Or clone it and serve the root:
 
 ```bash
-python3 -m http.server 43123 --directory campus
+node scripts/gzip-static.mjs
 ```
 
-- Clone the repository and run `python3 scripts/build_campus.py` if you change a lesson.
+Open `http://127.0.0.1:8742/`. Rebuild with `python3 scripts/build_site.py` if you change a lesson. The offline bundle is `downloads/amazon-connect-lab-bundle.zip`.
 
 The first visit caches the shell (page, styles, app, Three.js). Lesson JSON is fetched when you open a track and kept by the service worker, so a later visit works offline. Search, labs, quiz progress, and the theme stay in `localStorage`. Nothing in the campus phones home.

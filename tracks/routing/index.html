@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="bright">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Routing · Connect Lab</title>
+<meta name="description" content="Priority and delay decide who is offered the contact. The queue name does not.">
+<meta name="theme-color" content="#4c1d95">
+<script>try{var s=JSON.parse(localStorage.getItem("acl-display")||"{}");document.documentElement.dataset.theme=s.theme==="dark"?"dark":"bright";if(s.font)document.documentElement.dataset.font=s.font;if(s.ink&&/^#[0-9a-fA-F]{6}$/.test(s.ink))document.documentElement.style.setProperty("--ink",s.ink);if(s.motion==="reduce")document.documentElement.dataset.motion="reduce";}catch(e){document.documentElement.dataset.theme="bright";}</script>
+<link rel="stylesheet" href="../../assets/css/wow.css">
+<link rel="stylesheet" href="../../assets/css/frame.css">
+<link rel="stylesheet" href="../../assets/css/footer.css">
+<link rel="stylesheet" href="../../guide/guide.css">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="../../site.webmanifest">
+</head>
+<body data-page="learn">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+<button type="button" class="menu-btn" data-open-menu data-tour="menu" aria-controls="site-drawer" aria-expanded="false">☰ Menu</button>
+<a class="brand-home" id="tour-home" href="../../index.html">Connect Lab<small>Amazon Connect study</small></a>
+<div class="rail-wrap">
+<button type="button" class="rail-arrow" data-rail="-1" aria-label="Scroll sections left">‹</button>
+<nav class="section-rail" aria-label="Sections"><a class="section-chip" href="../../index.html" title="Front door and the track map" data-tour="home"><span class="chip-ico" aria-hidden="true">🏠</span>Home</a><a class="section-chip" href="../../start.html" title="Ten-minute path and the full course" aria-current="page" data-tour="learn"><span class="chip-ico" aria-hidden="true">📘</span>Learn</a><a class="section-chip" href="../../diagrams.html" title="Every picture as SVG, PNG, and HTML" data-tour="diagrams"><span class="chip-ico" aria-hidden="true">🗺️</span>Diagrams</a><a class="section-chip" href="../../flows.html" title="Animated call and data paths"><span class="chip-ico" aria-hidden="true">〰️</span>Flows</a><a class="section-chip" href="../../play.html" title="Routing, Lambda, port, and bridge drills" data-tour="play"><span class="chip-ico" aria-hidden="true">🎮</span>Play</a><a class="section-chip" href="../../listen.html" title="Study clips and read-along" data-tour="listen"><span class="chip-ico" aria-hidden="true">🎧</span>Listen</a><a class="section-chip" href="../../downloads.html" title="Sheets, cards, templates, and the zip" data-tour="downloads"><span class="chip-ico" aria-hidden="true">⬇️</span>Downloads</a><a class="section-chip" href="../../help.html" title="Menu, course, bot, and downloads" data-tour="guide"><span class="chip-ico" aria-hidden="true">🐒</span>Guide</a></nav>
+<button type="button" class="rail-arrow" data-rail="1" aria-label="Scroll sections right">›</button>
+</div>
+<button type="button" class="display-btn" data-open-display aria-expanded="false" aria-controls="display-title">Display</button>
+</header>
+<div class="drawer-scrim" data-close-drawer></div>
+<aside class="drawer" id="site-drawer" aria-hidden="true" inert aria-label="Menu"><div class="drawer-bar"><p>Menu</p><button type="button" class="drawer-close" data-close-drawer>Close</button></div><label class="menu-search"><span class="sr">Search the menu</span><input type="search" data-menu-filter placeholder="Search the menu" aria-label="Search the menu"></label><p class="drawer-group">Study</p><a class="drawer-row" href="../../index.html"><span class="drawer-ico" aria-hidden="true">🏠</span><span><strong>Home</strong><small>Front door and the track map</small></span></a><a class="drawer-row" href="../../start.html" aria-current="page"><span class="drawer-ico" aria-hidden="true">📘</span><span><strong>Learn</strong><small>Ten-minute path and the full course</small></span></a><a class="drawer-row" href="../../index.html#rooms"><span class="drawer-ico" aria-hidden="true">🗂️</span><span><strong>All rooms</strong><small>Eighteen tracks, one room at a time</small></span></a><a class="drawer-row" href="../../mastery.html"><span class="drawer-ico" aria-hidden="true">🧭</span><span><strong>Mastery</strong><small>Fundamentals through the bridge</small></span></a><a class="drawer-row" href="../../ecosystem.html"><span class="drawer-ico" aria-hidden="true">🌐</span><span><strong>Ecosystem</strong><small>Glossary, map, bridges, and hooks</small></span></a><p class="drawer-group">Pictures</p><a class="drawer-row" href="../../diagrams.html"><span class="drawer-ico" aria-hidden="true">🗺️</span><span><strong>Diagrams</strong><small>Every picture as SVG, PNG, and HTML</small></span></a><a class="drawer-row" href="../../flows.html"><span class="drawer-ico" aria-hidden="true">〰️</span><span><strong>Flows</strong><small>Animated call and data paths</small></span></a><a class="drawer-row" href="../../charts.html"><span class="drawer-ico" aria-hidden="true">📊</span><span><strong>Charts</strong><small>Counts from this repository</small></span></a><p class="drawer-group">Practice</p><a class="drawer-row" href="../../play.html"><span class="drawer-ico" aria-hidden="true">🎮</span><span><strong>Play</strong><small>Routing, Lambda, port, and bridge drills</small></span></a><a class="drawer-row" href="../../quizzes.html"><span class="drawer-ico" aria-hidden="true">✅</span><span><strong>Quizzes</strong><small>Practice questions with cited answers</small></span></a><a class="drawer-row" href="../../flashcards.html"><span class="drawer-ico" aria-hidden="true">🃏</span><span><strong>Flashcards</strong><small>Know or again, stored in this browser</small></span></a><a class="drawer-row" href="../../interviews.html"><span class="drawer-ico" aria-hidden="true">🎤</span><span><strong>Interviews</strong><small>Fictional practice. Not a biography</small></span></a><a class="drawer-row" href="../../listen.html"><span class="drawer-ico" aria-hidden="true">🎧</span><span><strong>Listen</strong><small>Study clips and read-along</small></span></a><p class="drawer-group">Reference</p><a class="drawer-row" href="../../downloads.html"><span class="drawer-ico" aria-hidden="true">⬇️</span><span><strong>Downloads</strong><small>Sheets, cards, templates, and the zip</small></span></a><a class="drawer-row" href="../../glossary.html"><span class="drawer-ico" aria-hidden="true">📖</span><span><strong>Glossary</strong><small>Terms from the written rooms</small></span></a><a class="drawer-row" href="../../ports.html"><span class="drawer-ico" aria-hidden="true">🔌</span><span><strong>Ports</strong><small>TCP 443 and UDP 3478 from the network lesson</small></span></a><a class="drawer-row" href="../../regions.html"><span class="drawer-ico" aria-hidden="true">🗺️</span><span><strong>Regions</strong><small>The published Global Resiliency pairs</small></span></a><a class="drawer-row" href="../../certs.html"><span class="drawer-ico" aria-hidden="true">🎓</span><span><strong>Certifications</strong><small>What the catalog publishes, and what it does not</small></span></a><a class="drawer-row" href="../../careers.html"><span class="drawer-ico" aria-hidden="true">💼</span><span><strong>Careers</strong><small>Study paths. Not a job offer</small></span></a><p class="drawer-group">About</p><a class="drawer-row" href="../../help.html"><span class="drawer-ico" aria-hidden="true">🐒</span><span><strong>Help</strong><small>Menu, course, bot, and downloads</small></span></a><a class="drawer-row" href="../../legal.html"><span class="drawer-ico" aria-hidden="true">🛡️</span><span><strong>Legal</strong><small>Copyright, privacy, and removal</small></span></a></aside>
+<div class="display-pop" hidden>
+<p id="display-title">Display</p>
+<div class="font-row" role="group" aria-label="Font size">
+<button type="button" data-font-set="sm" aria-label="Smaller text">A−</button>
+<button type="button" data-font-set="md" aria-label="Default text">A</button>
+<button type="button" data-font-set="lg" aria-label="Larger text">A+</button>
+<button type="button" data-font-set="xl" aria-label="Largest text">A++</button>
+</div>
+<label class="ink-label">Font colour <input data-ink type="color" value="#1e1b4b" aria-label="Font colour"></label>
+<div class="theme-row" role="group" aria-label="Theme">
+<button type="button" data-set-theme="bright">Bright</button>
+<button type="button" data-set-theme="dark">Dark</button>
+</div>
+<label class="ink-label"><input data-reduce-motion type="checkbox"> Reduce motion</label>
+</div>
+<main id="main"><div class="wrap"><p class="kicker">Track</p><h1>Routing</h1><section class="block" id="learn" data-read><div class="section-bar"><h2>Learn it in 5 minutes</h2><a class="dl-btn dl-html" href="../../downloads/sections/track-routing-learn.html" download>HTML</a></div><p>Priority and delay decide who is offered the contact. The queue name does not.</p><p>4 rooms. Open one, then use its quiz.</p></section><div class="card-grid"><a class="card" data-card href="../../rooms/route-queue.html"><h2>Queues wait. Profiles decide who is eligible.</h2><p>A queue with nobody whose profile includes it is a silent parking lot.</p></a><a class="card" data-card href="../../rooms/route-profile.html"><h2>Priority, delay, and concurrency</h2><p>Lower priority number wins. Delay keeps a second team in reserve. Concurrency is how many of each channel an agent holds.</p></a><a class="card" data-card href="../../rooms/route-hours.html"><h2>Hours and overrides</h2><p>The check uses the queue&#x27;s hours and the queue&#x27;s time zone. Your laptop&#x27;s clock is irrelevant.</p></a><a class="card" data-card href="../../rooms/route-quick.html"><h2>Quick connects and the flows behind them</h2><p>A quick connect is a target plus a flow. The flow is where you record, whisper, and set attributes.</p></a></div></div></main>
+<footer class="site-footer" data-canon-footer>
+<div class="disclaimer-panel" role="note">
+<div class="disclaimer-ico" aria-hidden="true"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M24 4 8 10v12c0 10 6.8 16.8 16 20 9.2-3.2 16-10 16-20V10z"/><path fill="#fff" d="m16 24 5 5 11-12" stroke="#fff" stroke-width="2"/></svg></div>
+<div>
+<h2>Independent study lab</h2>
+<p>This is an independent, free, learning-only student project. It respects every company and vendor. Trademarks belong to their owners. It is not affiliated with or endorsed by Amazon Web Services, Cisco, Genesys, or any other company. If you have a concern, the page will be removed or corrected promptly through the contact form. Nothing here is sold. There are no ads. The author is happy to volunteer for any organization.</p>
+<p>Contact: <a href="https://cyphermonkeylabs.com/#contact">https://cyphermonkeylabs.com/#contact</a></p>
+</div>
+</div>
+<p class="footer-brand">CypherMonkey Labs</p>
+<nav class="brand-row" aria-label="CypherMonkey Labs">
+<a class="brand-icon brand-web" href="https://cyphermonkeylabs.com" aria-label="CypherMonkey Labs website"><span class="sr">Website</span><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="18" cy="24" r="8" fill="#fbbf24"/><circle cx="46" cy="24" r="8" fill="#fbbf24"/><circle cx="32" cy="36" r="16" fill="#fde68a"/><rect x="20" y="30" width="10" height="8" rx="2" fill="none" stroke="#1e1b4b" stroke-width="2"/><rect x="34" y="30" width="10" height="8" rx="2" fill="none" stroke="#1e1b4b" stroke-width="2"/><path d="M30 34h4" stroke="#1e1b4b" stroke-width="2"/><circle cx="25" cy="34" r="1.3" fill="#1e1b4b"/><circle cx="39" cy="34" r="1.3" fill="#1e1b4b"/><path d="M26 42q6 4 12 0" fill="none" stroke="#1e1b4b" stroke-width="1.8" stroke-linecap="round"/></svg></a>
+<a class="brand-icon brand-gh" href="https://github.com/CypherMonkeyLabs" aria-label="CypherMonkey Labs on GitHub"><span class="sr">GitHub</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5A11.5 11.5 0 0 0 .5 12.3c0 5.2 3.4 9.6 8.1 11.2.6.1.8-.3.8-.6v-2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.4-1.3-5.4-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.7-2.8 5.7-5.4 6 .4.4.8 1.1.8 2.3v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12.3 11.5 11.5 0 0 0 12 .5z"/></svg></a>
+<a class="brand-icon brand-tree" href="https://linktr.ee/cypherMonkey" aria-label="Linktree"><span class="sr">Linktree</span><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="11" r="7" fill="#052e16"/><path d="M32 18 V27" stroke="#052e16" stroke-width="5" stroke-linecap="round"/><path d="M13 36 C22 25 42 25 51 36" fill="none" stroke="#052e16" stroke-width="5" stroke-linecap="round"/><circle cx="13" cy="38" r="7" fill="#052e16"/><circle cx="51" cy="38" r="7" fill="#052e16"/><circle cx="32" cy="28" r="5.5" fill="#052e16"/><path d="M32 33 V49" stroke="#052e16" stroke-width="6" stroke-linecap="round"/><path d="M19 55 H45" stroke="#052e16" stroke-width="6" stroke-linecap="round"/></svg></a>
+</nav>
+<p class="site-copy">© 2026 CypherMonkeyLabs 🐒</p>
+</footer>
+<nav class="phone-dock" aria-label="Quick"><button type="button" data-open-menu data-tour="menu"><span class="dock-ico" aria-hidden="true">☰</span>Menu</button><a data-tour="learn" href="../../start.html"><span class="dock-ico" aria-hidden="true">📘</span>Learn</a><a data-tour="diagrams" href="../../diagrams.html"><span class="dock-ico" aria-hidden="true">🗺️</span>Diagrams</a><a data-tour="play" href="../../play.html"><span class="dock-ico" aria-hidden="true">🎮</span>Play</a><a data-tour="listen" href="../../listen.html"><span class="dock-ico" aria-hidden="true">🎧</span>Listen</a><a data-tour="guide" href="../../help.html"><span class="dock-ico" aria-hidden="true">🐒</span>Guide</a></nav>
+<div id="guide-mount"></div>
+<script src="../../assets/js/frame.js" defer></script>
+<script src="../../assets/js/university.js" defer></script>
+
+<script type="module" src="../../guide/guide.js"></script>
+</body>
+</html>

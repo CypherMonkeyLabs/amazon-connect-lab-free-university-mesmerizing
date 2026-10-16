@@ -1,5 +1,18 @@
 # Amazon Connect Lab
 
+![Amazon Connect study home](docs/screenshots/home-1440.png)
+
+The study site is the repository root. It is a static lab for Amazon Connect flows, queues, routing profiles, Lex, agent assist, Contact Lens, Lambda, Kinesis, the CCP, and the bridges from Cisco UCCE, Genesys, and Webex. It does not call AWS. It does not claim that anyone has run Amazon Connect in production.
+
+```bash
+python3 scripts/build_site.py
+node scripts/gzip-static.mjs
+```
+
+Open `http://127.0.0.1:8742/`. `file://` will not load the guide module. GitHub Pages can publish this branch from `/`. `.nojekyll` is at the root.
+
+The older campus shell remains under `campus/` for the previous build. The pages you should read are `index.html`, `rooms/`, `tracks/`, and `downloads/`.
+
 ![Amazon Connect Lab home, with diagrams, flows, charts, and cheat codes above the fold](docs/screenshots/home-desktop.png)
 
 Night ops, light, futuristic, gaming, neon, high contrast, and the console theme:

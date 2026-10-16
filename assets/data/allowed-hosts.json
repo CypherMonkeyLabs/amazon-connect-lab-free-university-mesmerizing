@@ -1,0 +1,13 @@
+{
+  "hosts": [
+    "aws.amazon.com",
+    "cyphermonkeylabs.com",
+    "docs.aws.amazon.com",
+    "github.com",
+    "hidekazu-konishi.com",
+    "linktr.ee",
+    "registry.terraform.io",
+    "repost.aws",
+    "www.servicenow.com"
+  ]
+}
