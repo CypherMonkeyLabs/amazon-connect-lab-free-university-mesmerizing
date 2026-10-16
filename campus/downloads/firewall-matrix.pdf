@@ -3,7 +3,7 @@
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 2 0 obj
-<< /Length 1925 >>
+<< /Length 2668 >>
 stream
 BT
 /F1 11 Tf
@@ -34,8 +34,24 @@ T* (Video | Chime media | Not copied here | UNVERIFIED as a port list. The netwo
 T* (video adds a Chime subnet and does not support VDI. Confirm the current port table on the) Tj
 T* (video page before you ticket a firewall change.) Tj
 T* () Tj
+T* (Sources and go deeper) Tj
+T* () Tj
+T* (Set up your network to use the Connect Customer Contact Control Panel \(CCP\) - Amazon Connect) Tj
+T* (Customer \(AWS docs\)) Tj
+T* (https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html last checked) Tj
+T* (2026-10) Tj
+T* () Tj
+T* (RFC 5766: Traversal Using Relays around NAT \(TURN\): Relay Extensions to Session Traversal) Tj
+T* (Utilities for NAT \(STUN\) | RFC Editor \(RFC\) https://www.rfc-editor.org/info/rfc5766/ last) Tj
+T* (checked 2026-10) Tj
+T* () Tj
+T* (RFC 3261: SIP: Session Initiation Protocol | RFC Editor \(RFC\)) Tj
+T* (https://www.rfc-editor.org/info/rfc3261/ last checked 2026-10) Tj
+T* () Tj
+T* (WebRTC - Wikipedia \(Wikipedia\) https://en.wikipedia.org/wiki/WebRTC last checked 2026-10) Tj
+T* () Tj
 T* (CypherMonkey · Amazon Connect Lab) Tj
-T* (cyphermonkeylabs.com · github.com/cipher0x9 · github.com/CypherMonkeyLabs · github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing · x.com/Cypher0x9 · huggingface.co/Cypher0x9) Tj
+T* (cyphermonkeylabs.com · github.com/CypherMonkeyLabs · github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing · linktr.ee/cypherMonkey) Tj
 T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
 T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
 ET
@@ -55,11 +71,11 @@ xref
 0000000000 65535 f 
 0000000009 00000 n 
 0000000079 00000 n 
-0000002056 00000 n 
-0000002182 00000 n 
-0000002239 00000 n 
+0000002799 00000 n 
+0000002925 00000 n 
+0000002982 00000 n 
 trailer
 << /Size 6 /Root 5 0 R >>
 startxref
-2288
+3031
 %%EOF

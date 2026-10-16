@@ -1,0 +1,28 @@
+{
+  "room": "foundations-certs",
+  "title": "Certifications and the badges that are not certifications",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "AWS Certification - Validate AWS Cloud Skills - Get AWS Certified",
+      "url": "https://aws.amazon.com/certification/",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "AWS History and Timeline regarding Amazon Connect - Overview, Functions, Features, Summary of Updates, and Introduction to Amazon Connect Customer | hidekazu-ko",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Amazon Web Services - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Amazon_Web_Services",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

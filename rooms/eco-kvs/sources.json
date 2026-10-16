@@ -1,0 +1,63 @@
+{
+  "room": "eco-kvs",
+  "title": "Third-party recorders and live media",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Set up live media streaming of customer audio in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-voice-streams.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Forecasting & agent scheduling in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Set up US emergency calling in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Flow block in Connect Customer: Set recording and analytics behavior - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Use Connect Customer Customer Profiles - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Workforce management - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Workforce_management",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Enhanced 911 - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Enhanced_9-1-1",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Customer relationship management - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "room": "rec-join",
+  "title": "One customer, three objects",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Use Connect Customer Customer Profiles - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "What is Connect Customer? - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Customer relationship management - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

@@ -215,18 +215,16 @@ def main():
     if "cyphermonkeylabs.com" not in html:
         problems.append("studio chrome links missing")
     for label, href in (
-        ("Visit my GitHub", "https://github.com/cipher0x9"),
         ("Visit the Labs org", "https://github.com/CypherMonkeyLabs"),
         ("Visit Cypher Monkey Labs", "https://cyphermonkeylabs.com"),
-        ("https://x.com/Cypher0x9", "https://x.com/Cypher0x9"),
-        ("https://huggingface.co/Cypher0x9", "https://huggingface.co/Cypher0x9"),
+        ("Linktree", "https://linktr.ee/cypherMonkey"),
     ):
         if label not in html or href not in html:
             problems.append("brand link missing " + label)
-    if "linktr.ee" in html.lower() or "linkedin.com" in html.lower() or "mailto:" in html.lower():
-        problems.append("chrome includes Linktree, LinkedIn, or an email")
-    if "github.com/cipher0x9/amazon-connect-lab" in html:
-        problems.append("old personal repo url in the shell")
+    lowered = html.lower()
+    for banned in ("x.com", "linkedin.com", "mailto:", "huggingface.co", "github.com/cipher0x9", "twitter:card"):
+        if banned in lowered:
+            problems.append("chrome includes a banned brand or card: " + banned)
     if "© 2026 CypherMonkeyLabs 🐒" not in html:
         problems.append("copyright line missing")
     if "lifelong student" not in html:
@@ -273,10 +271,7 @@ def main():
         problems.append("sibling strip still points at vercel")
     for href in re.findall(r'class="next-labs".*?</nav>', html, re.S):
         for link in re.findall(r'href="([^"]+)"', href):
-            if not (
-                link.startswith("https://cyphermonkeylabs.com/")
-                or link.startswith("https://cipher0x9.github.io/")
-            ):
+            if not link.startswith("https://cyphermonkeylabs.com/"):
                 problems.append("sibling link is not a published lab host: " + link)
     license_text = (ROOT / "LICENSE").read_text()
     if "MIT" not in license_text or "CC BY-NC-SA" not in license_text:
@@ -308,15 +303,16 @@ def main():
         text = sheet.read_text().lower()
         for needle in (
             "cyphermonkeylabs.com",
-            "https://github.com/cipher0x9",
-            "https://github.com/cyphermonkeylabs/amazon-connect-lab-free-university-mesmerizing",
+            "https://github.com/cyphermonkeylabs",
+            "https://linktr.ee/cyphermonkey",
             "favicon.svg",
             "© 2026 cyphermonkeylabs",
         ):
             if needle not in text:
                 problems.append(sheet.name + " missing " + needle)
-        if "linktr.ee" in text or "linkedin" in text or "mailto:" in text or "github.com/cipher0x9/amazon-connect-lab" in text:
-            problems.append(sheet.name + " has Linktree, LinkedIn, an email, or the old repo url")
+        for banned in ("x.com", "linkedin", "mailto:", "huggingface.co", "github.com/cipher0x9"):
+            if banned in text:
+                problems.append(sheet.name + " includes " + banned)
         pdf = sheet.with_suffix(".pdf")
         png = sheet.with_suffix(".png")
         if not pdf.exists() or not png.exists():
@@ -325,13 +321,14 @@ def main():
         pdf_bytes = pdf.read_bytes().lower()
         if b"cyphermonkeylabs.com" not in pdf_bytes:
             problems.append(sheet.stem + " pdf missing the lab link")
-        if b"github.com/cipher0x9/amazon-connect-lab" in pdf_bytes or b"linktr.ee" in pdf_bytes:
-            problems.append(sheet.stem + " pdf still has the old repo or Linktree")
+        for banned in (b"x.com", b"linkedin", b"huggingface.co", b"github.com/cipher0x9", b"mailto:"):
+            if banned in pdf_bytes:
+                problems.append(sheet.stem + " pdf includes " + banned.decode())
     if re.search(r"<script[^>]+src=[\"']https?:", html, re.I):
         problems.append("external script tag")
     if re.search(r"<link[^>]+href=[\"']https?:", html, re.I):
         problems.append("external stylesheet")
-    if "og:image" not in html or "twitter:card" not in html:
+    if "og:image" not in html:
         problems.append("missing social meta")
     if "@media (max-width: 640px)" not in css:
         problems.append("missing 640px mobile nav breakpoint")

@@ -1,0 +1,43 @@
+{
+  "room": "ts-flowlogs",
+  "title": "A flow log you can actually search",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Troubleshoot Lambda function failures in Amazon Connect | AWS re:Post",
+      "url": "https://repost.aws/knowledge-center/connect-lambda-function-failures",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Troubleshoot contact flow errors in Amazon Connect | AWS re:Post",
+      "url": "https://repost.aws/knowledge-center/connect-contact-flow-errors",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "How Contact Control Panel (CCP) uses WebRTC - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-uses-webrtc.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "RFC 5766: Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN) | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc5766/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://www.rfc-editor.org/rfc/rfc5766"
+    },
+    {
+      "title": "WebRTC - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/WebRTC",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "room": "foundations-s3",
+  "title": "S3 holds the proof",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Flow block in Connect Customer: Set recording and analytics behavior - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "What is Amazon S3? - Amazon Simple Storage Service",
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Amazon S3 - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Amazon_S3",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

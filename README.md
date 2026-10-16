@@ -1,5 +1,18 @@
 # Amazon Connect Lab
 
+![Amazon Connect study home](docs/screenshots/home-1440.png)
+
+The study site is the repository root. It is a static lab for Amazon Connect flows, queues, routing profiles, Lex, agent assist, Contact Lens, Lambda, Kinesis, the CCP, and the bridges from Cisco UCCE, Genesys, and Webex. It does not call AWS. It does not claim that anyone has run Amazon Connect in production.
+
+```bash
+python3 scripts/build_site.py
+node scripts/gzip-static.mjs
+```
+
+Open `http://127.0.0.1:8742/`. `file://` will not load the guide module. GitHub Pages can publish this branch from `/`. `.nojekyll` is at the root.
+
+The older campus shell remains under `campus/` for the previous build. The pages you should read are `index.html`, `rooms/`, `tracks/`, and `downloads/`.
+
 ![Amazon Connect Lab home, with diagrams, flows, charts, and cheat codes above the fold](docs/screenshots/home-desktop.png)
 
 Night ops, light, futuristic, gaming, neon, high contrast, and the console theme:
@@ -55,7 +68,7 @@ Settings (`#/settings`) store the theme, sound effects, narration, reduced motio
 
 Tablet and desktop keep the campus menu on screen: Diagrams, Flows, Charts, Cheat Codes, Play, Ecosystem, Downloads, Careers, and Settings. A phone uses one header (logo and Menu) and a full-screen sheet for those sections, language, and theme, plus a bottom bar for Learn, Diagrams, Play, Menu, and Listen. The home page opens on a full-bleed Three.js call-path hero (UnrealBloomPass from the vendored r170 examples), a large inbound hop row (TCP 443 and UDP 3478), an animated mascot, and two short architect clips in `audio/`. Those clips are espeak-ng stand-ins; the player stays wired for a later recording at the same paths. The Diagram Atlas is `data/atlas.json` (27 diagrams, 15 of them animated, 7 charts). Each diagram also has a portrait stack so a phone can read it without sideways scrolling. Diagrams and flows are one per row and open in a lightbox with play, pause, and step. Every track page shows a chart, a counter, and a live WebGL icon. Anime.js, Rough.js, D3, and canvas-confetti are vendored.
 
-Cheat codes (`#/cheats` and `#/downloads`) are one-page HTML, PDF, and PNG sheets for ports, call flows, cutover, the firewall matrix, careers, and the 2026 timeline, plus `downloads/flashcards.json` and `downloads/amazon-connect-lab.zip`. The studio bar, the phone menu, and the footer use the same five brand buttons: Visit my GitHub, Visit the Labs org, Visit Cypher Monkey Labs, X, and Hugging Face. Each campus menu item is an icon, a label, and one line, with a search field and a 44px tap target. A phone keeps a bottom bar. Guide Bot is a scripted chat on `guide-kb.json`: it cites a page in this lab, or it says it does not know. The footer links the contact form for work and for a takedown. No email address is shown. The next-lab strip uses `https://cyphermonkeylabs.com/<repo>/`. Gemini Gems stays on `https://cipher0x9.github.io/gemini-gems-free-gallery/`.
+Cheat codes (`#/cheats` and `#/downloads`) are one-page HTML, PDF, and PNG sheets for ports, call flows, cutover, the firewall matrix, careers, and the 2026 timeline, plus `downloads/flashcards.json` and `downloads/amazon-connect-lab.zip`. The studio bar, the phone menu, and the footer use the same three brand links: the CypherMonkey Labs website, the GitHub org, and https://linktr.ee/cypherMonkey. There is no X, LinkedIn, Hugging Face, email, or personal GitHub profile. Each campus menu item is an icon, a label, and one line, with a search field and a 44px tap target. A phone keeps a floating bottom bar. Guide Bot is a scripted chat on `guide-kb.json`: it cites a page in this lab, or it says it does not know. The footer links the contact form for work and for a takedown. No email address is shown. The next-lab strip uses `https://cyphermonkeylabs.com/<repo>/`.
 
 Tips (`#/tips`) is one cheat sheet per track: pro tips, interview traps, and a short table. The same sheet is the Tips tab on every lesson. Counts match the single-file campus on `main` with a delta of zero: 1,590 illustrations, 427 animated flows, 25 audio clips, 24 labs, 927 quiz items, and 927 cards.
 

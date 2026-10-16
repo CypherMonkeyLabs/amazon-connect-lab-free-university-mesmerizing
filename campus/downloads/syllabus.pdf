@@ -59,7 +59,7 @@ ET
 endstream
 endobj
 3 0 obj
-<< /Length 1520 >>
+<< /Length 2500 >>
 stream
 BT
 /F1 11 Tf
@@ -83,8 +83,28 @@ T* () Tj
 T* (Career: Interview prep and career paths ? Five roles, the exam or badge that matches each,) Tj
 T* (and the per-track interview traps.) Tj
 T* () Tj
+T* (Sources and go deeper) Tj
+T* () Tj
+T* (What is Connect Customer? - Amazon Connect Customer \(AWS docs\)) Tj
+T* (https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html last) Tj
+T* (checked 2026-10) Tj
+T* () Tj
+T* (RFC 3261: SIP: Session Initiation Protocol | RFC Editor \(RFC\)) Tj
+T* (https://www.rfc-editor.org/info/rfc3261/ last checked 2026-10) Tj
+T* () Tj
+T* (Troubleshoot contact flow errors in Amazon Connect | AWS re:Post \(community\)) Tj
+T* (https://repost.aws/knowledge-center/connect-contact-flow-errors last checked 2026-10) Tj
+T* () Tj
+T* (AWS History and Timeline regarding Amazon Connect - Overview, Functions, Features, Summary) Tj
+T* (of Updates, and Introduction to Amazon Connect Customer | hidekazu-ko \(community\)) Tj
+T* (https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html last checked) Tj
+T* (2026-10) Tj
+T* () Tj
+T* (Call centre - Wikipedia \(Wikipedia\) https://en.wikipedia.org/wiki/Call_centre last checked) Tj
+T* (2026-10) Tj
+T* () Tj
 T* (CypherMonkey · Amazon Connect Lab) Tj
-T* (cyphermonkeylabs.com · github.com/cipher0x9 · github.com/CypherMonkeyLabs · github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing · x.com/Cypher0x9 · huggingface.co/Cypher0x9) Tj
+T* (cyphermonkeylabs.com · github.com/CypherMonkeyLabs · github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing · linktr.ee/cypherMonkey) Tj
 T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
 T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
 ET
@@ -108,12 +128,12 @@ xref
 0000000009 00000 n 
 0000000079 00000 n 
 0000002799 00000 n 
-0000004371 00000 n 
-0000004497 00000 n 
-0000004623 00000 n 
-0000004686 00000 n 
+0000005351 00000 n 
+0000005477 00000 n 
+0000005603 00000 n 
+0000005666 00000 n 
 trailer
 << /Size 8 /Root 7 0 R >>
 startxref
-4735
+5715
 %%EOF

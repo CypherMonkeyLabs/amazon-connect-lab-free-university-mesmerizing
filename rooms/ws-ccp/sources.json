@@ -1,0 +1,59 @@
+{
+  "room": "ws-ccp",
+  "title": "The CCP is a web app with a telephone inside",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "How Contact Control Panel (CCP) uses WebRTC - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-uses-webrtc.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Set up your network to use the Connect Customer Contact Control Panel (CCP) - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "GitHub - amazon-connect/amazon-connect-streams: Amazon Connect Streams - a browser-based contact center integration API, typically with CRM systems. \u00b7 GitHub",
+      "url": "https://github.com/amazon-connect/amazon-connect-streams",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "RFC 8825: Overview: Real-Time Protocols for Browser-Based Applications | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc8825/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://www.rfc-editor.org/rfc/rfc8825"
+    },
+    {
+      "title": "RFC 5766: Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN) | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc5766/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://www.rfc-editor.org/rfc/rfc5766"
+    },
+    {
+      "title": "RFC 6455: The WebSocket Protocol | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc6455/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://www.rfc-editor.org/rfc/rfc6455"
+    },
+    {
+      "title": "WebRTC - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/WebRTC",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

@@ -1,0 +1,1070 @@
+[
+  {
+    "url": "https://ccp.example.com",
+    "status": 0,
+    "ok": false,
+    "note": "URLError: <urlopen error [Errno -5] No address associated with hostname>"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Cisco_Unified_Communications_Manager",
+    "status": 404,
+    "ok": false,
+    "note": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://repost.aws/knowledge-center/connect-contact-flow-errors",
+    "status": 200,
+    "final": "https://repost.aws/knowledge-center/connect-contact-flow-errors",
+    "title": "Troubleshoot contact flow errors in Amazon Connect | AWS re:Post",
+    "ok": false,
+    "note": "soft-404"
+  },
+  {
+    "url": "https://aws.amazon.com/about-aws/whats-new/2020/07/contact-lens-amazon-connect-now-generally-available/",
+    "status": 200,
+    "final": "https://aws.amazon.com/about-aws/whats-new/2020/07/contact-lens-amazon-connect-now-generally-available/",
+    "title": "Contact Lens for Amazon Connect is now generally available - AWS",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://aws.amazon.com/blogs/aws/amazon-connect-smarter-and-more-integrated/",
+    "status": 200,
+    "final": "https://aws.amazon.com/blogs/aws/amazon-connect-smarter-and-more-integrated/",
+    "title": "Amazon Connect \u2013 Now Smarter and More Integrated With Third-Party Tools | AWS News Blog",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://aws.amazon.com/blogs/contact-center/amazon-connect-digital-enablement-learning-plans-and-badges/",
+    "status": 200,
+    "final": "https://aws.amazon.com/blogs/contact-center/amazon-connect-digital-enablement-learning-plans-and-badges/",
+    "title": "Elevating Amazon Connect digital enablement with learning plans and badges | AWS Contact Center",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://aws.amazon.com/blogs/contact-center/elevate-your-amazon-connect-skills-with-specialty-training-badges/",
+    "status": 200,
+    "final": "https://aws.amazon.com/blogs/contact-center/elevate-your-amazon-connect-skills-with-specialty-training-badges/",
+    "title": "Elevate your Amazon Connect skills with specialty training badges | AWS Contact Center",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://aws.amazon.com/blogs/contact-center/salesforce-contact-center-with-amazon-connect-streamlining-omnichannel-customer-engagement/",
+    "status": 200,
+    "final": "https://aws.amazon.com/blogs/contact-center/salesforce-contact-center-with-amazon-connect-streamlining-omnichannel-customer-engagement/",
+    "title": "Salesforce Contact Center with Amazon Connect: Streamlining omnichannel customer engagement | AWS Contact Center",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://aws.amazon.com/blogs/contact-center/streamline-employee-support-with-amazon-connect-and-microsoft-teams-integration/",
+    "status": 200,
+    "final": "https://aws.amazon.com/blogs/contact-center/streamline-employee-support-with-amazon-connect-and-microsoft-teams-integration/",
+    "title": "Streamline employee support with Amazon Connect and Microsoft Teams integration | AWS Contact Center",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://aws.amazon.com/certification/",
+    "status": 200,
+    "final": "https://aws.amazon.com/certification/",
+    "title": "AWS Certification - Validate AWS Cloud Skills - Get AWS Certified",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://aws.amazon.com/certification/certified-advanced-networking-specialty/",
+    "status": 200,
+    "final": "https://aws.amazon.com/certification/certified-advanced-networking-specialty/",
+    "title": "AWS Certified Advanced Networking Specialty Certification | AWS Certification | AWS",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://aws.amazon.com/certification/certified-security-specialty/",
+    "status": 200,
+    "final": "https://aws.amazon.com/certification/certified-security-specialty/",
+    "title": "AWS Certified Security - Specialty",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://aws.amazon.com/connect/optimization/",
+    "status": 200,
+    "final": "https://aws.amazon.com/products/connect/customer/optimization/",
+    "title": "Workforce Forecasting &amp; Scheduling - Amazon Connect Customer - AWS",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://aws.amazon.com/connect/pricing/",
+    "status": 200,
+    "final": "https://aws.amazon.com/products/connect/customer/pricing/",
+    "title": "Amazon Connect Customer Pricing - AWS",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://aws.amazon.com/new/",
+    "status": 200,
+    "final": "https://aws.amazon.com/new/",
+    "title": "What\u2019s New at AWS \u2013 Cloud Innovation &amp; News",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
+    "status": 200,
+    "final": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
+    "title": "Amazon Connect Customer Pricing Appendix - AWS",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://catalog.workshops.aws/amazon-connect-getting-started/en-US/amazon-connect-customer-free-training-materials",
+    "status": 200,
+    "final": "https://catalog.workshops.aws/amazon-connect-getting-started/en-US/amazon-connect-customer-free-training-materials",
+    "title": "Workshop Studio",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/AWS_Connect.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/AWS_Connect.html",
+    "title": "Amazon Connect Customer - AWS CloudFormation",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-approvedorigin.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-connect-approvedorigin.html",
+    "title": "AWS::Connect::ApprovedOrigin - AWS CloudFormation",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-contactflow.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-connect-contactflow.html",
+    "title": "AWS::Connect::ContactFlow - AWS CloudFormation",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-hoursofoperation.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-connect-hoursofoperation.html",
+    "title": "AWS::Connect::HoursOfOperation - AWS CloudFormation",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-instance.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-connect-instance.html",
+    "title": "AWS::Connect::Instance - AWS CloudFormation",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-instancestorageconfig.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-connect-instancestorageconfig.html",
+    "title": "AWS::Connect::InstanceStorageConfig - AWS CloudFormation",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-integrationassociation.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-connect-integrationassociation.html",
+    "title": "AWS::Connect::IntegrationAssociation - AWS CloudFormation",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-phonenumber.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-connect-phonenumber.html",
+    "title": "AWS::Connect::PhoneNumber - AWS CloudFormation",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-queue.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-connect-queue.html",
+    "title": "AWS::Connect::Queue - AWS CloudFormation",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-routingprofile.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-connect-routingprofile.html",
+    "title": "AWS::Connect::RoutingProfile - AWS CloudFormation",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-trafficdistributiongroup.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-connect-trafficdistributiongroup.html",
+    "title": "AWS::Connect::TrafficDistributionGroup - AWS CloudFormation",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html",
+    "title": "What is Amazon CloudWatch Logs? - Amazon CloudWatch Logs",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html",
+    "title": "What is Amazon S3? - Amazon Simple Storage Service",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+    "title": "What is IAM? - AWS Identity and Access Management",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_connect.CfnInstance.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_connect.CfnInstance.html",
+    "title": "class CfnInstance (construct) \u00b7 AWS CDK",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/APIReference/",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/APIReference/",
+    "title": "Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/APIReference/API_GetMetricDataV2.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/APIReference/API_GetMetricDataV2.html",
+    "title": "GetMetricDataV2 - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-concepts.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language-concepts.html",
+    "title": "Connect Customer Flow language concepts - Amazon Connect",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language.html",
+    "title": "Connect Customer Flow language - Amazon Connect",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/",
+    "title": "Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
+    "title": "Connect Customer agent event streams - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-workspace.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-workspace.html",
+    "title": "Customize the Connect Customer agent workspace - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-contact-centers.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-contact-centers.html",
+    "title": "Set up your contact center in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-instances.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-instances.html",
+    "title": "Create a Connect Customer instance - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
+    "title": "Connect Customer service quotas - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html",
+    "title": "Add an Amazon Lex bot to Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/",
+    "title": "Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazonconnect-voiceid-end-of-support.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/amazonconnect-voiceid-end-of-support.html",
+    "title": "Amazon Connect Customer Voice ID end of support - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/analyze-conversations.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/analyze-conversations.html",
+    "title": "Analyze conversations using conversational analytics in Connect Customer conversational analytics - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/callback.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/",
+    "title": "Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html",
+    "title": "Set up your network to use the Connect Customer Contact Control Panel (CCP) - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-uses-webrtc.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-uses-webrtc.html",
+    "title": "How Contact Control Panel (CCP) uses WebRTC - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/common-ccp-issues.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/common-ccp-issues.html",
+    "title": "Contact Control Panel (CCP) Issues - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html",
+    "title": "Standard queues and agent queues in your Connect Customer contact center - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html",
+    "title": "How Connect Customer uses routing profiles - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html",
+    "title": "The voice channel in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/configure-saml.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/configure-saml.html",
+    "title": "Configure SAML with IAM for Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-assistant.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/",
+    "title": "Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-contact-attributes.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-contact-attributes.html",
+    "title": "Use Connect Customer contact attributes - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-format-physical-address-e911.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-format-physical-address-e911.html",
+    "title": "Format a physical address for E911 to pass to Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html",
+    "title": "Grant Connect Customer access to your AWS Lambda functions - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-slr.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-slr.html",
+    "title": "Use service-linked roles and role permissions for Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
+    "title": "Flow block definitions in the flow designer in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html",
+    "title": "Connect Customer contact events - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html",
+    "title": "Use the flow designer in Connect Customer to create flows - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-replica-connect-instance.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/create-replica-connect-instance.html",
+    "title": "Create a replica of your existing Connect Customer instance - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles.html",
+    "title": "Use Connect Customer Customer Profiles - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-voice-streams.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-voice-streams.html",
+    "title": "Set up live media streaming of customer audio in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/enable-features.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/",
+    "title": "Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/encryption-at-rest.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/encryption-at-rest.html",
+    "title": "Encryption at rest in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/evaluation-forms.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/",
+    "title": "Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/flow-language.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language.html",
+    "title": "Connect Customer Flow language - Amazon Connect",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
+    "title": "Forecasting &amp; agent scheduling in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/get-and-store-agent-address-e911.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/get-and-store-agent-address-e911.html",
+    "title": "Get and store an agent's validated physical address in your Connect Customer instance - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/invoke-lambda-function-block.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/invoke-lambda-function-block.html",
+    "title": "Flow block in Connect Customer: AWS Lambda function - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/metrics.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/",
+    "title": "Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/network-ts.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/network-ts.html",
+    "title": "Troubleshoot your network for call quality and disconnect problems - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/quick-connects.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/quick-connects.html",
+    "title": "Create quick connects in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/",
+    "title": "Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/rules.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/rules.html",
+    "title": "Automatically categorize contacts by matching conversations with natural language statements, or specific words and phrases - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html",
+    "title": "Embed the Connect Customer Contact Control Panel (CCP) into Salesforce - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html",
+    "title": "List of security profile permissions in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/security.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/security.html",
+    "title": "Security in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-hours-operation.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/set-hours-operation.html",
+    "title": "Set the hours of operation and time zone for a queue using Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html",
+    "title": "Flow block in Connect Customer: Set recording and analytics behavior - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html",
+    "title": "Set up Connect Customer Global Resiliency - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
+    "title": "Set up US emergency calling in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-phone-number.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-phone-number.html",
+    "title": "Flow block in Connect Customer: Transfer to phone number - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-queue.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-queue.html",
+    "title": "Flow block in Connect Customer: Transfer to queue - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/videocalling-networking-requirements.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/videocalling-networking-requirements.html",
+    "title": "Agent workstation requirements for app, web, and video calling in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html",
+    "title": "What is Connect Customer? - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language-example.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language-example.html",
+    "title": "Example flow in Connect Customer Flow language - Amazon Connect",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/kinesis/latest/dev/introduction.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/streams/latest/dev/introduction.html",
+    "title": "What is Amazon Kinesis Data Streams? - Amazon Kinesis Data Streams",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/kms/latest/developerguide/overview.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/kms/latest/developerguide/overview.html",
+    "title": "AWS Key Management Service - AWS Key Management Service",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html",
+    "title": "What is AWS Lambda? - AWS Lambda",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html",
+    "title": "What is Amazon Lex V2? - Amazon Lex",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonconnect.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/service-authorization/latest/reference/",
+    "title": "Service Authorization Reference",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/AWS_Lambda",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/AWS_Lambda",
+    "title": "AWS Lambda - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Amazon_CloudWatch",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Amazon_CloudWatch",
+    "title": "Amazon Elastic Compute Cloud - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Amazon_Connect",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Amazon_Connect",
+    "title": "Amazon Web Services - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Amazon_Kinesis",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Amazon_Kinesis",
+    "title": "Amazon Kinesis - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Amazon_Lex",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Amazon_Lex",
+    "title": "Amazon Lex - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Amazon_S3",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Amazon_S3",
+    "title": "Amazon S3 - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Amazon_Web_Services",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Amazon_Web_Services",
+    "title": "Amazon Web Services - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Automatic_call_distributor",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Automatic_call_distributor",
+    "title": "Automatic call distributor - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Call_centre",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Call_centre",
+    "title": "Call centre - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+    "title": "Customer relationship management - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Enhanced_9-1-1",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Enhanced_9-1-1",
+    "title": "Enhanced 911 - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Identity_and_access_management",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Identity_and_access_management",
+    "title": "Identity and access management - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Interactive_voice_response",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Interactive_voice_response",
+    "title": "Interactive voice response - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Key_Management_Service",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Key_Management_Service",
+    "title": "Volume licensing - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Real-time_Transport_Protocol",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Real-time_Transport_Protocol",
+    "title": "Real-time Transport Protocol - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Salesforce",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Salesforce",
+    "title": "Salesforce - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language",
+    "title": "SAML - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/ServiceNow",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/ServiceNow",
+    "title": "ServiceNow - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Session_Initiation_Protocol",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Session_Initiation_Protocol",
+    "title": "Session Initiation Protocol - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Transport_Layer_Security",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Transport_Layer_Security",
+    "title": "Transport Layer Security - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/WebRTC",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/WebRTC",
+    "title": "WebRTC - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Workforce_management",
+    "status": 200,
+    "final": "https://en.wikipedia.org/wiki/Workforce_management",
+    "title": "Workforce management - Wikipedia",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://github.com/amazon-connect/amazon-connect-salesforce-cti",
+    "status": 200,
+    "final": "https://github.com/amazon-connect/amazon-connect-salesforce-cti",
+    "title": "",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://github.com/amazon-connect/amazon-connect-streams",
+    "status": 200,
+    "final": "https://github.com/amazon-connect/amazon-connect-streams",
+    "title": "",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
+    "status": 200,
+    "final": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
+    "title": "AWS History and Timeline regarding Amazon Connect - Overview, Functions, Features, Summary of Updates, and Introduction to Amazon Connect Customer | hidekazu-ko",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/connect_bot_association",
+    "status": 200,
+    "final": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/connect_bot_association",
+    "title": "Terraform Registry",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/connect_contact_flow",
+    "status": 200,
+    "final": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/connect_contact_flow",
+    "title": "Terraform Registry",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/connect_instance",
+    "status": 200,
+    "final": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/connect_instance",
+    "title": "Terraform Registry",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/connect_lambda_function_association",
+    "status": 200,
+    "final": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/connect_lambda_function_association",
+    "title": "Terraform Registry",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis",
+    "status": 200,
+    "final": "https://repost.aws/knowledge-center/connect-integrate-kinesis",
+    "title": "Integrate Amazon Connect with Amazon Kinesis | AWS re:Post",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://repost.aws/knowledge-center/connect-lambda-function-failures",
+    "status": 200,
+    "final": "https://repost.aws/knowledge-center/connect-lambda-function-failures",
+    "title": "Troubleshoot Lambda function failures in Amazon Connect | AWS re:Post",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://www.rfc-editor.org/rfc/rfc3261",
+    "status": 200,
+    "final": "https://www.rfc-editor.org/info/rfc3261/",
+    "title": "RFC 3261: SIP: Session Initiation Protocol | RFC Editor",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://www.rfc-editor.org/rfc/rfc3550",
+    "status": 200,
+    "final": "https://www.rfc-editor.org/info/rfc3550/",
+    "title": "RFC 3550: RTP: A Transport Protocol for Real-Time Applications | RFC Editor",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://www.rfc-editor.org/rfc/rfc3711",
+    "status": 200,
+    "final": "https://www.rfc-editor.org/info/rfc3711/",
+    "title": "RFC 3711: The Secure Real-time Transport Protocol (SRTP) | RFC Editor",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://www.rfc-editor.org/rfc/rfc5246",
+    "status": 200,
+    "final": "https://www.rfc-editor.org/info/rfc5246/",
+    "title": "RFC 5246: The Transport Layer Security (TLS) Protocol Version 1.2 | RFC Editor",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://www.rfc-editor.org/rfc/rfc5766",
+    "status": 200,
+    "final": "https://www.rfc-editor.org/info/rfc5766/",
+    "title": "RFC 5766: Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN) | RFC Editor",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://www.rfc-editor.org/rfc/rfc6455",
+    "status": 200,
+    "final": "https://www.rfc-editor.org/info/rfc6455/",
+    "title": "RFC 6455: The WebSocket Protocol | RFC Editor",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://www.rfc-editor.org/rfc/rfc8446",
+    "status": 200,
+    "final": "https://www.rfc-editor.org/info/rfc8446/",
+    "title": "RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3 | RFC Editor",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://www.rfc-editor.org/rfc/rfc8825",
+    "status": 200,
+    "final": "https://www.rfc-editor.org/info/rfc8825/",
+    "title": "RFC 8825: Overview: Real-Time Protocols for Browser-Based Applications | RFC Editor",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://www.servicenow.com/docs/r/servicenow-platform/integrate-ccc-amazonconnect.html",
+    "status": 200,
+    "final": "https://www.servicenow.com/docs/r/servicenow-platform/integrate-ccc-amazonconnect.html",
+    "title": "Docs | ServiceNow",
+    "ok": true,
+    "note": ""
+  }
+]

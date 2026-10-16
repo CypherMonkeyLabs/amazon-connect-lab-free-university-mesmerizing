@@ -1,0 +1,21 @@
+{
+  "room": "eco-e911",
+  "title": "E911 for agents on the CCP",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Set up US emergency calling in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Enhanced 911 - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Enhanced_9-1-1",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

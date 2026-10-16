@@ -3,7 +3,7 @@
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 2 0 obj
-<< /Length 2156 >>
+<< /Length 2253 >>
 stream
 BT
 /F1 11 Tf
@@ -45,32 +45,65 @@ T* () Tj
 T* (911 would reach headquarters ? The stored profile address is stale. Validate, store, test) Tj
 T* (with 933. \(lab e911-checker\)) Tj
 T* () Tj
+T* (Sources and go deeper) Tj
+T* () Tj
+T* (Troubleshoot contact flow errors in Amazon Connect | AWS re:Post \(community\)) Tj
+T* (https://repost.aws/knowledge-center/connect-contact-flow-errors last checked 2026-10) Tj
+T* () Tj
+T* (Troubleshoot Lambda function failures in Amazon Connect | AWS re:Post \(community\)) Tj
+T* (https://repost.aws/knowledge-center/connect-lambda-function-failures last checked 2026-10) Tj
+T* () Tj
+T* (How Contact Control Panel \(CCP\) uses WebRTC - Amazon Connect Customer \(AWS docs\)) Tj
+T* (https://docs.aws.amazon.com/connect/latest/adminguide/ccp-uses-webrtc.html last checked) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Length 872 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+48 780 Td
+(2026-10) Tj
+T* () Tj
+T* (RFC 5766: Traversal Using Relays around NAT \(TURN\): Relay Extensions to Session Traversal) Tj
+T* (Utilities for NAT \(STUN\) | RFC Editor \(RFC\) https://www.rfc-editor.org/info/rfc5766/ last) Tj
+T* (checked 2026-10) Tj
+T* () Tj
+T* (WebRTC - Wikipedia \(Wikipedia\) https://en.wikipedia.org/wiki/WebRTC last checked 2026-10) Tj
+T* () Tj
 T* (CypherMonkey · Amazon Connect Lab) Tj
-T* (cyphermonkeylabs.com · github.com/cipher0x9 · github.com/CypherMonkeyLabs · github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing · x.com/Cypher0x9 · huggingface.co/Cypher0x9) Tj
+T* (cyphermonkeylabs.com · github.com/CypherMonkeyLabs · github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing · linktr.ee/cypherMonkey) Tj
 T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
 T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
 ET
 endstream
 endobj
-3 0 obj
-<< /Type /Page /Parent 4 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
-endobj
 4 0 obj
-<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
 endobj
 5 0 obj
-<< /Type /Catalog /Pages 4 0 R >>
+<< /Type /Page /Parent 6 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 3 0 R >>
+endobj
+6 0 obj
+<< /Type /Pages /Count 2 /Kids [4 0 R 5 0 R] >>
+endobj
+7 0 obj
+<< /Type /Catalog /Pages 6 0 R >>
 endobj
 xref
-0 6
+0 8
 0000000000 65535 f 
 0000000009 00000 n 
 0000000079 00000 n 
-0000002287 00000 n 
-0000002413 00000 n 
-0000002470 00000 n 
+0000002384 00000 n 
+0000003307 00000 n 
+0000003433 00000 n 
+0000003559 00000 n 
+0000003622 00000 n 
 trailer
-<< /Size 6 /Root 5 0 R >>
+<< /Size 8 /Root 7 0 R >>
 startxref
-2519
+3671
 %%EOF

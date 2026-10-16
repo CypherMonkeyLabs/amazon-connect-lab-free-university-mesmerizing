@@ -1,0 +1,29 @@
+{
+  "room": "flows-language",
+  "title": "The flow language is how instances share a design",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Connect Customer Flow language - Amazon Connect",
+      "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html"
+    },
+    {
+      "title": "Flow block definitions in the flow designer in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Interactive voice response - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Interactive_voice_response",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "room": "eco-wfm-3p",
+  "title": "Third-party WFM configuration and faults",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Connect Customer agent event streams - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Forecasting & agent scheduling in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Workforce management - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Workforce_management",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "room": "ws-streams",
+  "title": "Streams is the supported way to embed the CCP",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "GitHub - amazon-connect/amazon-connect-streams: Amazon Connect Streams - a browser-based contact center integration API, typically with CRM systems. \u00b7 GitHub",
+      "url": "https://github.com/amazon-connect/amazon-connect-streams",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "RFC 6455: The WebSocket Protocol | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc6455/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://www.rfc-editor.org/rfc/rfc6455"
+    },
+    {
+      "title": "How Contact Control Panel (CCP) uses WebRTC - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-uses-webrtc.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "WebRTC - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/WebRTC",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

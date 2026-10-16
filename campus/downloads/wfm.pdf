@@ -3,7 +3,7 @@
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 2 0 obj
-<< /Length 962 >>
+<< /Length 1472 >>
 stream
 BT
 /F1 11 Tf
@@ -23,8 +23,20 @@ T* (Size shards for every consumer.) Tj
 T* () Tj
 T* (Source: Forecasting and scheduling.) Tj
 T* () Tj
+T* (Sources and go deeper) Tj
+T* () Tj
+T* (Forecasting & agent scheduling in Connect Customer - Amazon Connect Customer \(AWS docs\)) Tj
+T* (https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html) Tj
+T* (last checked 2026-10) Tj
+T* () Tj
+T* (Workforce management - Wikipedia \(Wikipedia\)) Tj
+T* (https://en.wikipedia.org/wiki/Workforce_management last checked 2026-10) Tj
+T* () Tj
+T* (Call centre - Wikipedia \(Wikipedia\) https://en.wikipedia.org/wiki/Call_centre last checked) Tj
+T* (2026-10) Tj
+T* () Tj
 T* (CypherMonkey · Amazon Connect Lab) Tj
-T* (cyphermonkeylabs.com · github.com/cipher0x9 · github.com/CypherMonkeyLabs · github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing · x.com/Cypher0x9 · huggingface.co/Cypher0x9) Tj
+T* (cyphermonkeylabs.com · github.com/CypherMonkeyLabs · github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing · linktr.ee/cypherMonkey) Tj
 T* (Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. Study notes, not a copy of a vendor document.) Tj
 T* (Work with us and report a concern: cyphermonkeylabs.com/#contact) Tj
 ET
@@ -44,11 +56,11 @@ xref
 0000000000 65535 f 
 0000000009 00000 n 
 0000000079 00000 n 
-0000001092 00000 n 
-0000001218 00000 n 
-0000001275 00000 n 
+0000001603 00000 n 
+0000001729 00000 n 
+0000001786 00000 n 
 trailer
 << /Size 6 /Root 5 0 R >>
 startxref
-1324
+1835
 %%EOF

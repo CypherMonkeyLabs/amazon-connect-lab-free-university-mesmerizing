@@ -1205,7 +1205,7 @@ body[data-view="home"] .hero-hud {
 .hero-hud a, .hero-hud button, .hero-hud audio { pointer-events: auto; }
 .hero-greet { margin: 0 0 2px; font-family: var(--cc-display); font-size: clamp(20px, 2.4vw, 32px); }
 .hud-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-.hero-jumps { display: flex; flex-wrap: nowrap; gap: 8px; margin-top: 6px; overflow-x: auto; }
+  .hero-jumps { display: flex; flex-wrap: nowrap; gap: 8px; margin-top: 6px; overflow-x: auto; }
 .hero-jumps a {
   pointer-events: auto;
   min-height: 40px;
@@ -1762,3 +1762,107 @@ html { scroll-behavior: smooth; }
 }
 .guide-typing::after { content: "..."; }
 
+
+/* Floating glowing chrome shared with the study site. */
+.studio-stack {
+  top: 10px;
+  margin: 10px 12px 12px;
+  border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--cc-accent-2) 55%, #fff);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.32),
+    0 0 24px color-mix(in srgb, var(--cc-accent-2) 50%, transparent);
+}
+.player {
+  border-radius: 22px;
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.35),
+    0 0 20px color-mix(in srgb, var(--cc-accent-2) 42%, transparent);
+}
+.campus-menu a,
+.brand-link,
+.bottom-nav a,
+.bottom-nav button,
+.phone-menu-btn {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+:root:not([data-motion="reduce"]) .campus-menu a:hover,
+:root:not([data-motion="reduce"]) .brand-link:hover,
+:root:not([data-motion="reduce"]) .bottom-nav a:hover,
+:root:not([data-motion="reduce"]) .bottom-nav button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 18px color-mix(in srgb, var(--cc-accent-1) 35%, transparent);
+}
+.disclaimer-panel {
+  display: block;
+  margin: 12px 0;
+  padding: 16px 18px;
+  text-align: left;
+  border-radius: 18px;
+  border: 2px solid #0f766e;
+  background: linear-gradient(135deg, #dcfce7 0%, #d1fae5 38%, #dbeafe 100%);
+  color: #0b1f2a;
+  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.15), 0 10px 28px rgba(15, 118, 110, 0.18);
+}
+.disclaimer-panel h2 { margin: 0 0 6px; color: #052e2b; font-size: 1.1rem; }
+.disclaimer-panel p { margin: 0; color: #0b1f2a; line-height: 1.5; }
+.disclaimer-panel a { color: #1e3a8a; font-weight: 800; }
+:root:not([data-motion="reduce"]) body {
+  background-image:
+    radial-gradient(circle, rgba(34, 231, 255, 0.8) 1.2px, transparent 1.8px),
+    radial-gradient(circle, rgba(255, 45, 149, 0.65) 1.2px, transparent 1.8px),
+    radial-gradient(900px 420px at 0% -10%, color-mix(in srgb, var(--cc-accent-1) 22%, transparent), transparent 55%),
+    radial-gradient(800px 480px at 100% 0%, color-mix(in srgb, var(--cc-accent-3) 18%, transparent), transparent 50%),
+    linear-gradient(var(--cc-bg), var(--cc-bg));
+  background-size: 150px 170px, 200px 220px, auto, auto, auto;
+  animation: campus-drift 24s linear infinite;
+}
+@keyframes campus-drift {
+  to { background-position: 0 -170px, 36px -220px, 0 0, 0 0, 0 0; }
+}
+@media (max-width: 640px) {
+  .hero-fallback i:nth-child(1) { width: 120px; height: 120px; }
+  .hero-fallback i:nth-child(2) { width: 190px; height: 190px; }
+  .hero-fallback i:nth-child(3) { width: 250px; height: 250px; }
+  .hero-hud .live-counters { flex-wrap: wrap; overflow: visible; row-gap: 4px; }
+  body[data-view="home"] .hero-hud { padding-right: 108px; }
+  body[data-view="home"] .caption { padding-right: 84px; }
+  .hero-jumps { flex-wrap: nowrap; overflow-x: auto; margin-right: 124px; }
+  body[data-view="home"] #hero-host { height: 28vh; }
+  #stage:focus { outline: none; }
+  .phone-bar {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    width: auto;
+    height: auto;
+    min-height: 56px;
+    border-radius: 18px;
+    border: 1px solid color-mix(in srgb, var(--cc-accent-2) 45%, #fff);
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, 0.35),
+      0 0 18px color-mix(in srgb, var(--cc-accent-2) 45%, transparent);
+  }
+  body { padding-top: calc(78px + env(safe-area-inset-top, 0px)); }
+  .bottom-nav {
+    left: 8px;
+    right: 8px;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    width: auto;
+    height: 64px;
+    border-radius: 20px;
+    border: 1px solid color-mix(in srgb, var(--cc-accent-1) 45%, #fff);
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, 0.4),
+      0 0 18px color-mix(in srgb, var(--cc-accent-1) 40%, transparent);
+    padding-bottom: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+  .campus-menu a:hover,
+  .brand-link:hover,
+  .bottom-nav a:hover,
+  .bottom-nav button:hover { transform: none; }
+}
+:root[data-motion="reduce"] body { animation: none; }

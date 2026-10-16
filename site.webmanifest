@@ -1,0 +1,13 @@
+{
+  "name": "Amazon Connect Lab",
+  "short_name": "Connect Lab",
+  "description": "Independent, free, learning-only study of Amazon Connect flows, queues, routing, and bridges.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff7ed",
+  "theme_color": "#4c1d95",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "purpose": "any" }
+  ]
+}

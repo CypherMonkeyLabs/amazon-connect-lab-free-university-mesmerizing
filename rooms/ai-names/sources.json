@@ -1,0 +1,36 @@
+{
+  "room": "ai-names",
+  "title": "Wisdom, Q, and agent assist are one lineage",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "AWS History and Timeline regarding Amazon Connect - Overview, Functions, Features, Summary of Updates, and Introduction to Amazon Connect Customer | hidekazu-ko",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Amazon Q in Connect",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "confirm",
+      "note": "Opened 2026-10. The link left this article and opened the Amazon Connect Customer guide home."
+    },
+    {
+      "title": "Amazon Connect Customer Voice ID end of support - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazonconnect-voiceid-end-of-support.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Call centre - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Call_centre",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

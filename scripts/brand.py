@@ -1,6 +1,7 @@
 """Shared chrome: brand buttons, favicon tags, copyright, and the author line.
 
-The five buttons are the only social links. No email, LinkedIn, or Linktree.
+The three buttons are the only brand links: the lab site, the GitHub org, and Linktree.
+No email, X, LinkedIn, Hugging Face, or a personal GitHub profile.
 """
 
 COPYRIGHT = "© 2026 CypherMonkeyLabs 🐒"
@@ -9,11 +10,9 @@ IDENTITY = (
     "voice, and the contact center, growing into AI omni-channel agents."
 )
 ORG_REPO = "https://github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing"
-PROFILE = "https://github.com/cipher0x9"
 ORG = "https://github.com/CypherMonkeyLabs"
 HOME = "https://cyphermonkeylabs.com"
-X = "https://x.com/Cypher0x9"
-HF = "https://huggingface.co/Cypher0x9"
+LINKTREE = "https://linktr.ee/cypherMonkey"
 
 GITHUB_SVG = (
     '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">'
@@ -27,17 +26,16 @@ GLOBE_SVG = (
     '<path d="M3.5 12h17M5 7.5h14M5 16.5h14" fill="none" stroke="currentColor" stroke-width="1.4"/>'
     "</svg>"
 )
-X_SVG = (
-    '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">'
-    '<path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.727-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>'
-    "</svg>"
-)
-HF_SVG = (
-    '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">'
-    '<circle cx="12" cy="12" r="10" fill="#FFD21E"/>'
-    '<circle cx="8.6" cy="10.2" r="1.25" fill="#111"/>'
-    '<circle cx="15.4" cy="10.2" r="1.25" fill="#111"/>'
-    '<path d="M8.2 14.4c1.15 1.5 2.4 2.1 3.8 2.1s2.65-.6 3.8-2.1" fill="none" stroke="#111" stroke-width="1.4" stroke-linecap="round"/>'
+TREE_SVG = (
+    '<svg viewBox="0 0 64 64" width="20" height="20" aria-hidden="true">'
+    '<circle cx="32" cy="11" r="7" fill="currentColor"/>'
+    '<path d="M32 18 V27" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>'
+    '<path d="M13 36 C22 25 42 25 51 36" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>'
+    '<circle cx="13" cy="38" r="7" fill="currentColor"/>'
+    '<circle cx="51" cy="38" r="7" fill="currentColor"/>'
+    '<circle cx="32" cy="28" r="5.5" fill="currentColor"/>'
+    '<path d="M32 33 V49" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>'
+    '<path d="M19 55 H45" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>'
     "</svg>"
 )
 
@@ -51,11 +49,9 @@ def _link(href, label, icon):
 
 def brand_nav():
     links = [
-        _link(PROFILE, "Visit my GitHub", GITHUB_SVG),
-        _link(ORG, "Visit the Labs org", GITHUB_SVG),
         _link(HOME, "Visit Cypher Monkey Labs", GLOBE_SVG),
-        _link(X, "X", X_SVG),
-        _link(HF, "Hugging Face", HF_SVG),
+        _link(ORG, "Visit the Labs org", GITHUB_SVG),
+        _link(LINKTREE, "Linktree", TREE_SVG),
     ]
     return '<nav class="brand-links" aria-label="CypherMonkey Labs">' + "".join(links) + "</nav>"
 

@@ -1,0 +1,36 @@
+{
+  "room": "foundations-kinesis",
+  "title": "Kinesis is how the ecosystem listens",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Integrate Amazon Connect with Amazon Kinesis | AWS re:Post",
+      "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "What is Amazon Kinesis Data Streams? - Amazon Kinesis Data Streams",
+      "url": "https://docs.aws.amazon.com/streams/latest/dev/introduction.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified",
+      "opened": "https://docs.aws.amazon.com/kinesis/latest/dev/introduction.html"
+    },
+    {
+      "title": "Connect Customer agent event streams - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Amazon Kinesis - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Amazon_Kinesis",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

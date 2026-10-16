@@ -1,0 +1,28 @@
+{
+  "room": "sec-price",
+  "title": "How to talk about the price without inventing it",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Amazon Connect Customer Pricing Appendix - AWS",
+      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Connect Customer service quotas - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Amazon Web Services - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Amazon_Web_Services",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

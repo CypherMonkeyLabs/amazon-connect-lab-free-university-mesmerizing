@@ -1,0 +1,194 @@
+/* Bright multicolour default. Dark is optional. Motion respects the user. */
+:root {
+  --bg: #fff7ed;
+  --bg-2: #ffffff;
+  --ink: #1e1b4b;
+  --muted: #4338ca;
+  --line: #e9d5ff;
+  --card: #ffffff;
+  --accent: #7c3aed;
+  --accent-2: #0891b2;
+  --accent-3: #db2777;
+  --accent-4: #d97706;
+  --shadow: 0 10px 30px rgba(76, 29, 149, 0.12);
+  --header-h: 64px;
+  --dock-h: 0px;
+}
+html[data-theme="dark"] {
+  --bg: #0b1020;
+  --bg-2: #111827;
+  --ink: #f8fafc;
+  --muted: #c4b5fd;
+  --line: #334155;
+  --card: #111827;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+html[data-theme="neon"] {
+  --bg: #050816;
+  --bg-2: #0c1228;
+  --ink: #f8fafc;
+  --muted: #67e8f9;
+  --line: #312e81;
+  --card: #0b1024;
+  --accent: #22d3ee;
+  --accent-2: #f472b6;
+  --accent-3: #a78bfa;
+  --accent-4: #fbbf24;
+  --shadow: 0 14px 36px rgba(34, 211, 238, 0.2);
+}
+html[data-font="sm"] { font-size: 16px; }
+html[data-font="md"] { font-size: 18px; }
+html[data-font="lg"] { font-size: 20px; }
+html[data-font="xl"] { font-size: 23px; }
+html {
+  font-size: 18px;
+  overflow-x: clip;
+  max-width: 100%;
+  background:
+    radial-gradient(900px 420px at 0% -10%, rgba(244, 114, 182, 0.28), transparent 50%),
+    radial-gradient(800px 380px at 100% 0%, rgba(34, 211, 238, 0.28), transparent 46%),
+    radial-gradient(700px 360px at 80% 100%, rgba(167, 139, 250, 0.25), transparent 50%),
+    var(--bg);
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  max-width: 100%;
+  overflow-x: clip;
+  color: var(--ink);
+  background: transparent;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+}
+body.drawer-open { overflow: hidden; }
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -40px;
+  background: #fff;
+  color: #1e1b4b;
+  padding: 8px 12px;
+  z-index: 100;
+}
+.skip:focus { top: 8px; }
+a { color: #4c1d95; }
+html[data-theme="dark"] a { color: #c4b5fd; }
+html[data-theme="neon"] a { color: #67e8f9; }
+:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+
+.phone-dock {
+  display: none;
+  position: fixed;
+  z-index: 45;
+  left: 8px;
+  right: 8px;
+  bottom: calc(8px + env(safe-area-inset-bottom));
+  height: 64px;
+  width: auto;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  grid-template-columns: repeat(6, 1fr);
+  color: #fff;
+  background:
+    radial-gradient(160px 48px at 8% 0%, rgba(34, 211, 238, 0.55), transparent 70%),
+    radial-gradient(140px 48px at 92% 120%, rgba(244, 114, 182, 0.45), transparent 70%),
+    linear-gradient(115deg, #042f2e 0%, #1e1b4b 48%, #4c1d95 100%);
+  box-shadow:
+    0 16px 36px rgba(15, 23, 42, 0.45),
+    0 0 22px rgba(34, 211, 238, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.phone-dock a, .phone-dock button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 64px;
+  color: #fff;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+.phone-dock .dock-ico {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: linear-gradient(145deg, #fff, #67e8f9);
+  color: #1e1b4b;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.7), 0 6px 0 rgba(15, 23, 42, 0.25);
+  font-size: 0.95rem;
+  transition: transform 0.2s ease;
+}
+html.motion .phone-dock a:hover .dock-ico,
+html.motion .phone-dock button:hover .dock-ico,
+html.motion .phone-dock a:focus-visible .dock-ico {
+  transform: translateY(-3px) perspective(120px) rotateX(14deg) rotateY(-12deg);
+}
+.phone-dock a:nth-child(3) .dock-ico { background: linear-gradient(145deg, #fff, #fbcfe8); }
+.phone-dock a:nth-child(4) .dock-ico { background: linear-gradient(145deg, #fff, #fde68a); }
+.phone-dock a:nth-child(5) .dock-ico { background: linear-gradient(145deg, #fff, #bbf7d0); }
+.phone-dock a:nth-child(6) .dock-ico,
+.phone-dock a.is-current .dock-ico { background: linear-gradient(145deg, #fff, #ddd6fe); }
+.phone-dock button .dock-ico { box-shadow: 0 0 12px #f472b6, 0 0 4px #fff; }
+
+main, .wrap, .hero, .hero-visual, .hero-copy, .track-grid, .track-card, .card, .block, .visual, .stats { min-width: 0; max-width: 100%; }
+.visual img, .visual svg, .hero-visual svg, .card img { max-width: 100%; height: auto; }
+.glow-pill, .stat b, .track-card h3 { text-wrap: balance; }
+html.motion .packet-spin { animation: spin 8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+html.motion .floaty { animation: floaty 3.4s ease-in-out infinite; }
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.fx-field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.fx-field i {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+  opacity: 0.8;
+}
+html.motion .fx-field i {
+  animation-name: fx-rise;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes fx-rise {
+  from { transform: translateY(16px); }
+  to { transform: translateY(-36px); }
+}
+html.motion {
+  background-position:
+    center calc(-8% - var(--py, 0px)),
+    right calc(0% - var(--py, 0px)),
+    80% calc(100% + var(--py, 0px)),
+    0 0;
+}
+@media (max-width: 800px) {
+  :root { --header-h: 56px; --dock-h: 86px; }
+  .phone-dock { display: grid; }
+  body { padding-bottom: calc(220px + env(safe-area-inset-bottom)); }
+  .phone-dock a, .phone-dock button { font-size: 0.75rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.motion .floaty, html.motion .packet-spin, .fx-field i { animation: none; }
+  .fx-field { display: none; }
+}
+html[data-motion="reduce"] .floaty,
+html[data-motion="reduce"] .packet-spin,
+html[data-motion="reduce"] .fx-field i { animation: none !important; }
+html[data-motion="reduce"] .fx-field { display: none; }

@@ -1,0 +1,29 @@
+{
+  "room": "br-reports",
+  "title": "CUIC and the Connect report are different clocks",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Metrics",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/metrics.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "confirm",
+      "note": "Opened 2026-10. The link left this article and opened the Amazon Connect Customer guide home."
+    },
+    {
+      "title": "Connect Customer agent event streams - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Call centre - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Call_centre",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}
