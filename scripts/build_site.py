@@ -26,6 +26,7 @@ sys.path.insert(0, str(ROOT / "content"))
 from curriculum import LESSONS, TRACKS  # noqa: E402
 from glossary import GLOSSARY  # noqa: E402
 from iac import IAC  # noqa: E402
+from new_chapters import CHAPTERS  # noqa: E402
 from sources import (  # noqa: E402
     KIND_LABEL,
     card_sources,
@@ -45,7 +46,7 @@ TREE = "https://linktr.ee/cypherMonkey"
 DISCLAIMER = (
     "This is an independent, free, learning-only student project. It respects every company and vendor. "
     "Trademarks belong to their owners. It is not affiliated with or endorsed by Amazon Web Services, Cisco, "
-    "Genesys, or any other company. If you have a concern, the page will be removed or corrected promptly "
+    "Genesys, Salesforce, Twilio, or any other company. If you have a concern, the page will be removed or corrected promptly "
     "through the contact form. Nothing here is sold. There are no ads. The author is happy to volunteer for any organization."
 )
 COPY = "© 2026 CypherMonkeyLabs 🐒"
@@ -55,6 +56,7 @@ STROKES = ["#4338ca", "#0e7490", "#9d174d", "#b45309", "#047857", "#c2410c"]
 BANNER = [
     ("home", "Home", "index.html", "🏠", "Front door and the track map"),
     ("learn", "Learn", "start.html", "📘", "Ten-minute path and the full course"),
+    ("chapters", "Chapters", "chapters/index.html", "📚", "Five paths from fundamentals to advanced"),
     ("diagrams", "Diagrams", "diagrams.html", "🗺️", "Every picture as SVG, PNG, and HTML"),
     ("flows", "Flows", "flows.html", "〰️", "Animated call and data paths"),
     ("play", "Play", "play.html", "🎮", "Routing, Lambda, port, and bridge drills"),
@@ -66,9 +68,15 @@ DRAWER = [
     ("Study", [
         ("home", "Home", "index.html", "🏠", "Front door and the track map"),
         ("learn", "Learn", "start.html", "📘", "Ten-minute path and the full course"),
-        ("rooms", "All rooms", "index.html#rooms", "🗂️", "Eighteen tracks, one room at a time"),
+        ("rooms", "All rooms", "index.html#rooms", "🗂️", "{tracks} tracks, one room at a time"),
         ("mastery", "Mastery", "mastery.html", "🧭", "Fundamentals through the bridge"),
-        ("ecosystem", "Ecosystem", "ecosystem.html", "🌐", "Glossary, map, bridges, and hooks"),
+        ("ecosystem", "Ecosystem", "ecosystem.html", "🌐", "Glossary, mind map, sisters, bridges, and hooks"),
+    ]),
+    ("Chapters", [
+        ("chapters", "All chapters", "chapters/index.html", "📚", "Five paths from fundamentals to advanced"),
+    ] + [
+        (item["current"], item["menu"], item["href"], item["icon"], item["line"])
+        for item in CHAPTERS
     ]),
     ("Pictures", [
         ("diagrams", "Diagrams", "diagrams.html", "🗺️", "Every picture as SVG, PNG, and HTML"),
@@ -478,6 +486,7 @@ def drawer_html(depth, current):
     for group, items in DRAWER:
         parts.append(f'<p class="drawer-group">{esc(group)}</p>')
         for key, label, href, icon, desc in items:
+            desc = desc.replace("{tracks}", str(len(TRACKS)))
             current_attr = ' aria-current="page"' if key == current else ""
             parts.append(
                 f'<a class="drawer-row" href="{esc(rel(depth, href))}"{current_attr}>'
@@ -571,7 +580,7 @@ def page(path: Path, title, description, depth, current, body, scripts=""):
 <div class="drawer-scrim" data-close-drawer></div>
 <aside class="drawer" id="site-drawer" aria-hidden="true" inert aria-label="Menu">{drawer_html(depth, current)}</aside>
 {display_html()}
-<main id="main">{body}</main>
+<main id="main">{body if "Sources and go deeper" in body else body + sources_html(lab_sources(), depth)}</main>
 {footer_block()}
 <nav class="phone-dock" aria-label="Quick">{dock_html(depth)}</nav>
 <div id="guide-mount"></div>
@@ -880,7 +889,89 @@ HERO_3D = (
 )
 
 
+def chapter_room_ids(chapter=None):
+    rows = CHAPTERS if chapter is None else [chapter]
+    seen = []
+    for item in rows:
+        for _level, _blurb, ids in item["levels"]:
+            for room_id in ids:
+                if room_id not in seen:
+                    seen.append(room_id)
+    return seen
+
+
+def chapter_cards(depth):
+    cards = []
+    for chapter in CHAPTERS:
+        cards.append(
+            f'<a class="track-card" data-card style="--hue:{esc(chapter["hue"])}" href="{esc(rel(depth, chapter["href"]))}">'
+            f'<span class="tile-ico" aria-hidden="true">{chapter["icon"]}</span><span class="tile-copy">'
+            f'<h3>{esc(chapter["menu"])}</h3><p>{esc(chapter["line"])}</p></span></a>'
+        )
+    return cards
+
+
+def write_chapter_pages(known):
+    ids = chapter_room_ids()
+    lessons = [known[item] for item in ids]
+    index = (
+        f'<div class="wrap"><section class="hero" data-read><div class="hero-copy">'
+        f'<p class="kicker">Chapters</p><h1>Five paths, fundamentals to advanced.</h1>'
+        f'<p class="lede">Each card is an icon, a label, and one line. The rooms inside stay in the same colors and spacing as the rest of the lab.</p>'
+        f'{HERO_3D}</div><div class="hero-visual">{hero_flow_compact_svg()}</div></section>'
+        f'<div class="track-grid">{"".join(chapter_cards(1))}</div>'
+        f'{sources_html(chapter_sources(lessons), 1, room_ids=ids)}</div>'
+    )
+    page(ROOT / "chapters" / "index.html", "Chapters · Connect Lab", "Five paths from fundamentals to advanced.", 1, "chapters", index)
+    for chapter in CHAPTERS:
+        if chapter["href"] == "ecosystem.html":
+            continue
+        room_ids = chapter_room_ids(chapter)
+        chapter_lessons = [known[item] for item in room_ids]
+        blocks = []
+        for level, blurb, level_ids in chapter["levels"]:
+            cards = []
+            for room_id in level_ids:
+                lesson = known[room_id]
+                cards.append(
+                    f'<a class="track-card" data-card style="--hue:{esc(chapter["hue"])}" href="{esc(rel(1, "rooms/" + room_id + ".html"))}">'
+                    f'<span class="tile-ico" aria-hidden="true">{chapter["icon"]}</span><span class="tile-copy">'
+                    f'<h3>{esc(lesson["title"])}</h3><p>{esc(lesson["why"])}</p></span></a>'
+                )
+            inner = f'<p>{esc(blurb)}</p><div class="track-grid">{"".join(cards)}</div>'
+            slug = chapter["id"] + "-" + level.lower()
+            href = section_file(
+                "chapter-" + chapter["id"], slug, chapter["title"] + " — " + level, inner,
+                sources=chapter_sources([known[item] for item in level_ids]),
+                room_ids=level_ids,
+            )
+            blocks.append(block(1, slug, level, inner, href))
+        picture = path_svg(
+            chapter["title"],
+            [{"id": str(i), "label": level} for i, (level, _blurb, _ids) in enumerate(chapter["levels"])],
+            chapter["line"],
+            True,
+        )
+        body = (
+            f'<div class="wrap"><section class="hero" data-read><div class="hero-copy">'
+            f'<p class="kicker">Chapter</p><h1>{esc(chapter["title"])}</h1>'
+            f'<p class="lede">{esc(chapter["line"])}</p><p>{esc(chapter["blurb"])}</p>'
+            f'{HERO_3D}</div><div class="hero-visual">{picture}</div></section>'
+            f'{"".join(blocks)}'
+            f'{sources_html(chapter_sources(chapter_lessons), 1, room_ids=room_ids)}</div>'
+        )
+        page(
+            ROOT / chapter["href"],
+            chapter["title"] + " · Connect Lab",
+            chapter["line"],
+            1,
+            chapter["current"],
+            body,
+        )
+
+
 def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
+    write_chapter_pages(known)
     track_cards = []
     for index, track in enumerate(TRACKS, 1):
         icon = TILE_ICONS.get(track["id"], "✦")
@@ -897,6 +988,14 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
     home_sections = [
         block(0, "learn", "Learn it in 5 minutes", home_learn, section_file("home", "learn", "Home", home_learn)),
     ]
+    chapter_ids = chapter_room_ids()
+    chapter_lessons = [known[item] for item in chapter_ids]
+    chapter_download = section_file(
+        "home", "chapters", "Chapters",
+        "<p>Five chapters, fundamentals through advanced.</p>",
+        sources=chapter_sources(chapter_lessons),
+        room_ids=chapter_ids,
+    )
     stats = f'''<section class="stats" aria-label="Counts in this repository">
 <div class="stat"><b>{len(room_meta)}</b><span>rooms</span></div>
 <div class="stat"><b>{len(TRACKS)}</b><span>tracks</span></div>
@@ -909,7 +1008,10 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
 <div class="actions"><a class="btn" href="start.html">Start here</a><a class="ghost" href="#rooms">All rooms</a><a class="ghost" href="downloads.html">Downloads</a><a class="ghost" href="play.html">Play</a></div>
 {HERO_3D}</div><div class="hero-visual">{hero}</div></section>
 {"".join(home_sections)}{stats}
-<section class="block" id="rooms" data-read><div class="section-bar"><h2>Tracks</h2>{dl(0, "html", section_file("home", "tracks", "Tracks", "<p>Eighteen tracks.</p>"), "HTML")}</div>
+<section class="block" id="chapters" data-read><div class="section-bar"><h2>Chapters</h2>{dl(0, "html", chapter_download, "HTML")}</div>
+<p>Each chapter is an icon, a label, and one line. Open it for fundamentals, then the working rooms, then the advanced rooms.</p>
+<div class="track-grid">{"".join(chapter_cards(0))}</div></section>
+<section class="block" id="rooms" data-read><div class="section-bar"><h2>Tracks</h2>{dl(0, "html", section_file("home", "tracks", "Tracks", "<p>" + str(len(TRACKS)) + " tracks.</p>"), "HTML")}</div>
 <label class="menu-search">Search rooms <input data-filter-cards="#rooms" type="search" aria-label="Search rooms"></label>
 <div class="track-grid">{"".join(track_cards)}</div></section></div>'''
     page(ROOT / "index.html", "Amazon Connect Lab", "Independent study of Amazon Connect flows, queues, routing, and bridges.", 0, "home", home)
@@ -918,7 +1020,7 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
     ten_html = "<ol>" + "".join(f'<li><a href="rooms/{item}.html">{esc(known[item]["title"])}</a> — {esc(known[item]["why"])}</li>' for item in ten) + "</ol>"
     start_body = f'''<div class="wrap"><h1>Start here</h1>
 {block(0, "ten", "Finish in 10 minutes", ten_html + "<p>Five rooms. Then stop or keep going.</p>", section_file("start", "ten", "Ten minutes", ten_html))}
-{block(0, "full", "Full course", "<p>Open a track from Home. The order on the mastery page runs from foundations to the ecosystem.</p><p><a href=\"index.html#rooms\">All rooms</a></p>", section_file("start", "full", "Full course", "<p>Use the track map.</p>"))}
+{block(0, "full", "Full course", "<p>Open a chapter for a path from fundamentals to advanced, or open a track from Home. The mastery page runs from foundations to the ecosystem.</p><p><a href=\"chapters/index.html\">Chapters</a> <a href=\"index.html#rooms\">All rooms</a></p>", section_file("start", "full", "Full course", "<p>Use the chapter list or the track map.</p>"))}
 {block(0, "download", "Just download", "<p><a href=\"downloads.html\">Open downloads</a> for sheets, cards, templates, the deck, and the zip.</p>", section_file("start", "download", "Just download", "<p>Downloads.</p>"))}
 </div>'''
     page(ROOT / "start.html", "Start here · Connect Lab", "A ten-minute path and the full course.", 0, "learn", start_body)
@@ -973,6 +1075,8 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
 {game("Lambda", "Synchronous invoke waits at most 8 seconds. A 30 second Lambda console timeout does not make the flow wait.", [("The flow can take the timeout branch", 0), ("The flow waits the full 30 seconds", 1)], 0, "rooms/foundations-lambda.html")}
 {game("Bridge", "A UCCE skill group maps to a queue. A CUCM partition is not a Connect object.", [("Queue", 0), ("A CUCM partition object inside Connect", 1)], 0, "rooms/br-map.html")}
 {game("Ports", "The network lesson names the instance on TCP 443 and TurnNlb on UDP 3478. Opening only 443 is the mistake in that room.", [("UDP 3478 to TurnNlb", 0), ("TCP 443 is enough for softphone media", 1)], 0, "rooms/foundations-network.html")}
+{game("Skills", "The proficiency page says routing criteria run after the contact is enqueued. Queues stay necessary.", [("Transfer to queue, then the steps run", 0), ("A proficiency replaces the queue", 1)], 0, "rooms/route-skills.html")}
+{game("Forecast", "The interval page says you choose 15 or 30 minutes once, before forecast groups, and you cannot change it.", [("Set it once, before forecast groups", 0), ("Switch it after the first forecast", 1)], 0, "rooms/wfm-interval.html")}
 </div>'''
     page(ROOT / "play.html", "Play · Connect Lab", "Short drills cited to the rooms.", 0, "play", games, '<script src="assets/js/play.js" defer></script>')
 
@@ -983,8 +1087,8 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
     page(ROOT / "listen.html", "Listen · Connect Lab", "Study clips and read-along.", 0, "listen", listen)
 
     help_body = '''<div class="wrap"><h1>Help</h1>
-<section class="block" id="menu" data-read><h2>Menu</h2><p>The Menu button is at the top left. The drawer slides in. Each row has an icon, a label, and one line. Search filters those rows. Escape or the backdrop closes it.</p><p>On a phone the bottom bar is Menu, Learn, Diagrams, Play, Listen, and Guide.</p></section>
-<section class="block" id="course" data-read><h2>Course</h2><p>Start with the ten-minute path, or open the full track map. Every room has a five-minute read, a picture, a worked example, a quiz, sources, and an ecosystem panel.</p></section>
+<section class="block" id="menu" data-read><h2>Menu</h2><p>The Menu button is at the top left. The drawer slides in. Each row has an icon, a label, and one line. Search filters those rows. Escape or the backdrop closes it. Chapters lists the five new paths. The banner chip Chapters opens the same list.</p><p>On a phone the bottom bar is Menu, Learn, Diagrams, Play, Listen, and Guide. The chapter list is inside Menu.</p></section>
+<section class="block" id="course" data-read><h2>Course</h2><p>Start with the ten-minute path, open a chapter from fundamentals to advanced, or open the full track map. Every room has a five-minute read, a picture, a worked example, a quiz, sources, and an ecosystem panel.</p></section>
 <section class="block" id="bot" data-read><h2>Bot</h2><p>The monkey greets you once after the tour, then docks. Drag it. The position is remembered in this browser. After a few quiet minutes it may offer help, up to three times. Not now waits. Stop offering remembers that choice.</p><p>Finish in 10 minutes, Full course, and Just download are the first choices. You can also ask it to open a room.</p></section>
 <section class="block" id="downloads" data-read><h2>Downloads</h2><p>Colored buttons sit in every section. The downloads page collects sheets, cards, templates, the deck, and one zip.</p></section>
 <section class="block" id="tour" data-read><h2>Tour</h2><p>The first visit walks six steps: Home, Menu, Learn, Diagrams, Play, and Listen. Downloads and the bot are highlighted along the way. Next, Back, and Skip are on the card.</p><p><button type="button" data-replay-tour>Replay the tour</button></p></section>
@@ -994,7 +1098,7 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
 
     legal = f'''<div class="wrap"><h1>Legal and credits</h1>
 <section class="block" data-read><h2>Copyright</h2><p>The code in this repository is under the MIT license in the LICENSE file. NOTICE.md describes the study text as CC BY-NC-SA 4.0. README.md has also called that text MIT. Treat NOTICE.md as the statement for the study text until those two files are reconciled. Confirm before relying on either sentence for a reuse decision.</p></section>
-<section class="block" data-read><h2>Trademarks</h2><p>Amazon Web Services, Amazon Connect, Amazon Lex, Amazon CloudWatch, and other AWS names are trademarks of their owners. Cisco, Webex, Avaya, Genesys, Salesforce, ServiceNow, and Microsoft names belong to their owners. This lab is not affiliated with or endorsed by them.</p></section>
+<section class="block" data-read><h2>Trademarks</h2><p>Amazon Web Services, Amazon Connect, Amazon Lex, Amazon CloudWatch, and other AWS names are trademarks of their owners. Cisco, Webex, Avaya, Genesys, Salesforce, ServiceNow, Microsoft, and Twilio names belong to their owners. This lab is not affiliated with or endorsed by them.</p></section>
 <section class="block" data-read><h2>Third-party licences</h2><p>The published pages do not load a third-party runtime. The older builder under web/vendor still contains Three.js (MIT), anime.js, D3 (BSD), Rough.js, and canvas-confetti. Their license files stay next to those files. This page does not redistribute their source.</p></section>
 <section class="block" data-read><h2>Privacy</h2><p>There is no account and no tracker. Theme, tour, quiz, and bot position stay in this browser's localStorage. The service worker caches pages you open on this origin.</p></section>
 <section class="block" data-read><h2>Accessibility</h2><p>The banner has a skip link. Display changes font size and font colour. The drawer and the bot work from the keyboard. Reduced motion is in Display and follows the system setting.</p></section>
@@ -1002,16 +1106,42 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
 </div>'''
     page(ROOT / "legal.html", "Legal · Connect Lab", "Copyright, trademarks, privacy, and removal.", 0, "legal", legal)
 
-    eco = f'''<div class="wrap"><h1>Ecosystem</h1>
-{block(0, "glossary", "Glossary", f'<p><a href="glossary.html">{len(GLOSSARY)} terms</a> collected from the rooms.</p>', section_file("ecosystem", "glossary", "Glossary", "<p>See the glossary.</p>"))}
-{block(0, "mind", "Mind map", '<p><a href="assets/diagrams/mind-ecosystem.svg">Ecosystem mind map</a></p>', section_file("ecosystem", "mind", "Mind map", "<p>Mind map.</p>"))}
-{block(0, "sisters", "Sister technologies", f'<p>{esc(known["eco-why"]["why"])}</p>{prose(known["eco-why"]["paras"])}', section_file("ecosystem", "sisters", "Sisters", prose(known["eco-why"]["paras"])))}
-{block(0, "config", "Config and troubleshooting", f'<p>{esc(known["ts-method"]["why"])}</p>{bullets(known["ts-method"]["points"])}', section_file("ecosystem", "config", "Troubleshooting", bullets(known["ts-method"]["points"])))}
-{block(0, "map", "Integration map", prose(known["eco-map"]["paras"]) + bullets(known["eco-map"]["points"]), section_file("ecosystem", "map", "Integration map", prose(known["eco-map"]["paras"])))}
-{block(0, "bridges", "Cross-platform bridges", prose(known["br-map"]["paras"]) + bullets(known["br-map"]["points"]), section_file("ecosystem", "bridges", "Bridges", prose(known["br-map"]["paras"])))}
-{block(0, "future", "Future hooks", prose(known["eco-future"]["paras"]), section_file("ecosystem", "future", "Future hooks", prose(known["eco-future"]["paras"])))}
+    eco_chapter = next(item for item in CHAPTERS if item["id"] == "ecosystem")
+    eco_ids = chapter_room_ids(eco_chapter)
+    sister_ids = ["eco-wfm", "an-lens", "eco-rec", "int-sf", "cpaas-twilio"]
+    eco_levels = []
+    for level, blurb, level_ids in eco_chapter["levels"]:
+        cards = "".join(
+            f'<a class="track-card" data-card style="--hue:#c4b5fd" href="rooms/{esc(room_id)}.html">'
+            f'<span class="tile-ico" aria-hidden="true">🌐</span><span class="tile-copy"><h3>{esc(known[room_id]["title"])}</h3>'
+            f'<p>{esc(known[room_id]["why"])}</p></span></a>'
+            for room_id in level_ids
+        )
+        inner = f'<p>{esc(blurb)}</p><div class="track-grid">{cards}</div>'
+        href = section_file(
+            "ecosystem", level.lower(), "Ecosystem — " + level, inner,
+            sources=chapter_sources([known[item] for item in level_ids]),
+            room_ids=level_ids,
+        )
+        eco_levels.append(block(0, "level-" + level.lower(), level, inner, href))
+    sister_cards = "".join(
+        f'<a class="card" data-card href="rooms/{esc(room_id)}.html"><h3>{esc(known[room_id]["title"])}</h3><p>{esc(known[room_id]["why"])}</p></a>'
+        for room_id in sister_ids
+    )
+    eco = f'''<div class="wrap"><section class="hero" data-read><div class="hero-copy"><p class="kicker">Ecosystem</p><h1>Glossary, map, sisters, bridges, and hooks.</h1>
+<p class="lede">{esc(eco_chapter["line"])}</p><p>{esc(known["eco-why"]["why"])}</p>{HERO_3D}</div>
+<div class="hero-visual"><img src="assets/diagrams/mind-ecosystem.svg" width="960" height="420" alt="Ecosystem mind map"></div></section>
+{block(0, "glossary", "Glossary", f'<p><a href="glossary.html">{len(GLOSSARY)} terms</a> from the rooms. The glossary room is the short version you can search.</p><p><a class="track-card" data-card style="--hue:#c4b5fd" href="rooms/eco-glossary.html"><span class="tile-ico" aria-hidden="true">📖</span><span class="tile-copy"><h3>Glossary room</h3><p>{esc(known["eco-glossary"]["why"])}</p></span></a></p>', section_file("ecosystem", "glossary", "Glossary", "<p>See the glossary.</p>", sources=room_sources(known["eco-glossary"]), room_id="eco-glossary"))}
+{block(0, "mind", "Mind map", f'<p><a href="assets/diagrams/mind-ecosystem.svg">Ecosystem mind map</a></p><p><a href="rooms/eco-mind.html">{esc(known["eco-mind"]["title"])}</a></p>', section_file("ecosystem", "mind", "Mind map", "<p>Mind map.</p>", sources=room_sources(known["eco-mind"]), room_id="eco-mind"))}
+{block(0, "sisters", "Sister technologies", f'<p>{esc(known["eco-why"]["paras"][0])}</p><div class="card-grid">{sister_cards}</div>', section_file("ecosystem", "sisters", "Sister technologies", prose(known["eco-why"]["paras"]), sources=chapter_sources([known[item] for item in sister_ids]), room_ids=sister_ids))}
+{block(0, "config", "Config and troubleshooting", f'<p>{esc(known["ts-method"]["why"])}</p>{bullets(known["ts-method"]["points"])}', section_file("ecosystem", "config", "Troubleshooting", bullets(known["ts-method"]["points"]), sources=room_sources(known["ts-method"]), room_id="ts-method"))}
+{block(0, "map", "Integration maps", prose(known["eco-map"]["paras"]) + bullets(known["eco-map"]["points"]) + f'<p><a href="rooms/eco-map.html">Open the integration map room</a></p>', section_file("ecosystem", "map", "Integration map", prose(known["eco-map"]["paras"]), sources=room_sources(known["eco-map"]), room_id="eco-map"))}
+{block(0, "bridges", "Bridges", prose(known["br-map"]["paras"]) + bullets(known["br-map"]["points"]) + '<p><a href="rooms/br-map.html">Open the mapping room</a> <a href="chapters/crm.html">CRM and CPaaS chapter</a></p>', section_file("ecosystem", "bridges", "Bridges", prose(known["br-map"]["paras"]), sources=room_sources(known["br-map"]), room_id="br-map"))}
+{block(0, "future", "Future hooks", prose(known["eco-future"]["paras"]) + f'<p><a href="rooms/eco-future.html">Open the future-hooks room</a></p>', section_file("ecosystem", "future", "Future hooks", prose(known["eco-future"]["paras"]), sources=room_sources(known["eco-future"]), room_id="eco-future"))}
+{"".join(eco_levels)}
+{sources_html(chapter_sources([known[item] for item in eco_ids + sister_ids]), 0, room_ids=eco_ids + sister_ids)}
 </div>'''
-    page(ROOT / "ecosystem.html", "Ecosystem · Connect Lab", "Glossary, mind map, bridges, and hooks.", 0, "ecosystem", eco)
+    page(ROOT / "ecosystem.html", "Ecosystem · Connect Lab", "Glossary, mind map, sisters, bridges, and hooks.", 0, "ecosystem", eco)
 
     gloss_rows = "".join(
         f"<tr><td>{esc(row[0])}</td><td>{esc(row[1])}</td><td>{source_phrase(row[3], row[4])}</td></tr>" for row in GLOSSARY
@@ -1087,9 +1217,12 @@ def write_sheets(known):
         ("ports-media", "Ports and media", ["foundations-network"]),
         ("flow-blocks", "Flow types and errors", ["flows-types", "flows-blocks", "flows-errors"]),
         ("routing-profile", "Queues and routing profiles", ["route-queue", "route-profile", "route-hours"]),
+        ("skills-routing", "Proficiency and routing criteria", ["route-skills", "route-criteria"]),
+        ("forecasting", "Forecasts, capacity, and schedules", ["wfm-interval", "wfm-capacity", "wfm-schedule"]),
         ("lambda-contract", "Lambda contract", ["foundations-lambda", "lambda-contract"]),
         ("lex-input", "Lex in the flow", ["lex-get-input", "lex-slots", "lex-fallback"]),
-        ("contact-lens", "Conversational analytics", ["an-lens", "eco-lens-ops"]),
+        ("contact-lens", "Conversational analytics", ["an-lens", "lens-on", "lens-eval", "eco-lens-ops"]),
+        ("crm-cpaas", "Salesforce and public CPaaS notes", ["crm-sf", "cpaas-twilio", "int-sf"]),
         ("bridge-map", "UCCE, Genesys, and Webex bridges", ["br-map", "br-pitfalls"]),
         ("kinesis-ctr", "Kinesis and contact trace records", ["foundations-kinesis", "an-ctr"]),
         ("e911", "E911 for CCP agents", ["eco-e911"]),
@@ -1109,7 +1242,8 @@ def write_sheets(known):
 def write_templates(known):
     templates = [
         ("inbound-flow", "Inbound flow worksheet", ["flows-types", "flows-errors", "flows-attributes"]),
-        ("routing-profile", "Routing profile worksheet", ["route-queue", "route-profile", "route-hours"]),
+        ("routing-profile", "Routing profile worksheet", ["route-queue", "route-profile", "route-hours", "route-skills"]),
+        ("forecast-plan", "Forecast and capacity worksheet", ["wfm-interval", "wfm-capacity", "wfm-schedule"]),
         ("cutover-checklist", "Cutover checklist", ["br-playbook", "br-map", "br-pitfalls"]),
         ("lambda-contract", "Lambda contract checklist", ["foundations-lambda", "lambda-contract", "lambda-perms"]),
     ]
@@ -1170,6 +1304,10 @@ def write_deck():
         ("Kinesis", "Agent events and contact trace records can leave on a stream. Join on ContactId."),
         ("CCP", "Sign-in can succeed when media cannot. The network lesson names TCP 443 and UDP 3478."),
         ("Bridges", "A UCCE skill group maps to a queue. A script maps to a contact flow. A partition is not a Connect object."),
+        ("Skills routing", "Proficiency steps run after Transfer to queue. They do not run in an agent queue."),
+        ("Forecasting", "Set 15 or 30 minutes once. Publish a forecast before a schedule. Adherence follows a published schedule."),
+        ("Quality", "Conversational analytics needs the flow block. An evaluation form is activated after its questions exist."),
+        ("CRM and CPaaS", "Salesforce on Connect is a CCP embed, sandbox first. Twilio Flex documents its own embed. No Connect connector page was opened."),
         ("Confirm", "Prices, quotas, and exam names change. Confirm before relying. Nothing in this deck is an invoice."),
     ]
     for heading, body in slides:
@@ -1228,7 +1366,9 @@ def write_reference_pages(known):
     careers = '''<div class="wrap"><h1>Careers</h1>
 <p class="confirm">These are study labels for this lab. They are not job requisitions, and they are not a biography.</p>
 <ul><li>Flow reader: rooms on contact flows, modules, and error branches.</li>
-<li>Routing reader: queues, hours, profiles, priority, and delay.</li>
+<li>Routing reader: queues, hours, profiles, priority, delay, and proficiency steps.</li>
+<li>Forecast reader: the interval, the published forecast, then the hiring or scheduling plan.</li>
+<li>Quality reader: the analytics block, then an evaluation form.</li>
 <li>Telephony reader: number types, ports, and the CCP media path.</li>
 <li>Bridge reader: the mapping room before a move from UCCE, Genesys, or Webex Contact Center.</li></ul>
 <p>There is no Amazon Connect specialty exam in the certification room. Confirm that on the current AWS Certification catalog before you pay for anything.</p>
@@ -1366,7 +1506,7 @@ def write_downloads(diagram_files, flow_files):
     hosts = sorted({
         "cyphermonkeylabs.com", "github.com", "linktr.ee", "docs.aws.amazon.com", "aws.amazon.com",
         "hidekazu-konishi.com", "registry.terraform.io", "repost.aws", "www.servicenow.com",
-        "en.wikipedia.org", "www.rfc-editor.org",
+        "en.wikipedia.org", "www.rfc-editor.org", "www.twilio.com",
     })
     (ROOT / "assets" / "data" / "allowed-hosts.json").write_text(json.dumps({"hosts": hosts}, indent=2), encoding="utf-8")
 
@@ -1392,6 +1532,8 @@ def assert_sources():
     paths += list((ROOT / "downloads" / "diagrams").glob("*.html"))
     paths += list((ROOT / "downloads" / "flows").glob("*.html"))
     paths += list((ROOT / "tracks").glob("*/index.html"))
+    paths += list((ROOT / "chapters").glob("*.html"))
+    paths.append(ROOT / "ecosystem.html")
     paths.append(ROOT / "downloads" / "flashcards.html")
     paths.append(ROOT / "downloads.html")
     missing = []

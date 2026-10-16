@@ -1,0 +1,28 @@
+{
+  "room": "route-criteria",
+  "title": "Routing criteria, expiry, and a preferred agent",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Flow block in Connect Customer: Set routing criteria - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-routing-criteria.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Set up routing in Connect Customer based on agent proficiencies - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/proficiency-routing.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Create a routing profile in Connect Customer to link queues to agents - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/routing-profiles.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

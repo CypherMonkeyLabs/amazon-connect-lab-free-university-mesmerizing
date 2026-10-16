@@ -1,0 +1,35 @@
+{
+  "room": "cpaas-twilio",
+  "title": "Twilio Flex is a different product, documented on its own site",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Integrate Flex with Salesforce",
+      "url": "https://www.twilio.com/docs/flex/admin-guide/integrations/salesforce",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Flow block in Connect Customer: Transfer to phone number - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-phone-number.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Call Transfer via SIP REFER",
+      "url": "https://www.twilio.com/docs/sip-trunking/call-transfer",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Embed the Connect Customer Contact Control Panel (CCP) into Salesforce - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

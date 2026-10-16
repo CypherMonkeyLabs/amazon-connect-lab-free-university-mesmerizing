@@ -199,6 +199,10 @@ LESSON_EXTRA = {
     "tel-external": [RFC_SIP, RFC_RTP, RFC_SRTP, TELE, WIKI_SIP, WIKI_RTP],
 }
 
+from new_chapters import EXTRA_SOURCES  # noqa: E402
+
+LESSON_EXTRA.update(EXTRA_SOURCES)
+
 
 def kind_of(url: str) -> str:
     host = urlparse(url).netloc.lower()

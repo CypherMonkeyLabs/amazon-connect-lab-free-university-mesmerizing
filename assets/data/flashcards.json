@@ -9523,6 +9523,737 @@
       ],
       "status": "verified",
       "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/"
+    },
+    {
+      "front": "Predefined attribute",
+      "back": "A name and value you create so routing can test it. connect:Language already exists. A custom name cannot start with aws: or connect:.",
+      "source": "Set up routing based on agent proficiencies",
+      "track": "routing",
+      "sources": [
+        {
+          "title": "Set up routing in Connect Customer based on agent proficiencies - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/proficiency-routing.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "How Connect Customer uses routing profiles - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Standard queues and agent queues in your Connect Customer contact center - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Set the hours of operation and time zone for a queue using Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-hours-operation.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Create quick connects in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/quick-connects.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Automatic call distributor - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Automatic_call_distributor",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        }
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/proficiency-routing.html"
+    },
+    {
+      "front": "Routing step",
+      "back": "One requirement inside routing criteria, with a timer. After the timed steps expire, the contact goes to the longest available agent who has the queue.",
+      "source": "Set routing criteria",
+      "track": "routing",
+      "sources": [
+        {
+          "title": "Flow block in Connect Customer: Set routing criteria - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-routing-criteria.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "How Connect Customer uses routing profiles - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Standard queues and agent queues in your Connect Customer contact center - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Set the hours of operation and time zone for a queue using Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-hours-operation.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Create quick connects in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/quick-connects.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Automatic call distributor - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Automatic_call_distributor",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        }
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-routing-criteria.html"
+    },
+    {
+      "front": "Preferred agent step",
+      "back": "A routing step that names up to 10 user IDs. The contact stays with those agents until the timer ends, even if they are offline.",
+      "source": "Set routing criteria",
+      "track": "routing",
+      "sources": [
+        {
+          "title": "Flow block in Connect Customer: Set routing criteria - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-routing-criteria.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "How Connect Customer uses routing profiles - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Standard queues and agent queues in your Connect Customer contact center - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Set the hours of operation and time zone for a queue using Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-hours-operation.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Create quick connects in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/quick-connects.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Automatic call distributor - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Automatic_call_distributor",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        }
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-routing-criteria.html"
+    },
+    {
+      "front": "Short-term forecast",
+      "back": "A volume and handle-time forecast that updates daily. The forecasting page says to use it for scheduling up to 18 weeks ahead.",
+      "source": "Forecasting",
+      "track": "ecosystem",
+      "sources": [
+        {
+          "title": "Forecasting in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Forecasting & agent scheduling in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Set up US emergency calling in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Flow block in Connect Customer: Set recording and analytics behavior - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Use Connect Customer Customer Profiles - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Workforce management - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Workforce_management",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Enhanced 911 - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Enhanced_9-1-1",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Customer relationship management - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        }
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting.html"
+    },
+    {
+      "front": "Long-term forecast",
+      "back": "A forecast that updates weekly, on the weekday you created it. The forecasting page says to use it for capacity planning up to 64 weeks ahead.",
+      "source": "Forecasting",
+      "track": "ecosystem",
+      "sources": [
+        {
+          "title": "Forecasting in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Forecasting & agent scheduling in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Set up US emergency calling in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Flow block in Connect Customer: Set recording and analytics behavior - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Use Connect Customer Customer Profiles - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Workforce management - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Workforce_management",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Enhanced 911 - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Enhanced_9-1-1",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Customer relationship management - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        }
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting.html"
+    },
+    {
+      "front": "Forecast interval",
+      "back": "The 15-minute or 30-minute grain for short-term forecasts and schedules. Set it once, before forecast groups. It cannot be changed.",
+      "source": "Set the forecast and schedule interval",
+      "track": "ecosystem",
+      "sources": [
+        {
+          "title": "Set the forecast and schedule interval in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-forecast-scheduling-interval.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Forecasting & agent scheduling in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Set up US emergency calling in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Flow block in Connect Customer: Set recording and analytics behavior - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Use Connect Customer Customer Profiles - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Workforce management - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Workforce_management",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Enhanced 911 - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Enhanced_9-1-1",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Customer relationship management - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        }
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-forecast-scheduling-interval.html"
+    },
+    {
+      "front": "Hiring plan",
+      "back": "A capacity plan for long-term full-time equivalents, up to 64 weeks. It needs a long-term forecast and a short-term forecast.",
+      "source": "Capacity planning",
+      "track": "ecosystem",
+      "sources": [
+        {
+          "title": "Capacity planning in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/capacity-planning.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Forecasting & agent scheduling in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Set up US emergency calling in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Flow block in Connect Customer: Set recording and analytics behavior - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Use Connect Customer Customer Profiles - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Workforce management - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Workforce_management",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Enhanced 911 - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Enhanced_9-1-1",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Customer relationship management - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        }
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/capacity-planning.html"
+    },
+    {
+      "front": "Scheduling plan",
+      "back": "A capacity plan of headcount by the short-term interval. It needs a published short-term forecast. Plan override is not available.",
+      "source": "Capacity planning",
+      "track": "ecosystem",
+      "sources": [
+        {
+          "title": "Capacity planning in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/capacity-planning.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Forecasting & agent scheduling in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Set up US emergency calling in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Flow block in Connect Customer: Set recording and analytics behavior - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Use Connect Customer Customer Profiles - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Workforce management - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Workforce_management",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Enhanced 911 - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Enhanced_9-1-1",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Customer relationship management - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        }
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/capacity-planning.html"
+    },
+    {
+      "front": "Speech analytics",
+      "back": "Conversational analytics on a voice contact. The enable page requires agent and customer call recording.",
+      "source": "Enable conversational analytics",
+      "track": "analytics",
+      "sources": [
+        {
+          "title": "Enable conversational analytics in Connect Customer conversational analytics - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/enable-analytics.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Connect Customer agent event streams - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Connect Customer contact events - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Contact Lens for Amazon Connect is now generally available - AWS",
+          "url": "https://aws.amazon.com/about-aws/whats-new/2020/07/contact-lens-amazon-connect-now-generally-available/",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Integrate Amazon Connect with Amazon Kinesis | AWS re:Post",
+          "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis",
+          "kind": "community",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "What is Amazon Kinesis Data Streams? - Amazon Kinesis Data Streams",
+          "url": "https://docs.aws.amazon.com/streams/latest/dev/introduction.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified",
+          "opened": "https://docs.aws.amazon.com/kinesis/latest/dev/introduction.html"
+        },
+        {
+          "title": "Amazon Kinesis - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Amazon_Kinesis",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        }
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/enable-analytics.html"
+    },
+    {
+      "front": "Evaluation form",
+      "back": "Sections and questions used to score a contact. Answers can be automated from categories or from a model, then the form is activated.",
+      "source": "Create an evaluation form",
+      "track": "analytics",
+      "sources": [
+        {
+          "title": "Create an evaluation form in Connect Customer - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-evaluation-forms.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Connect Customer agent event streams - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Connect Customer contact events - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Contact Lens for Amazon Connect is now generally available - AWS",
+          "url": "https://aws.amazon.com/about-aws/whats-new/2020/07/contact-lens-amazon-connect-now-generally-available/",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Integrate Amazon Connect with Amazon Kinesis | AWS re:Post",
+          "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis",
+          "kind": "community",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "What is Amazon Kinesis Data Streams? - Amazon Kinesis Data Streams",
+          "url": "https://docs.aws.amazon.com/streams/latest/dev/introduction.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified",
+          "opened": "https://docs.aws.amazon.com/kinesis/latest/dev/introduction.html"
+        },
+        {
+          "title": "Amazon Kinesis - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Amazon_Kinesis",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        }
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-evaluation-forms.html"
+    },
+    {
+      "front": "CTI Adapter",
+      "back": "The Amazon Connect package that places a WebRTC CCP inside Salesforce. The admin guide says to install it in a sandbox first.",
+      "source": "Embed the CCP in Salesforce",
+      "track": "integrations",
+      "sources": [
+        {
+          "title": "Embed the Connect Customer Contact Control Panel (CCP) into Salesforce - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Docs | ServiceNow",
+          "url": "https://www.servicenow.com/docs/r/servicenow-platform/integrate-ccc-amazonconnect.html",
+          "kind": "community",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Streamline employee support with Amazon Connect and Microsoft Teams integration | AWS Contact Center",
+          "url": "https://aws.amazon.com/blogs/contact-center/streamline-employee-support-with-amazon-connect-and-microsoft-teams-integration/",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "GitHub - amazon-connect/amazon-connect-streams: Amazon Connect Streams - a browser-based contact center integration API, typically with CRM systems. \u00b7 GitHub",
+          "url": "https://github.com/amazon-connect/amazon-connect-streams",
+          "kind": "community",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Salesforce - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "ServiceNow - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/ServiceNow",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Customer relationship management - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        }
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html"
+    },
+    {
+      "front": "Flex Salesforce embed",
+      "back": "Twilio's guide for putting the Flex agent UI in Salesforce, or Salesforce inside Flex. It is not an Amazon Connect connector page.",
+      "source": "Integrate Flex with Salesforce",
+      "track": "integrations",
+      "sources": [
+        {
+          "title": "Integrate Flex with Salesforce",
+          "url": "https://www.twilio.com/docs/flex/admin-guide/integrations/salesforce",
+          "kind": "community",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Embed the Connect Customer Contact Control Panel (CCP) into Salesforce - Amazon Connect Customer",
+          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Docs | ServiceNow",
+          "url": "https://www.servicenow.com/docs/r/servicenow-platform/integrate-ccc-amazonconnect.html",
+          "kind": "community",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Streamline employee support with Amazon Connect and Microsoft Teams integration | AWS Contact Center",
+          "url": "https://aws.amazon.com/blogs/contact-center/streamline-employee-support-with-amazon-connect-and-microsoft-teams-integration/",
+          "kind": "aws",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "GitHub - amazon-connect/amazon-connect-streams: Amazon Connect Streams - a browser-based contact center integration API, typically with CRM systems. \u00b7 GitHub",
+          "url": "https://github.com/amazon-connect/amazon-connect-streams",
+          "kind": "community",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Salesforce - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Salesforce",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "ServiceNow - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/ServiceNow",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        },
+        {
+          "title": "Customer relationship management - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+          "kind": "wikipedia",
+          "last_checked": "2026-10",
+          "status": "verified"
+        }
+      ],
+      "status": "verified",
+      "url": "https://www.twilio.com/docs/flex/admin-guide/integrations/salesforce"
     }
   ]
 }

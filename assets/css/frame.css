@@ -370,7 +370,7 @@ html[data-theme="dark"] .confirm { background: #451a03; color: #fef3c7; }
 .sources-deeper h2 { margin: 0 0 8px; font-size: 1.2rem; color: #4c1d95; }
 .sources-deeper ul { margin: 0; padding-left: 1.2rem; }
 .sources-deeper li { margin: 8px 0; }
-.sources-deeper a { color: #1e3a8a; font-weight: 800; }
+.sources-deeper a { color: #1e3a8a; font-weight: 800; overflow-wrap: anywhere; }
 html[data-theme="dark"] .sources-deeper,
 html[data-theme="neon"] .sources-deeper {
   background: #1e1b4b;

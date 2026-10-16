@@ -1,0 +1,28 @@
+{
+  "room": "wfm-capacity",
+  "title": "Hiring plans and scheduling plans",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Capacity planning in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/capacity-planning.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Forecasting in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Forecasting & agent scheduling in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

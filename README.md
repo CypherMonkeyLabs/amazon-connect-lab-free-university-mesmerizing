@@ -2,7 +2,7 @@
 
 ![Amazon Connect study home](docs/screenshots/home-1440.png)
 
-The study site is the repository root. It is a static lab for Amazon Connect flows, queues, routing profiles, Lex, agent assist, Contact Lens, Lambda, Kinesis, the CCP, and the bridges from Cisco UCCE, Genesys, and Webex. It does not call AWS. It does not claim that anyone has run Amazon Connect in production.
+The study site is the repository root. It is a static lab for Amazon Connect flows, queues, routing profiles, Lex, agent assist, Contact Lens, Lambda, Kinesis, the CCP, and the bridges from Cisco UCCE, Genesys, and Webex. Five chapters sit on the home page and in the menu: routing profiles, queues, and skills; forecasting, capacity, and schedules; Contact Lens, quality, and analytics; CRM and CPaaS bridges from public docs; and the ecosystem (glossary, mind map, sister technologies, integration maps, bridges, and future hooks). Room, track, diagram, and flow counts on the home page are counted from the files the build writes. It does not call AWS. It does not claim that anyone has run Amazon Connect in production.
 
 ```bash
 python3 scripts/build_site.py

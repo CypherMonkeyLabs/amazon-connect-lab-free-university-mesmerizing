@@ -42,7 +42,7 @@ TRACKS = [
      "why": "The names changed in 2023 and again in 2026. The IAM prefix and the block you configure did not move in lockstep."},
     {"id": "lambda", "title": "Lambda", "kicker": "The eight-second contract", "hue": "#f0c56a", "depends": ["foundations", "flows"],
      "why": "Most 'random' flow errors are a Lambda response that missed the timeout or the shape Connect accepts."},
-    {"id": "routing", "title": "Routing", "kicker": "Queues, hours, profiles, quick connects", "hue": "#3dcfb4", "depends": ["instance", "flows"],
+    {"id": "routing", "title": "Routing", "kicker": "Queues, profiles, hours, and proficiency steps", "hue": "#3dcfb4", "depends": ["instance", "flows"],
      "why": "Priority and delay decide who is offered the contact. The queue name does not."},
     {"id": "workspace", "title": "CCP and workspace", "kicker": "The agent desktop and Streams", "hue": "#8eb8ff", "depends": ["instance", "foundations"],
      "why": "If UDP 3478 is blocked, the agent is signed in and cannot hear the customer."},
@@ -50,7 +50,7 @@ TRACKS = [
      "why": "A contact ends. A case, a task, and a profile are how the next person continues it."},
     {"id": "channels", "title": "Channels and campaigns", "kicker": "Chat, SMS, WhatsApp, email, outbound", "hue": "#ff6d6d", "depends": ["telephony", "flows", "routing"],
      "why": "Each channel has its own quota, its own price unit, and its own way of getting stuck in an active state."},
-    {"id": "analytics", "title": "Analytics", "kicker": "CTR, streams, metrics, conversational analytics", "hue": "#3dcfb4", "depends": ["foundations", "instance"],
+    {"id": "analytics", "title": "Analytics", "kicker": "CTR, conversational analytics, and evaluation forms", "hue": "#3dcfb4", "depends": ["foundations", "instance"],
      "why": "You cannot staff, coach, or dispute a contact you cannot join back to one ContactId."},
     {"id": "security", "title": "Security, quotas, price", "kicker": "IAM, KMS, SAML, and the bill", "hue": "#f0c56a", "depends": ["foundations", "instance"],
      "why": "A design that cannot name its IAM prefix, its key, and its quota will fail the first real week."},
@@ -60,7 +60,7 @@ TRACKS = [
      "why": "The useful habit is to name the hop, the ContactId, the counter, and the log line before you edit the flow."},
     {"id": "bridge", "title": "Bridge", "kicker": "From CUCM, UCCX, UCCE, Webex, Genesys, Avaya", "hue": "#e5843b", "depends": ["telephony", "flows", "routing", "workspace", "analytics"],
      "why": "Migrations fail when a skill group, a script, and a Finesse gadget are all called 'the queue'."},
-    {"id": "integrations", "title": "Integrations", "kicker": "Salesforce, ServiceNow, Teams, CUCM beside Connect", "hue": "#7eb6ff", "depends": ["bridge", "lambda", "records"],
+    {"id": "integrations", "title": "Integrations", "kicker": "Salesforce, ServiceNow, Teams, and public CPaaS notes", "hue": "#7eb6ff", "depends": ["bridge", "lambda", "records"],
      "why": "The CRM, the PBX, and the chat client each own a different seam. Mixing them up builds a transfer that pops the wrong record."},
     {"id": "ecosystem", "title": "Ecosystem", "kicker": "Glossary, mind map, WFM, recording, E911, CRM, AI", "hue": "#c4b5fd", "depends": ["foundations", "analytics", "integrations", "workspace", "ai"],
      "why": "Connect answers the contact. Workforce, quality, emergency location, and the system of record sit beside it, and they only stay honest if they share ContactId."},
@@ -1212,6 +1212,10 @@ LESSONS = [
       flow_of([("Name the hook", "Before the contract."), ("Schema", "Write it."), ("Permission", "Least privilege."), ("Pilot", "One team.")]),
       DOC + "contact-events.html", "Contact events"),
 ]
+
+from new_chapters import EXTRA_LESSONS  # noqa: E402
+
+LESSONS.extend(EXTRA_LESSONS)
 
 # Timeline lesson uses the same dated rows the map uses.
 LESSONS.append(L(
