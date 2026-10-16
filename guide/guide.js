@@ -112,6 +112,7 @@ sheet.setAttribute("aria-modal", "true");
 sheet.setAttribute("aria-label", "Guide monkey");
 sheet.innerHTML =
   '<div class="sheet-handle" data-handle role="presentation" aria-hidden="true"></div>' +
+  '<div class="sheet-scroll">' +
   '<div class="greet-hero">' + monkeyMarkup("fur-sheet") +
   '<div><p class="kicker">Connect guide</p><p>Pick a path. Voice and extras stay folded until you open them.</p></div></div>' +
   '<div class="choice-grid">' +
@@ -138,6 +139,7 @@ sheet.innerHTML =
   "</div>" +
   '<form class="bot-form" data-ask><input type="text" data-ask-text aria-label="Ask for a page" placeholder="Try queues, lambda, or downloads"><button type="submit">Go</button></form>' +
   "</details>" +
+  "</div>" +
   '<button type="button" class="sheet-close" data-close-bot>Close</button>';
 host.appendChild(sheet);
 
@@ -624,7 +626,7 @@ if (shot === "bot") {
   greet.hidden = false;
   syncChrome();
   pose("wave");
-} else if (shot === "menu" || shot === "home" || shot === "room" || shot === "downloads") {
+} else if (shot === "menu" || shot === "home" || shot === "room" || shot === "downloads" || shot === "footer" || shot === "tiles") {
   localStorage.setItem("acl-tour-v1", "done");
   localStorage.setItem("acl-greet-v1", "done");
   applySavedPos();

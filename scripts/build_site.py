@@ -177,6 +177,112 @@ def svg_doc(width, height, title, body, caption):
     )
 
 
+def call_path_svg(prefix, width, height, boxes, box_w, box_h, font_size, caption):
+    """Glowing call path. `boxes` is path order: (x, y, label). Ids are prefixed so two copies can share a page."""
+    fills = [("#ecfeff", "#22d3ee"), ("#ecfdf5", "#34d399"), ("#fdf2f8", "#f472b6"),
+             ("#fffbeb", "#fbbf24"), ("#eef2ff", "#818cf8"), ("#fff7ed", "#fb923c")]
+    strokes = ["#0e7490", "#047857", "#9d174d", "#b45309", "#3730a3", "#c2410c"]
+    glow = f"{prefix}-glow"
+    bg = f"{prefix}-bg"
+    defs = [
+        f'<linearGradient id="{bg}" x1="0" y1="0" x2="1" y2="1">'
+        f'<stop offset="0" stop-color="#fff7ed"/><stop offset="0.45" stop-color="#fae8ff"/><stop offset="1" stop-color="#cffafe"/>'
+        f"</linearGradient>",
+        f'<filter id="{glow}" x="-50%" y="-50%" width="200%" height="200%">'
+        f'<feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#22d3ee" flood-opacity="0.95"/>'
+        f"</filter>",
+    ]
+    parts = [f'<rect x="1" y="1" width="{width - 2}" height="{height - 2}" rx="22" fill="url(#{bg})"/>']
+    centers = []
+    for i, (x, y, label) in enumerate(boxes):
+        gid = f"{prefix}-hg{i}"
+        defs.append(
+            f'<linearGradient id="{gid}" x1="0" y1="0" x2="1" y2="1">'
+            f'<stop offset="0" stop-color="{fills[i % 6][0]}"/><stop offset="1" stop-color="{fills[i % 6][1]}"/></linearGradient>'
+        )
+        parts.append(
+            f'<rect x="{x:.1f}" y="{y:.1f}" width="{box_w}" height="{box_h}" rx="16" fill="url(#{gid})" '
+            f'stroke="{strokes[i % 6]}" stroke-width="3" filter="url(#{glow})">'
+            f'<animate attributeName="stroke-width" values="3;5;3" dur="2.4s" begin="{i * 0.15:.2f}s" repeatCount="indefinite"/>'
+            f"</rect>"
+        )
+        parts.append(
+            f'<circle cx="{x + 16:.1f}" cy="{y + 16:.1f}" r="10" fill="#1e1b4b"/>'
+            f'<text x="{x + 16:.1f}" y="{y + 20:.1f}" text-anchor="middle" font-family="system-ui,sans-serif" '
+            f'font-size="12" font-weight="800" fill="#fef3c7">{i + 1}</text>'
+        )
+        lines = label.split("\n")
+        line_h = font_size + 3
+        top = y + box_h / 2 + 6 - (len(lines) - 1) * line_h / 2
+        tspans = []
+        for n, line in enumerate(lines):
+            tspans.append(f'<tspan x="{x + box_w / 2:.1f}" y="{top + n * line_h:.1f}">{esc(line)}</tspan>')
+        parts.append(
+            f'<text text-anchor="middle" font-family="system-ui,sans-serif" font-size="{font_size}" font-weight="800" fill="#1e1b4b">{"".join(tspans)}</text>'
+        )
+        centers.append((x + box_w / 2, y + box_h / 2))
+    for i in range(1, len(centers)):
+        ax, ay = centers[i - 1]
+        bx, by = centers[i]
+        if abs(ay - by) < 2:
+            x1 = ax + box_w / 2 if bx > ax else ax - box_w / 2
+            x2 = bx - box_w / 2 if bx > ax else bx + box_w / 2
+            d = f"M {x1:.1f} {ay:.1f} H {x2:.1f}"
+        elif abs(ax - bx) < 2:
+            y1 = ay + box_h / 2 if by > ay else ay - box_h / 2
+            y2 = by - box_h / 2 if by > ay else by + box_h / 2
+            d = f"M {ax:.1f} {y1:.1f} V {y2:.1f}"
+        else:
+            d = f"M {ax:.1f} {ay + box_h / 2:.1f} V {(ay + by) / 2:.1f} H {bx:.1f} V {by - box_h / 2:.1f}"
+        parts.append(
+            f'<path d="{d}" fill="none" stroke="#6d28d9" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 8">'
+            f'<animate attributeName="stroke-dashoffset" from="0" to="-36" dur="0.9s" repeatCount="indefinite"/>'
+            f"</path>"
+        )
+    # Ride above the labels so a still frame does not cover the words.
+    motion_pts = [(cx, cy - box_h * 0.72) for cx, cy in centers]
+    motion = f"M {motion_pts[0][0]:.1f} {motion_pts[0][1]:.1f} " + " ".join(
+        f"L {cx:.1f} {cy:.1f}" for cx, cy in motion_pts[1:]
+    )
+    parts.append(
+        f'<circle r="8" fill="#db2777" stroke="#fff" stroke-width="2" filter="url(#{glow})">'
+        f'<animateMotion dur="4.2s" repeatCount="indefinite" path="{motion}"/>'
+        f"</circle>"
+    )
+    body = "<defs>" + "".join(defs) + "</defs>" + "".join(parts)
+    svg = svg_doc(width, height, title_for_path(caption), body, caption)
+    return svg.replace("<svg ", '<svg class="call-path" ', 1)
+
+
+def title_for_path(_caption):
+    return "Inbound call path"
+
+
+def hero_flow_svg():
+    """One row that fills the desktop column. Right padding stays inside the viewBox."""
+    labels = ["PSTN", "Contact\nflow", "Lex or\nqueue", "Routing\nprofile", "CCP", "CTR and\nKinesis"]
+    width, height = 1080, 188
+    box_w, box_h, gap = 148, 96, 16
+    start = (width - (6 * box_w + 5 * gap)) / 2
+    y = 28
+    boxes = [(start + i * (box_w + gap), y, label) for i, label in enumerate(labels)]
+    return call_path_svg("wide", width, height, boxes, box_w, box_h, 16, "Animated study path. Confirm the cited rooms.")
+
+
+def hero_flow_compact_svg():
+    """Two-row snake sized for a 390px column so every label stays on screen."""
+    labels = ["PSTN", "Contact\nflow", "Lex or\nqueue", "Routing\nprofile", "CCP", "CTR and\nKinesis"]
+    width, height = 360, 168
+    box_w, box_h, gap_x, gap_y = 104, 54, 12, 16
+    pad_x, pad_y = 12, 8
+    boxes = []
+    for i, label in enumerate(labels):
+        row = 0 if i < 3 else 1
+        col = i if row == 0 else 5 - i
+        boxes.append((pad_x + col * (box_w + gap_x), pad_y + row * (box_h + gap_y), label))
+    return call_path_svg("compact", width, height, boxes, box_w, box_h, 13, "Animated study path. Confirm the cited rooms.")
+
+
 def path_svg(title, nodes, caption, animated):
     count = max(1, len(nodes))
     width = 40 + count * 180
@@ -422,8 +528,8 @@ body{margin:0;font-family:system-ui,sans-serif;background:#fff7ed;color:#1e1b4b}
 a{color:#0b3a8f}
 svg.fig{width:100%;height:auto}
 .brand-row{display:flex;gap:12px;justify-content:center;margin:12px auto;padding:10px;width:fit-content;border-radius:18px;border:2px solid #7c3aed;box-shadow:0 0 16px rgba(124,58,237,.35)}
-.brand-icon{width:56px;height:56px;display:grid;place-items:center;border-radius:16px;color:#fff;text-decoration:none}
-.brand-icon svg{width:36px;height:36px}
+.brand-icon{width:72px;height:72px;display:grid;place-items:center;border-radius:18px;color:#fff;text-decoration:none;box-shadow:0 0 16px rgba(34,211,238,.65)}
+.brand-icon svg{width:46px;height:46px}
 .brand-web{background:radial-gradient(circle at 30% 25%,#c4b5fd,#312e81 72%)}
 .brand-gh{background:#24292f}
 .brand-tree{background:radial-gradient(circle at 32% 24%,#d9f99d,#4ade80 42%,#166534 78%);box-shadow:0 0 0 3px #052e16,0 0 18px #4ade80}
@@ -599,7 +705,7 @@ def build():
         {"label": "CTR and Kinesis", "detail": "The finished contact can leave on a stream."},
     ]
     add_flow("inbound-call-path", "Inbound call path", flow_svg("Inbound call path", hero_steps))
-    add_diagram("inbound-call-path", "Inbound call path", path_svg("Inbound call path", [{"label": s["label"]} for s in hero_steps], "Study picture. Confirm the cited rooms.", True), True)
+    add_diagram("inbound-call-path", "Inbound call path", hero_flow_svg(), True)
 
     for track in TRACKS:
         slug = f"mind-{track['id']}"
@@ -672,14 +778,31 @@ def build():
     print(f"rooms {len(room_meta)} diagrams {len(diagram_files)} flows {len(flow_files)}")
 
 
+TILE_ICONS = {
+    "foundations": "☁️", "instance": "🏠", "telephony": "☎️", "flows": "〰️", "lex": "💬",
+    "ai": "✨", "lambda": "λ", "routing": "🔀", "workspace": "🖥️", "records": "📁",
+    "channels": "📨", "analytics": "📊", "security": "🔐", "resiliency": "🌍",
+    "troubleshoot": "🔧", "bridge": "🌉", "integrations": "🔗", "ecosystem": "🌐",
+}
+HERO_3D = (
+    '<div class="hero-3d" aria-hidden="true"><div class="obj o1"><i></i><i></i><i></i><i></i><i></i><i></i></div>'
+    '<div class="obj o2"><i></i><i></i><i></i></div><div class="obj o3"><i></i><i></i><i></i></div></div>'
+)
+
+
 def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
     track_cards = []
     for index, track in enumerate(TRACKS, 1):
+        icon = TILE_ICONS.get(track["id"], "✦")
         track_cards.append(
             f'<a class="track-card" data-card style="--hue:{esc(track["hue"])}" href="tracks/{esc(track["id"])}/index.html">'
-            f'<p class="kicker">{index:02d}</p><h3>{esc(track["title"])}</h3><p>{esc(track["kicker"])}</p><p>{len(grouped[track["id"]])} rooms</p></a>'
+            f'<span class="tile-ico" aria-hidden="true">{icon}</span><span class="tile-copy">'
+            f'<p class="kicker">{index:02d}</p><h3>{esc(track["title"])}</h3><p>{esc(track["kicker"])}</p><p>{len(grouped[track["id"]])} rooms</p></span></a>'
         )
-    hero = (ROOT / "assets" / "diagrams" / "inbound-call-path.svg").read_text(encoding="utf-8")
+    hero = (
+        f'<div class="hero-wide">{hero_flow_svg()}</div>'
+        f'<div class="hero-compact">{hero_flow_compact_svg()}</div>'
+    )
     home_learn = "<p>Amazon Connect here means the contact-center instance: flows, queues, routing profiles, Lex, agent assist, Contact Lens, Lambda, Kinesis, the CCP, and the bridges from UCCE, Genesys, and Webex Contact Center.</p><p>No AWS account is required. Nothing on this site places a live call.</p>"
     home_sections = [
         block(0, "learn", "Learn it in 5 minutes", home_learn, section_file("home", "learn", "Home", home_learn)),
@@ -691,10 +814,10 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
 <div class="stat"><b>{len(flow_files)}</b><span>flows</span></div>
 </section>'''
     home = f'''<div class="wrap"><section class="hero" data-read>
-<div><p class="kicker">Amazon Connect study · offline</p><h1>Learn the contact center in color.</h1>
+<div class="hero-copy"><p class="kicker">Amazon Connect study · offline</p><h1>Learn the contact center in color.</h1>
 <p class="lede">Flows, queues, routing profiles, Lex, agent assist, Contact Lens, Lambda, Kinesis, the CCP, and the bridges from Cisco UCCE, Genesys, and Webex.</p>
 <div class="actions"><a class="btn" href="start.html">Start here</a><a class="ghost" href="#rooms">All rooms</a><a class="ghost" href="downloads.html">Downloads</a><a class="ghost" href="play.html">Play</a></div>
-</div><div class="hero-visual">{hero}</div></section>
+{HERO_3D}</div><div class="hero-visual">{hero}</div></section>
 {"".join(home_sections)}{stats}
 <section class="block" id="rooms" data-read><div class="section-bar"><h2>Tracks</h2>{dl(0, "html", section_file("home", "tracks", "Tracks", "<p>Eighteen tracks.</p>"), "HTML")}</div>
 <label class="menu-search">Search rooms <input data-filter-cards="#rooms" type="search" aria-label="Search rooms"></label>

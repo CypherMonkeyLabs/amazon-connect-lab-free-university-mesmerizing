@@ -143,6 +143,20 @@
   var params = new URLSearchParams(location.search);
   var shot = params.get("shot");
   if (shot === "menu" && drawer) setDrawer(true);
+  var mainEl = document.getElementById("main");
+  if (shot === "footer" && mainEl) {
+    var brandRow = document.querySelector(".brand-row");
+    if (brandRow) {
+      var host = document.createElement("div");
+      host.className = "shot-footer";
+      host.appendChild(brandRow.cloneNode(true));
+      mainEl.insertBefore(host, mainEl.firstChild);
+    }
+  }
+  if (shot === "tiles" && mainEl) {
+    var rooms = document.getElementById("rooms");
+    if (rooms) mainEl.insertBefore(rooms, mainEl.firstChild);
+  }
 
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduce && root.dataset.motion !== "reduce") root.classList.add("motion");
