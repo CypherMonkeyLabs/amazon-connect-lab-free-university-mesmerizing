@@ -26,10 +26,10 @@
     {
       "title": "All rooms",
       "href": "index.html",
-      "why": "Eighteen tracks, one room at a time",
+      "why": "{tracks} tracks, one room at a time",
       "words": [
         "rooms",
-        "eighteen",
+        "tracks",
         "tracks",
         "room",
         "time"
@@ -49,10 +49,93 @@
     {
       "title": "Ecosystem",
       "href": "ecosystem.html",
-      "why": "Glossary, map, bridges, and hooks",
+      "why": "Glossary, mind map, sisters, bridges, and hooks",
       "words": [
         "ecosystem",
         "glossary",
+        "mind",
+        "sisters",
+        "bridges",
+        "hooks"
+      ]
+    },
+    {
+      "title": "All chapters",
+      "href": "chapters/index.html",
+      "why": "Five paths from fundamentals to advanced",
+      "words": [
+        "chapters",
+        "five",
+        "paths",
+        "from",
+        "fundamentals",
+        "advanced"
+      ]
+    },
+    {
+      "title": "Routing",
+      "href": "chapters/routing.html",
+      "why": "Who can take the contact, and in what order",
+      "words": [
+        "routing",
+        "take",
+        "contact",
+        "what",
+        "order"
+      ]
+    },
+    {
+      "title": "Forecasting",
+      "href": "chapters/forecasting.html",
+      "why": "Interval, forecast, hiring plan, then adherence",
+      "words": [
+        "forecasting",
+        "interval",
+        "forecast",
+        "hiring",
+        "plan",
+        "then",
+        "adherence"
+      ]
+    },
+    {
+      "title": "Contact Lens",
+      "href": "chapters/contact-lens.html",
+      "why": "Transcripts, redaction, metrics, and evaluation forms",
+      "words": [
+        "contact",
+        "lens",
+        "transcripts",
+        "redaction",
+        "metrics",
+        "evaluation",
+        "forms"
+      ]
+    },
+    {
+      "title": "CRM and CPaaS",
+      "href": "chapters/crm.html",
+      "why": "Salesforce, Twilio's own docs, and the phone-number seam",
+      "words": [
+        "cpaas",
+        "salesforce",
+        "twilio",
+        "docs",
+        "phone",
+        "number",
+        "seam"
+      ]
+    },
+    {
+      "title": "Ecosystem",
+      "href": "ecosystem.html",
+      "why": "Glossary, mind map, sisters, maps, bridges, and hooks",
+      "words": [
+        "ecosystem",
+        "glossary",
+        "mind",
+        "sisters",
+        "maps",
         "bridges",
         "hooks"
       ]
@@ -1879,6 +1962,177 @@
         "exists",
         "scrape",
         "fork"
+      ]
+    },
+    {
+      "title": "Proficiencies filter inside a queue",
+      "href": "rooms/route-skills.html",
+      "why": "A proficiency chooses among agents who already have the queue. It does not replace the queue.",
+      "words": [
+        "proficiencies",
+        "filter",
+        "inside",
+        "queue",
+        "proficiency",
+        "chooses",
+        "among",
+        "agents",
+        "already",
+        "have",
+        "queue",
+        "does"
+      ]
+    },
+    {
+      "title": "Routing criteria, expiry, and a preferred agent",
+      "href": "rooms/route-criteria.html",
+      "why": "Set routing criteria does nothing until Transfer to queue, and it does nothing inside an agent queue.",
+      "words": [
+        "routing",
+        "criteria",
+        "expiry",
+        "preferred",
+        "agent",
+        "routing",
+        "criteria",
+        "does",
+        "nothing",
+        "until",
+        "transfer",
+        "queue"
+      ]
+    },
+    {
+      "title": "The forecast interval is a one-time choice",
+      "href": "rooms/wfm-interval.html",
+      "why": "Scheduling and capacity planning both wait on a forecast, and the interval cannot be edited later.",
+      "words": [
+        "forecast",
+        "interval",
+        "time",
+        "choice",
+        "scheduling",
+        "capacity",
+        "planning",
+        "both",
+        "wait",
+        "forecast",
+        "interval",
+        "cannot"
+      ]
+    },
+    {
+      "title": "Hiring plans and scheduling plans",
+      "href": "rooms/wfm-capacity.html",
+      "why": "A hiring plan and a scheduling plan do not read the same forecasts.",
+      "words": [
+        "hiring",
+        "plans",
+        "scheduling",
+        "plans",
+        "hiring",
+        "plan",
+        "scheduling",
+        "plan",
+        "read",
+        "same",
+        "forecasts",
+        "ecosystem"
+      ]
+    },
+    {
+      "title": "Publish the schedule before you talk about adherence",
+      "href": "rooms/wfm-schedule.html",
+      "why": "Adherence metrics appear after schedules are published.",
+      "words": [
+        "publish",
+        "schedule",
+        "before",
+        "talk",
+        "about",
+        "adherence",
+        "adherence",
+        "metrics",
+        "appear",
+        "after",
+        "schedules",
+        "published"
+      ]
+    },
+    {
+      "title": "Turn conversational analytics on for the contact",
+      "href": "rooms/lens-on.html",
+      "why": "A new instance already has the feature. A contact still needs the flow block.",
+      "words": [
+        "turn",
+        "conversational",
+        "analytics",
+        "contact",
+        "instance",
+        "already",
+        "feature",
+        "contact",
+        "still",
+        "needs",
+        "flow",
+        "block"
+      ]
+    },
+    {
+      "title": "Evaluation forms, from a blank page to a rule",
+      "href": "rooms/lens-eval.html",
+      "why": "A form can be filled by a person, by a category, or by a model. Activation is still your step.",
+      "words": [
+        "evaluation",
+        "forms",
+        "from",
+        "blank",
+        "page",
+        "rule",
+        "form",
+        "filled",
+        "person",
+        "category",
+        "model",
+        "activation"
+      ]
+    },
+    {
+      "title": "Salesforce starts as a CCP embed in a sandbox",
+      "href": "rooms/crm-sf.html",
+      "why": "The admin guide's Salesforce page is a Contact Control Panel inside Salesforce, installed in a sandbox first.",
+      "words": [
+        "salesforce",
+        "starts",
+        "embed",
+        "sandbox",
+        "admin",
+        "guide",
+        "salesforce",
+        "page",
+        "contact",
+        "control",
+        "panel",
+        "inside"
+      ]
+    },
+    {
+      "title": "Twilio Flex is a different product, documented on its own site",
+      "href": "rooms/cpaas-twilio.html",
+      "why": "This lab did not open an AWS page that names Twilio as an Amazon Connect connector.",
+      "words": [
+        "twilio",
+        "flex",
+        "different",
+        "product",
+        "documented",
+        "site",
+        "this",
+        "open",
+        "page",
+        "that",
+        "names",
+        "twilio"
       ]
     },
     {

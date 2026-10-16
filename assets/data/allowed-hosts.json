@@ -10,6 +10,7 @@
     "registry.terraform.io",
     "repost.aws",
     "www.rfc-editor.org",
-    "www.servicenow.com"
+    "www.servicenow.com",
+    "www.twilio.com"
   ]
 }

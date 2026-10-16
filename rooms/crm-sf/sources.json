@@ -1,0 +1,21 @@
+{
+  "room": "crm-sf",
+  "title": "Salesforce starts as a CCP embed in a sandbox",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Embed the Connect Customer Contact Control Panel (CCP) into Salesforce - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "GitHub - amazon-connect/amazon-connect-salesforce-cti: Documentation for Amazon Connect CTI Adapter for Salesforce. \u00b7 GitHub",
+      "url": "https://github.com/amazon-connect/amazon-connect-salesforce-cti",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

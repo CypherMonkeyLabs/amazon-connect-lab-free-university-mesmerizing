@@ -1,5 +1,10 @@
 [
   {
+    "file": "assets/diagrams/lens-on.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
     "file": "assets/diagrams/eco-ai-ops.png",
     "kind": "png",
     "result": "pass"
@@ -11,6 +16,11 @@
   },
   {
     "file": "assets/diagrams/tel-claim.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
+    "file": "assets/diagrams/route-criteria.png",
     "kind": "png",
     "result": "pass"
   },
@@ -47,6 +57,11 @@
   {
     "file": "assets/diagrams/foundations-s3.svg",
     "kind": "svg",
+    "result": "pass"
+  },
+  {
+    "file": "assets/diagrams/wfm-schedule.png",
+    "kind": "png",
     "result": "pass"
   },
   {
@@ -140,6 +155,11 @@
     "result": "pass"
   },
   {
+    "file": "assets/diagrams/crm-sf.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
     "file": "assets/diagrams/ai-config.png",
     "kind": "png",
     "result": "pass"
@@ -165,6 +185,11 @@
     "result": "pass"
   },
   {
+    "file": "assets/diagrams/lens-eval.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
     "file": "assets/diagrams/mind-channels.png",
     "kind": "png",
     "result": "pass"
@@ -175,6 +200,11 @@
     "result": "pass"
   },
   {
+    "file": "assets/diagrams/wfm-capacity.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
     "file": "assets/diagrams/ch-inapp.svg",
     "kind": "svg",
     "result": "pass"
@@ -182,6 +212,11 @@
   {
     "file": "assets/diagrams/ch-chat.png",
     "kind": "png",
+    "result": "pass"
+  },
+  {
+    "file": "assets/diagrams/wfm-capacity.svg",
+    "kind": "svg",
     "result": "pass"
   },
   {
@@ -295,6 +330,11 @@
     "result": "pass"
   },
   {
+    "file": "assets/diagrams/cpaas-twilio.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
     "file": "assets/diagrams/tel-outbound.svg",
     "kind": "svg",
     "result": "pass"
@@ -330,6 +370,11 @@
     "result": "pass"
   },
   {
+    "file": "assets/diagrams/wfm-interval.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
     "file": "assets/diagrams/tel-external.svg",
     "kind": "svg",
     "result": "pass"
@@ -341,6 +386,11 @@
   },
   {
     "file": "assets/diagrams/eco-wfm-3p.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
+    "file": "assets/diagrams/route-skills.png",
     "kind": "png",
     "result": "pass"
   },
@@ -405,6 +455,11 @@
     "result": "pass"
   },
   {
+    "file": "assets/diagrams/route-criteria.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
     "file": "assets/diagrams/int-teams.png",
     "kind": "png",
     "result": "pass"
@@ -426,6 +481,11 @@
   },
   {
     "file": "assets/diagrams/flows-modules.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
+    "file": "assets/diagrams/wfm-interval.png",
     "kind": "png",
     "result": "pass"
   },
@@ -605,6 +665,11 @@
     "result": "pass"
   },
   {
+    "file": "assets/diagrams/route-skills.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
     "file": "assets/diagrams/rec-tasks.png",
     "kind": "png",
     "result": "pass"
@@ -616,6 +681,11 @@
   },
   {
     "file": "assets/diagrams/flows-blocks.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
+    "file": "assets/diagrams/wfm-schedule.svg",
     "kind": "svg",
     "result": "pass"
   },
@@ -640,6 +710,16 @@
     "result": "pass"
   },
   {
+    "file": "assets/diagrams/crm-sf.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
+    "file": "assets/diagrams/lens-eval.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
     "file": "assets/diagrams/res-drill.svg",
     "kind": "svg",
     "result": "pass"
@@ -647,6 +727,11 @@
   {
     "file": "assets/diagrams/flows-modules.svg",
     "kind": "svg",
+    "result": "pass"
+  },
+  {
+    "file": "assets/diagrams/cpaas-twilio.png",
+    "kind": "png",
     "result": "pass"
   },
   {
@@ -847,6 +932,11 @@
   {
     "file": "assets/diagrams/ch-email.svg",
     "kind": "svg",
+    "result": "pass"
+  },
+  {
+    "file": "assets/diagrams/lens-on.png",
+    "kind": "png",
     "result": "pass"
   },
   {
@@ -1080,6 +1170,11 @@
     "result": "pass"
   },
   {
+    "file": "assets/flows/lens-on.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
     "file": "assets/flows/eco-ai-ops.png",
     "kind": "png",
     "result": "pass"
@@ -1091,6 +1186,11 @@
   },
   {
     "file": "assets/flows/tel-claim.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
+    "file": "assets/flows/route-criteria.png",
     "kind": "png",
     "result": "pass"
   },
@@ -1127,6 +1227,11 @@
   {
     "file": "assets/flows/foundations-s3.svg",
     "kind": "svg",
+    "result": "pass"
+  },
+  {
+    "file": "assets/flows/wfm-schedule.png",
+    "kind": "png",
     "result": "pass"
   },
   {
@@ -1190,6 +1295,11 @@
     "result": "pass"
   },
   {
+    "file": "assets/flows/crm-sf.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
     "file": "assets/flows/ai-config.png",
     "kind": "png",
     "result": "pass"
@@ -1210,6 +1320,16 @@
     "result": "pass"
   },
   {
+    "file": "assets/flows/lens-eval.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
+    "file": "assets/flows/wfm-capacity.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
     "file": "assets/flows/ch-inapp.svg",
     "kind": "svg",
     "result": "pass"
@@ -1217,6 +1337,11 @@
   {
     "file": "assets/flows/ch-chat.png",
     "kind": "png",
+    "result": "pass"
+  },
+  {
+    "file": "assets/flows/wfm-capacity.svg",
+    "kind": "svg",
     "result": "pass"
   },
   {
@@ -1315,6 +1440,11 @@
     "result": "pass"
   },
   {
+    "file": "assets/flows/cpaas-twilio.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
     "file": "assets/flows/tel-outbound.svg",
     "kind": "svg",
     "result": "pass"
@@ -1350,6 +1480,11 @@
     "result": "pass"
   },
   {
+    "file": "assets/flows/wfm-interval.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
     "file": "assets/flows/tel-external.svg",
     "kind": "svg",
     "result": "pass"
@@ -1361,6 +1496,11 @@
   },
   {
     "file": "assets/flows/eco-wfm-3p.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
+    "file": "assets/flows/route-skills.png",
     "kind": "png",
     "result": "pass"
   },
@@ -1420,6 +1560,11 @@
     "result": "pass"
   },
   {
+    "file": "assets/flows/route-criteria.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
     "file": "assets/flows/int-teams.png",
     "kind": "png",
     "result": "pass"
@@ -1441,6 +1586,11 @@
   },
   {
     "file": "assets/flows/flows-modules.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
+    "file": "assets/flows/wfm-interval.png",
     "kind": "png",
     "result": "pass"
   },
@@ -1590,6 +1740,11 @@
     "result": "pass"
   },
   {
+    "file": "assets/flows/route-skills.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
     "file": "assets/flows/rec-tasks.png",
     "kind": "png",
     "result": "pass"
@@ -1601,6 +1756,11 @@
   },
   {
     "file": "assets/flows/flows-blocks.svg",
+    "kind": "svg",
+    "result": "pass"
+  },
+  {
+    "file": "assets/flows/wfm-schedule.svg",
     "kind": "svg",
     "result": "pass"
   },
@@ -1620,6 +1780,16 @@
     "result": "pass"
   },
   {
+    "file": "assets/flows/crm-sf.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
+    "file": "assets/flows/lens-eval.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
     "file": "assets/flows/res-drill.svg",
     "kind": "svg",
     "result": "pass"
@@ -1627,6 +1797,11 @@
   {
     "file": "assets/flows/flows-modules.svg",
     "kind": "svg",
+    "result": "pass"
+  },
+  {
+    "file": "assets/flows/cpaas-twilio.png",
+    "kind": "png",
     "result": "pass"
   },
   {
@@ -1797,6 +1972,11 @@
   {
     "file": "assets/flows/ch-email.svg",
     "kind": "svg",
+    "result": "pass"
+  },
+  {
+    "file": "assets/flows/lens-on.png",
+    "kind": "png",
     "result": "pass"
   },
   {
@@ -2010,6 +2190,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sheets/skills-routing.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sheets/kinesis-ctr.html",
     "kind": "html",
     "result": "pass"
@@ -2030,8 +2215,18 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sheets/crm-cpaas.pdf",
+    "kind": "pdf",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sheets/troubleshoot.html",
     "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sheets/skills-routing.pdf",
+    "kind": "pdf",
     "result": "pass"
   },
   {
@@ -2042,6 +2237,11 @@
   {
     "file": "downloads/sheets/ports-media.png",
     "kind": "png",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sheets/forecasting.pdf",
+    "kind": "pdf",
     "result": "pass"
   },
   {
@@ -2060,6 +2260,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sheets/crm-cpaas.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sheets/kinesis-ctr.pdf",
     "kind": "pdf",
     "result": "pass"
@@ -2067,6 +2272,11 @@
   {
     "file": "downloads/sheets/resiliency.pdf",
     "kind": "pdf",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sheets/forecasting.html",
+    "kind": "html",
     "result": "pass"
   },
   {
@@ -2087,6 +2297,11 @@
   {
     "file": "downloads/sheets/contact-lens.html",
     "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sheets/forecasting.png",
+    "kind": "png",
     "result": "pass"
   },
   {
@@ -2116,6 +2331,11 @@
   },
   {
     "file": "downloads/sheets/bridge-map.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sheets/crm-cpaas.html",
     "kind": "html",
     "result": "pass"
   },
@@ -2151,6 +2371,11 @@
   },
   {
     "file": "downloads/sheets/bridge-map.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sheets/skills-routing.png",
     "kind": "png",
     "result": "pass"
   },
@@ -2265,7 +2490,17 @@
     "result": "pass"
   },
   {
+    "file": "downloads/flows/lens-on.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/flows/an-lens.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/flows/cpaas-twilio.html",
     "kind": "html",
     "result": "pass"
   },
@@ -2276,6 +2511,11 @@
   },
   {
     "file": "downloads/flows/eco-wfm-3p.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/flows/wfm-interval.html",
     "kind": "html",
     "result": "pass"
   },
@@ -2340,6 +2580,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/flows/lens-eval.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/flows/flows-attributes.html",
     "kind": "html",
     "result": "pass"
@@ -2351,6 +2596,11 @@
   },
   {
     "file": "downloads/flows/flows-blocks.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/flows/route-criteria.html",
     "kind": "html",
     "result": "pass"
   },
@@ -2380,7 +2630,17 @@
     "result": "pass"
   },
   {
+    "file": "downloads/flows/crm-sf.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/flows/foundations-regions.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/flows/wfm-capacity.html",
     "kind": "html",
     "result": "pass"
   },
@@ -2545,6 +2805,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/flows/wfm-schedule.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/flows/ch-chat.html",
     "kind": "html",
     "result": "pass"
@@ -2591,6 +2856,11 @@
   },
   {
     "file": "downloads/flows/route-hours.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/flows/route-skills.html",
     "kind": "html",
     "result": "pass"
   },
@@ -2730,6 +3000,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/diagrams/lens-on.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/diagrams/mind-analytics.html",
     "kind": "html",
     "result": "pass"
@@ -2740,12 +3015,22 @@
     "result": "pass"
   },
   {
+    "file": "downloads/diagrams/cpaas-twilio.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/diagrams/lex-get-input.html",
     "kind": "html",
     "result": "pass"
   },
   {
     "file": "downloads/diagrams/eco-wfm-3p.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/diagrams/wfm-interval.html",
     "kind": "html",
     "result": "pass"
   },
@@ -2815,6 +3100,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/diagrams/lens-eval.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/diagrams/flows-attributes.html",
     "kind": "html",
     "result": "pass"
@@ -2831,6 +3121,11 @@
   },
   {
     "file": "downloads/diagrams/flows-blocks.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/diagrams/route-criteria.html",
     "kind": "html",
     "result": "pass"
   },
@@ -2860,12 +3155,22 @@
     "result": "pass"
   },
   {
+    "file": "downloads/diagrams/crm-sf.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/diagrams/mind-bridge.html",
     "kind": "html",
     "result": "pass"
   },
   {
     "file": "downloads/diagrams/foundations-regions.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/diagrams/wfm-capacity.html",
     "kind": "html",
     "result": "pass"
   },
@@ -3075,6 +3380,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/diagrams/wfm-schedule.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/diagrams/ch-chat.html",
     "kind": "html",
     "result": "pass"
@@ -3126,6 +3436,11 @@
   },
   {
     "file": "downloads/diagrams/route-hours.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/diagrams/route-skills.html",
     "kind": "html",
     "result": "pass"
   },
@@ -3270,6 +3585,16 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/chapter-forecasting-forecasting-advanced.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/wfm-schedule-visual.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/br-map-quiz.html",
     "kind": "html",
     "result": "pass"
@@ -3330,6 +3655,16 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/wfm-interval-example.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/chapter-routing-routing-working.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/flows-errors-example.html",
     "kind": "html",
     "result": "pass"
@@ -3346,6 +3681,11 @@
   },
   {
     "file": "downloads/sections/instance-prompts-quiz.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/lens-on-ecosystem.html",
     "kind": "html",
     "result": "pass"
   },
@@ -3376,6 +3716,16 @@
   },
   {
     "file": "downloads/sections/ai-names-quiz.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/wfm-schedule-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/home-chapters.html",
     "kind": "html",
     "result": "pass"
   },
@@ -3475,6 +3825,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/route-skills-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/ch-email-visual.html",
     "kind": "html",
     "result": "pass"
@@ -3525,7 +3880,17 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/lens-eval-ecosystem.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/ai-voiceid-ended-sources.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/wfm-capacity-quiz.html",
     "kind": "html",
     "result": "pass"
   },
@@ -3570,6 +3935,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/ecosystem-advanced.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/tel-types-learn.html",
     "kind": "html",
     "result": "pass"
@@ -3596,6 +3966,11 @@
   },
   {
     "file": "downloads/sections/br-pitfalls-quiz.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/route-criteria-visual.html",
     "kind": "html",
     "result": "pass"
   },
@@ -3635,6 +4010,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/wfm-schedule-example.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/ch-inapp-example.html",
     "kind": "html",
     "result": "pass"
@@ -3646,6 +4026,11 @@
   },
   {
     "file": "downloads/sections/sec-saml-sources.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/wfm-interval-learn.html",
     "kind": "html",
     "result": "pass"
   },
@@ -3716,6 +4101,11 @@
   },
   {
     "file": "downloads/sections/ws-streams-sources.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/route-criteria-ecosystem.html",
     "kind": "html",
     "result": "pass"
   },
@@ -3885,12 +4275,32 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/route-skills-ecosystem.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/sec-saml-visual.html",
     "kind": "html",
     "result": "pass"
   },
   {
+    "file": "downloads/sections/route-criteria-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/route-hours-quiz.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/wfm-capacity-sources.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/crm-sf-example.html",
     "kind": "html",
     "result": "pass"
   },
@@ -4016,6 +4426,11 @@
   },
   {
     "file": "downloads/sections/ts-faults-example.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/wfm-capacity-ecosystem.html",
     "kind": "html",
     "result": "pass"
   },
@@ -4165,6 +4580,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/wfm-capacity-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/ai-config-learn.html",
     "kind": "html",
     "result": "pass"
@@ -4176,6 +4596,11 @@
   },
   {
     "file": "downloads/sections/ts-flowlogs-example.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/chapter-contact-lens-contact-lens-working.html",
     "kind": "html",
     "result": "pass"
   },
@@ -4201,6 +4626,11 @@
   },
   {
     "file": "downloads/sections/ws-workspace-ecosystem.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/route-criteria-example.html",
     "kind": "html",
     "result": "pass"
   },
@@ -4295,12 +4725,22 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/chapter-crm-crm-working.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/ecosystem-map.html",
     "kind": "html",
     "result": "pass"
   },
   {
     "file": "downloads/sections/ch-email-example.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/chapter-routing-routing-advanced.html",
     "kind": "html",
     "result": "pass"
   },
@@ -4341,6 +4781,11 @@
   },
   {
     "file": "downloads/sections/ai-voiceid-ended-visual.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/wfm-interval-quiz.html",
     "kind": "html",
     "result": "pass"
   },
@@ -4410,6 +4855,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/cpaas-twilio-quiz.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/int-sn-learn.html",
     "kind": "html",
     "result": "pass"
@@ -4435,6 +4885,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/crm-sf-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/rec-tasks-visual.html",
     "kind": "html",
     "result": "pass"
@@ -4446,6 +4901,11 @@
   },
   {
     "file": "downloads/sections/foundations-network-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/ecosystem-fundamentals.html",
     "kind": "html",
     "result": "pass"
   },
@@ -4515,6 +4975,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/lens-on-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/tel-outbound-ecosystem.html",
     "kind": "html",
     "result": "pass"
@@ -4536,6 +5001,11 @@
   },
   {
     "file": "downloads/sections/eco-why-ecosystem.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/route-skills-sources.html",
     "kind": "html",
     "result": "pass"
   },
@@ -4745,6 +5215,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/chapter-contact-lens-contact-lens-advanced.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/int-sn-example.html",
     "kind": "html",
     "result": "pass"
@@ -4810,6 +5285,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/lens-eval-visual.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/flows-types-quiz.html",
     "kind": "html",
     "result": "pass"
@@ -4870,6 +5350,16 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/wfm-interval-ecosystem.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/wfm-capacity-example.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/foundations-cloudwatch-example.html",
     "kind": "html",
     "result": "pass"
@@ -4880,7 +5370,17 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/cpaas-twilio-visual.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/sec-price-quiz.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/wfm-schedule-sources.html",
     "kind": "html",
     "result": "pass"
   },
@@ -4921,6 +5421,11 @@
   },
   {
     "file": "downloads/sections/regions-res-pair.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/wfm-capacity-visual.html",
     "kind": "html",
     "result": "pass"
   },
@@ -5006,6 +5511,11 @@
   },
   {
     "file": "downloads/sections/instance-iac-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/wfm-interval-sources.html",
     "kind": "html",
     "result": "pass"
   },
@@ -5140,6 +5650,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/wfm-schedule-quiz.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/foundations-timeline-sources.html",
     "kind": "html",
     "result": "pass"
@@ -5170,6 +5685,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/chapter-forecasting-forecasting-fundamentals.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/instance-iac-example.html",
     "kind": "html",
     "result": "pass"
@@ -5186,6 +5706,11 @@
   },
   {
     "file": "downloads/sections/foundations-why-quiz.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/route-skills-quiz.html",
     "kind": "html",
     "result": "pass"
   },
@@ -5215,6 +5740,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/route-skills-visual.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/flows-modules-visual.html",
     "kind": "html",
     "result": "pass"
@@ -5226,6 +5756,16 @@
   },
   {
     "file": "downloads/sections/sec-kms-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/cpaas-twilio-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/cpaas-twilio-example.html",
     "kind": "html",
     "result": "pass"
   },
@@ -5245,6 +5785,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/lens-on-visual.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/certs-foundations-certs.html",
     "kind": "html",
     "result": "pass"
@@ -5260,6 +5805,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/lens-eval-example.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/lambda-perms-example.html",
     "kind": "html",
     "result": "pass"
@@ -5270,7 +5820,17 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/chapter-routing-routing-fundamentals.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/eco-crm-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/route-criteria-quiz.html",
     "kind": "html",
     "result": "pass"
   },
@@ -5281,6 +5841,11 @@
   },
   {
     "file": "downloads/sections/eco-qm-quiz.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/route-skills-example.html",
     "kind": "html",
     "result": "pass"
   },
@@ -5320,6 +5885,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/lens-on-quiz.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/eco-wfm-example.html",
     "kind": "html",
     "result": "pass"
@@ -5345,7 +5915,22 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/cpaas-twilio-sources.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/route-criteria-sources.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/lambda-async-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/lens-eval-learn.html",
     "kind": "html",
     "result": "pass"
   },
@@ -5356,6 +5941,11 @@
   },
   {
     "file": "downloads/sections/lambda-contract-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/lens-on-example.html",
     "kind": "html",
     "result": "pass"
   },
@@ -5485,6 +6075,16 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/crm-sf-quiz.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/crm-sf-ecosystem.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/route-profile-visual.html",
     "kind": "html",
     "result": "pass"
@@ -5540,6 +6140,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/chapter-forecasting-forecasting-working.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/lex-fallback-quiz.html",
     "kind": "html",
     "result": "pass"
@@ -5565,6 +6170,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/wfm-schedule-ecosystem.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/tel-external-learn.html",
     "kind": "html",
     "result": "pass"
@@ -5576,6 +6186,11 @@
   },
   {
     "file": "downloads/sections/eco-crm-sources.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/crm-sf-sources.html",
     "kind": "html",
     "result": "pass"
   },
@@ -5616,6 +6231,11 @@
   },
   {
     "file": "downloads/sections/eco-wfm-3p-learn.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/chapter-crm-crm-advanced.html",
     "kind": "html",
     "result": "pass"
   },
@@ -5700,7 +6320,17 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/chapter-contact-lens-contact-lens-fundamentals.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/ts-flowlogs-visual.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/lens-eval-sources.html",
     "kind": "html",
     "result": "pass"
   },
@@ -5735,6 +6365,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/chapter-crm-crm-fundamentals.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/tel-port-quiz.html",
     "kind": "html",
     "result": "pass"
@@ -5755,7 +6390,17 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/ecosystem-working.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/ts-faults-sources.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/lens-eval-quiz.html",
     "kind": "html",
     "result": "pass"
   },
@@ -5781,6 +6426,11 @@
   },
   {
     "file": "downloads/sections/an-agents-quiz.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/sections/lens-on-sources.html",
     "kind": "html",
     "result": "pass"
   },
@@ -5900,6 +6550,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/wfm-interval-visual.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/ai-voiceid-ended-learn.html",
     "kind": "html",
     "result": "pass"
@@ -5965,6 +6620,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/crm-sf-visual.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/eco-e911-learn.html",
     "kind": "html",
     "result": "pass"
@@ -6015,6 +6675,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/sections/cpaas-twilio-ecosystem.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/sections/flows-errors-quiz.html",
     "kind": "html",
     "result": "pass"
@@ -6035,6 +6700,11 @@
     "result": "pass"
   },
   {
+    "file": "downloads/templates/forecast-plan.html",
+    "kind": "html",
+    "result": "pass"
+  },
+  {
     "file": "downloads/templates/lambda-contract.pdf",
     "kind": "pdf",
     "result": "pass"
@@ -6050,7 +6720,17 @@
     "result": "pass"
   },
   {
+    "file": "downloads/templates/forecast-plan.png",
+    "kind": "png",
+    "result": "pass"
+  },
+  {
     "file": "downloads/templates/inbound-flow.pdf",
+    "kind": "pdf",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/templates/forecast-plan.pdf",
     "kind": "pdf",
     "result": "pass"
   },
@@ -6072,6 +6752,11 @@
   {
     "file": "downloads/templates/cutover-checklist.pdf",
     "kind": "pdf",
+    "result": "pass"
+  },
+  {
+    "file": "downloads/templates/forecast-plan.docx",
+    "kind": "docx",
     "result": "pass"
   },
   {

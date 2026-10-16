@@ -1066,5 +1066,93 @@
     "title": "Docs | ServiceNow",
     "ok": true,
     "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/routing-profiles.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/routing-profiles.html",
+    "title": "Create a routing profile in Connect Customer to link queues to agents - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/proficiency-routing.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/proficiency-routing.html",
+    "title": "Set up routing in Connect Customer based on agent proficiencies - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-routing-criteria.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/set-routing-criteria.html",
+    "title": "Flow block in Connect Customer: Set routing criteria - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting.html",
+    "title": "Forecasting in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-forecast-scheduling-interval.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/set-forecast-scheduling-interval.html",
+    "title": "Set the forecast and schedule interval in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/capacity-planning.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/capacity-planning.html",
+    "title": "Capacity planning in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens.html",
+    "title": "Connect Customer conversational analytics - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/enable-analytics.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/enable-analytics.html",
+    "title": "Enable conversational analytics in Connect Customer conversational analytics - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-evaluation-forms.html",
+    "status": 200,
+    "final": "https://docs.aws.amazon.com/connect/latest/adminguide/create-evaluation-forms.html",
+    "title": "Create an evaluation form in Connect Customer - Amazon Connect Customer",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://www.twilio.com/docs/flex/admin-guide/integrations/salesforce",
+    "status": 200,
+    "final": "https://www.twilio.com/docs/flex/admin-guide/integrations/salesforce",
+    "title": "Integrate Flex with Salesforce",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "url": "https://www.twilio.com/docs/sip-trunking/call-transfer",
+    "status": 200,
+    "final": "https://www.twilio.com/docs/sip-trunking/call-transfer",
+    "title": "Call Transfer via SIP REFER",
+    "ok": true,
+    "note": ""
   }
 ]

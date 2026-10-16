@@ -181,3 +181,7 @@ GLOSSARY = [
     ("Health, Decisions, Talent", "The other three solutions in the family. They are not settings inside a contact center instance.", "foundations", "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html", "Connect timeline, 25 Sep 2026"),
     ("Estimate", "A price you computed from the public rate card on a named date. It is not an invoice. Taxes, surcharges, and country telephony rates still apply.", "security", "https://aws.amazon.com/products/connect/customer/pricing/appendix/", "Pricing appendix"),
 ]
+
+from new_chapters import EXTRA_GLOSSARY  # noqa: E402
+
+GLOSSARY.extend(EXTRA_GLOSSARY)

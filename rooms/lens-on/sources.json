@@ -1,0 +1,21 @@
+{
+  "room": "lens-on",
+  "title": "Turn conversational analytics on for the contact",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "title": "Enable conversational analytics in Connect Customer conversational analytics - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/enable-analytics.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "title": "Connect Customer conversational analytics - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}
