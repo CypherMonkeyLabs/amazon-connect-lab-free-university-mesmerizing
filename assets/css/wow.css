@@ -23,6 +23,19 @@ html[data-theme="dark"] {
   --card: #111827;
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
+html[data-theme="neon"] {
+  --bg: #050816;
+  --bg-2: #0c1228;
+  --ink: #f8fafc;
+  --muted: #67e8f9;
+  --line: #312e81;
+  --card: #0b1024;
+  --accent: #22d3ee;
+  --accent-2: #f472b6;
+  --accent-3: #a78bfa;
+  --accent-4: #fbbf24;
+  --shadow: 0 14px 36px rgba(34, 211, 238, 0.2);
+}
 html[data-font="sm"] { font-size: 16px; }
 html[data-font="md"] { font-size: 18px; }
 html[data-font="lg"] { font-size: 20px; }
@@ -60,21 +73,30 @@ body.drawer-open { overflow: hidden; }
 .skip:focus { top: 8px; }
 a { color: #4c1d95; }
 html[data-theme="dark"] a { color: #c4b5fd; }
+html[data-theme="neon"] a { color: #67e8f9; }
 :focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
 
 .phone-dock {
   display: none;
   position: fixed;
   z-index: 45;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: 8px;
+  right: 8px;
+  bottom: calc(8px + env(safe-area-inset-bottom));
   height: 64px;
-  padding-bottom: env(safe-area-inset-bottom);
+  width: auto;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
   grid-template-columns: repeat(6, 1fr);
-  background: #1e1b4b;
   color: #fff;
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.25);
+  background:
+    radial-gradient(160px 48px at 8% 0%, rgba(34, 211, 238, 0.55), transparent 70%),
+    radial-gradient(140px 48px at 92% 120%, rgba(244, 114, 182, 0.45), transparent 70%),
+    linear-gradient(115deg, #042f2e 0%, #1e1b4b 48%, #4c1d95 100%);
+  box-shadow:
+    0 16px 36px rgba(15, 23, 42, 0.45),
+    0 0 22px rgba(34, 211, 238, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 .phone-dock a, .phone-dock button {
   display: flex;
@@ -99,8 +121,14 @@ html[data-theme="dark"] a { color: #c4b5fd; }
   border-radius: 9px;
   background: linear-gradient(145deg, #fff, #67e8f9);
   color: #1e1b4b;
-  box-shadow: 0 0 10px rgba(34, 211, 238, 0.7);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.7), 0 6px 0 rgba(15, 23, 42, 0.25);
   font-size: 0.95rem;
+  transition: transform 0.2s ease;
+}
+html.motion .phone-dock a:hover .dock-ico,
+html.motion .phone-dock button:hover .dock-ico,
+html.motion .phone-dock a:focus-visible .dock-ico {
+  transform: translateY(-3px) perspective(120px) rotateX(14deg) rotateY(-12deg);
 }
 .phone-dock a:nth-child(3) .dock-ico { background: linear-gradient(145deg, #fff, #fbcfe8); }
 .phone-dock a:nth-child(4) .dock-ico { background: linear-gradient(145deg, #fff, #fde68a); }
@@ -119,14 +147,48 @@ html.motion .floaty { animation: floaty 3.4s ease-in-out infinite; }
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
 }
+.fx-field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.fx-field i {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+  opacity: 0.8;
+}
+html.motion .fx-field i {
+  animation-name: fx-rise;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes fx-rise {
+  from { transform: translateY(16px); }
+  to { transform: translateY(-36px); }
+}
+html.motion {
+  background-position:
+    center calc(-8% - var(--py, 0px)),
+    right calc(0% - var(--py, 0px)),
+    80% calc(100% + var(--py, 0px)),
+    0 0;
+}
 @media (max-width: 800px) {
-  :root { --header-h: 56px; --dock-h: 72px; }
+  :root { --header-h: 56px; --dock-h: 86px; }
   .phone-dock { display: grid; }
-  body { padding-bottom: calc(210px + env(safe-area-inset-bottom)); }
+  body { padding-bottom: calc(220px + env(safe-area-inset-bottom)); }
   .phone-dock a, .phone-dock button { font-size: 0.75rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  html.motion .floaty, html.motion .packet-spin { animation: none; }
+  html.motion .floaty, html.motion .packet-spin, .fx-field i { animation: none; }
+  .fx-field { display: none; }
 }
 html[data-motion="reduce"] .floaty,
-html[data-motion="reduce"] .packet-spin { animation: none !important; }
+html[data-motion="reduce"] .packet-spin,
+html[data-motion="reduce"] .fx-field i { animation: none !important; }
+html[data-motion="reduce"] .fx-field { display: none; }

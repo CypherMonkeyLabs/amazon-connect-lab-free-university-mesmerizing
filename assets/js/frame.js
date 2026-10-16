@@ -5,7 +5,7 @@
   function bootDisplay() {
     var saved = {};
     try { saved = JSON.parse(localStorage.getItem("acl-display") || "{}"); } catch (err) { saved = {}; }
-    if (saved.theme === "dark") root.dataset.theme = "dark";
+    if (saved.theme === "dark" || saved.theme === "neon") root.dataset.theme = saved.theme;
     else root.dataset.theme = "bright";
     if (saved.font) root.dataset.font = saved.font;
     if (saved.ink && /^#[0-9a-fA-F]{6}$/.test(saved.ink)) root.style.setProperty("--ink", saved.ink);
@@ -102,11 +102,20 @@
       saveDisplay({ font: size });
     });
   });
+  var themeRow = document.querySelector(".theme-row");
+  if (themeRow && !themeRow.querySelector('[data-set-theme="neon"]')) {
+    var neon = document.createElement("button");
+    neon.type = "button";
+    neon.setAttribute("data-set-theme", "neon");
+    neon.textContent = "Neon";
+    themeRow.appendChild(neon);
+  }
   document.querySelectorAll("[data-set-theme]").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var theme = btn.getAttribute("data-set-theme");
-      root.dataset.theme = theme === "dark" ? "dark" : "bright";
-      saveDisplay({ theme: root.dataset.theme });
+      if (theme !== "dark" && theme !== "neon") theme = "bright";
+      root.dataset.theme = theme;
+      saveDisplay({ theme: theme });
     });
   });
   var ink = document.querySelector("[data-ink]");
@@ -124,6 +133,7 @@
       if (motion.checked) root.dataset.motion = "reduce";
       else root.removeAttribute("data-motion");
       saveDisplay({ motion: motion.checked ? "reduce" : "full" });
+      syncMotion();
     });
   }
 
@@ -157,7 +167,51 @@
     var rooms = document.getElementById("rooms");
     if (rooms) mainEl.insertBefore(rooms, mainEl.firstChild);
   }
+  if (shot === "neon") root.dataset.theme = "neon";
+  if (shot === "read" && mainEl) {
+    var reading = document.getElementById("learn") || mainEl.querySelector("[data-read]");
+    if (reading) {
+      reading.classList.add("is-reading");
+      mainEl.insertBefore(reading, mainEl.firstChild);
+    }
+  }
 
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!reduce && root.dataset.motion !== "reduce") root.classList.add("motion");
+  function motionOn() {
+    return !window.matchMedia("(prefers-reduced-motion: reduce)").matches && root.dataset.motion !== "reduce";
+  }
+  function syncMotion() {
+    var on = motionOn();
+    root.classList.toggle("motion", on);
+    var field = document.querySelector(".fx-field");
+    if (!on) {
+      if (field) field.remove();
+      return;
+    }
+    if (field) return;
+    field = document.createElement("div");
+    field.className = "fx-field";
+    field.setAttribute("aria-hidden", "true");
+    var hues = ["#22d3ee", "#f472b6", "#fbbf24", "#a78bfa"];
+    for (var i = 0; i < 16; i += 1) {
+      var dot = document.createElement("i");
+      dot.style.left = ((i * 17) % 100) + "%";
+      dot.style.top = ((i * 23) % 100) + "%";
+      dot.style.background = hues[i % 4];
+      dot.style.color = hues[i % 4];
+      dot.style.animationDelay = (i * -0.7) + "s";
+      dot.style.animationDuration = (12 + (i % 5) * 2) + "s";
+      field.appendChild(dot);
+    }
+    document.body.appendChild(field);
+  }
+  syncMotion();
+  var parallax = 0;
+  window.addEventListener("scroll", function () {
+    if (!root.classList.contains("motion")) return;
+    if (parallax) return;
+    parallax = window.requestAnimationFrame(function () {
+      parallax = 0;
+      root.style.setProperty("--py", Math.min(window.scrollY, 800) * 0.18 + "px");
+    });
+  }, { passive: true });
 })();

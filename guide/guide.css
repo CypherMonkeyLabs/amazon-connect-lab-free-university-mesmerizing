@@ -110,6 +110,20 @@ body:has(.bot-sheet:not([hidden])) .bot-launcher { display: none !important; }
 .bot-extra { margin-top: 10px; }
 .bot-extra summary { list-style: none; }
 .bot-extra summary::-webkit-details-marker { display: none; }
+.read-row {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: end;
+  margin-top: 10px;
+  flex: none;
+}
+.read-row label { display: grid; gap: 2px; min-width: 0; font-size: 0.82rem; font-weight: 800; color: #1e1b4b; }
+.read-row button { min-height: 44px; }
+@media (max-width: 800px) {
+  .read-row { grid-template-columns: 1fr 1fr; }
+  .read-row label { grid-column: 1 / -1; }
+}
 .voice-row { display: grid; gap: 8px; margin-top: 8px; }
 .voice-row label { display: grid; gap: 4px; font-size: 0.92rem; font-weight: 800; color: #1e1b4b; }
 .check-line { display: flex !important; align-items: center; gap: 8px; }
@@ -246,7 +260,9 @@ html.motion .monkey .eye { transform-box: fill-box; transform-origin: center; an
     flex: none;
     margin-top: 8px;
   }
-  .bot-sheet:not(.idle-pop) .greet-hero svg { width: 72px; height: 84px; }
+  .bot-sheet:not(.idle-pop) .greet-hero svg { width: 64px; height: 74px; }
+  .bot-sheet:not(.idle-pop) .choice-grid button { min-height: 40px; padding: 4px 10px; }
+  .bot-sheet:not(.idle-pop) .greet-hero p { font-size: 0.92rem; }
   .idle-pop {
     left: auto;
     right: 8px;

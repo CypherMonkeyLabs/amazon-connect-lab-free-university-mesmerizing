@@ -463,12 +463,13 @@ def display_html():
 <div class="theme-row" role="group" aria-label="Theme">
 <button type="button" data-set-theme="bright">Bright</button>
 <button type="button" data-set-theme="dark">Dark</button>
+<button type="button" data-set-theme="neon">Neon</button>
 </div>
 <label class="ink-label"><input data-reduce-motion type="checkbox"> Reduce motion</label>
 </div>'''
 
 
-BOOT = """<script>try{var s=JSON.parse(localStorage.getItem("acl-display")||"{}");document.documentElement.dataset.theme=s.theme==="dark"?"dark":"bright";if(s.font)document.documentElement.dataset.font=s.font;if(s.ink&&/^#[0-9a-fA-F]{6}$/.test(s.ink))document.documentElement.style.setProperty("--ink",s.ink);if(s.motion==="reduce")document.documentElement.dataset.motion="reduce";}catch(e){document.documentElement.dataset.theme="bright";}</script>"""
+BOOT = """<script>try{var s=JSON.parse(localStorage.getItem("acl-display")||"{}");document.documentElement.dataset.theme=(s.theme==="dark"||s.theme==="neon")?s.theme:"bright";if(s.font)document.documentElement.dataset.font=s.font;if(s.ink&&/^#[0-9a-fA-F]{6}$/.test(s.ink))document.documentElement.style.setProperty("--ink",s.ink);if(s.motion==="reduce")document.documentElement.dataset.motion="reduce";}catch(e){document.documentElement.dataset.theme="bright";}</script>"""
 
 
 def page(path: Path, title, description, depth, current, body, scripts=""):

@@ -157,10 +157,6 @@ SHELL_HTML = """<!DOCTYPE html>
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Amazon Connect Lab">
-<meta name="twitter:description" content="Eighteen tracks, twenty-four labs, a 3D architecture map, and a cited glossary for Amazon Connect.">
-<meta name="twitter:image" content="og-card.png">
 <link rel="stylesheet" href="campus.css">
 <!--FAVICON-->
 <script type="importmap">
@@ -321,6 +317,12 @@ try {
       <footer class="site-foot">
         <p class="sig">CypherMonkey · Amazon Connect Lab</p>
         <p class="about-line"><!--IDENTITY--></p>
+        <aside class="disclaimer-panel">
+          <div>
+            <h2>Independent study lab</h2>
+            <p>This is an independent, free, learning-only student project. It respects every company and vendor. Trademarks belong to their owners. It is not affiliated with or endorsed by Amazon Web Services, Cisco, Genesys, or any other company. A concern can be sent through <a href="https://cyphermonkeylabs.com/#contact">https://cyphermonkeylabs.com/#contact</a> and the page will be removed or corrected. Nothing here is sold. There are no ads. The author is happy to volunteer for any organization.</p>
+          </div>
+        </aside>
         <!--BRAND-->
         <p class="copy"><!--COPYRIGHT--></p>
         <p>Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content.</p>
@@ -335,7 +337,6 @@ try {
           <a href="https://cyphermonkeylabs.com/nice-cxone-lab-free-university-mesmerizing/">NICE CXone</a>
           <a href="https://cyphermonkeylabs.com/sip-universe-lab-free-university-mesmerizing/">SIP Universe</a>
           <a href="https://cyphermonkeylabs.com/webex-lab-free-university-mesmerizing/">Webex Lab</a>
-          <a href="https://cipher0x9.github.io/gemini-gems-free-gallery/">Gemini Gems</a>
         </nav>
       </footer>
     </main>

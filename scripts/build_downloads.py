@@ -16,9 +16,9 @@ OUT = CAMPUS / "downloads"
 
 CONTACT = HOME + "/#contact"
 PDF_FOOT = (
-    "cyphermonkeylabs.com · github.com/cipher0x9 · github.com/CypherMonkeyLabs · "
+    "cyphermonkeylabs.com · github.com/CypherMonkeyLabs · "
     "github.com/CypherMonkeyLabs/amazon-connect-lab-free-university-mesmerizing · "
-    "x.com/Cypher0x9 · huggingface.co/Cypher0x9"
+    "linktr.ee/cypherMonkey"
 )
 
 DISCLAIMER = (

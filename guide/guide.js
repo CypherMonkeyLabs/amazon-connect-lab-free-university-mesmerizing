@@ -114,7 +114,7 @@ sheet.innerHTML =
   '<div class="sheet-handle" data-handle role="presentation" aria-hidden="true"></div>' +
   '<div class="sheet-scroll">' +
   '<div class="greet-hero">' + monkeyMarkup("fur-sheet") +
-  '<div><p class="kicker">Connect guide</p><p>Pick a path. Voice and extras stay folded until you open them.</p></div></div>' +
+  '<div><p class="kicker">Connect guide</p><p>Pick a path. Read this page glows each section as it is spoken.</p></div></div>' +
   '<div class="choice-grid">' +
   '<button type="button" data-go="start.html#ten">Finish in 10 minutes</button>' +
   '<button type="button" data-go="index.html#rooms">Full course</button>' +
@@ -124,21 +124,23 @@ sheet.innerHTML =
   '<div class="bot-log" data-log></div>' +
   '<p class="say-line" data-say hidden><mark data-say-mark></mark></p>' +
   '<details class="bot-extra">' +
-  '<summary>Voice, sound, and ask</summary>' +
+  '<summary>Rate, sound, and ask</summary>' +
   '<div class="bot-controls">' +
-  '<button type="button" data-read>Read this page</button>' +
   '<button type="button" data-follow>Read along</button>' +
-  '<button type="button" data-stop-speech>Stop</button>' +
   '<button type="button" data-mic>Mic</button>' +
   "</div>" +
   '<div class="voice-row">' +
-  '<label>Voice <select data-voice-name></select></label>' +
   '<label>Rate <input data-rate type="range" min="0.6" max="1.3" step="0.05" value="0.92"></label>' +
   '<label>Pitch <input data-pitch type="range" min="0.8" max="1.3" step="0.05" value="1"></label>' +
   '<label class="check-line"><input data-ambient type="checkbox"> Soft ambient sound, off unless you check this</label>' +
   "</div>" +
   '<form class="bot-form" data-ask><input type="text" data-ask-text aria-label="Ask for a page" placeholder="Try queues, lambda, or downloads"><button type="submit">Go</button></form>' +
   "</details>" +
+  "</div>" +
+  '<div class="read-row">' +
+  '<button type="button" data-read-page>Read this page</button>' +
+  '<button type="button" data-stop-speech>Stop</button>' +
+  '<label>Voice <select data-voice-name></select></label>' +
   "</div>" +
   '<button type="button" class="sheet-close" data-close-bot>Close</button>';
 host.appendChild(sheet);
@@ -404,6 +406,13 @@ function fillVoices() {
   var list = synth.getVoices();
   var select = sheet.querySelector("[data-voice-name]");
   select.innerHTML = "";
+  if (!list.length) {
+    var empty = document.createElement("option");
+    empty.value = "";
+    empty.textContent = "System voice";
+    select.appendChild(empty);
+    return;
+  }
   var chosen = pickVoice(list);
   list.forEach(function (item) {
     var option = document.createElement("option");
@@ -429,7 +438,10 @@ sheet.querySelector("[data-pitch]").addEventListener("input", function (event) {
 });
 
 function speak(text, done) {
-  if (!window.speechSynthesis) { if (done) done(); return; }
+  if (!window.speechSynthesis) {
+    window.setTimeout(function () { if (done) done(); }, reduced() ? 0 : 700);
+    return;
+  }
   window.speechSynthesis.cancel();
   var utter = new SpeechSynthesisUtterance(text);
   utter.rate = voice.rate;
@@ -463,7 +475,7 @@ function readNodes(nodes, index) {
   var node = nodes[index];
   document.querySelectorAll(".is-reading").forEach(function (item) { item.classList.remove("is-reading"); });
   node.classList.add("is-reading");
-  node.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "center" });
+  node.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
   var parts = sentences(node.innerText);
   var at = 0;
   function nextPart() {
@@ -484,7 +496,7 @@ function readPage() {
   openSheet();
   readNodes(nodes, 0);
 }
-sheet.querySelector("[data-read]").addEventListener("click", readPage);
+sheet.querySelector("[data-read-page]").addEventListener("click", readPage);
 sheet.querySelector("[data-follow]").addEventListener("click", function (event) {
   follow = !follow;
   event.currentTarget.setAttribute("aria-pressed", follow ? "true" : "false");
@@ -626,7 +638,7 @@ if (shot === "bot") {
   greet.hidden = false;
   syncChrome();
   pose("wave");
-} else if (shot === "menu" || shot === "home" || shot === "room" || shot === "downloads" || shot === "footer" || shot === "tiles") {
+} else if (shot === "menu" || shot === "home" || shot === "room" || shot === "downloads" || shot === "footer" || shot === "tiles" || shot === "neon" || shot === "read") {
   localStorage.setItem("acl-tour-v1", "done");
   localStorage.setItem("acl-greet-v1", "done");
   applySavedPos();
