@@ -1651,8 +1651,13 @@ html { scroll-behavior: smooth; }
     min-height: 56px;
     font-size: 11px;
   }
-  .guide { bottom: calc(var(--quick) + 12px); right: 8px; }
-  .guide-panel { width: min(360px, calc(100vw - 16px)); }
+  .guide {
+    bottom: calc(var(--quick) + 12px);
+    right: 8px;
+    z-index: 55;
+    max-height: calc(100dvh - var(--stack) - var(--quick) - 16px);
+  }
+  .guide-panel { width: min(360px, calc(100vw - 16px)); max-height: calc(100dvh - var(--stack) - var(--quick) - 72px); }
 }
 
 .menu-copy { display: grid; line-height: 1.15; min-width: 0; }
@@ -1686,10 +1691,11 @@ html { scroll-behavior: smooth; }
 .guide-target { outline: 3px solid var(--cc-accent-1); outline-offset: 3px; }
 .guide {
   position: fixed;
-  z-index: 70;
+  z-index: 55;
   right: 16px;
   bottom: calc(var(--cc-player) + var(--cc-nav) + 12px);
   width: min(380px, calc(100vw - 24px));
+  max-height: calc(100dvh - var(--cc-player) - var(--cc-nav) - 24px);
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-end;
@@ -1715,10 +1721,13 @@ html { scroll-behavior: smooth; }
 }
 .guide-panel {
   display: grid;
-  grid-template-rows: auto minmax(120px, 42vh) auto auto auto;
+  grid-template-rows: auto minmax(0, 1fr) auto auto auto;
   gap: 8px;
   margin-bottom: 8px;
   padding: 10px;
+  width: 100%;
+  max-height: min(70dvh, calc(100dvh - 160px));
+  overflow: hidden;
   border-radius: 18px;
   border: 1px solid var(--cc-line);
   background: color-mix(in srgb, var(--cc-bg) 96%, transparent);
@@ -1727,7 +1736,7 @@ html { scroll-behavior: smooth; }
 .guide-panel[hidden] { display: none; }
 .guide-head, .guide-form, .guide-chips { display: flex; gap: 8px; align-items: center; }
 .guide-head p { margin: 0; font-family: var(--cc-display); font-size: 22px; flex: 1; }
-.guide-log { overflow: auto; display: grid; gap: 8px; align-content: start; min-height: 120px; }
+.guide-log { overflow: auto; display: grid; gap: 8px; align-content: start; min-height: 0; max-height: 42vh; }
 .guide-row { display: flex; }
 .guide-row.user { justify-content: flex-end; }
 .guide-bubble {
