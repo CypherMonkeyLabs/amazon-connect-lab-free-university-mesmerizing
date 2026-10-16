@@ -240,9 +240,9 @@ CONFIRM_TITLES = {
 
 
 def _confirm(url: str, claimed_title: str | None, note: str) -> dict:
+    """Unopenable rows stay confirm and carry no URL."""
     return {
         "title": claimed_title or _slug_title(url),
-        "url": url,
         "kind": kind_of(url),
         "last_checked": LAST_CHECKED,
         "status": "confirm",
@@ -298,7 +298,7 @@ def from_urls(urls, claimed=None) -> list:
         if not url:
             continue
         row = classify(url, claimed.get(url))
-        key = row["url"]
+        key = row.get("url") or ("confirm:" + row["title"])
         if key in seen:
             continue
         seen.add(key)
@@ -311,9 +311,10 @@ def merge_sources(groups) -> list:
     rows = []
     for group in groups:
         for row in group:
-            if row["url"] in seen:
+            key = row.get("url") or ("confirm:" + row["title"])
+            if key in seen:
                 continue
-            seen.add(row["url"])
+            seen.add(key)
             rows.append(row)
     return rows
 
@@ -350,11 +351,10 @@ def sources_lines(items) -> list:
     for item in items:
         label = KIND_LABEL[item["kind"]]
         checked = "last checked " + item["last_checked"]
-        if item["status"] == "verified":
+        if item["status"] == "verified" and item.get("url"):
             lines.append(f"{item['title']} ({label}) {item['url']} {checked}")
         else:
-            target = item["url"] or "no single URL"
-            lines.append(f"confirm. {item['title']} ({label}) {target} {checked}. {item.get('note', '')}")
+            lines.append(f"confirm. {item['title']} ({label}) {checked}. {item.get('note', '')}")
     return lines
 
 
@@ -399,7 +399,6 @@ def sources_for_named_card(front: str, source_title: str, track: str, facts_by_t
     rows = from_urls(track_urls(track))
     rows.append({
         "title": source_title or front,
-        "url": "",
         "kind": "community",
         "last_checked": LAST_CHECKED,
         "status": "confirm",

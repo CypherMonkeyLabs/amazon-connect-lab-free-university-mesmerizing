@@ -233,9 +233,8 @@ def deeper_html(items):
         if item["status"] == "verified" and item.get("url"):
             rows.append(f'<li><a href="{esc(item["url"])}">{esc(item["title"])}</a> {esc(label)}. {checked}</li>')
         else:
-            link = f' <a href="{esc(item["url"])}">{esc(item["url"])}</a>' if item.get("url") else ""
             note = item.get("note") or "Unverified."
-            rows.append(f"<li><strong>confirm</strong> {esc(item['title'])}. {esc(label)}. {checked}. {esc(note)}{link}</li>")
+            rows.append(f"<li><strong>confirm</strong> {esc(item['title'])}. {esc(label)}. {checked}. {esc(note)}</li>")
     return '<section class="sources-deeper"><h2>Sources and go deeper</h2><ul>' + "".join(rows) + "</ul></section>"
 
 
