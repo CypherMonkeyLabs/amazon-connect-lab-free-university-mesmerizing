@@ -30,6 +30,7 @@ from sources import (  # noqa: E402
     KIND_LABEL,
     card_sources,
     chapter_sources,
+    classify,
     lab_sources,
     room_sources,
     sources_lines,
@@ -117,11 +118,8 @@ def sources_html(items, depth, room_id=None, room_ids=None, anchor=True):
             )
         else:
             note = item.get("note") or "Unverified."
-            link = ""
-            if item.get("url"):
-                link = f' <a href="{esc(item["url"])}">{esc(item["url"])}</a>'
             rows.append(
-                f"<li><strong>confirm</strong> {esc(item['title'])}. {esc(label)}. {checked}. {esc(note)}{link}</li>"
+                f"<li><strong>confirm</strong> {esc(item['title'])}. {esc(label)}. {checked}. {esc(note)}</li>"
             )
     ident = ' id="deeper"' if anchor else ""
     ids = [room_id] if room_id else list(room_ids or [])
@@ -162,6 +160,17 @@ def by_track():
     for item in LESSONS:
         grouped[item["track"]].append(item)
     return grouped
+
+
+def source_phrase(url, title) -> str:
+    """A verified open becomes a link. Anything else is confirm, with no URL."""
+    item = classify(url or "", title)
+    label = KIND_LABEL[item["kind"]]
+    checked = "last checked " + item["last_checked"]
+    if item["status"] == "verified" and item.get("url"):
+        return f'<a href="{esc(item["url"])}">{esc(item["title"])}</a> {esc(label)}. {checked}'
+    note = item.get("note") or "Confirm before relying."
+    return f"<strong>confirm</strong> {esc(item['title'])}. {esc(label)}. {checked}. {esc(note)}"
 
 
 def confirm_needed(lesson) -> bool:
@@ -591,8 +600,9 @@ svg.fig{width:100%;height:auto}
 .brand-gh{background:#24292f}
 .brand-tree{background:radial-gradient(circle at 32% 24%,#d9f99d,#4ade80 42%,#166534 78%);box-shadow:0 0 0 3px #052e16,0 0 18px #4ade80}
 .disclaimer-panel a{color:#1e3a8a;font-weight:800}
-.sources-deeper{margin-top:18px;padding-top:8px;border-top:2px solid #7c3aed}
-.sources-deeper li{margin:6px 0}
+.sources-deeper{margin:18px 0;padding:16px 16px 14px;border:2px solid #7c3aed;border-radius:18px;background:#f5f3ff;color:#1e1b4b}
+.sources-deeper h2{margin:0 0 8px;color:#4c1d95}
+.sources-deeper li{margin:8px 0}
 .sources-deeper a{color:#1e3a8a;font-weight:800}
 </style>"""
 
@@ -712,7 +722,7 @@ def quiz_html(questions):
         parts.append(
             f'<article data-quiz data-answer="{int(item["answer"])}"><h3>Question {index}</h3><p>{esc(item["q"])}</p>'
             f'<div class="quiz-options">{choices}</div><details><summary>Show the cited answer</summary>'
-            f'<p>{esc(item["why"])}</p><p><a href="{esc(item["url"])}">{esc(item["source"])}</a></p></details></article>'
+            f'<p>{esc(item["why"])}</p><p>{source_phrase(item.get("url"), item.get("source"))}</p></details></article>'
         )
     return "".join(parts)
 
@@ -798,7 +808,12 @@ def build():
         )
         example_inner = "<ol>" + "".join(f"<li><strong>{esc(step['label'])}.</strong> {esc(step['detail'])}</li>" for step in lesson["flow"]) + "</ol>"
         example_inner += f'<p><strong>What usually goes wrong:</strong> {esc(lesson["mistake"])}</p>'
-        source_inner = f'<p><a href="{esc(lesson["cite"]["url"])}">{esc(lesson["cite"]["title"])}</a></p><p>The prose is a study paraphrase. The link is the source of the facts.</p>'
+        primary = source_items[0]
+        if primary.get("status") == "verified" and primary.get("url"):
+            source_note = "The prose is a study paraphrase. The link is the source of the facts."
+        else:
+            source_note = "The prose is a study paraphrase. Confirm this fact before relying on it."
+        source_inner = f'<p>{source_phrase(lesson["cite"]["url"], lesson["cite"]["title"])}</p><p>{source_note}</p>'
         glossary_bits = terms[lesson["track"]][:4]
         gloss = "<ul>" + "".join(f'<li><strong>{esc(row[0])}</strong> {esc(row[1])}</li>' for row in glossary_bits) + "</ul>" if glossary_bits else "<p>See the glossary for this track.</p>"
         iac = IAC.get(lesson["track"])
@@ -999,7 +1014,7 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
     page(ROOT / "ecosystem.html", "Ecosystem · Connect Lab", "Glossary, mind map, bridges, and hooks.", 0, "ecosystem", eco)
 
     gloss_rows = "".join(
-        f"<tr><td>{esc(row[0])}</td><td>{esc(row[1])}</td><td><a href=\"{esc(row[3])}\">{esc(row[4])}</a></td></tr>" for row in GLOSSARY
+        f"<tr><td>{esc(row[0])}</td><td>{esc(row[1])}</td><td>{source_phrase(row[3], row[4])}</td></tr>" for row in GLOSSARY
     )
     page(ROOT / "glossary.html", "Glossary · Connect Lab", "Terms from the written rooms.", 0, "glossary",
          f'<div class="wrap"><h1>Glossary</h1><div class="table-wrap"><table><thead><tr><th>Term</th><th>Meaning</th><th>Source</th></tr></thead><tbody>{gloss_rows}</tbody></table></div></div>')
@@ -1007,10 +1022,14 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
     cards = []
     for row in GLOSSARY:
         items = card_sources(row[3], row[4], row[2])
-        cards.append({
-            "front": row[0], "back": row[1], "source": row[4], "url": row[3], "track": row[2],
-            "sources": items,
-        })
+        primary = items[0] if items else {}
+        card = {
+            "front": row[0], "back": row[1], "source": row[4], "track": row[2],
+            "sources": items, "status": primary.get("status") or "confirm",
+        }
+        if primary.get("status") == "verified" and primary.get("url"):
+            card["url"] = primary["url"]
+        cards.append(card)
     (ROOT / "assets" / "data").mkdir(parents=True, exist_ok=True)
     (ROOT / "assets" / "data" / "flashcards.json").write_text(json.dumps({"cards": cards}, indent=2), encoding="utf-8")
     (ROOT / "downloads").mkdir(parents=True, exist_ok=True)
@@ -1018,7 +1037,18 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
     questions = []
     for track_items in quiz_pool.values():
         questions.extend(track_items)
-    (ROOT / "assets" / "data" / "quiz.json").write_text(json.dumps({"questions": questions}, indent=2), encoding="utf-8")
+    public_questions = []
+    for item in questions:
+        row = dict(item)
+        classified = classify(item.get("url") or "", item.get("source"))
+        if classified.get("status") == "verified" and classified.get("url"):
+            row["url"] = classified["url"]
+            row["status"] = "verified"
+        else:
+            row.pop("url", None)
+            row["status"] = "confirm"
+        public_questions.append(row)
+    (ROOT / "assets" / "data" / "quiz.json").write_text(json.dumps({"questions": public_questions}, indent=2), encoding="utf-8")
     page(ROOT / "flashcards.html", "Flashcards · Connect Lab", "Know-or-again cards.", 0, "cards",
          f'<div class="wrap"><h1>Flashcards</h1><div class="dl-row">{dl(0, "json", "downloads/flashcards.json", "JSON")}{dl(0, "html", "downloads/flashcards.html", "HTML")}{dl(0, "pdf", "downloads/flashcards.pdf", "PDF")}</div><div data-deck="assets/data/flashcards.json" data-mode="cards"></div></div>',
          '<script src="assets/js/study.js" defer></script>')
@@ -1170,7 +1200,7 @@ def write_reference_pages(known):
         parts = [f'<div class="wrap"><h1>{esc(title)}</h1>']
         lessons = [known[item_id] for item_id in lesson_ids]
         for lesson in lessons:
-            inner = prose(lesson["paras"]) + bullets(lesson["points"]) + f'<p>Source: <a href="{esc(lesson["cite"]["url"])}">{esc(lesson["cite"]["title"])}</a></p>'
+            inner = prose(lesson["paras"]) + bullets(lesson["points"]) + f'<p>Source: {source_phrase(lesson["cite"]["url"], lesson["cite"]["title"])}</p>'
             if confirm_needed(lesson):
                 inner = '<p class="confirm">Confirm before relying.</p>' + inner
             items = room_sources(lesson)
@@ -1328,6 +1358,7 @@ def write_downloads(diagram_files, flow_files):
 <section class="block" id="deck"><h2>Deck</h2><div class="dl-row">{dl(0, "pptx", "downloads/connect-study-deck.pptx", "PPTX")}</div></section>
 <section class="block" id="pictures"><h2>Diagrams and flows</h2><div class="dl-grid">{"".join(cards)}</div></section>
 <section class="block" id="tests"><h2>Headless test table</h2><p>Checked in this build: file types, the disclaimer string, and a headless DOM read of three pages.</p>{table}</section>
+{sources_html(lab_sources(), 0)}
 </div>'''
     page(ROOT / "downloads.html", "Downloads · Connect Lab", "Sheets, cards, templates, and the zip.", 0, "downloads", body)
     (ROOT / ".nojekyll").write_text("", encoding="utf-8")
@@ -1362,11 +1393,22 @@ def assert_sources():
     paths += list((ROOT / "downloads" / "flows").glob("*.html"))
     paths += list((ROOT / "tracks").glob("*/index.html"))
     paths.append(ROOT / "downloads" / "flashcards.html")
+    paths.append(ROOT / "downloads.html")
     missing = []
+    confirm_with_url = []
+    banned_hits = []
+    banned = ("linkedin.com", "huggingface.co", "twitter.com", "https://x.com", "http://x.com")
     for path in paths:
         text = path.read_text(encoding="utf-8")
         if any(needle not in text for needle in needles):
             missing.append(str(path.relative_to(ROOT)))
+        for match in re.finditer(r"<li><strong>confirm</strong>.*?</li>", text):
+            if "href=" in match.group(0) or "://" in match.group(0):
+                confirm_with_url.append(str(path.relative_to(ROOT)))
+                break
+        lowered = text.lower()
+        if any(token in lowered for token in banned):
+            banned_hits.append(str(path.relative_to(ROOT)))
     for lesson in LESSONS:
         js_path = ROOT / "rooms" / lesson["id"] / "sources.json"
         if not js_path.exists():
@@ -1375,6 +1417,10 @@ def assert_sources():
         payload = json.loads(js_path.read_text(encoding="utf-8"))
         if payload.get("last_checked") != "2026-10" or not payload.get("sources"):
             missing.append("bad json " + lesson["id"])
+        for item in payload.get("sources") or []:
+            if item.get("status") == "confirm" and item.get("url"):
+                confirm_with_url.append("json " + lesson["id"])
+                break
         room_html = (ROOT / "rooms" / f"{lesson['id']}.html").read_text(encoding="utf-8")
         if f"rooms/{lesson['id']}/sources.json" not in room_html and f"{lesson['id']}/sources.json" not in room_html:
             missing.append("room link " + lesson["id"])
@@ -1389,6 +1435,15 @@ def assert_sources():
     cards = json.loads((ROOT / "downloads" / "flashcards.json").read_text(encoding="utf-8"))["cards"]
     if any("sources" not in card or not card["sources"] for card in cards):
         missing.append("flashcards json")
+    for card in cards:
+        for item in card.get("sources") or []:
+            if item.get("status") == "confirm" and item.get("url"):
+                confirm_with_url.append("flashcards json")
+                break
+    if confirm_with_url:
+        missing.append("confirm url " + ", ".join(confirm_with_url[:8]))
+    if banned_hits:
+        missing.append("brand " + ", ".join(banned_hits[:8]))
     if missing:
         raise SystemExit("sources block missing: " + ", ".join(missing[:20]))
 

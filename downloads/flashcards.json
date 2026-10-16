@@ -4,7 +4,6 @@
       "front": "Contact",
       "back": "One interaction: a call, chat, task, or email. A transfer usually creates another contact linked by PreviousContactId and NextContactId.",
       "source": "Flow language concepts",
-      "url": "https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-concepts.html",
       "track": "foundations",
       "sources": [
         {
@@ -44,13 +43,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language-concepts.html"
     },
     {
       "front": "Instance",
       "back": "The Connect container in one Region. It holds users, flows, queues, and numbers. A new account starts at two instances per Region.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "instance",
       "sources": [
         {
@@ -96,13 +96,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Contact flow",
       "back": "The visual program a contact runs. The JSON form is the flow language.",
       "source": "Flow language",
-      "url": "https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html",
       "track": "flows",
       "sources": [
         {
@@ -141,13 +142,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language.html"
     },
     {
       "front": "Flow module",
       "back": "A published, reusable piece of a flow. Invoke module runs it. Return ends it. Default quota is 200 modules.",
       "source": "Flow block definitions",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "flows",
       "sources": [
         {
@@ -186,13 +188,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Contact attribute",
       "back": "A string key and value stored on the contact. Lambda, Lex, and Set contact attributes write them. Screen pop reads them.",
       "source": "Contact attributes",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-contact-attributes.html",
       "track": "flows",
       "sources": [
         {
@@ -238,13 +241,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-contact-attributes.html"
     },
     {
       "front": "Customer queue flow",
       "back": "The interruptible flow that runs while the customer waits, before an agent joins.",
       "source": "Flow types",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html",
       "track": "flows",
       "sources": [
         {
@@ -283,13 +287,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html"
     },
     {
       "front": "Whisper flow",
       "back": "Audio played to one party immediately before the customer and agent are joined.",
       "source": "Flow types",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html",
       "track": "flows",
       "sources": [
         {
@@ -328,13 +333,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html"
     },
     {
       "front": "Working queue",
       "back": "The queue selected by Set working queue. Transfer to queue uses it.",
       "source": "Transfer to queue",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-queue.html",
       "track": "routing",
       "sources": [
         {
@@ -379,13 +385,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-queue.html"
     },
     {
       "front": "Routing profile",
       "back": "The list of queues an agent can receive, with channel concurrency, priority, and delay.",
       "source": "Routing profiles",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html",
       "track": "routing",
       "sources": [
         {
@@ -423,13 +430,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html"
     },
     {
       "front": "Priority",
       "back": "A number on a queue inside a routing profile. A lower number is served first.",
       "source": "Routing profiles",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html",
       "track": "routing",
       "sources": [
         {
@@ -467,13 +475,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html"
     },
     {
       "front": "Delay",
       "back": "Seconds a contact must wait before an agent with that profile can receive it.",
       "source": "Routing profiles",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html",
       "track": "routing",
       "sources": [
         {
@@ -511,13 +520,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html"
     },
     {
       "front": "Routing criteria",
       "back": "Ordered steps that tighten or relax who can take the contact. The successor idea to precision-queue steps.",
       "source": "Set routing criteria",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "routing",
       "sources": [
         {
@@ -562,13 +572,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Proficiency",
       "back": "A level on a predefined attribute for an agent. Default quota is 10 proficiencies per agent.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "routing",
       "sources": [
         {
@@ -613,13 +624,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Queue",
       "back": "Where a contact waits. Standard queues hold customers. Agent queues hold transfers to a specific user, 10 contacts each by default.",
       "source": "Queues",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html",
       "track": "routing",
       "sources": [
         {
@@ -657,13 +669,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html"
     },
     {
       "front": "Hours of operation",
       "back": "The weekly schedule and time zone attached to a queue. Check hours of operation reads it. Overrides cover holidays.",
       "source": "Hours of operation",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-hours-operation.html",
       "track": "routing",
       "sources": [
         {
@@ -701,13 +714,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-hours-operation.html"
     },
     {
       "front": "Quick connect",
       "back": "A one-click transfer target: a user, a queue, or an external number.",
       "source": "Quick connects",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/quick-connects.html",
       "track": "routing",
       "sources": [
         {
@@ -745,13 +759,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/quick-connects.html"
     },
     {
       "front": "DID",
       "back": "A direct inward dial number. In the US it is carried by one carrier and priced per day plus per minute.",
       "source": "Voice channel",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html",
       "track": "telephony",
       "sources": [
         {
@@ -798,13 +813,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html"
     },
     {
       "front": "Toll-free number",
       "back": "A number the caller does not pay long-distance to dial. US toll-free numbers are registered with SOMOS and can use more than one carrier.",
       "source": "Voice channel",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html",
       "track": "telephony",
       "sources": [
         {
@@ -851,13 +867,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html"
     },
     {
       "front": "UIFN",
       "back": "Universal International Freephone number. One of the four number types Connect sells, with DID, toll-free, and shared cost.",
       "source": "Pricing appendix",
-      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
       "track": "telephony",
       "sources": [
         {
@@ -911,13 +928,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/"
     },
     {
       "front": "Porting",
       "back": "Moving a number from another carrier onto Connect. The quota page points you at the same Support form used for quota increases.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "telephony",
       "sources": [
         {
@@ -964,13 +982,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "CCP",
       "back": "Contact Control Panel. The browser phone and contact UI the agent uses.",
       "source": "Set up your network",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html",
       "track": "workspace",
       "sources": [
         {
@@ -1025,13 +1044,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html"
     },
     {
       "front": "Agent workspace",
       "back": "The fuller desktop around the CCP: profiles, cases, step-by-step views, and third-party apps.",
       "source": "Agent workspace",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-workspace.html",
       "track": "workspace",
       "sources": [
         {
@@ -1093,13 +1113,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-workspace.html"
     },
     {
       "front": "Streams API",
       "back": "The amazon-connect-streams library. It embeds or replaces the CCP and listens to agent and contact events.",
       "source": "amazon-connect-streams",
-      "url": "https://github.com/amazon-connect/amazon-connect-streams",
       "track": "workspace",
       "sources": [
         {
@@ -1154,13 +1175,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://github.com/amazon-connect/amazon-connect-streams"
     },
     {
       "front": "Softphone media",
       "back": "The WebRTC audio path. It needs outbound UDP 3478 to the Regional TurnNlb domain.",
       "source": "How CCP uses WebRTC",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-uses-webrtc.html",
       "track": "workspace",
       "sources": [
         {
@@ -1215,13 +1237,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-uses-webrtc.html"
     },
     {
       "front": "TURN",
       "back": "The relay used when the browser cannot send media directly. The error text names turn:TurnNlb-....elb.region.amazonaws.com:3478.",
       "source": "CCP issues",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/common-ccp-issues.html",
       "track": "workspace",
       "sources": [
         {
@@ -1283,13 +1306,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/common-ccp-issues.html"
     },
     {
       "front": "Lex V2",
       "back": "The bot service Get customer input calls. Connect stores intent and slots on the contact.",
       "source": "Amazon Lex",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html",
       "track": "lex",
       "sources": [
         {
@@ -1327,13 +1351,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html"
     },
     {
       "front": "Intent",
       "back": "What Lex thinks the caller wants. The flow branches on it.",
       "source": "Amazon Lex",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html",
       "track": "lex",
       "sources": [
         {
@@ -1371,13 +1396,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html"
     },
     {
       "front": "Slot",
       "back": "A value Lex fills, such as an order id. The flow copies it into an attribute.",
       "source": "Amazon Lex",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html",
       "track": "lex",
       "sources": [
         {
@@ -1415,13 +1441,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html"
     },
     {
       "front": "Agent assist",
       "back": "The 4 Aug 2026 name for the feature previously called Amazon Q in Connect, which itself included Wisdom.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "ai",
       "sources": [
         {
@@ -1447,7 +1474,6 @@
         },
         {
           "title": "Amazon Q in Connect",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -1460,13 +1486,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "Amazon Q in Connect",
       "back": "The 2023 name for generative assistance. The admin guide renamed it agent assist on 4 Aug 2026. IAM still shows the wisdom prefix.",
       "source": "Connect assistant block",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "ai",
       "sources": [
         {
@@ -1499,7 +1526,6 @@
         },
         {
           "title": "Amazon Q in Connect",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -1512,13 +1538,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Wisdom",
       "back": "The 2020 preview name for agent search and recommendations. Folded into Amazon Q in Connect on 28 Nov 2023.",
       "source": "AWS News Blog, 1 Dec 2020",
-      "url": "https://aws.amazon.com/blogs/aws/amazon-connect-smarter-and-more-integrated/",
       "track": "ai",
       "sources": [
         {
@@ -1551,7 +1578,6 @@
         },
         {
           "title": "Amazon Q in Connect",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -1564,13 +1590,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/blogs/aws/amazon-connect-smarter-and-more-integrated/"
     },
     {
       "front": "Connect assistant block",
       "back": "Associates an AI agents domain with the contact so recommendations can run.",
       "source": "Flow block definitions",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "ai",
       "sources": [
         {
@@ -1603,7 +1630,6 @@
         },
         {
           "title": "Amazon Q in Connect",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -1616,13 +1642,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Agentic CX",
       "back": "A block that hands the contact to an Agentic CX Designer application and routes on the exit condition.",
       "source": "Flow block definitions",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "ai",
       "sources": [
         {
@@ -1655,7 +1682,6 @@
         },
         {
           "title": "Amazon Q in Connect",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -1668,13 +1694,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Live Sync",
       "back": "The 4 Aug 2026 name for Voice+. Priced at 0.01 USD per minute on top of the channel. Trial through 30 Nov 2026 is not billed.",
       "source": "Pricing appendix",
-      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
       "track": "ai",
       "sources": [
         {
@@ -1707,7 +1734,6 @@
         },
         {
           "title": "Amazon Q in Connect",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -1720,13 +1746,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/"
     },
     {
       "front": "Conversational analytics",
       "back": "The 4 Aug 2026 name for Contact Lens: transcripts, sentiment, redaction, summaries, and categories.",
       "source": "Contact Lens GA, 23 Jul 2020",
-      "url": "https://aws.amazon.com/about-aws/whats-new/2020/07/contact-lens-amazon-connect-now-generally-available/",
       "track": "analytics",
       "sources": [
         {
@@ -1772,13 +1799,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2020/07/contact-lens-amazon-connect-now-generally-available/"
     },
     {
       "front": "Contact Lens",
       "back": "The former name of conversational analytics. The product page says the function remains.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "analytics",
       "sources": [
         {
@@ -1831,13 +1859,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "Real-time analytics",
       "back": "Rules on a live contact, announced 1 Dec 2020. Default quota is 300 concurrent real-time analytics calls.",
       "source": "AWS News Blog, 1 Dec 2020",
-      "url": "https://aws.amazon.com/blogs/aws/amazon-connect-smarter-and-more-integrated/",
       "track": "analytics",
       "sources": [
         {
@@ -1890,13 +1919,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/blogs/aws/amazon-connect-smarter-and-more-integrated/"
     },
     {
       "front": "Post-contact summary",
       "back": "A generated summary after the contact. Preview 28 Nov 2023, generally available 25 Mar 2024.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "analytics",
       "sources": [
         {
@@ -1949,13 +1979,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "Evaluation form",
       "back": "A quality scorecard. Preview 29 Nov 2022, generally available 26 Apr 2023. Now part of performance evaluations.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "analytics",
       "sources": [
         {
@@ -2008,13 +2039,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "CTR",
       "back": "Contact trace record. The JSON document for a finished contact, streamed to Kinesis or Firehose.",
       "source": "re:Post, Kinesis integration",
-      "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis",
       "track": "analytics",
       "sources": [
         {
@@ -2060,13 +2092,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis"
     },
     {
       "front": "Agent event stream",
       "back": "Near real-time Kinesis stream of login, logout, status, and contact join. This is the WFM adherence feed.",
       "source": "Agent event streams",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
       "track": "analytics",
       "sources": [
         {
@@ -2112,13 +2145,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html"
     },
     {
       "front": "Flow log",
       "back": "A CloudWatch log of each block. Set logging behavior turns it on. The log group is under the instance.",
       "source": "re:Post, flow errors",
-      "url": "https://repost.aws/knowledge-center/connect-contact-flow-errors",
       "track": "troubleshoot",
       "sources": [
         {
@@ -2157,13 +2191,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://repost.aws/knowledge-center/connect-contact-flow-errors"
     },
     {
       "front": "Lambda synchronous timeout",
       "back": "At most 8 seconds. The function's own timeout can be longer. The flow still takes the Error or Timeout branch at 8 seconds.",
       "source": "Lambda block",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/invoke-lambda-function-block.html",
       "track": "lambda",
       "sources": [
         {
@@ -2194,13 +2229,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/invoke-lambda-function-block.html"
     },
     {
       "front": "Lambda asynchronous mode",
       "back": "The flow continues without waiting. You can wait up to 60 seconds with a Wait block. A sequence of Lambda calls must finish within 20 seconds.",
       "source": "Lambda block",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/invoke-lambda-function-block.html",
       "track": "lambda",
       "sources": [
         {
@@ -2231,13 +2267,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/invoke-lambda-function-block.html"
     },
     {
       "front": "String map",
       "back": "A flat object of string keys and string values. One of the two Lambda response shapes.",
       "source": "re:Post, flow errors",
-      "url": "https://repost.aws/knowledge-center/connect-contact-flow-errors",
       "track": "lambda",
       "sources": [
         {
@@ -2275,13 +2312,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://repost.aws/knowledge-center/connect-contact-flow-errors"
     },
     {
       "front": "Customer Profiles",
       "back": "The profile store. Connect-generated profiles are priced differently from profiles that contain imported data.",
       "source": "Pricing appendix",
-      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
       "track": "records",
       "sources": [
         {
@@ -2312,13 +2350,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/"
     },
     {
       "front": "Identity resolution",
       "back": "The rules that merge profile records from CRM, orders, and contacts into one customer.",
       "source": "Customer Profiles",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles.html",
       "track": "records",
       "sources": [
         {
@@ -2342,13 +2381,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles.html"
     },
     {
       "front": "Case",
       "back": "A durable issue that can span many contacts. Cases became generally available on 3 Oct 2022.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "records",
       "sources": [
         {
@@ -2379,13 +2419,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "Task",
       "back": "A unit of work with no live media. Default concurrent quota is 2500. Tasks can be scheduled up to 90 days ahead.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "records",
       "sources": [
         {
@@ -2416,13 +2457,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Security profile",
       "back": "What a user may do in the admin site and the CCP. Different from an IAM policy.",
       "source": "Security profiles",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html",
       "track": "security",
       "sources": [
         {
@@ -2489,18 +2531,18 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html"
     },
     {
       "front": "IAM policy",
       "back": "What an AWS principal may call. Connect, Profiles, Cases, and agent assist use different IAM prefixes.",
       "source": "Service authorization, connect",
-      "url": "https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonconnect.html",
       "track": "security",
       "sources": [
         {
           "title": "Service authorization, connect",
-          "url": "https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonconnect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -2563,13 +2605,13 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "confirm"
     },
     {
       "front": "Service-linked role",
       "back": "The role AWS creates so Connect can write to S3, CloudWatch, and other services you name.",
       "source": "Service-linked role",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-slr.html",
       "track": "security",
       "sources": [
         {
@@ -2636,13 +2678,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-slr.html"
     },
     {
       "front": "KMS key policy",
       "back": "The key's own allow list. Recordings stay unreadable if the key does not trust the Connect role.",
       "source": "Encryption at rest",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/encryption-at-rest.html",
       "track": "security",
       "sources": [
         {
@@ -2702,13 +2745,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/encryption-at-rest.html"
     },
     {
       "front": "SAML",
       "back": "The federated sign-in option. The assertion must carry the routing profile, security profile, and role.",
       "source": "Configure SAML",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/configure-saml.html",
       "track": "security",
       "sources": [
         {
@@ -2768,13 +2812,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/configure-saml.html"
     },
     {
       "front": "IAM Identity Center",
       "back": "A common identity provider in front of Connect. It still speaks SAML to the instance.",
       "source": "Configure SAML",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/configure-saml.html",
       "track": "security",
       "sources": [
         {
@@ -2834,13 +2879,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/configure-saml.html"
     },
     {
       "front": "Global Resiliency",
       "back": "The supported multi-Region design. Pairs are us-east-1 with us-west-2, eu-central-1 with eu-west-2, and ap-northeast-1 with ap-northeast-3.",
       "source": "Set up Global Resiliency",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html",
       "track": "resiliency",
       "sources": [
         {
@@ -2871,13 +2917,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html"
     },
     {
       "front": "Traffic distribution group",
       "back": "The object that splits telephony and agent sign-in across the two Regions in 10 percent steps.",
       "source": "Set up Global Resiliency",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html",
       "track": "resiliency",
       "sources": [
         {
@@ -2908,13 +2955,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html"
     },
     {
       "front": "Replica instance",
       "back": "The linked instance created by ReplicateInstance. Flows, users, queues, and profiles are copied. S3 prompts are not.",
       "source": "Create a replica",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-replica-connect-instance.html",
       "track": "resiliency",
       "sources": [
         {
@@ -2945,13 +2993,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-replica-connect-instance.html"
     },
     {
       "front": "Connect Customer",
       "back": "The name used from 28 Apr 2026 for the contact center product previously called Amazon Connect.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "foundations",
       "sources": [
         {
@@ -2983,13 +3032,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "Connect Customer Basic",
       "back": "The form of the product that does not include every Connect Customer feature. Voice on this form is listed at 0.018 USD per minute plus telephony.",
       "source": "Pricing appendix",
-      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
       "track": "security",
       "sources": [
         {
@@ -3056,13 +3106,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/"
     },
     {
       "front": "Voice ID",
       "back": "Caller authentication and a fraudster watchlist. New customers stopped 20 May 2025. Support ended 20 May 2026.",
       "source": "Voice ID end of support",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazonconnect-voiceid-end-of-support.html",
       "track": "ai",
       "sources": [
         {
@@ -3088,7 +3139,6 @@
         },
         {
           "title": "Amazon Q in Connect",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -3101,13 +3151,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazonconnect-voiceid-end-of-support.html"
     },
     {
       "front": "Outbound campaign",
       "back": "Proactive voice, SMS, or email. The name replaced high-volume outbound communications on 20 Jun 2022. Voice minutes are 0.045 USD on Connect Customer.",
       "source": "Pricing appendix",
-      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
       "track": "channels",
       "sources": [
         {
@@ -3138,13 +3189,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/"
     },
     {
       "front": "Check call progress",
       "back": "The block that branches on answering-machine detection. Campaign flows only.",
       "source": "Flow block definitions",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "channels",
       "sources": [
         {
@@ -3175,13 +3227,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Persistent chat",
       "back": "A chat that can go quiet without holding a concurrent-chat slot the way an abandoned idle chat does.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "channels",
       "sources": [
         {
@@ -3205,13 +3258,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "WhatsApp",
       "back": "A third-party messaging channel counted inside the concurrent chat quota. Connect Customer prices the message at 0.014 USD before delivery fees.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "channels",
       "sources": [
         {
@@ -3235,13 +3289,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Email thread",
       "back": "Replies within 90 days stay on the same thread. Later replies start a new one.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "channels",
       "sources": [
         {
@@ -3265,13 +3320,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Data table",
       "back": "Rows the Data Table block can read or write inside a flow. Defaults: 100 tables, 5 primary attributes, 1000 values.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "flows",
       "sources": [
         {
@@ -3317,13 +3373,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Show view",
       "back": "Renders a step-by-step view in the agent workspace.",
       "source": "Flow block definitions",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "workspace",
       "sources": [
         {
@@ -3385,13 +3442,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "External Tool",
       "back": "Invokes a tool through an Amazon Bedrock AgentCore gateway.",
       "source": "Flow block definitions",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "ai",
       "sources": [
         {
@@ -3424,7 +3482,6 @@
         },
         {
           "title": "Amazon Q in Connect",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -3437,13 +3494,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Start media streaming",
       "back": "Sends live customer audio to Kinesis Video Streams for a third-party recorder or bot.",
       "source": "Flow block definitions",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -3502,13 +3560,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Screen recording",
       "back": "Records the agent desktop. On the Basic price list it is 0.006 USD per minute.",
       "source": "Pricing appendix",
-      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
       "track": "ecosystem",
       "sources": [
         {
@@ -3567,13 +3626,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/"
     },
     {
       "front": "Forecasting and agent scheduling",
       "back": "The 4 Aug 2026 name for native WFM: forecast, capacity, schedules, and adherence.",
       "source": "Forecasting and scheduling",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -3625,13 +3685,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html"
     },
     {
       "front": "Schedule adherence",
       "back": "How closely an agent's actual status matched the published schedule. Native metrics appear after schedules are published. Third-party WFM reads agent events.",
       "source": "Forecasting and scheduling",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -3683,13 +3744,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html"
     },
     {
       "front": "Shrinkage",
       "back": "The fraction of paid time that is not handling contacts. Erlang staffing divides raw agents by one minus shrinkage.",
       "source": "Forecasting and scheduling",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
       "track": "routing",
       "sources": [
         {
@@ -3734,18 +3796,18 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html"
     },
     {
       "front": "Service level",
       "back": "The share of contacts answered inside a target wait. Queue.Duration on the CTR is the usual clock.",
       "source": "Metrics",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/metrics.html",
       "track": "analytics",
       "sources": [
         {
           "title": "Metrics",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/metrics.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -3794,13 +3856,13 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "confirm"
     },
     {
       "front": "Occupancy",
       "back": "Handle time plus ACW, divided by signed-in time that was available for work. Agent events supply the clocks.",
       "source": "Agent event streams",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
       "track": "analytics",
       "sources": [
         {
@@ -3846,13 +3908,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html"
     },
     {
       "front": "ACW",
       "back": "After contact work. The agent is still busy after the customer leaves. It counts in occupancy and in the concurrent task and email quotas.",
       "source": "Agent event streams",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
       "track": "workspace",
       "sources": [
         {
@@ -3914,13 +3977,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html"
     },
     {
       "front": "E911",
       "back": "US enhanced 911. For a US agent, Connect can send a validated civic address with a direct 911 call from the CCP.",
       "source": "US emergency calling",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -3972,13 +4036,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html"
     },
     {
       "front": "933",
       "back": "The test number that reads back the originating number and the address. Use it instead of a real 911 test. A non-emergency 911 call is described as a 100 USD penalty.",
       "source": "US emergency calling",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -4030,13 +4095,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html"
     },
     {
       "front": "CivicAddress",
       "back": "The contact attribute that carries the E911 address as a JSON string. Keys include country, A1, A3, HNO, RD, STS, and PC.",
       "source": "E911 address format",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-format-physical-address-e911.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -4095,13 +4161,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/connect-format-physical-address-e911.html"
     },
     {
       "front": "ValidateE911Address",
       "back": "The Amazon Chime API that checks an address against the Master Street Address Guide before you store it.",
       "source": "Store an agent address",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/get-and-store-agent-address-e911.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -4160,13 +4227,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/get-and-store-agent-address-e911.html"
     },
     {
       "front": "Salesforce CTI Adapter",
       "back": "A managed package plus a serverless app that embeds the CCP in Salesforce.",
       "source": "Embed the CCP in Salesforce",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html",
       "track": "integrations",
       "sources": [
         {
@@ -4218,13 +4286,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html"
     },
     {
       "front": "SCC-AC",
       "back": "Salesforce Contact Center with Amazon Connect. Voice stays on Connect. Messaging can be Connect or Salesforce.",
       "source": "SCC-AC blog",
-      "url": "https://aws.amazon.com/blogs/contact-center/salesforce-contact-center-with-amazon-connect-streamlining-omnichannel-customer-engagement/",
       "track": "integrations",
       "sources": [
         {
@@ -4283,13 +4352,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/blogs/contact-center/salesforce-contact-center-with-amazon-connect-streamlining-omnichannel-customer-engagement/"
     },
     {
       "front": "ServiceNow Voice",
       "back": "The ServiceNow integration that imports flows, maps queues to Advanced Work Assignment, and can attach AI voice agents.",
       "source": "ServiceNow Voice",
-      "url": "https://www.servicenow.com/docs/r/servicenow-platform/integrate-ccc-amazonconnect.html",
       "track": "integrations",
       "sources": [
         {
@@ -4341,13 +4411,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://www.servicenow.com/docs/r/servicenow-platform/integrate-ccc-amazonconnect.html"
     },
     {
       "front": "Teams chat bridge",
       "back": "A published pattern: a Teams app, Azure Bot Service, API Gateway, Lambda, and StartChatContact. It is chat, not a phone trunk.",
       "source": "Teams integration blog",
-      "url": "https://aws.amazon.com/blogs/contact-center/streamline-employee-support-with-amazon-connect-and-microsoft-teams-integration/",
       "track": "integrations",
       "sources": [
         {
@@ -4399,13 +4470,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/blogs/contact-center/streamline-employee-support-with-amazon-connect-and-microsoft-teams-integration/"
     },
     {
       "front": "External voice connector",
       "back": "Analytics on audio that stays on another platform. The appendix lists 0.032 USD per minute and 100 USD per connector per day.",
       "source": "Pricing appendix",
-      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
       "track": "telephony",
       "sources": [
         {
@@ -4459,13 +4531,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/"
     },
     {
       "front": "CloudWatch",
       "back": "Metrics and flow logs. Alarm at 80 percent of a quota, which is the operations guidance in the email quota note.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "foundations",
       "sources": [
         {
@@ -4504,13 +4577,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Kinesis Data Streams",
       "back": "The durable stream for CTRs and agent events when more than one consumer must read them.",
       "source": "re:Post, Kinesis integration",
-      "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis",
       "track": "foundations",
       "sources": [
         {
@@ -4549,13 +4623,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis"
     },
     {
       "front": "Kinesis Data Firehose",
       "back": "The delivery path into S3. It buffers. Silence for five minutes is the point to check the error prefix.",
       "source": "re:Post, Kinesis integration",
-      "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis",
       "track": "foundations",
       "sources": [
         {
@@ -4594,13 +4669,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis"
     },
     {
       "front": "Kinesis Video Streams",
       "back": "Live audio for third-party recorders. Start media streaming opens it. Customer and agent audio are separate tracks.",
       "source": "Live media streaming",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-voice-streams.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -4659,13 +4735,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-voice-streams.html"
     },
     {
       "front": "EventBridge",
       "back": "The bus for contact events if you want a rule, not a stream consumer.",
       "source": "Contact events",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -4724,13 +4801,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html"
     },
     {
       "front": "S3 recording object",
       "back": "The WAV Connect writes when recording is on. Third-party QM tools often import this object plus the CTR.",
       "source": "Recording behavior",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -4782,13 +4860,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html"
     },
     {
       "front": "Erlang",
       "back": "The unit of traffic. One Erlang is one hour of call time in one hour. Calls per hour times AHT in hours.",
       "source": "Forecasting and scheduling",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
       "track": "routing",
       "sources": [
         {
@@ -4833,13 +4912,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html"
     },
     {
       "front": "Erlang C",
       "back": "The probability a contact waits when there are N agents and A Erlangs, assuming infinite queue and random arrivals.",
       "source": "Forecasting and scheduling",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
       "track": "routing",
       "sources": [
         {
@@ -4884,18 +4964,18 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html"
     },
     {
       "front": "AHT",
       "back": "Average handle time. Talk plus hold plus ACW, unless your report defines it more narrowly. Say which one you used.",
       "source": "Metrics",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/metrics.html",
       "track": "analytics",
       "sources": [
         {
           "title": "Metrics",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/metrics.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -4944,13 +5024,13 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "confirm"
     },
     {
       "front": "Region pair",
       "back": "The only Regions Global Resiliency links. Osaka is a replica Region for Tokyo, and inbound delivery there can take up to 20 seconds.",
       "source": "Create a replica",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-replica-connect-instance.html",
       "track": "resiliency",
       "sources": [
         {
@@ -4981,13 +5061,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-replica-connect-instance.html"
     },
     {
       "front": "Option 1 network allow list",
       "back": "Domains instead of the whole EC2 and CloudFront IP ranges. Recommended. Test more than 200 calls. An error rate above 2 percent means the proxy may be the problem.",
       "source": "Set up your network",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html",
       "track": "workspace",
       "sources": [
         {
@@ -5042,13 +5123,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html"
     },
     {
       "front": "Stateless firewall",
       "back": "Must allow the browser's ephemeral UDP range back in, or media fails even when 3478 is allowed outbound.",
       "source": "Set up your network",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html",
       "track": "workspace",
       "sources": [
         {
@@ -5103,13 +5185,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html"
     },
     {
       "front": "my.connect.aws",
       "back": "The current instance domain. awsapps.com is the old domain the docs say is going away.",
       "source": "Set up your network",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html",
       "track": "instance",
       "sources": [
         {
@@ -5155,13 +5238,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html"
     },
     {
       "front": "Concurrent calls quota",
       "back": "Default 10 active PSTN and WebRTC calls. This is the first capacity gate on a new instance.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "telephony",
       "sources": [
         {
@@ -5208,13 +5292,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Quota lead time",
       "back": "Small raises can be hours. Large ones can take up to three weeks. A worldwide raise can take months.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "security",
       "sources": [
         {
@@ -5281,13 +5366,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Cloud Practitioner",
       "back": "The foundational AWS Certification. It covers the shared vocabulary of accounts, Regions, and billing. It is not a Connect exam.",
       "source": "AWS Certification",
-      "url": "https://aws.amazon.com/certification/",
       "track": "foundations",
       "sources": [
         {
@@ -5326,13 +5412,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/certification/"
     },
     {
       "front": "Solutions Architect - Associate",
       "back": "The associate exam that best matches the AWS services a Connect design uses.",
       "source": "AWS Certification",
-      "url": "https://aws.amazon.com/certification/",
       "track": "foundations",
       "sources": [
         {
@@ -5371,13 +5458,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/certification/"
     },
     {
       "front": "Communications Specialist badge",
       "back": "A Skill Builder and Credly badge. Pass mark is 80 percent. It is not an AWS Certification exam.",
       "source": "Learning plans and badges",
-      "url": "https://aws.amazon.com/blogs/contact-center/amazon-connect-digital-enablement-learning-plans-and-badges/",
       "track": "foundations",
       "sources": [
         {
@@ -5416,13 +5504,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/blogs/contact-center/amazon-connect-digital-enablement-learning-plans-and-badges/"
     },
     {
       "front": "Advanced Networking - Specialty",
       "back": "The networking specialty exam. Last day to take it is 31 December 2026.",
       "source": "Advanced Networking - Specialty",
-      "url": "https://aws.amazon.com/certification/certified-advanced-networking-specialty/",
       "track": "foundations",
       "sources": [
         {
@@ -5461,13 +5550,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/certification/certified-advanced-networking-specialty/"
     },
     {
       "front": "Calling search space",
       "back": "CUCM's list of partitions a phone may dial. The Connect cousin is a routing profile, and they do not configure each other.",
       "source": "Routing profiles",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html",
       "track": "bridge",
       "sources": [
         {
@@ -5506,13 +5596,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html"
     },
     {
       "front": "CSQ",
       "back": "A UCCX contact service queue. Map it to a Connect queue, not to a routing profile.",
       "source": "Queues",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html",
       "track": "bridge",
       "sources": [
         {
@@ -5558,13 +5649,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html"
     },
     {
       "front": "Precision queue",
       "back": "A UCCE queue with attribute steps. Map the steps to routing criteria, not to one flat skill group.",
       "source": "Set routing criteria",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "bridge",
       "sources": [
         {
@@ -5610,13 +5702,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Finesse",
       "back": "The Cisco agent desktop. The Connect cousins are the CCP, the agent workspace, and a Streams application.",
       "source": "amazon-connect-streams",
-      "url": "https://github.com/amazon-connect/amazon-connect-streams",
       "track": "bridge",
       "sources": [
         {
@@ -5662,18 +5755,18 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://github.com/amazon-connect/amazon-connect-streams"
     },
     {
       "front": "CUIC",
       "back": "Cisco Unified Intelligence Center. The Connect cousins are real-time metrics, historical metrics, and the CTR.",
       "source": "Metrics",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/metrics.html",
       "track": "bridge",
       "sources": [
         {
           "title": "Metrics",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/metrics.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -5715,13 +5808,13 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "confirm"
     },
     {
       "front": "VDN",
       "back": "An Avaya vector directory number. Map it to a phone number plus the flow that number starts.",
       "source": "Voice channel",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html",
       "track": "bridge",
       "sources": [
         {
@@ -5760,13 +5853,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html"
     },
     {
       "front": "Partition",
       "back": "CUCM's dial-plan bucket. Connect has no partitions. Numbers are claimed, ported, or reached with Transfer to phone number.",
       "source": "Voice channel",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html",
       "track": "bridge",
       "sources": [
         {
@@ -5805,13 +5899,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html"
     },
     {
       "front": "Shared responsibility",
       "back": "AWS runs the Region, the softphone service, and the multi-tenant platform. You run flows, IAM, keys, numbers, quotas, and the agent network.",
       "source": "Security in Connect",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/security.html",
       "track": "foundations",
       "sources": [
         {
@@ -5850,13 +5945,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/security.html"
     },
     {
       "front": "Flow language action",
       "back": "One JSON step. Types are contact, participant, interaction, or flow control.",
       "source": "Flow language concepts",
-      "url": "https://docs.aws.amazon.com/connect/latest/APIReference/flow-language-concepts.html",
       "track": "flows",
       "sources": [
         {
@@ -5903,13 +5999,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language-concepts.html"
     },
     {
       "front": "Error branch",
       "back": "The path a block takes when it fails. An unconnected error branch ends the contact.",
       "source": "re:Post, flow errors",
-      "url": "https://repost.aws/knowledge-center/connect-contact-flow-errors",
       "track": "troubleshoot",
       "sources": [
         {
@@ -5948,13 +6045,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://repost.aws/knowledge-center/connect-contact-flow-errors"
     },
     {
       "front": "Screen pop",
       "back": "Opening the customer record when the contact arrives. Connect does this with attributes, Profiles, and a workspace app. It is not a CTI cable.",
       "source": "Salesforce integration",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -6013,13 +6111,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html"
     },
     {
       "front": "AppIntegrations",
       "back": "The account-level service that attaches data and event integrations. Default is 20 data integrations per Region.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -6078,13 +6177,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Hook",
       "back": "A supported place to attach the next system: a stream, an event, a block, or a workspace view. Build on a hook instead of scraping the CCP.",
       "source": "Contact events",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -6143,13 +6243,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html"
     },
     {
       "front": "Mind map",
       "back": "The one-page picture of which system owns telephony, the agent, the record, the score, and the emergency call.",
       "source": "Security in Connect",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/security.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -6208,18 +6309,18 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/security.html"
     },
     {
       "front": "Quality management",
       "back": "Scoring contacts against a form, coaching from the score, and keeping the recording that proves it.",
       "source": "Evaluation forms",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/evaluation-forms.html",
       "track": "ecosystem",
       "sources": [
         {
           "title": "Evaluation forms",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/evaluation-forms.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -6274,13 +6375,13 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "confirm"
     },
     {
       "front": "Redaction",
       "back": "Removing sensitive data from a transcript or recording. Conversational analytics can redact. Confirm the rule before you promise a regulator it is on.",
       "source": "Contact Lens GA",
-      "url": "https://aws.amazon.com/about-aws/whats-new/2020/07/contact-lens-amazon-connect-now-generally-available/",
       "track": "analytics",
       "sources": [
         {
@@ -6326,13 +6427,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2020/07/contact-lens-amazon-connect-now-generally-available/"
     },
     {
       "front": "Category",
       "back": "A rules match on words, sentiment, or silence. Supervisors subscribe to categories. They are not intents.",
       "source": "AWS News Blog, 1 Dec 2020",
-      "url": "https://aws.amazon.com/blogs/aws/amazon-connect-smarter-and-more-integrated/",
       "track": "analytics",
       "sources": [
         {
@@ -6385,13 +6487,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/blogs/aws/amazon-connect-smarter-and-more-integrated/"
     },
     {
       "front": "Intraday forecast",
       "back": "A rest-of-day volume prediction. Native forecasting updates it every 15 minutes.",
       "source": "Forecasting product page",
-      "url": "https://aws.amazon.com/connect/optimization/",
       "track": "ecosystem",
       "sources": [
         {
@@ -6451,13 +6554,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/products/connect/customer/optimization/"
     },
     {
       "front": "Capacity plan",
       "back": "How many agents you need for a service level, a handle time, and a shrinkage assumption.",
       "source": "Forecasting and scheduling",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -6509,13 +6613,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html"
     },
     {
       "front": "Time-off rule",
       "back": "The constraint native scheduling uses when an agent requests leave. It is not the same object as hours of operation.",
       "source": "Forecasting and scheduling",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -6567,13 +6672,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html"
     },
     {
       "front": "Origination number",
       "back": "The caller ID sent with an outbound or 911 call. Responders can call it back only if that number accepts inbound calls.",
       "source": "US emergency calling",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -6625,13 +6731,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html"
     },
     {
       "front": "Master Street Address Guide",
       "back": "The address database ValidateE911Address checks. A free-typed address is not enough.",
       "source": "Store an agent address",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/get-and-store-agent-address-e911.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -6690,13 +6797,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/get-and-store-agent-address-e911.html"
     },
     {
       "front": "On-site notification",
       "back": "The task the 911 whisper flow creates so security or HR knows a 911 call was placed.",
       "source": "US emergency calling",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -6748,13 +6856,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html"
     },
     {
       "front": "Dual-run",
       "back": "Keeping the old platform and Connect both able to receive the number while you compare flows, reports, and failover.",
       "source": "Global Resiliency",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html",
       "track": "bridge",
       "sources": [
         {
@@ -6800,13 +6909,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html"
     },
     {
       "front": "Rollback",
       "back": "The tested path back to the old platform or the other Region. A port without a rollback date is not a plan.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "bridge",
       "sources": [
         {
@@ -6852,13 +6962,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Get metrics block",
       "back": "Reads real-time queue and agent metrics into attributes so a flow can branch on them.",
       "source": "Flow block definitions",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "routing",
       "sources": [
         {
@@ -6903,13 +7014,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Interrupt agent",
       "back": "Offers a contact to a named agent even if that agent is at maximum concurrency or in a custom status.",
       "source": "Flow block definitions",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "routing",
       "sources": [
         {
@@ -6954,13 +7066,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Touchtone buffer",
       "back": "Lets the caller type ahead. Set Touchtone Buffer Behavior controls it.",
       "source": "Flow block definitions",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "flows",
       "sources": [
         {
@@ -6999,13 +7112,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Distribute by percentage",
       "back": "Sends a share of contacts down each branch. Use it for a measured pilot, not for skills.",
       "source": "Flow block definitions",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "flows",
       "sources": [
         {
@@ -7044,13 +7158,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Analytics data lake",
       "back": "Zero-ETL contact data that Athena or QuickSight can query. Previewed 28 Nov 2023.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "analytics",
       "sources": [
         {
@@ -7103,13 +7218,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "GetMetricDataV2",
       "back": "The metrics API you want for new dashboards. It is the current metrics call, as opposed to the older GetMetricData.",
       "source": "GetMetricDataV2",
-      "url": "https://docs.aws.amazon.com/connect/latest/APIReference/API_GetMetricDataV2.html",
       "track": "analytics",
       "sources": [
         {
@@ -7162,18 +7278,18 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/APIReference/API_GetMetricDataV2.html"
     },
     {
       "front": "Historical metrics",
       "back": "Interval reports: 15 minutes, 30 minutes, daily, or total. They are not the real-time board.",
       "source": "Metrics",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/metrics.html",
       "track": "analytics",
       "sources": [
         {
           "title": "Metrics",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/metrics.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -7222,18 +7338,17 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "confirm"
     },
     {
       "front": "Real-time metrics",
       "back": "The live agent, queue, and routing-profile board. It is eventually consistent. Do not use it as a per-call audit.",
       "source": "Real-time metrics",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics.html",
       "track": "analytics",
       "sources": [
         {
           "title": "Real-time metrics",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -7282,13 +7397,13 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "confirm"
     },
     {
       "front": "CloudFormation AWS::Connect::ContactFlow",
       "back": "A stack resource whose content is flow-language JSON. Use it to move a flow between instances.",
       "source": "Flow language",
-      "url": "https://docs.aws.amazon.com/connect/latest/APIReference/flow-language.html",
       "track": "lambda",
       "sources": [
         {
@@ -7327,13 +7442,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language.html"
     },
     {
       "front": "Terraform aws_connect_bot_association",
       "back": "Attaches a Lex V2 alias to the instance. The flow still has to select that alias.",
       "source": "Terraform bot association",
-      "url": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/connect_bot_association",
       "track": "lex",
       "sources": [
         {
@@ -7378,13 +7494,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/connect_bot_association"
     },
     {
       "front": "Resource policy",
       "back": "A policy on the resource, such as Lambda, that allows connect.amazonaws.com to invoke it. An identity policy on a user is not enough.",
       "source": "re:Post, Lambda failures",
-      "url": "https://repost.aws/knowledge-center/connect-lambda-function-failures",
       "track": "lambda",
       "sources": [
         {
@@ -7415,13 +7532,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://repost.aws/knowledge-center/connect-lambda-function-failures"
     },
     {
       "front": "32 KB response",
       "back": "The practical ceiling called out for a Lambda payload Connect will consume. Larger or nested payloads take the error branch when the block expects a string map.",
       "source": "re:Post, flow errors",
-      "url": "https://repost.aws/knowledge-center/connect-contact-flow-errors",
       "track": "lambda",
       "sources": [
         {
@@ -7459,13 +7577,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://repost.aws/knowledge-center/connect-contact-flow-errors"
     },
     {
       "front": "Claimed number",
       "back": "A number Connect hosts. The default quota is 10 per instance, and the first claim can still fail until Support clears it.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "telephony",
       "sources": [
         {
@@ -7512,13 +7631,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Shared cost number",
       "back": "A number type where the caller pays a local share. Sold per day, like DID, toll-free, and UIFN.",
       "source": "Pricing appendix",
-      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
       "track": "telephony",
       "sources": [
         {
@@ -7572,13 +7692,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/"
     },
     {
       "front": "In-app calling",
       "back": "Voice from a web or mobile widget. Audio is an extra 0.010 USD per minute on top of the voice service charge.",
       "source": "Pricing appendix",
-      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
       "track": "channels",
       "sources": [
         {
@@ -7609,13 +7730,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/"
     },
     {
       "front": "Video connection",
       "back": "0.015 USD per minute per participant in the appendix, plus the voice charge. Video calling does not support VDI.",
       "source": "Video networking",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/videocalling-networking-requirements.html",
       "track": "channels",
       "sources": [
         {
@@ -7646,13 +7768,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/videocalling-networking-requirements.html"
     },
     {
       "front": "Apple Messages for Business",
       "back": "Counted in the concurrent chat quota with SMS and WhatsApp.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "channels",
       "sources": [
         {
@@ -7676,13 +7799,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Campaign concurrent calls",
       "back": "Default quota is 0. Until you raise it, campaign calls hear a fast busy.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "channels",
       "sources": [
         {
@@ -7706,13 +7830,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "User hierarchy",
       "back": "Up to five levels of groups for reporting lines. The quota is 500 groups across all levels.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "workspace",
       "sources": [
         {
@@ -7774,13 +7899,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Agent status",
       "back": "Available, offline, or a custom status. The quota is 50 statuses and it is not adjustable.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "workspace",
       "sources": [
         {
@@ -7842,13 +7968,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "After contact work timeout",
       "back": "How long ACW may last. Per-channel auto-accept and ACW timeouts were called out in the February 2026 document history.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "workspace",
       "sources": [
         {
@@ -7910,13 +8037,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "Step-by-step guide",
       "back": "A view that tells the agent the next click. Previewed in the workspace on 29 Nov 2022.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "workspace",
       "sources": [
         {
@@ -7978,13 +8106,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "Knowledge base",
       "back": "The content agent assist searches. Default quota is 10 knowledge bases and 5000 content items each.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "ai",
       "sources": [
         {
@@ -8017,7 +8146,6 @@
         },
         {
           "title": "Amazon Q in Connect",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -8030,18 +8158,18 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Guardrail",
       "back": "The control that keeps a generated answer inside the knowledge you provided. If you cannot show the source article, do not treat the answer as a fact.",
       "source": "Agent assist",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
       "track": "ai",
       "sources": [
         {
           "title": "Agent assist",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -8075,13 +8203,13 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "confirm"
     },
     {
       "front": "Fallback intent",
       "back": "The Lex intent used when nothing else matches. Point it at a person, not at a loop.",
       "source": "Amazon Lex",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html",
       "track": "lex",
       "sources": [
         {
@@ -8119,13 +8247,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html"
     },
     {
       "front": "DTMF",
       "back": "Keypad tones. Get customer input and Store customer input read them. Lex can also consume them.",
       "source": "Flow block definitions",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "lex",
       "sources": [
         {
@@ -8170,13 +8299,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "SSML",
       "back": "Markup for text-to-speech. Set voice chooses the language and voice the prompt uses.",
       "source": "Set voice",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "flows",
       "sources": [
         {
@@ -8215,13 +8345,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Prompt",
       "back": "A stored audio file or a TTS string. Default quota is 500 prompts.",
       "source": "Service quotas",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
       "track": "flows",
       "sources": [
         {
@@ -8267,13 +8398,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html"
     },
     {
       "front": "Disconnect flow",
       "back": "Runs after the contact ends. Use it for surveys. Do not use it to keep the caller on the line.",
       "source": "Set disconnect flow",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "flows",
       "sources": [
         {
@@ -8312,13 +8444,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Hold flow",
       "back": "What the customer hears on hold. Loop prompts is the usual block.",
       "source": "Flow types",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html",
       "track": "flows",
       "sources": [
         {
@@ -8357,13 +8490,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html"
     },
     {
       "front": "Callback",
       "back": "Set callback number, then a queue callback, so the caller does not wait on the phone. The queue still needs agents.",
       "source": "Set callback number",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "routing",
       "sources": [
         {
@@ -8408,18 +8542,18 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Queue callback",
       "back": "A contact that waits without an open media leg, then Connect dials the customer when an agent is free.",
       "source": "Queue callbacks",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/callback.html",
       "track": "routing",
       "sources": [
         {
           "title": "Queue callbacks",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/callback.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -8460,13 +8594,13 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "confirm"
     },
     {
       "front": "Transfer to phone number",
       "back": "Sends the contact to the PSTN. This is how Connect reaches a CUCM route point or a Teams Phone number.",
       "source": "Transfer to phone number",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-phone-number.html",
       "track": "bridge",
       "sources": [
         {
@@ -8512,13 +8646,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-phone-number.html"
     },
     {
       "front": "Side-by-side",
       "back": "CUCM or Webex keeps enterprise extensions. Connect keeps the public contact center number. They meet by transfer, not by a shared dial plan.",
       "source": "Transfer to phone number",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-phone-number.html",
       "track": "integrations",
       "sources": [
         {
@@ -8577,13 +8712,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-phone-number.html"
     },
     {
       "front": "Webex Contact Center",
       "back": "A competing Cisco CCaaS. It is not a connector you install under Connect. During a move you dual-run numbers.",
       "source": "Voice channel",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html",
       "track": "bridge",
       "sources": [
         {
@@ -8622,13 +8758,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html"
     },
     {
       "front": "Genesys Architect",
       "back": "The Genesys flow tool. Map each Architect task to a Connect block. Map in-queue audio to a customer queue flow.",
       "source": "Flow types",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html",
       "track": "bridge",
       "sources": [
         {
@@ -8674,13 +8811,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html"
     },
     {
       "front": "Avaya vector",
       "back": "The Avaya step list. Announcements become Play prompt. Route-to becomes a transfer. Collect becomes Get customer input.",
       "source": "Flow block definitions",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
       "track": "bridge",
       "sources": [
         {
@@ -8726,13 +8864,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html"
     },
     {
       "front": "Recording bucket policy",
       "back": "The S3 policy that lets the Connect role put objects. A private bucket with no policy produces a silent missing recording.",
       "source": "Recording behavior",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -8784,13 +8923,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html"
     },
     {
       "front": "Cross-account KVS",
       "back": "A third-party recorder in another account needs the stream ARN from the contact event and an IAM role that can read the stream.",
       "source": "Live media streaming",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-voice-streams.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -8849,13 +8989,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-voice-streams.html"
     },
     {
       "front": "Adherence feed",
       "back": "Agent events in, schedule from WFM. The comparison is the adherence number. Without the stream, the WFM tool only has history.",
       "source": "Agent event streams",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -8914,13 +9055,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html"
     },
     {
       "front": "Shard",
       "back": "A Kinesis capacity slice. One shard is a common starting point for agent events and is too small when a second consumer appears.",
       "source": "Agent event streams",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
       "track": "foundations",
       "sources": [
         {
@@ -8959,13 +9101,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html"
     },
     {
       "front": "ContactId join",
       "back": "The key that ties the flow log, the CTR, the recording, the agent event, and the CRM activity. Lose it and the ecosystem cannot be audited.",
       "source": "re:Post, Kinesis integration",
-      "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis",
       "track": "ecosystem",
       "sources": [
         {
@@ -9024,13 +9167,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis"
     },
     {
       "front": "Future hook",
       "back": "A supported extension point you can adopt later without rewriting the flow: EventBridge, streams, views, data tables, or External Tool.",
       "source": "Contact events",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html",
       "track": "ecosystem",
       "sources": [
         {
@@ -9089,13 +9233,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html"
     },
     {
       "front": "NLX",
       "back": "The name on the 22 Jun 2026 preview of Agentic CX designer. Generally available 2 Sep 2026.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "ai",
       "sources": [
         {
@@ -9121,7 +9266,6 @@
         },
         {
           "title": "Amazon Q in Connect",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -9134,13 +9278,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "Nova Sonic",
       "back": "The speech model named in the 30 Nov 2025 agentic self-service announcement.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "ai",
       "sources": [
         {
@@ -9166,7 +9311,6 @@
         },
         {
           "title": "Amazon Q in Connect",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -9179,13 +9323,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "Manager assist",
       "back": "A preview assistant for supervisors asking operational questions in natural language. Announced in preview 10 Mar 2026.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "ai",
       "sources": [
         {
@@ -9211,7 +9356,6 @@
         },
         {
           "title": "Amazon Q in Connect",
-          "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
           "kind": "aws",
           "last_checked": "2026-10",
           "status": "confirm",
@@ -9224,13 +9368,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "Four solutions",
       "back": "As of the 28 Apr 2026 AWS News Blog, the Amazon Connect family is Customer, Health, Decisions, and Talent. This campus teaches Customer.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "foundations",
       "sources": [
         {
@@ -9262,13 +9407,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "Health, Decisions, Talent",
       "back": "The other three solutions in the family. They are not settings inside a contact center instance.",
       "source": "Connect timeline, 25 Sep 2026",
-      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
       "track": "foundations",
       "sources": [
         {
@@ -9300,13 +9446,14 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html"
     },
     {
       "front": "Estimate",
       "back": "A price you computed from the public rate card on a named date. It is not an invoice. Taxes, surcharges, and country telephony rates still apply.",
       "source": "Pricing appendix",
-      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
       "track": "security",
       "sources": [
         {
@@ -9373,7 +9520,9 @@
           "last_checked": "2026-10",
           "status": "verified"
         }
-      ]
+      ],
+      "status": "verified",
+      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/"
     }
   ]
 }

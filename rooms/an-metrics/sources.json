@@ -5,7 +5,6 @@
   "sources": [
     {
       "title": "Real-time metrics",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/real-time-metrics.html",
       "kind": "aws",
       "last_checked": "2026-10",
       "status": "confirm",

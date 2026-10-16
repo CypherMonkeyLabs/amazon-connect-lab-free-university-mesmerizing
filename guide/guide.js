@@ -175,7 +175,7 @@ host.appendChild(idlePop);
 var tour = document.createElement("div");
 tour.className = "tour-layer";
 tour.hidden = true;
-tour.innerHTML = '<div class="tour-card" role="dialog" aria-modal="true" aria-labelledby="tour-title">' +
+tour.innerHTML = '<div class="tour-card is-low" role="dialog" aria-modal="false" aria-labelledby="tour-title">' +
   '<p class="tour-kicker"><span class="tour-num" data-tour-num>1</span> <span data-tour-count></span></p>' +
   '<h2 id="tour-title" data-tour-title></h2>' +
   '<p class="tour-text" data-tour-text></p>' +
@@ -192,9 +192,6 @@ function clearSpots() {
   spots.forEach(function (node) { node.classList.remove("is-spot"); });
   spots = [];
   tour.querySelectorAll(".tour-spot").forEach(function (node) { node.remove(); });
-}
-function overlaps(a, b, gap) {
-  return !(a.right + gap < b.left || a.left - gap > b.right || a.bottom + gap < b.top || a.top - gap > b.bottom);
 }
 function revealTarget(target) {
   var rail = target.closest(".section-rail");
@@ -222,50 +219,16 @@ function shownEnough(node) {
   return overlap >= rect.width * 0.55;
 }
 function placeCard(card, nodes) {
-  var vw = window.innerWidth;
-  var vh = window.innerHeight;
-  var margin = 10;
-  var phone = vw <= 800;
-  var dock = phone ? 92 : 0;
-  var header = phone ? 74 : 86;
-  card.style.width = Math.min(440, vw - margin * 2) + "px";
-  var cw = card.offsetWidth;
-  var ch = card.offsetHeight;
-  var left = Math.max(margin, Math.round((vw - cw) / 2));
-  if (left + cw > vw - margin) left = Math.max(margin, vw - cw - margin);
-  var blocked = [];
-  var title = document.querySelector("#main h1");
-  if (title) blocked.push({ rect: title.getBoundingClientRect(), weight: 12 });
+  card.style.left = "";
+  card.style.top = "";
+  card.style.width = "";
+  var low = false;
   nodes.forEach(function (node) {
-    blocked.push({ rect: node.getBoundingClientRect(), weight: 4 });
+    var rect = node.getBoundingClientRect();
+    if (rect.top > window.innerHeight * 0.45) low = true;
   });
-  var candidates = [vh - ch - margin - dock, header];
-  blocked.forEach(function (item) {
-    candidates.push(item.rect.bottom + 16);
-    candidates.push(item.rect.top - ch - 16);
-  });
-  var best = header;
-  var bestScore = Infinity;
-  candidates.forEach(function (top) {
-    var y = top;
-    if (y + ch > vh - margin - dock) y = vh - ch - margin - dock;
-    if (y < margin) y = margin;
-    var box = { left: left, right: left + cw, top: y, bottom: y + ch };
-    var score = 0;
-    blocked.forEach(function (item) {
-      if (!overlaps(box, item.rect, 8)) return;
-      var width = Math.max(0, Math.min(box.right, item.rect.right) - Math.max(box.left, item.rect.left));
-      var height = Math.max(0, Math.min(box.bottom, item.rect.bottom) - Math.max(box.top, item.rect.top));
-      score += width * height * item.weight;
-    });
-    score += Math.abs(y - (vh - ch - margin - dock)) * 0.02;
-    if (score < bestScore) {
-      bestScore = score;
-      best = y;
-    }
-  });
-  card.style.left = left + "px";
-  card.style.top = best + "px";
+  card.classList.toggle("is-high", low);
+  card.classList.toggle("is-low", !low);
 }
 function visible(selector) {
   var nodes = document.querySelectorAll(selector);
@@ -305,7 +268,7 @@ function showStep() {
   spots.forEach(function (node, index) {
     var rect = node.getBoundingClientRect();
     var spot = document.createElement("div");
-    spot.className = "tour-spot" + (index === 0 ? " is-dim" : "");
+    spot.className = "tour-spot";
     var left = Math.max(4, rect.left - 6);
     var top = Math.max(4, rect.top - 6);
     spot.style.left = left + "px";

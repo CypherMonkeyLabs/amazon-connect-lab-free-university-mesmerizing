@@ -24,7 +24,7 @@
           host.innerHTML = '<p class="kicker">Card ' + (at + 1) + " of " + items.length + "</p>" +
             "<h2>" + escapeHtml(item.front) + "</h2>" +
             "<details><summary>Show the meaning</summary><p>" + escapeHtml(item.back) + "</p>" +
-            '<p><a href="' + escapeHtml(item.url) + '">' + escapeHtml(item.source) + "</a></p></details>" +
+            citedLine(item) + "</details>" +
             '<div class="actions"><button type="button" data-again>Again</button><button type="button" data-know>Know</button></div>' +
             sourcesBlock(item);
         } else {
@@ -34,7 +34,7 @@
           host.innerHTML = '<p class="kicker">Question ' + (at + 1) + " of " + items.length + "</p>" +
             "<h2>" + escapeHtml(item.q) + "</h2><div class=\"quiz-options\">" + choices + "</div>" +
             "<details><summary>Show the cited answer</summary><p>" + escapeHtml(item.why) + "</p>" +
-            '<p><a href="' + escapeHtml(item.url) + '">' + escapeHtml(item.source) + "</a></p></details>";
+            citedLine(item) + "</details>";
           host.querySelectorAll("[data-choice]").forEach(function (btn) {
             btn.addEventListener("click", function () {
               var ok = Number(btn.getAttribute("data-choice")) === Number(item.answer);
@@ -53,6 +53,16 @@
       host.innerHTML = "<p>The deck file did not load. Use the download buttons on this page.</p>";
     });
   });
+  function citedLine(item) {
+    if (item.status === "verified" && item.url) {
+      return '<p><a href="' + escapeHtml(item.url) + '">' + escapeHtml(item.source || item.title || "") + "</a></p>";
+    }
+    if (item.status === "confirm" || !item.url) {
+      return "<p><strong>confirm</strong> " + escapeHtml(item.source || item.title || "This fact") +
+        ". last checked 2026-10.</p>";
+    }
+    return '<p><a href="' + escapeHtml(item.url) + '">' + escapeHtml(item.source || "") + "</a></p>";
+  }
   function sourcesBlock(item) {
     var list = item.sources || [];
     if (!list.length) return "";
@@ -64,9 +74,8 @@
         return "<li><a href=\"" + escapeHtml(src.url) + "\">" + escapeHtml(src.title) + "</a> " +
           escapeHtml(kind) + ". " + escapeHtml(checked) + "</li>";
       }
-      var link = src.url ? " <a href=\"" + escapeHtml(src.url) + "\">" + escapeHtml(src.url) + "</a>" : "";
       return "<li><strong>confirm</strong> " + escapeHtml(src.title) + ". " + escapeHtml(kind) + ". " +
-        escapeHtml(checked) + ". " + escapeHtml(src.note || "") + link + "</li>";
+        escapeHtml(checked) + ". " + escapeHtml(src.note || "") + "</li>";
     }).join("");
     return '<section class="sources-deeper"><h2>Sources and go deeper</h2><ul>' + rows + "</ul></section>";
   }

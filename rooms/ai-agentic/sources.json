@@ -12,7 +12,6 @@
     },
     {
       "title": "Amazon Q in Connect",
-      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
       "kind": "aws",
       "last_checked": "2026-10",
       "status": "confirm",

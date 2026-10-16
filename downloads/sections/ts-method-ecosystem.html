@@ -12,8 +12,9 @@ svg.fig{width:100%;height:auto}
 .brand-gh{background:#24292f}
 .brand-tree{background:radial-gradient(circle at 32% 24%,#d9f99d,#4ade80 42%,#166534 78%);box-shadow:0 0 0 3px #052e16,0 0 18px #4ade80}
 .disclaimer-panel a{color:#1e3a8a;font-weight:800}
-.sources-deeper{margin-top:18px;padding-top:8px;border-top:2px solid #7c3aed}
-.sources-deeper li{margin:6px 0}
+.sources-deeper{margin:18px 0;padding:16px 16px 14px;border:2px solid #7c3aed;border-radius:18px;background:#f5f3ff;color:#1e1b4b}
+.sources-deeper h2{margin:0 0 8px;color:#4c1d95}
+.sources-deeper li{margin:8px 0}
 .sources-deeper a{color:#1e3a8a;font-weight:800}
 </style></head><body><article class="standalone"><div class="disclaimer-panel" role="note"><div><h2>Independent study lab</h2><p>This is an independent, free, learning-only student project. It respects every company and vendor. Trademarks belong to their owners. It is not affiliated with or endorsed by Amazon Web Services, Cisco, Genesys, or any other company. If you have a concern, the page will be removed or corrected promptly through the contact form. Nothing here is sold. There are no ads. The author is happy to volunteer for any organization.</p><p>Contact: <a href="https://cyphermonkeylabs.com/#contact">https://cyphermonkeylabs.com/#contact</a></p></div></div><h1>Leg, id, counter, capture — Ecosystem</h1><h3>Glossary</h3><ul><li><strong>Flow log</strong> A CloudWatch log of each block. Set logging behavior turns it on. The log group is under the instance.</li><li><strong>Error branch</strong> The path a block takes when it fails. An unconnected error branch ends the contact.</li></ul><h3>Mind map</h3><p><a href="../assets/diagrams/mind-troubleshoot.svg">Open the Troubleshooting mind map</a></p><h3>Sister technologies</h3><p>The useful habit is to name the hop, the ContactId, the counter, and the log line before you edit the flow.</p><h3>Config and troubleshooting</h3><p>Changing the flow, the Lambda, and the firewall in one afternoon.</p><p>The troubleshooting habit starts with a log line. ContactflowLogs on the instance is what lets Set logging behavior write to CloudWatch.</p><p><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-connect-instance.html">AWS::Connect::Instance</a></p><details><summary>CloudFormation study snippet</summary><pre>Resources:
   CampusInstance:
