@@ -435,13 +435,16 @@ pre {
   z-index: 81;
   border-radius: 16px;
   pointer-events: none;
-  box-shadow: 0 0 0 3px #fde047, 0 0 18px #c4b5fd, 0 0 28px rgba(34, 211, 238, 0.85);
+  box-shadow:
+    0 0 0 3px #fde047,
+    0 0 18px #c4b5fd,
+    0 0 28px rgba(34, 211, 238, 0.85);
 }
 .tour-spot.is-dim {
   box-shadow:
-    0 0 0 9999px rgba(49, 28, 92, 0.38),
     0 0 0 3px #fde047,
-    0 0 22px #c4b5fd;
+    0 0 22px #c4b5fd,
+    0 0 0 9999px rgba(49, 28, 92, 0.38);
 }
 .tour-card {
   position: fixed;

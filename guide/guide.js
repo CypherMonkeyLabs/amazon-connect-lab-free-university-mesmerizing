@@ -35,7 +35,7 @@ function monkeyMarkup(id) {
 }
 
 var STEPS = [
-  { sel: "[data-tour='home']", title: "Home", text: "Home is the track map. Start here when you want the whole lab." },
+  { sel: ".section-chip[data-tour='home']", title: "Home", text: "Home is the track map. Start here when you want the whole lab." },
   { sel: "[data-tour='menu']", title: "Menu", text: "Menu opens the drawer. Each row has an icon, a name, and one line. Search sits at the top." },
   { sel: "[data-tour='learn']", title: "Learn", text: "Learn is the ten-minute path and the full course." },
   { sel: "[data-tour='diagrams']", also: "[data-tour='downloads']", title: "Diagrams", text: "Diagrams are the pictures. Downloads, in this same row, keeps the sheets and the zip." },
@@ -199,13 +199,27 @@ function overlaps(a, b, gap) {
 function revealTarget(target) {
   var rail = target.closest(".section-rail");
   if (rail) {
-    var left = target.offsetLeft - (rail.clientWidth - target.offsetWidth) / 2;
-    rail.scrollLeft = Math.max(0, left);
+    var railRect = rail.getBoundingClientRect();
+    var rect = target.getBoundingClientRect();
+    var delta = (rect.left + rect.width / 2) - (railRect.left + rail.clientWidth / 2);
+    rail.scrollLeft += delta;
     return;
   }
   if (target.closest(".phone-dock")) return;
   if (getComputedStyle(target).position === "fixed") return;
   target.scrollIntoView({ block: "nearest", inline: "nearest" });
+}
+function shownEnough(node) {
+  var rect = node.getBoundingClientRect();
+  if (rect.width < 2 || rect.height < 2) return false;
+  var viewW = Math.min(rect.right, window.innerWidth) - Math.max(rect.left, 0);
+  var viewH = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+  if (viewW < rect.width * 0.55 || viewH < rect.height * 0.55) return false;
+  var rail = node.closest(".section-rail");
+  if (!rail) return true;
+  var railRect = rail.getBoundingClientRect();
+  var overlap = Math.min(rect.right, railRect.right) - Math.max(rect.left, railRect.left);
+  return overlap >= rect.width * 0.55;
 }
 function placeCard(card, nodes) {
   var vw = window.innerWidth;
@@ -277,14 +291,16 @@ function showStep() {
   clearSpots();
   var step = STEPS[stepAt];
   var target = visible(step.sel);
-  if (target) {
-    revealTarget(target);
-    spots.push(target);
+  var extra = step.also ? visible(step.also) : null;
+  if (target) revealTarget(target);
+  if (extra && target && extra.closest(".section-rail") && extra.closest(".section-rail") === target.closest(".section-rail") && !shownEnough(extra)) {
+    var rail = target.closest(".section-rail");
+    var before = rail.scrollLeft;
+    revealTarget(extra);
+    if (!shownEnough(target)) rail.scrollLeft = before;
   }
-  if (step.also) {
-    var extra = visible(step.also);
-    if (extra) spots.push(extra);
-  }
+  if (target && shownEnough(target)) spots.push(target);
+  if (extra && shownEnough(extra)) spots.push(extra);
   var card = tour.querySelector(".tour-card");
   spots.forEach(function (node, index) {
     var rect = node.getBoundingClientRect();
