@@ -620,7 +620,7 @@ img.fig,svg.fig{display:block;max-width:100%;width:100%;height:auto}
 def standalone(path: Path, title, body, depth):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
-        f'<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(title)}</title>{STANDALONE_STYLE}</head>'
+        f'<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(title)}</title><link rel="icon" href="{"../"*depth}favicon.svg" type="image/svg+xml">{STANDALONE_STYLE}</head>'
         f'<body><article class="standalone"><div class="disclaimer-panel" role="note"><div><h2>Independent study lab</h2><p>{esc(DISCLAIMER)}</p>'
         f'<p>Contact: <a href="{CONTACT}">{CONTACT}</a></p></div></div><h1>{esc(title)}</h1>{body}{footer_block()}</article></body></html>',
         encoding="utf-8",
