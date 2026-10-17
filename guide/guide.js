@@ -686,8 +686,11 @@ if (shot === "bot") {
   localStorage.setItem("acl-greet-v1", "done");
   applySavedPos();
   syncChrome();
-} else if (localStorage.getItem("acl-tour-v1") !== "done") {
+} else if (localStorage.getItem("acl-tour-v1") !== "done" && document.querySelector("[data-tour='home']")) {
   startTour();
+} else if (localStorage.getItem("acl-tour-v1") !== "done") {
+  // The campus app has none of the tour anchors, so it goes straight to the greeting.
+  endTour(true);
 } else {
   applySavedPos();
   maybeGreet();
