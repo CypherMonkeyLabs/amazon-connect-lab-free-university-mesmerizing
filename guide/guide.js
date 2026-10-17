@@ -245,7 +245,8 @@ function syncChrome() {
   var greeting = !greet.hidden;
   var open = !sheet.hidden;
   var showBot = STEPS[stepAt] && STEPS[stepAt].also === "[data-tour='bot']";
-  launcher.hidden = greeting || open || (touring && !showBot);
+  launcher.hidden = greeting || open;
+  launcher.classList.toggle("is-touring", touring);
   scrim.hidden = greeting || open ? false : true;
   scrim.classList.toggle("is-greet", greeting);
 }
@@ -288,6 +289,13 @@ function showStep() {
   next.textContent = stepAt === STEPS.length - 1 ? "Done" : "Next";
   tour.querySelector("[data-tour-back]").hidden = stepAt === 0;
   placeCard(card, spots);
+  pose(stepAt === STEPS.length - 1 ? "wave" : "point");
+  if (tourVoice) talk(step.title + ". " + step.text);
+}
+var tourVoice = false;
+function talk(text) {
+  if (!window.speechSynthesis || speaking) return;
+  try { speak(text); } catch (err) { /* voice off */ }
 }
 function endTour(done) {
   tour.hidden = true;
@@ -305,10 +313,12 @@ function startTour() {
   showStep();
 }
 tour.querySelector("[data-tour-next]").addEventListener("click", function () {
+  tourVoice = true;
   if (stepAt >= STEPS.length - 1) endTour(true);
   else { stepAt += 1; showStep(); }
 });
 tour.querySelector("[data-tour-back]").addEventListener("click", function () {
+  tourVoice = true;
   stepAt = Math.max(0, stepAt - 1);
   showStep();
 });
@@ -328,6 +338,7 @@ function maybeGreet() {
   greet.hidden = false;
   pose("wave");
   syncChrome();
+  talk("Welcome. I am the Connect guide. Pick a path, or ask me anything about this lab.");
 }
 function dockGreet() {
   greet.hidden = true;
@@ -356,6 +367,7 @@ function openSheet() {
   syncChrome();
   pose("wave");
   offerExport();
+  if (!speaking) talk("Pick a path. I can also read this page aloud.");
 }
 function closeSheet() {
   sheet.hidden = true;

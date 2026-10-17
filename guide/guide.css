@@ -296,3 +296,17 @@ html[data-theme="dark"] .bot-log p { background: #1f2937; }
 @media (prefers-reduced-motion: reduce) {
   .monkey .eye { animation: none; }
 }
+
+/* Bot is always visible and bottom-docked, also during the first-visit tour. */
+.bot-launcher { z-index: 83; }
+@media (max-width: 800px) {
+  .bot-launcher {
+    right: 6px;
+    bottom: calc(var(--dock-h, 86px) + 6px);
+    width: 84px;
+  }
+  .bot-launcher svg { width: 84px; height: 96px; }
+  .tour-card.is-low { bottom: calc(var(--dock-h, 86px) + 108px); }
+  .tour-card { max-height: calc(100dvh - var(--dock-h, 86px) - var(--header-h, 56px) - 120px); }
+  .tour-card.is-high { max-height: calc(100dvh - var(--dock-h, 86px) - var(--header-h, 56px) - 120px); }
+}
