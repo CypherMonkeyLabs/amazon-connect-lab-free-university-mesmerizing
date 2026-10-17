@@ -397,44 +397,11 @@ launcher.addEventListener("click", function () {
 });
 sheet.querySelector("[data-close-bot]").addEventListener("click", closeSheet);
 
-function applySavedPos() {
-  try {
-    var pos = JSON.parse(localStorage.getItem("acl-bot-pos") || "null");
-    if (!pos) return;
-    launcher.style.left = pos.left + "px";
-    launcher.style.top = pos.top + "px";
-    launcher.style.right = "auto";
-    launcher.style.bottom = "auto";
-  } catch (err) { /* default corner */ }
-}
-launcher.addEventListener("pointerdown", function (event) {
-  if (event.button !== 0) return;
-  var rect = launcher.getBoundingClientRect();
-  drag = { dx: event.clientX - rect.left, dy: event.clientY - rect.top, moved: false, id: event.pointerId };
-  launcher.setPointerCapture(event.pointerId);
-});
-launcher.addEventListener("pointermove", function (event) {
-  if (!drag || drag.id !== event.pointerId) return;
-  var x = event.clientX - drag.dx;
-  var y = event.clientY - drag.dy;
-  if (Math.abs(event.movementX) + Math.abs(event.movementY) > 3) drag.moved = true;
-  x = Math.max(8, Math.min(window.innerWidth - 80, x));
-  y = Math.max(8, Math.min(window.innerHeight - 80, y));
-  launcher.style.left = x + "px";
-  launcher.style.top = y + "px";
-  launcher.style.right = "auto";
-  launcher.style.bottom = "auto";
-});
-function endDrag(event) {
-  if (!drag || drag.id !== event.pointerId) return;
-  if (drag.moved) {
-    var rect = launcher.getBoundingClientRect();
-    localStorage.setItem("acl-bot-pos", JSON.stringify({ left: Math.round(rect.left), top: Math.round(rect.top) }));
-  }
-  drag = null;
-}
-launcher.addEventListener("pointerup", endDrag);
-launcher.addEventListener("pointercancel", endDrag);
+// Drag, edge snap, tilt and reset live in guide/dragbot.js. Positions are applied there.
+function applySavedPos() {}
+var botScript = document.createElement("script");
+botScript.src = new URL("dragbot.js", import.meta.url).href;
+document.body.appendChild(botScript);
 
 function say(text) {
   var log = sheet.querySelector("[data-log]");

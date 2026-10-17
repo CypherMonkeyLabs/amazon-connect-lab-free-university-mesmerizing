@@ -1,5 +1,5 @@
 /* App shell for the Amazon Connect lab. Same-origin GET only. */
-var CACHE = "connect-lab-r2-v1";
+var CACHE = "connect-lab-r2-v2";
 var SHELL = [
   "./",
   "./index.html",
@@ -14,6 +14,7 @@ var SHELL = [
   "./assets/js/frame.js",
   "./assets/js/university.js",
   "./guide/guide.js",
+  "./guide/dragbot.js",
   "./guide/guide.css",
   "./guide/engine.mjs",
   "./guide/kb.json"
