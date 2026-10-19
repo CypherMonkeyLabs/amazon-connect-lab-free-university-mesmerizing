@@ -8,8 +8,8 @@
   },
   "typo": {
     "total": 1,
-    "relevant": 0,
-    "relevantPct": 0,
+    "relevant": 1,
+    "relevantPct": 100,
     "confidentWrong": 0
   },
   "offtopic": {
@@ -47,18 +47,6 @@
   },
   "misses": [
     {
-      "id": "d3",
-      "group": "typo",
-      "q": "What is a routin profile?",
-      "relevant": false,
-      "confidentWrong": false,
-      "clean": false,
-      "href": "rooms/route-profile.html",
-      "mode": "answer",
-      "intent": "seed",
-      "text": "Lower priority number wins. Delay keeps a second team in reserve. Concurrency is how many of each channel an agent holds. Voice concurrency is typically one. Chat can be higher. So"
-    },
-    {
       "id": "d10",
       "group": "beginner",
       "q": "What is a contact flow?",
@@ -68,7 +56,7 @@
       "href": "",
       "mode": "fallback",
       "intent": "fallback",
-      "text": "I don't have that yet. Closest pages: Flow types are not one canvas; Modules are how you stop copying flows. I only answer from this lab's lessons. You can also use Search."
+      "text": "I don't have that yet. Closest pages: Modules are how you stop copying flows; Flow types are not one canvas. I only answer from this lab's lessons. You can also use Search."
     }
   ]
 }

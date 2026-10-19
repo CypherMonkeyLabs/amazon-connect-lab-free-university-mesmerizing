@@ -1,0 +1,18 @@
+{
+  "frozen": "2026-10-19T01:16:27Z",
+  "note": "Verification cases from the round-2 report. Written down before this round's retrieval edits were scored. Not a blind set: these questions were already known failures.",
+  "pairs": [],
+  "questions": [
+    {"id": "r1", "group": "offtopic", "q": "Amazon Prime password"},
+    {"id": "r2", "group": "offtopic", "q": "Zoom background"},
+    {"id": "r3", "group": "offtopic", "q": "Word crash"},
+    {"id": "r4", "group": "offtopic", "q": "Zoom meeting background"},
+    {"id": "r5", "group": "offtopic", "q": "Microsoft Word crashed"},
+    {"id": "r6", "group": "offtopic", "q": "What is a Talkdesk IVR studio?"},
+    {"id": "r7", "group": "offtopic", "q": "How does Amazon Chime SDK host a meeting?"},
+    {"id": "r8", "group": "beginner", "q": "What is IVR?", "hrefs": ["rooms/flows-types.html"], "needles": ["IVR", "contact flow"]},
+    {"id": "r9", "group": "beginner", "q": "What is an IVR?", "hrefs": ["rooms/flows-types.html"], "needles": ["IVR", "contact flow"]},
+    {"id": "r10", "group": "beginner", "q": "What is a routing profile?", "hrefs": ["rooms/route-profile.html"], "needles": ["routing profile", "queue"]},
+    {"id": "r11", "group": "beginner", "q": "What is a queue?", "hrefs": ["rooms/route-queue.html"], "needles": ["queue"]}
+  ]
+}

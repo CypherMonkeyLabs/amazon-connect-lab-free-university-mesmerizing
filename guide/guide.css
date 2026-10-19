@@ -271,6 +271,44 @@ html.motion .monkey .eye { transform-box: fill-box; transform-origin: center; an
   }
   .bot-greet { top: 42%; max-height: 72vh; width: calc(100% - 16px); }
 }
+@media (max-height: 520px) {
+  .bot-sheet:not(.idle-pop) {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: calc(100dvh - var(--dock-h, 86px) - 12px);
+    bottom: calc(var(--dock-h, 86px) + 6px + env(safe-area-inset-bottom));
+    padding: 6px 8px;
+  }
+  .bot-sheet:not(.idle-pop) .sheet-handle,
+  .bot-sheet:not(.idle-pop) .greet-hero,
+  .bot-sheet:not(.idle-pop) .choice-grid,
+  .bot-sheet:not(.idle-pop) .export-offer,
+  .bot-sheet:not(.idle-pop) .bot-extra,
+  .bot-sheet:not(.idle-pop) .read-row,
+  .bot-sheet:not(.idle-pop) .say-line,
+  .bot-sheet:not(.idle-pop) .py-chat-beta,
+  .bot-sheet:not(.idle-pop) .py-mic,
+  .bot-sheet:not(.idle-pop) .py-chat > .bp-link { display: none !important; }
+  .bot-sheet:not(.idle-pop) .sheet-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .bot-sheet:not(.idle-pop) .bot-log { display: none; }
+  .bot-sheet:not(.idle-pop) [data-connect-chat],
+  .bot-sheet:not(.idle-pop) .py-chat {
+    flex: 1 1 auto;
+    min-height: 0;
+    margin: 0;
+    display: flex;
+  }
+  .bot-sheet:not(.idle-pop) .py-chat { padding: 0; border: 0; }
+  .bot-sheet:not(.idle-pop) .py-chat-form { margin-top: auto; }
+  .bot-sheet:not(.idle-pop) .sheet-close { flex: none; margin-top: 4px; }
+}
 html[data-theme="dark"] .bot-sheet,
 html[data-theme="dark"] .bot-greet,
 html[data-theme="dark"] .idle-pop {

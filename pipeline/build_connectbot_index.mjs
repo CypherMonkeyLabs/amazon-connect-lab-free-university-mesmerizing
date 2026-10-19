@@ -18,8 +18,6 @@ const SYN = {
   routed: "route",
   queu: "queue",
   profiles: "profile",
-  ivr: "flow",
-  ivrs: "flow",
   flows: "flow",
   ctrs: "ctr",
   "contacttrace": "ctr",
@@ -161,13 +159,19 @@ for (const name of roomFiles) {
     try { sources = JSON.parse(readFileSync(sourcePath, "utf8")).sources || []; } catch { sources = []; }
   }
   const note = sourceNote(sources);
+  let lead = "";
+  if (id === "route-profile") {
+    const found = section(html, "ecosystem").match(/<strong>Routing profile<\/strong>\s*([^<]+)/i);
+    if (found) lead = `Routing profile: ${plain(found[1])}`;
+  }
+  const excerpt = lead ? `${lead} ${learnText}` : learnText;
   add({
     i: `room:${id}`,
     k: "lesson",
     ti: title,
     h: `rooms/${name}`,
     s: kicker,
-    ex: `${clip(learnText, 260)}${note}`,
+    ex: `${clip(excerpt, 320)}${note}`,
     eg: clip(exampleText, 160),
     body: indexedBody,
     alias: `${kicker} ${topic}`,
@@ -216,9 +220,28 @@ for (const doc of docs) {
     all: terms,
     any: terms,
     allow: [...new Set([...terms, "amazon", "connect", "center", "contact"])],
-    block: ["chime", "pinpoint", "wickr", "five9", "cxone", "talkdesk", "honeycode", "appsync", "monitron", "sagemaker", "kubernetes", "pytorch", "sourdough"],
+    block: ["chime", "pinpoint", "wickr", "five9", "cxone", "talkdesk", "honeycode", "appsync", "monitron", "sagemaker", "kubernetes", "pytorch", "sourdough", "zoom", "prime", "password", "word", "microsoft"],
     how: false,
     rank: 4,
+  });
+}
+
+const flowTypes = docs.find((doc) => doc.i === "room:flows-types");
+if (flowTypes) {
+  seeds.push({
+    i: flowTypes.i,
+    h: flowTypes.h,
+    ti: flowTypes.ti,
+    k: flowTypes.k,
+    ex: flowTypes.ex,
+    eg: flowTypes.eg,
+    topic: "ivr",
+    all: ["ivr"],
+    any: ["ivr"],
+    allow: ["ivr", "amazon", "connect", "contact", "center", "flow", "script", "menu"],
+    block: ["chime", "pinpoint", "wickr", "five9", "cxone", "talkdesk", "honeycode", "appsync", "monitron", "sagemaker", "zoom", "prime", "password", "word", "microsoft", "genesys", "avaya", "webex", "nice"],
+    how: false,
+    rank: 8,
   });
 }
 

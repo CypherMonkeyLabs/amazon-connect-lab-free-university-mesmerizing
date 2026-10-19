@@ -315,7 +315,7 @@ LESSONS = [
       flow_of([("Caller ID", "From the queue."), ("Whisper", "Then join."), ("Campaign", "Separate quota and price."), ("Country", "Check the allow list.")]),
       DOC + "concepts-telephony.html", "Voice channel"),
     L("flows-types", "flows", "Flow types are not one canvas",
-      "Each flow type only offers the blocks that make sense there. A hold flow is not a place to transfer to a queue and hope.",
+      "Interviewers say 'IVR script'. In Connect the object is a contact flow. Each flow type only offers the blocks that make sense there. A hold flow is not a place to transfer to a queue and hope.",
       ["Inbound flows greet and route. Customer queue flows run while the customer waits and can offer a callback. Hold flows loop prompts. Whisper flows play just before the join. Transfer-to-agent and transfer-to-queue flows are what quick connects run. Disconnect flows run after the end.",
        "Outbound whisper flows are where you set outbound recording and where Call phone number belongs."],
       ["A customer queue flow is interruptible.",

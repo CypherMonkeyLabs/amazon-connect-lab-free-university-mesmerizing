@@ -2,15 +2,15 @@
   "questions": 102,
   "beginner": {
     "total": 40,
-    "relevant": 26,
-    "relevantPct": 65,
-    "confidentWrong": 5
+    "relevant": 24,
+    "relevantPct": 60,
+    "confidentWrong": 3
   },
   "typo": {
     "total": 15,
-    "relevant": 9,
-    "relevantPct": 60,
-    "confidentWrong": 4
+    "relevant": 10,
+    "relevantPct": 66.7,
+    "confidentWrong": 2
   },
   "offtopic": {
     "total": 15,
@@ -34,10 +34,10 @@
     "total": 12,
     "relevant": 6,
     "relevantPct": 50,
-    "confidentWrong": 1
+    "confidentWrong": 0
   },
   "followPairs": {
-    "ok": 2,
+    "ok": 3,
     "total": 6
   },
   "target": {
@@ -45,18 +45,6 @@
     "injectConfidentWrong": 0
   },
   "misses": [
-    {
-      "id": "b2",
-      "group": "beginner",
-      "q": "What is a routing profile?",
-      "relevant": false,
-      "confidentWrong": false,
-      "clean": false,
-      "href": "rooms/route-profile.html",
-      "mode": "answer",
-      "intent": "seed",
-      "text": "Lower priority number wins. Delay keeps a second team in reserve. Concurrency is how many of each channel an agent holds. Voice concurrency is typically one. Chat can be higher. So"
-    },
     {
       "id": "b7",
       "group": "beginner",
@@ -67,7 +55,7 @@
       "href": "",
       "mode": "fallback",
       "intent": "fallback",
-      "text": "I don't have that yet. Closest pages: Flow types are not one canvas; Modules are how you stop copying flows. I only answer from this lab's lessons. You can also use Search."
+      "text": "I don't have that yet. Closest pages: Modules are how you stop copying flows; Flow types are not one canvas. I only answer from this lab's lessons. You can also use Search."
     },
     {
       "id": "b10",
@@ -110,24 +98,24 @@
       "group": "beginner",
       "q": "What is the Contact Control Panel?",
       "relevant": false,
-      "confidentWrong": true,
+      "confidentWrong": false,
       "clean": false,
-      "href": "rooms/crm-sf.html",
-      "mode": "answer",
-      "intent": "",
-      "text": "The admin guide's Salesforce page is a Contact Control Panel inside Salesforce, installed in a sandbox first. That page says the CTI Adapter's core job is a WebRTC Contact Control "
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
     },
     {
       "id": "b22",
       "group": "beginner",
       "q": "What is a DID phone number?",
       "relevant": false,
-      "confidentWrong": true,
+      "confidentWrong": false,
       "clean": false,
-      "href": "rooms/tel-claim.html",
-      "mode": "answer",
-      "intent": "",
-      "text": "The first claim is a Support conversation more often than people expect. The default quota is 10 numbers per instance, and it is adjustable. Source last checked 2026-10. Prices, li"
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
     },
     {
       "id": "b23",
@@ -178,6 +166,18 @@
       "text": "There is no AWS-managed CUCM CTI adapter in the docs this campus cites. The seam is the phone number. Leave extensions on CUCM or Webex Calling. Claim or port the public contact-ce"
     },
     {
+      "id": "b29",
+      "group": "beginner",
+      "q": "What happened to Voice ID?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
       "id": "b30",
       "group": "beginner",
       "q": "What is agent assist or Amazon Q in Connect?",
@@ -202,6 +202,30 @@
       "text": "I don't have that yet. Closest pages: Salesforce: CTI Adapter and SCC-AC; Salesforce starts as a CCP embed in a sandbox. I only answer from this lab's lessons. You can also use Sea"
     },
     {
+      "id": "b32",
+      "group": "beginner",
+      "q": "What is a UCCE skill group in this lab?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b37",
+      "group": "beginner",
+      "q": "What is a chat contact?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
       "id": "b38",
       "group": "beginner",
       "q": "What is an outbound campaign?",
@@ -211,19 +235,7 @@
       "href": "rooms/tel-outbound.html",
       "mode": "answer",
       "intent": "",
-      "text": "Outbound is a queue setting, a permission, and a country quota. The queue's outbound caller ID is the number the customer sees. It must be a number you are allowed to present. Sour"
-    },
-    {
-      "id": "t2",
-      "group": "typo",
-      "q": "What is a routin profile?",
-      "relevant": false,
-      "confidentWrong": false,
-      "clean": false,
-      "href": "rooms/route-profile.html",
-      "mode": "answer",
-      "intent": "seed",
-      "text": "Lower priority number wins. Delay keeps a second team in reserve. Concurrency is how many of each channel an agent holds. Voice concurrency is typically one. Chat can be higher. So"
+      "text": "Outbound is a queue setting, a permission, and a country quota. The queue's outbound caller ID is the number the customer sees. It must be a number you are allowed to present."
     },
     {
       "id": "t4",
@@ -242,12 +254,12 @@
       "group": "typo",
       "q": "What is the contct control panel?",
       "relevant": false,
-      "confidentWrong": true,
+      "confidentWrong": false,
       "clean": false,
-      "href": "rooms/crm-sf.html",
-      "mode": "answer",
-      "intent": "",
-      "text": "The admin guide's Salesforce page is a Contact Control Panel inside Salesforce, installed in a sandbox first. That page says the CTI Adapter's core job is a WebRTC Contact Control "
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
     },
     {
       "id": "t10",
@@ -266,12 +278,12 @@
       "group": "typo",
       "q": "How do I port a phon number?",
       "relevant": false,
-      "confidentWrong": true,
+      "confidentWrong": false,
       "clean": false,
-      "href": "rooms/tel-claim.html",
-      "mode": "answer",
-      "intent": "",
-      "text": "The first claim is a Support conversation more often than people expect. The default quota is 10 numbers per instance, and it is adjustable. Source last checked 2026-10. Prices, li"
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
     },
     {
       "id": "t15",
@@ -283,20 +295,7 @@
       "href": "rooms/tel-outbound.html",
       "mode": "answer",
       "intent": "",
-      "text": "Outbound is a queue setting, a permission, and a country quota. The queue's outbound caller ID is the number the customer sees. It must be a number you are allowed to present. Sour"
-    },
-    {
-      "id": "f1.2",
-      "group": "follow",
-      "pair": "f1",
-      "q": "and what about the routing profile?",
-      "relevant": false,
-      "confidentWrong": false,
-      "clean": false,
-      "href": "rooms/route-profile.html",
-      "mode": "answer",
-      "intent": "seed",
-      "text": "Lower priority number wins. Delay keeps a second team in reserve. Concurrency is how many of each channel an agent holds. Voice concurrency is typically one. Chat can be higher. So"
+      "text": "Outbound is a queue setting, a permission, and a country quota. The queue's outbound caller ID is the number the customer sees. It must be a number you are allowed to present."
     },
     {
       "id": "f2.1",
@@ -309,7 +308,7 @@
       "href": "",
       "mode": "fallback",
       "intent": "fallback",
-      "text": "I don't have that yet. Closest pages: Flow types are not one canvas; Modules are how you stop copying flows. I only answer from this lab's lessons. You can also use Search."
+      "text": "I don't have that yet. Closest pages: Modules are how you stop copying flows; Flow types are not one canvas. I only answer from this lab's lessons. You can also use Search."
     },
     {
       "id": "f2.2",
@@ -322,7 +321,7 @@
       "href": "",
       "mode": "fallback",
       "intent": "fallback",
-      "text": "I don't have that yet. Closest pages: How to talk about the price without inventing it; DID, toll-free, shared cost, UIFN. I only answer from this lab's lessons. You can also use S"
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
     },
     {
       "id": "f3.1",
@@ -330,12 +329,12 @@
       "pair": "f3",
       "q": "What is the Contact Control Panel?",
       "relevant": false,
-      "confidentWrong": true,
+      "confidentWrong": false,
       "clean": false,
-      "href": "rooms/crm-sf.html",
-      "mode": "answer",
-      "intent": "",
-      "text": "The admin guide's Salesforce page is a Contact Control Panel inside Salesforce, installed in a sandbox first. That page says the CTI Adapter's core job is a WebRTC Contact Control "
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
     },
     {
       "id": "f3.2",
@@ -348,7 +347,7 @@
       "href": "",
       "mode": "fallback",
       "intent": "fallback",
-      "text": "I don't have that yet. I was still on “Salesforce starts as a CCP embed in a sandbox”, and that follow-up is not in these pages. Closest pages: Migration patterns that survive cont"
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
     },
     {
       "id": "f6.1",
@@ -362,6 +361,19 @@
       "mode": "fallback",
       "intent": "fallback",
       "text": "I don't have that yet. Closest pages: What a failover drill has to prove; Migration patterns that survive contact with a Monday. I only answer from this lab's lessons. You can also"
+    },
+    {
+      "id": "f6.2",
+      "group": "follow",
+      "pair": "f6",
+      "q": "and the supported region pair?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
     }
   ]
 }

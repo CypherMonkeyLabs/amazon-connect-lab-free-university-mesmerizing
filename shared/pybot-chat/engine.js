@@ -357,34 +357,46 @@ function typoKind(word, domain, syn, pool, freq) {
   return kind;
 }
 
+const BRAND_ONLY = new Set("amazon aws".split(" "));
+const CONNECT_SPECIFIC = new Set("connect queue route profile lex lambda kinesis ccp lens flow ivr sip pstn ctr saml kms iam dtmf callback telephony webrtc campaign softphone hours quickconnect proficiency whisper voiceid wisdom recording redaction transcript forecast erlang wfm quota resiliency cloudwatch attribute module block prompt slot intent evaluation adherence workspace stream vdi case task outbound inbound porting did tollfree e911 whatsapp sms contacttrace".split(" "));
+const CONNECT_LIST = [...CONNECT_SPECIFIC];
+/* Consumer Amazon, neighbour products, and words that also appear in ordinary English.
+   Any one of these closes search, even if a lesson happens to contain the word. */
+const HARD_OFF = new Set("prime password kindle alexa audible imdb twitch zoom word excel powerpoint outlook teams microsoft windows office google slack java python javascript pizza france netflix facebook instagram tiktok five9 cxone talkdesk nice chime pinpoint wickr honeycode appsync monitron sagemaker kubernetes pytorch sourdough photosynthesis cricket crash background bread leaf cucumber graphql ingress".split(" "));
+const SOFT_NEIGHBOUR = new Set("genesys avaya webex twilio salesforce servicenow cucm uccx ucce cpaas".split(" "));
+const INTENT_RE = /\b(what|whats|how|why|where|when|which|who|does|do|did|can|could|is|are|explain|define|mean|means|difference|versus|about)\b/;
+
+function specificTerm(word, syn, freq) {
+  const forms = [word, stem(word), canon(word, syn)];
+  for (const form of forms) {
+    if (CONNECT_SPECIFIC.has(form)) return form;
+  }
+  if (word.length < 5 || HARD_OFF.has(word) || GENERIC_ENGLISH.has(word)) return "";
+  const fix = fuzzy(word, CONNECT_LIST, word.length >= 8 ? 2 : 1, freq);
+  if (!fix || !CONNECT_SPECIFIC.has(fix) || sharedPrefix(word, fix) < 2) return "";
+  return fix;
+}
+
 function hasDomainTerm(text, domain, syn, pool, freq) {
-  const parts = normalize(text).split(" ").filter((word) => word && word.length >= 2 && !STOP.has(word) && !FILLER.has(word));
+  void domain;
+  void pool;
+  const q = normalize(text);
+  const parts = q.split(" ").filter((word) => word && word.length >= 2 && !STOP.has(word) && !FILLER.has(word));
   if (!parts.length) return false;
-  let strong = 0;
-  let weak = 0;
+  const marked = (word, list) => list.has(word) || list.has(stem(word)) || list.has(canon(word, syn));
+  if (parts.some((word) => marked(word, HARD_OFF))) return false;
+  const specifics = [];
   let foreign = 0;
-  let typoStrong = 0;
   for (const word of parts) {
-    const rawKind = domainKind(word, domain, syn);
-    if (rawKind === "strong") {
-      strong += 1;
-      continue;
-    }
-    if (rawKind === "weak") {
-      weak += 1;
-      continue;
-    }
-    const kind = typoKind(word, domain, syn, pool, freq);
-    if (kind === "stop") continue;
-    if (kind === "strong") typoStrong += 1;
-    else if (kind === "weak") weak += 1;
-    else if (word.length <= 3 || STOP.has(stem(word))) continue;
+    if (BRAND_ONLY.has(word)) continue;
+    const hit = specificTerm(word, syn, freq);
+    if (hit) specifics.push(hit);
     else foreign += 1;
   }
-  if (strong >= 1) return true;
-  if (typoStrong >= 1 && foreign === 0) return true;
-  if (weak >= 2 && foreign === 0) return true;
-  return weak >= 1 && foreign === 0;
+  if (!specifics.length) return false;
+  if (parts.some((word) => marked(word, SOFT_NEIGHBOUR)) && specifics.every((term) => SOFT_NEIGHBOUR.has(term))) return false;
+  if (INTENT_RE.test(q)) return true;
+  return foreign === 0;
 }
 
 const GREET_FILL = new Set("there friend monkey everyone folks all buddy pal anyone home up whats ya bot again today please just so hi hello".split(" "));

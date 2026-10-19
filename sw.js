@@ -1,6 +1,6 @@
 /* App shell for the Amazon Connect lab. Same-origin GET only.
    SHELL is rewritten by scripts/build_precache.mjs. */
-var CACHE = "connect-lab-r3-v2";
+var CACHE = "connect-lab-r3-v3";
 var SHELL = [
   "./index.html",
   "./offline.html",
