@@ -1,0 +1,62 @@
+{
+  "questions": 12,
+  "beginner": {
+    "total": 3,
+    "relevant": 2,
+    "relevantPct": 66.7,
+    "confidentWrong": 0
+  },
+  "typo": {
+    "total": 1,
+    "relevant": 1,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "offtopic": {
+    "total": 2,
+    "relevant": 2,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "nav": {
+    "total": 3,
+    "relevant": 3,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "inject": {
+    "total": 1,
+    "relevant": 1,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "followTurns": {
+    "total": 2,
+    "relevant": 2,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "followPairs": {
+    "ok": 1,
+    "total": 1
+  },
+  "target": {
+    "beginnerRelevantPct": 85,
+    "offtopicConfidentWrong": 0,
+    "injectConfidentWrong": 0
+  },
+  "misses": [
+    {
+      "id": "d10",
+      "group": "beginner",
+      "q": "What is a contact flow?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: Modules are how you stop copying flows; Flow types are not one canvas. I only answer from this lab's lessons. You can also use Search."
+    }
+  ]
+}

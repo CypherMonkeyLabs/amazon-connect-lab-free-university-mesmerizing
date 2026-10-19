@@ -1,4 +1,10 @@
-import { matchIntent } from "./engine.mjs";
+import { createRetriever } from "../shared/pybot-chat/engine.js";
+import { chatMarkup, paintChat, chatInput } from "../shared/pybot-chat/ui.js";
+
+var chatStyle = document.createElement("link");
+chatStyle.rel = "stylesheet";
+chatStyle.href = new URL("../shared/pybot-chat/chat.css", import.meta.url).href;
+document.head.appendChild(chatStyle);
 
 function monkeyMarkup(id) {
   return '<svg class="monkey pose-idle" viewBox="0 0 200 230" role="img" aria-label="Guide monkey wearing glasses">' +
@@ -122,6 +128,7 @@ sheet.innerHTML =
   "</div>" +
   '<p class="export-offer" data-export-offer></p>' +
   '<div class="bot-log" data-log></div>' +
+  '<div data-connect-chat></div>' +
   '<p class="say-line" data-say hidden><mark data-say-mark></mark></p>' +
   '<details class="bot-extra">' +
   '<summary>Rate, sound, and ask</summary>' +
@@ -134,7 +141,6 @@ sheet.innerHTML =
   '<label>Pitch <input data-pitch type="range" min="0.8" max="1.3" step="0.05" value="1"></label>' +
   '<label class="check-line"><input data-ambient type="checkbox"> Soft ambient sound, off unless you check this</label>' +
   "</div>" +
-  '<form class="bot-form" data-ask><input type="text" data-ask-text aria-label="Ask for a page" placeholder="Try queues, lambda, or downloads"><button type="submit">Go</button></form>' +
   "</details>" +
   "</div>" +
   '<div class="read-row">' +
@@ -571,38 +577,111 @@ document.querySelectorAll(".drawer-row, .section-chip, .phone-dock a").forEach(f
   });
 });
 
-function ask(text) {
-  loadKb().then(function (kb) {
-    var hit = matchIntent(text, kb);
-    pose(hit.pose || "think");
-    say(hit.say);
-    if (hit.href) {
-      window.setTimeout(function () { location.href = abs(hit.href); }, 400);
+var chatMessages = [];
+var chatEngine = null;
+var chatLoading = null;
+var TOPICS = ["What is a queue?", "What is a routing profile?", "What is a contact flow?", "What can you help with?"];
+
+function chatRoot() {
+  return sheet.querySelector("[data-py-chat]");
+}
+function paint() {
+  paintChat(chatRoot(), chatMessages, false);
+}
+function loadChat() {
+  if (chatEngine) return Promise.resolve(chatEngine);
+  if (!chatLoading) {
+    chatLoading = fetch(new URL("../js/content/connectbot-index.json", import.meta.url))
+      .then(function (res) { if (!res.ok) throw new Error("index"); return res.json(); })
+      .then(function (data) { chatEngine = createRetriever(data); return chatEngine; })
+      .catch(function () { chatEngine = null; return null; });
+  }
+  return chatLoading;
+}
+function pushChat(msg) {
+  chatMessages.push(msg);
+  if (chatMessages.length > 40) chatMessages.splice(0, chatMessages.length - 40);
+  paint();
+}
+function askChat(raw) {
+  var question = String(raw || "").trim();
+  if (!question) return;
+  pushChat({ role: "user", text: question });
+  var input = chatInput(sheet);
+  if (input) input.value = "";
+  pose("think");
+  loadChat().then(function (engine) {
+    if (!engine) {
+      pushChat({ role: "bot", text: "The lesson index did not load. I will not invent an answer." });
+      return;
     }
+    var result = engine.ask(question, {
+      progress: function () {
+        return { done: 0, total: 98, xpLevel: 1, nextHref: abs("start.html"), nextTitle: "Start" };
+      }
+    });
+    if (result.href && !/^(https?:|#)/.test(result.href)) result.href = abs(result.href);
+    pushChat({
+      role: "bot",
+      text: result.text,
+      href: result.mode === "fallback" ? "" : result.href,
+      link: result.mode === "fallback" ? "" : result.link,
+      example: result.example,
+      follow: result.follow,
+      followQ: result.followQ
+    });
+    pose(result.mode === "answer" || result.mode === "intent" ? "point" : "think");
   });
 }
-sheet.querySelector("[data-ask]").addEventListener("submit", function (event) {
+var chatHost = sheet.querySelector("[data-connect-chat]");
+chatHost.innerHTML = chatMarkup(TOPICS);
+chatMessages.push({
+  role: "bot",
+  text: "Ask about a room in this lab. I quote that page and link it. I can be wrong.",
+  follow: "What can you help with?",
+  followQ: "What can you help with?"
+});
+paint();
+loadChat();
+chatHost.addEventListener("submit", function (event) {
+  if (!event.target.closest(".py-chat-form")) return;
   event.preventDefault();
-  var input = sheet.querySelector("[data-ask-text]");
-  ask(input.value);
+  askChat(chatInput(sheet) ? chatInput(sheet).value : "");
+});
+chatHost.addEventListener("click", function (event) {
+  var chip = event.target.closest("[data-py-ask]");
+  if (chip) { event.preventDefault(); askChat(chip.getAttribute("data-py-ask") || chip.textContent); return; }
+  if (event.target.closest("[data-py-clear]")) {
+    event.preventDefault();
+    chatMessages = [];
+    if (chatEngine) chatEngine.reset();
+    pushChat({ role: "bot", text: "Chat cleared. Ask about a room in this lab.", follow: "Where do I start?", followQ: "Where do I start?" });
+    return;
+  }
+  if (event.target.closest("[data-py-mic]")) {
+    event.preventDefault();
+    var Recog = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Recog) { pushChat({ role: "bot", text: "This browser has no speech recognition. Type the question instead." }); return; }
+    var rec = new Recog();
+    rec.lang = "en-US";
+    rec.onresult = function (ev) { askChat(ev.results[0][0].transcript || ""); };
+    rec.onerror = function () { pushChat({ role: "bot", text: "I could not hear that. Type the question instead." }); };
+    try { rec.start(); } catch (err) { pushChat({ role: "bot", text: "The mic did not start. Type the question instead." }); }
+  }
 });
 
 var Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
 var micBtn = sheet.querySelector("[data-mic]");
-if (!Rec) {
+if (micBtn && !Rec) {
   micBtn.textContent = "Type instead";
-  micBtn.addEventListener("click", function () { sheet.querySelector("[data-ask-text]").focus(); });
-} else {
+  micBtn.addEventListener("click", function () { var field = chatInput(sheet); if (field) field.focus(); });
+} else if (micBtn) {
   micBtn.addEventListener("click", function () {
     if (recog) { recog.stop(); return; }
     recog = new Rec();
     recog.lang = "en-US";
     recog.onstart = function () { pose("listen"); micBtn.textContent = "Listening"; };
-    recog.onresult = function (event) {
-      var text = event.results[0][0].transcript;
-      sheet.querySelector("[data-ask-text]").value = text;
-      ask(text);
-    };
+    recog.onresult = function (event) { askChat(event.results[0][0].transcript); };
     recog.onerror = function () { say("The mic did not return text. Type the request instead."); };
     recog.onend = function () { recog = null; micBtn.textContent = "Mic"; pose("idle"); };
     recog.start();

@@ -1,0 +1,379 @@
+{
+  "questions": 102,
+  "beginner": {
+    "total": 40,
+    "relevant": 24,
+    "relevantPct": 60,
+    "confidentWrong": 3
+  },
+  "typo": {
+    "total": 15,
+    "relevant": 10,
+    "relevantPct": 66.7,
+    "confidentWrong": 2
+  },
+  "offtopic": {
+    "total": 15,
+    "relevant": 15,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "nav": {
+    "total": 10,
+    "relevant": 10,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "inject": {
+    "total": 10,
+    "relevant": 10,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "followTurns": {
+    "total": 12,
+    "relevant": 6,
+    "relevantPct": 50,
+    "confidentWrong": 0
+  },
+  "followPairs": {
+    "ok": 3,
+    "total": 6
+  },
+  "target": {
+    "offtopicConfidentWrong": 0,
+    "injectConfidentWrong": 0
+  },
+  "misses": [
+    {
+      "id": "b7",
+      "group": "beginner",
+      "q": "What is a contact flow?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: Modules are how you stop copying flows; Flow types are not one canvas. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b10",
+      "group": "beginner",
+      "q": "What is the contact flow language?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/flows-language.html",
+      "mode": "answer",
+      "intent": "seed",
+      "text": "The designer is a view. The JSON is what you review and promote. An action has a type, parameters, and transitions. Conditions can nest no more than five deep, with no more than 50"
+    },
+    {
+      "id": "b16",
+      "group": "beginner",
+      "q": "How long can a flow wait on Lambda?",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "rooms/lambda-async.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Silence is a defect. Async plus a prompt is the pattern. Set the block to asynchronous. Play a prompt. Use Wait if you must observe completion, up to 60 seconds. Do not chain synch"
+    },
+    {
+      "id": "b17",
+      "group": "beginner",
+      "q": "What permissions does a Connect Lambda need?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/lambda-perms.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "The flow log is telling the truth. The function never ran. AccessDenied in the flow log means Connect could not invoke the function. Add the function on the instance and allow conn"
+    },
+    {
+      "id": "b20",
+      "group": "beginner",
+      "q": "What is the Contact Control Panel?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b22",
+      "group": "beginner",
+      "q": "What is a DID phone number?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b23",
+      "group": "beginner",
+      "q": "How do you port a phone number into Connect?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: Claiming and the false 'limit' on the first number; CUCM and Webex beside Connect. I only answer from this lab's lessons. You can also use Sea"
+    },
+    {
+      "id": "b25",
+      "group": "beginner",
+      "q": "How should I talk about Connect pricing?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/sec-price.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "The rate card is public and dated. An estimate that hides the date is a guess. As of the appendix read for this campus on 14 October 2026, Connect Customer voice is 0.038 USD per m"
+    },
+    {
+      "id": "b26",
+      "group": "beginner",
+      "q": "What is Global Resiliency?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: What a failover drill has to prove; Migration patterns that survive contact with a Monday. I only answer from this lab's lessons. You can also"
+    },
+    {
+      "id": "b28",
+      "group": "beginner",
+      "q": "Which ports does the softphone use?",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "rooms/int-cucm.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "There is no AWS-managed CUCM CTI adapter in the docs this campus cites. The seam is the phone number. Leave extensions on CUCM or Webex Calling. Claim or port the public contact-ce"
+    },
+    {
+      "id": "b29",
+      "group": "beginner",
+      "q": "What happened to Voice ID?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b30",
+      "group": "beginner",
+      "q": "What is agent assist or Amazon Q in Connect?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/ai-names.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Using the old name in a design review is fine. Using it as the only name in a 2026 runbook is not. Wisdom entered preview on 1 December 2020 and became generally available on 27 Se"
+    },
+    {
+      "id": "b31",
+      "group": "beginner",
+      "q": "How does Salesforce sit next to Connect?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: Salesforce: CTI Adapter and SCC-AC; Salesforce starts as a CCP embed in a sandbox. I only answer from this lab's lessons. You can also use Sea"
+    },
+    {
+      "id": "b32",
+      "group": "beginner",
+      "q": "What is a UCCE skill group in this lab?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b37",
+      "group": "beginner",
+      "q": "What is a chat contact?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b38",
+      "group": "beginner",
+      "q": "What is an outbound campaign?",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "rooms/tel-outbound.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Outbound is a queue setting, a permission, and a country quota. The queue's outbound caller ID is the number the customer sees. It must be a number you are allowed to present."
+    },
+    {
+      "id": "t4",
+      "group": "typo",
+      "q": "How long can lamda take in a flow?",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "rooms/lambda-async.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Silence is a defect. Async plus a prompt is the pattern. Set the block to asynchronous. Play a prompt. Use Wait if you must observe completion, up to 60 seconds. Do not chain synch"
+    },
+    {
+      "id": "t8",
+      "group": "typo",
+      "q": "What is the contct control panel?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "t10",
+      "group": "typo",
+      "q": "What is globl resiliency?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: What a failover drill has to prove; Migration patterns that survive contact with a Monday. I only answer from this lab's lessons. You can also"
+    },
+    {
+      "id": "t13",
+      "group": "typo",
+      "q": "How do I port a phon number?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "t15",
+      "group": "typo",
+      "q": "What is an outbond campaign?",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "rooms/tel-outbound.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Outbound is a queue setting, a permission, and a country quota. The queue's outbound caller ID is the number the customer sees. It must be a number you are allowed to present."
+    },
+    {
+      "id": "f2.1",
+      "group": "follow",
+      "pair": "f2",
+      "q": "What is a contact flow?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: Modules are how you stop copying flows; Flow types are not one canvas. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "f2.2",
+      "group": "follow",
+      "pair": "f2",
+      "q": "show an example",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "f3.1",
+      "group": "follow",
+      "pair": "f3",
+      "q": "What is the Contact Control Panel?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "f3.2",
+      "group": "follow",
+      "pair": "f3",
+      "q": "and the softphone ports?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "f6.1",
+      "group": "follow",
+      "pair": "f6",
+      "q": "What is Global Resiliency?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: What a failover drill has to prove; Migration patterns that survive contact with a Monday. I only answer from this lab's lessons. You can also"
+    },
+    {
+      "id": "f6.2",
+      "group": "follow",
+      "pair": "f6",
+      "q": "and the supported region pair?",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    }
+  ]
+}

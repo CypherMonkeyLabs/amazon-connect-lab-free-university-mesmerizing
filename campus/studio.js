@@ -82,7 +82,7 @@ export async function viewPorts(ctx) {
   if (progress.done) {
     const best = Math.max(progress.best || 0, progress.score);
     return `<p class="lede">You scored ${progress.score} of ${quiz.length}. Best on this browser: ${best}.</p>
-      <div class="why"><strong>Pass mark.</strong> 8 of 10 earns the Ports badge. The questions use the same figures as the network lesson.</div>
+      <div class="why"><strong>Pass mark.</strong> 8 of 10 unlocks the Ports badge. The questions use the same figures as the network lesson.</div>
       <p class="actions"><button class="solid" id="ports-reset" type="button">Play again</button><button class="ghost" id="share-card" type="button" data-share-title="Ports game" data-share-line="${progress.score} of ${quiz.length}">Share card</button><button class="ghost" data-go="#/cheats">Firewall sheet</button></p>
       <div class="table-scroll glass">${firewallTable(ctx, data.firewall)}</div>`;
   }
