@@ -2,6 +2,7 @@
 <html lang="en" data-theme="neon">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: data:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Amazon Connect Lab</title>
 <meta name="description" content="A free offline campus for Amazon Connect: foundations, flows, routing, the CCP, Global Resiliency, a CUCM bridge, and the ecosystem around WFM, recording, E911, CRM, and agent assist.">
@@ -15,20 +16,7 @@
 <link rel="stylesheet" href="../guide/guide.css">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<script type="importmap">
-{ "imports": { "three": "./vendor/three.module.min.js" } }
-</script>
-<script>
-try {
-  var saved = JSON.parse(localStorage.getItem("acl-campus-v1") || "{}");
-  if (saved.theme) document.documentElement.dataset.theme = saved.theme;
-  if (saved.fontSize) document.documentElement.dataset.font = saved.fontSize;
-  var reduce = saved.reducedMotion;
-  if (reduce === true || (reduce == null && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
-    document.documentElement.dataset.motion = "reduce";
-  }
-} catch (err) { /* keep the default theme */ }
-</script>
+<script src="boot.js"></script>
 </head>
 <body data-view="home">
 <a class="skip" href="#view-title">Skip to content</a>

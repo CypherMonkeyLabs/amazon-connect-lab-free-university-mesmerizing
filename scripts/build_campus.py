@@ -148,6 +148,7 @@ SHELL_HTML = """<!DOCTYPE html>
 <html lang="en" data-theme="neon">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: data:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Amazon Connect Lab</title>
 <meta name="description" content="A free offline campus for Amazon Connect: foundations, flows, routing, the CCP, Global Resiliency, a CUCM bridge, and the ecosystem around WFM, recording, E911, CRM, and agent assist.">
@@ -159,20 +160,7 @@ SHELL_HTML = """<!DOCTYPE html>
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="campus.css">
 <!--FAVICON-->
-<script type="importmap">
-{ "imports": { "three": "./vendor/three.module.min.js" } }
-</script>
-<script>
-try {
-  var saved = JSON.parse(localStorage.getItem("acl-campus-v1") || "{}");
-  if (saved.theme) document.documentElement.dataset.theme = saved.theme;
-  if (saved.fontSize) document.documentElement.dataset.font = saved.fontSize;
-  var reduce = saved.reducedMotion;
-  if (reduce === true || (reduce == null && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
-    document.documentElement.dataset.motion = "reduce";
-  }
-} catch (err) { /* keep the default theme */ }
-</script>
+<script src="boot.js"></script>
 </head>
 <body data-view="home">
 <a class="skip" href="#view-title">Skip to content</a>
@@ -389,7 +377,7 @@ try {
 </html>
 """
 
-SW_JS = """const VERSION = "acl-campus-v25";
+SW_JS = """const VERSION = "acl-campus-v26";
 const SHELL = __SHELL__;
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(VERSION).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -593,7 +581,7 @@ def main():
     html = html.replace("<!--IDENTITY-->", IDENTITY)
     html = html.replace("<!--ORG_REPO-->", ORG_REPO)
     (campus / "index.html").write_text(html)
-    for name in ("app.js", "studio.js", "scene.js", "flowlang.js", "hero.js", "i18n.js", "lesson-titles.js", "lesson-bodies.js", "palette.js", "icons.js", "campus.css", "guide-bot.js"):
+    for name in ("app.js", "studio.js", "scene.js", "flowlang.js", "hero.js", "i18n.js", "lesson-titles.js", "lesson-bodies.js", "palette.js", "icons.js", "campus.css", "guide-bot.js", "boot.js"):
         shutil.copyfile(ROOT / "web" / name, campus / name)
     shutil.copyfile(ROOT / "web" / "guide-kb.json", campus / "guide-kb.json")
     audio_src = ROOT / "audio"
@@ -609,7 +597,7 @@ def main():
     (campus / ".nojekyll").write_text("")
     from build_downloads import main as build_downloads  # noqa: E402
     build_downloads()
-    precache = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "i18n.js", "lesson-titles.js", "lesson-bodies.js", "palette.js", "icons.js", "hero.js", "guide-bot.js", "guide-kb.json", "favicon.svg", "favicon.ico", "data/shell.json", "data/mastery.json", "data/atlas.json", "audio/use.mp3", "audio/share.mp3"]
+    precache = ["index.html", "campus.css", "app.js", "studio.js", "flowlang.js", "i18n.js", "lesson-titles.js", "lesson-bodies.js", "palette.js", "icons.js", "hero.js", "guide-bot.js", "boot.js", "guide-kb.json", "favicon.svg", "favicon.ico", "data/shell.json", "data/mastery.json", "data/atlas.json", "audio/use.mp3", "audio/share.mp3"]
     if (campus / "og-card.png").exists():
         precache.append("og-card.png")
     (campus / "sw.js").write_text(SW_JS.replace("__SHELL__", json.dumps(precache)))
