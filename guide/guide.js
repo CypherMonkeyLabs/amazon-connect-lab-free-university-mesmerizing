@@ -779,5 +779,5 @@ if (shot === "bot") {
 window.ConnectGuide = {
   replay: startTour,
   readPage: readPage,
-  ask: ask
+  ask: askChat
 };
