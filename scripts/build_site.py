@@ -543,7 +543,16 @@ def display_html():
 </div>'''
 
 
-BOOT = """<script>try{var s=JSON.parse(localStorage.getItem("acl-display")||"{}");document.documentElement.dataset.theme=(s.theme==="dark"||s.theme==="neon")?s.theme:"bright";if(s.font)document.documentElement.dataset.font=s.font;if(s.ink&&/^#[0-9a-fA-F]{6}$/.test(s.ink))document.documentElement.style.setProperty("--ink",s.ink);if(s.motion==="reduce")document.documentElement.dataset.motion="reduce";}catch(e){document.documentElement.dataset.theme="bright";}</script>"""
+CSP = (
+    "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self'; "
+    "style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: data:; "
+    "font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; "
+    "base-uri 'self'; form-action 'self'\">"
+)
+
+
+def boot_tag(prefix):
+    return f'<script src="{prefix}assets/js/boot.js"></script>'
 
 
 def page(path: Path, title, description, depth, current, body, scripts=""):
@@ -553,11 +562,12 @@ def page(path: Path, title, description, depth, current, body, scripts=""):
 <html lang="en" data-theme="bright">
 <head>
 <meta charset="utf-8">
+{CSP}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(description)}">
 <meta name="theme-color" content="#4c1d95">
-{BOOT}
+{boot_tag(prefix)}
 <link rel="stylesheet" href="{prefix}assets/css/wow.css">
 <link rel="stylesheet" href="{prefix}assets/css/frame.css">
 <link rel="stylesheet" href="{prefix}assets/css/footer.css">
@@ -620,7 +630,7 @@ img.fig,svg.fig{display:block;max-width:100%;width:100%;height:auto}
 def standalone(path: Path, title, body, depth):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
-        f'<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(title)}</title><link rel="icon" href="{"../"*depth}favicon.svg" type="image/svg+xml">{STANDALONE_STYLE}</head>'
+        f'<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">{CSP}<meta name="viewport" content="width=device-width, initial-scale=1"><title>{esc(title)}</title><link rel="icon" href="{"../"*depth}favicon.svg" type="image/svg+xml">{STANDALONE_STYLE}</head>'
         f'<body><article class="standalone"><div class="disclaimer-panel" role="note"><div><h2>Independent study lab</h2><p>{esc(DISCLAIMER)}</p>'
         f'<p>Contact: <a href="{CONTACT}">{CONTACT}</a></p></div></div><h1>{esc(title)}</h1>{body}{footer_block()}</article></body></html>',
         encoding="utf-8",

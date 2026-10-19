@@ -2,11 +2,12 @@
 <html lang="en" data-theme="bright">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: data:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Routing desk · Connect Lab</title>
 <meta name="description" content="A simulation of hours, queue, profile, and Lambda wait. It does not call Amazon Connect.">
 <meta name="theme-color" content="#4c1d95">
-<script>try{var s=JSON.parse(localStorage.getItem("acl-display")||"{}");document.documentElement.dataset.theme=(s.theme==="dark"||s.theme==="neon")?s.theme:"bright";if(s.font)document.documentElement.dataset.font=s.font;if(s.ink&&/^#[0-9a-fA-F]{6}$/.test(s.ink))document.documentElement.style.setProperty("--ink",s.ink);if(s.motion==="reduce")document.documentElement.dataset.motion="reduce";}catch(e){document.documentElement.dataset.theme="bright";}</script>
+<script src="assets/js/boot.js"></script>
 <link rel="stylesheet" href="assets/css/wow.css">
 <link rel="stylesheet" href="assets/css/frame.css">
 <link rel="stylesheet" href="assets/css/footer.css">
@@ -73,25 +74,7 @@
 <p>Study rooms: <a href="rooms/route-hours.html">hours</a>, <a href="rooms/route-queue.html">queues</a>, <a href="rooms/route-profile.html">routing profiles</a>, <a href="rooms/lambda-contract.html">Lambda</a>.</p>
 <p>Cypher Monkey, a lifelong student and AI builder, wrote this desk as a study tool.</p>
 </div></main>
-<script>
-(function () {
-  var form = document.getElementById("desk");
-  var out = document.getElementById("desk-result");
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    var data = new FormData(form);
-    var seconds = Number(data.get("lambda"));
-    var line = "Simulation only. ";
-    if (data.get("hours") === "closed") line += "Hours are closed, so Check hours would take the closed branch before the queue.";
-    else if (data.get("queue") === "missing") line += "Set working queue has not run, so there is no queue to offer.";
-    else if (data.get("profile") === "no") line += "The queue has no agent whose profile includes it, so the contact waits.";
-    else if (!(seconds >= 0) || Number.isNaN(seconds)) line += "Enter a Lambda wait in seconds.";
-    else if (seconds > 8) line += "A flow invoke that waits past 8 seconds can take the timeout branch. A longer console timeout does not extend that wait.";
-    else line += "Hours are open, the queue is set, and a profile includes it. The contact can be offered. Lambda is within 8 seconds.";
-    out.textContent = line;
-  });
-})();
-</script>
+<script src="assets/js/desk.js"></script>
 
 <footer class="site-footer" data-canon-footer>
 <div class="disclaimer-panel" role="note">

@@ -54,7 +54,7 @@ const required = [
 for (const name of fs.readdirSync(path.join(root, "assets/css"))) {
   if (name.endsWith(".css")) required.push(`assets/css/${name}`);
 }
-for (const name of ["frame.js", "university.js", "play.js", "study.js"]) {
+for (const name of ["frame.js", "university.js", "play.js", "study.js", "boot.js", "desk.js"]) {
   required.push(`assets/js/${name}`);
 }
 

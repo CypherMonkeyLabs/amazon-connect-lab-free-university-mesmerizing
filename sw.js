@@ -1,6 +1,6 @@
 /* App shell for the Amazon Connect lab. Same-origin GET only.
    SHELL is rewritten by scripts/build_precache.mjs. */
-var CACHE = "connect-lab-r3-v3";
+var CACHE = "connect-lab-r3-v4";
 var SHELL = [
   "./index.html",
   "./offline.html",
@@ -30,6 +30,8 @@ var SHELL = [
   "./assets/js/university.js",
   "./assets/js/play.js",
   "./assets/js/study.js",
+  "./assets/js/boot.js",
+  "./assets/js/desk.js",
 ];
 
 self.addEventListener("install", function (event) {
