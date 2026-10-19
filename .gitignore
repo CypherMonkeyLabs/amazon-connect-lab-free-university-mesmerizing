@@ -1,3 +1,7 @@
 __pycache__/
 *.pyc
 agent-tools/
+node_modules/
+test-results/
+playwright-report/
+blob-report/

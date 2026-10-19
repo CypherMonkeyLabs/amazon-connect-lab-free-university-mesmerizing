@@ -1,0 +1,708 @@
+{
+  "sources": [
+    {
+      "id": "aws-amazon-com-products-connect-customer-pricing-appendix",
+      "title": "Amazon Connect Customer Pricing Appendix - AWS",
+      "url": "https://aws.amazon.com/products/connect/customer/pricing/appendix/",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "hidekazu-konishi-com-entry-aws-history-and-timeline-amazon-connect-html",
+      "title": "AWS History and Timeline regarding Amazon Connect - Overview, Functions, Features, Summary of Updates, and Introduction to Amazon Connect Customer | hidekazu-ko",
+      "url": "https://hidekazu-konishi.com/entry/aws_history_and_timeline_amazon_connect.html",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-call-centre",
+      "title": "Call centre - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Call_centre",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-contact-block-definitions-html",
+      "title": "Flow block definitions in the flow designer in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-block-definitions.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "aws-amazon-com-about-aws-whats-new-2020-07-contact-lens-amazon-connect-now-generally-available",
+      "title": "Contact Lens for Amazon Connect is now generally available - AWS",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2020/07/contact-lens-amazon-connect-now-generally-available/",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-amazonconnect-voiceid-end-of-support-html",
+      "title": "Amazon Connect Customer Voice ID end of support - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazonconnect-voiceid-end-of-support.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-agent-event-streams-html",
+      "title": "Connect Customer agent event streams - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/agent-event-streams.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-contact-events-html",
+      "title": "Connect Customer contact events - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-events.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "repost-aws-knowledge-center-connect-integrate-kinesis",
+      "title": "Integrate Amazon Connect with Amazon Kinesis | AWS re:Post",
+      "url": "https://repost.aws/knowledge-center/connect-integrate-kinesis",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-streams-latest-dev-introduction-html",
+      "title": "What is Amazon Kinesis Data Streams? - Amazon Kinesis Data Streams",
+      "url": "https://docs.aws.amazon.com/streams/latest/dev/introduction.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-amazon-kinesis",
+      "title": "Amazon Kinesis - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Amazon_Kinesis",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-concepts-routing-html",
+      "title": "How Connect Customer uses routing profiles - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-routing.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "www-rfc-editor-org-info-rfc3261",
+      "title": "RFC 3261: SIP: Session Initiation Protocol | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc3261/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-transfer-to-phone-number-html",
+      "title": "Flow block in Connect Customer: Transfer to phone number - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/transfer-to-phone-number.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-concepts-telephony-html",
+      "title": "The voice channel in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-telephony.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-session-initiation-protocol",
+      "title": "Session Initiation Protocol - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Session_Initiation_Protocol",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-ccp-networking-html",
+      "title": "Set up your network to use the Connect Customer Contact Control Panel (CCP) - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-networking.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-amazon-connect-service-limits-html",
+      "title": "Connect Customer service quotas - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-create-contact-flow-html",
+      "title": "Use the flow designer in Connect Customer to create flows - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-contact-flow.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-videocalling-networking-requirements-html",
+      "title": "Agent workstation requirements for app, web, and video calling in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/videocalling-networking-requirements.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "www-twilio-com-docs-flex-admin-guide-integrations-salesforce",
+      "title": "Integrate Flex with Salesforce",
+      "url": "https://www.twilio.com/docs/flex/admin-guide/integrations/salesforce",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "www-twilio-com-docs-sip-trunking-call-transfer",
+      "title": "Call Transfer via SIP REFER",
+      "url": "https://www.twilio.com/docs/sip-trunking/call-transfer",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-salesforce-integration-html",
+      "title": "Embed the Connect Customer Contact Control Panel (CCP) into Salesforce - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/salesforce-integration.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "github-com-amazon-connect-amazon-connect-salesforce-cti",
+      "title": "GitHub - amazon-connect/amazon-connect-salesforce-cti: Documentation for Amazon Connect CTI Adapter for Salesforce. · GitHub",
+      "url": "https://github.com/amazon-connect/amazon-connect-salesforce-cti",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-forecasting-capacity-planning-scheduling-html",
+      "title": "Forecasting & agent scheduling in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning-scheduling.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-setup-us-emergency-calling-html",
+      "title": "Set up US emergency calling in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-us-emergency-calling.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-set-recording-behavior-html",
+      "title": "Flow block in Connect Customer: Set recording and analytics behavior - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-recording-behavior.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-customer-profiles-html",
+      "title": "Use Connect Customer Customer Profiles - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-profiles.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-workforce-management",
+      "title": "Workforce management - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Workforce_management",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-enhanced-9-1-1",
+      "title": "Enhanced 911 - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Enhanced_9-1-1",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-customer-relationship-management",
+      "title": "Customer relationship management - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-customer-voice-streams-html",
+      "title": "Set up live media streaming of customer audio in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/customer-voice-streams.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-security-html",
+      "title": "Security in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/security.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-devguide-flow-language-html",
+      "title": "Connect Customer Flow language - Amazon Connect",
+      "url": "https://docs.aws.amazon.com/connect/latest/devguide/flow-language.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "repost-aws-knowledge-center-connect-contact-flow-errors",
+      "title": "Troubleshoot contact flow errors in Amazon Connect | AWS re:Post",
+      "url": "https://repost.aws/knowledge-center/connect-contact-flow-errors",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-interactive-voice-response",
+      "title": "Interactive voice response - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Interactive_voice_response",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "aws-amazon-com-certification",
+      "title": "AWS Certification - Validate AWS Cloud Skills - Get AWS Certified",
+      "url": "https://aws.amazon.com/certification/",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-amazon-web-services",
+      "title": "Amazon Web Services - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Amazon_Web_Services",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-amazoncloudwatch-latest-logs-whatiscloudwatchlogs-html",
+      "title": "What is Amazon CloudWatch Logs? - Amazon CloudWatch Logs",
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-configure-saml-html",
+      "title": "Configure SAML with IAM for Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/configure-saml.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-iam-latest-userguide-introduction-html",
+      "title": "What is IAM? - AWS Identity and Access Management",
+      "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-identity-and-access-management",
+      "title": "Identity and access management - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Identity_and_access_management",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-invoke-lambda-function-block-html",
+      "title": "Flow block in Connect Customer: AWS Lambda function - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/invoke-lambda-function-block.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-lambda-latest-dg-welcome-html",
+      "title": "What is AWS Lambda? - AWS Lambda",
+      "url": "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "repost-aws-knowledge-center-connect-lambda-function-failures",
+      "title": "Troubleshoot Lambda function failures in Amazon Connect | AWS re:Post",
+      "url": "https://repost.aws/knowledge-center/connect-lambda-function-failures",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-aws-lambda",
+      "title": "AWS Lambda - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/AWS_Lambda",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-ccp-uses-webrtc-html",
+      "title": "How Contact Control Panel (CCP) uses WebRTC - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/ccp-uses-webrtc.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "www-rfc-editor-org-info-rfc5766",
+      "title": "RFC 5766: Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN) | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc5766/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "www-rfc-editor-org-info-rfc8446",
+      "title": "RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3 | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc8446/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "www-rfc-editor-org-info-rfc8825",
+      "title": "RFC 8825: Overview: Real-Time Protocols for Browser-Based Applications | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc8825/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-webrtc",
+      "title": "WebRTC - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/WebRTC",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-transport-layer-security",
+      "title": "Transport Layer Security - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Transport_Layer_Security",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-setup-connect-global-resiliency-html",
+      "title": "Set up Connect Customer Global Resiliency - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/setup-connect-global-resiliency.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-what-is-amazon-connect-html",
+      "title": "What is Connect Customer? - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-amazons3-latest-userguide-welcome-html",
+      "title": "What is Amazon S3? - Amazon Simple Storage Service",
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-amazon-s3",
+      "title": "Amazon S3 - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Amazon_S3",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-salesforce",
+      "title": "Salesforce - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Salesforce",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "www-servicenow-com-docs-r-servicenow-platform-integrate-ccc-amazonconnect-html",
+      "title": "Docs | ServiceNow",
+      "url": "https://www.servicenow.com/docs/r/servicenow-platform/integrate-ccc-amazonconnect.html",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-servicenow",
+      "title": "ServiceNow - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/ServiceNow",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "aws-amazon-com-blogs-contact-center-streamline-employee-support-with-amazon-connect-and-microsof",
+      "title": "Streamline employee support with Amazon Connect and Microsoft Teams integration | AWS Contact Center",
+      "url": "https://aws.amazon.com/blogs/contact-center/streamline-employee-support-with-amazon-connect-and-microsoft-teams-integration/",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-create-evaluation-forms-html",
+      "title": "Create an evaluation form in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-evaluation-forms.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-contact-lens-html",
+      "title": "Connect Customer conversational analytics - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-enable-analytics-html",
+      "title": "Enable conversational analytics in Connect Customer conversational analytics - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/enable-analytics.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-amazon-lex-html",
+      "title": "Add an Amazon Lex bot to Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-lexv2-latest-dg-what-is-html",
+      "title": "What is Amazon Lex V2? - Amazon Lex",
+      "url": "https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-amazon-lex",
+      "title": "Amazon Lex - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Amazon_Lex",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-create-replica-connect-instance-html",
+      "title": "Create a replica of your existing Connect Customer instance - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/create-replica-connect-instance.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-set-routing-criteria-html",
+      "title": "Flow block in Connect Customer: Set routing criteria - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-routing-criteria.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-proficiency-routing-html",
+      "title": "Set up routing in Connect Customer based on agent proficiencies - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/proficiency-routing.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-routing-profiles-html",
+      "title": "Create a routing profile in Connect Customer to link queues to agents - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/routing-profiles.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-set-hours-operation-html",
+      "title": "Set the hours of operation and time zone for a queue using Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-hours-operation.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-concepts-queues-standard-and-agent-html",
+      "title": "Standard queues and agent queues in your Connect Customer contact center - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/concepts-queues-standard-and-agent.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-quick-connects-html",
+      "title": "Create quick connects in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/quick-connects.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-automatic-call-distributor",
+      "title": "Automatic call distributor - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Automatic_call_distributor",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-encryption-at-rest-html",
+      "title": "Encryption at rest in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/encryption-at-rest.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-kms-latest-developerguide-overview-html",
+      "title": "AWS Key Management Service - AWS Key Management Service",
+      "url": "https://docs.aws.amazon.com/kms/latest/developerguide/overview.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-security-assertion-markup-language",
+      "title": "SAML - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-security-profile-list-html",
+      "title": "List of security profile permissions in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/security-profile-list.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "www-rfc-editor-org-info-rfc3550",
+      "title": "RFC 3550: RTP: A Transport Protocol for Real-Time Applications | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc3550/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "www-rfc-editor-org-info-rfc3711",
+      "title": "RFC 3711: The Secure Real-time Transport Protocol (SRTP) | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc3711/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "en-wikipedia-org-wiki-real-time-transport-protocol",
+      "title": "Real-time Transport Protocol - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Real-time_Transport_Protocol",
+      "kind": "wikipedia",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-network-ts-html",
+      "title": "Troubleshoot your network for call quality and disconnect problems - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/network-ts.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-common-ccp-issues-html",
+      "title": "Contact Control Panel (CCP) Issues - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/common-ccp-issues.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-capacity-planning-html",
+      "title": "Capacity planning in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/capacity-planning.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-forecasting-html",
+      "title": "Forecasting in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "docs-aws-amazon-com-connect-latest-adminguide-set-forecast-scheduling-interval-html",
+      "title": "Set the forecast and schedule interval in Connect Customer - Amazon Connect Customer",
+      "url": "https://docs.aws.amazon.com/connect/latest/adminguide/set-forecast-scheduling-interval.html",
+      "kind": "aws",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "github-com-amazon-connect-amazon-connect-streams",
+      "title": "GitHub - amazon-connect/amazon-connect-streams: Amazon Connect Streams - a browser-based contact center integration API, typically with CRM systems. · GitHub",
+      "url": "https://github.com/amazon-connect/amazon-connect-streams",
+      "kind": "community",
+      "last_checked": "2026-10",
+      "status": "verified"
+    },
+    {
+      "id": "www-rfc-editor-org-info-rfc6455",
+      "title": "RFC 6455: The WebSocket Protocol | RFC Editor",
+      "url": "https://www.rfc-editor.org/info/rfc6455/",
+      "kind": "rfc",
+      "last_checked": "2026-10",
+      "status": "verified"
+    }
+  ]
+}

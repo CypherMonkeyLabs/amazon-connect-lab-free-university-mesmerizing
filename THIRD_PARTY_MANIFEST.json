@@ -1,0 +1,201 @@
+{
+  "components": [
+    {
+      "name": "Three.js",
+      "version": "r170",
+      "licence": "MIT",
+      "url": "https://github.com/mrdoob/three.js/releases/tag/r170",
+      "licence_file": "NOTICE.md",
+      "files": [
+        {
+          "path": "web/vendor/OrbitControls.js",
+          "sha256": "80efaadea4f8a636a65fb0bd08bfef62f3d93a0bb94e2e7500f23176c5c07f4e"
+        },
+        {
+          "path": "web/vendor/postprocessing/EffectComposer.js",
+          "sha256": "d234e578618fa816955ebdc059c049c577e203e650e33cf22bde3f232c29e669"
+        },
+        {
+          "path": "web/vendor/postprocessing/MaskPass.js",
+          "sha256": "328cf7db0da5d9be83ffe39d54b01d5ac1fddf108cc98182ddbb056f5c8b537f"
+        },
+        {
+          "path": "web/vendor/postprocessing/Pass.js",
+          "sha256": "b3c6128340eaa37e40a6a2f1b738e894c855239417d50959759b34a2b5e89f92"
+        },
+        {
+          "path": "web/vendor/postprocessing/RenderPass.js",
+          "sha256": "6c9b8a539ea16e898f65e4760f14937ef9ea94043bd9842c141e0301f41903e8"
+        },
+        {
+          "path": "web/vendor/postprocessing/ShaderPass.js",
+          "sha256": "3b28a1ee27e0eb96c0eab137a1f442ccf127a926904eced2d51e125ec44af781"
+        },
+        {
+          "path": "web/vendor/postprocessing/UnrealBloomPass.js",
+          "sha256": "596c531a907e63ff60bcefba79b60fc374fba43ef5b387e6d629af7821b27b40"
+        },
+        {
+          "path": "web/vendor/shaders/CopyShader.js",
+          "sha256": "4e3346db194db56a596cd074e9bdb39fb5eb52040c333e0d29dc4eb1324d3b1d"
+        },
+        {
+          "path": "web/vendor/shaders/LuminosityHighPassShader.js",
+          "sha256": "9f4866f9abb2d96fd83eec46ba4bf2165b22155a7a37ff425c0f60eba18007cb"
+        },
+        {
+          "path": "web/vendor/three.module.min.js",
+          "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7"
+        },
+        {
+          "path": "campus/vendor/OrbitControls.js",
+          "sha256": "80efaadea4f8a636a65fb0bd08bfef62f3d93a0bb94e2e7500f23176c5c07f4e"
+        },
+        {
+          "path": "campus/vendor/postprocessing/EffectComposer.js",
+          "sha256": "d234e578618fa816955ebdc059c049c577e203e650e33cf22bde3f232c29e669"
+        },
+        {
+          "path": "campus/vendor/postprocessing/MaskPass.js",
+          "sha256": "328cf7db0da5d9be83ffe39d54b01d5ac1fddf108cc98182ddbb056f5c8b537f"
+        },
+        {
+          "path": "campus/vendor/postprocessing/Pass.js",
+          "sha256": "b3c6128340eaa37e40a6a2f1b738e894c855239417d50959759b34a2b5e89f92"
+        },
+        {
+          "path": "campus/vendor/postprocessing/RenderPass.js",
+          "sha256": "6c9b8a539ea16e898f65e4760f14937ef9ea94043bd9842c141e0301f41903e8"
+        },
+        {
+          "path": "campus/vendor/postprocessing/ShaderPass.js",
+          "sha256": "3b28a1ee27e0eb96c0eab137a1f442ccf127a926904eced2d51e125ec44af781"
+        },
+        {
+          "path": "campus/vendor/postprocessing/UnrealBloomPass.js",
+          "sha256": "596c531a907e63ff60bcefba79b60fc374fba43ef5b387e6d629af7821b27b40"
+        },
+        {
+          "path": "campus/vendor/shaders/CopyShader.js",
+          "sha256": "4e3346db194db56a596cd074e9bdb39fb5eb52040c333e0d29dc4eb1324d3b1d"
+        },
+        {
+          "path": "campus/vendor/shaders/LuminosityHighPassShader.js",
+          "sha256": "9f4866f9abb2d96fd83eec46ba4bf2165b22155a7a37ff425c0f60eba18007cb"
+        },
+        {
+          "path": "campus/vendor/three.module.min.js",
+          "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7"
+        }
+      ]
+    },
+    {
+      "name": "anime.js",
+      "version": "4.2.2",
+      "licence": "MIT",
+      "url": "https://github.com/juliangarnier/anime",
+      "licence_file": "web/vendor/LICENSE-anime.md",
+      "files": [
+        {
+          "path": "web/vendor/LICENSE-anime.md",
+          "sha256": "3f3e835a9952cfc2a6ca836fb95b3257c981f24fa3ef51249055acb09931897b"
+        },
+        {
+          "path": "web/vendor/anime.esm.min.js",
+          "sha256": "b647cbdcb827f8d1e6fb441ba88e4b6fda458644450cfb5c6ed939a29e281993"
+        },
+        {
+          "path": "campus/vendor/LICENSE-anime.md",
+          "sha256": "3f3e835a9952cfc2a6ca836fb95b3257c981f24fa3ef51249055acb09931897b"
+        },
+        {
+          "path": "campus/vendor/anime.esm.min.js",
+          "sha256": "b647cbdcb827f8d1e6fb441ba88e4b6fda458644450cfb5c6ed939a29e281993"
+        }
+      ]
+    },
+    {
+      "name": "D3",
+      "version": "7.9.0",
+      "licence": "ISC",
+      "url": "https://github.com/d3/d3",
+      "licence_file": "web/vendor/LICENSE-d3",
+      "files": [
+        {
+          "path": "web/vendor/LICENSE-d3",
+          "sha256": "3e6849627f74ff73c257a3ae1efb574015d94fc1035c05ec3c15805165efcbc4"
+        },
+        {
+          "path": "web/vendor/d3.entry.js",
+          "sha256": "48f17c1ca99a28b670c41a13825a166f4979aa055b6b6a9e8061c94c67ed6b90"
+        },
+        {
+          "path": "web/vendor/d3.min.js",
+          "sha256": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539"
+        },
+        {
+          "path": "campus/vendor/LICENSE-d3",
+          "sha256": "3e6849627f74ff73c257a3ae1efb574015d94fc1035c05ec3c15805165efcbc4"
+        },
+        {
+          "path": "campus/vendor/d3.entry.js",
+          "sha256": "48f17c1ca99a28b670c41a13825a166f4979aa055b6b6a9e8061c94c67ed6b90"
+        },
+        {
+          "path": "campus/vendor/d3.min.js",
+          "sha256": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539"
+        }
+      ]
+    },
+    {
+      "name": "Rough.js",
+      "version": "unconfirmed",
+      "licence": "MIT",
+      "url": "https://github.com/rough-stuff/rough",
+      "licence_file": "web/vendor/LICENSE-rough.js",
+      "files": [
+        {
+          "path": "web/vendor/LICENSE-rough.js",
+          "sha256": "dca9a392272606ac748ac0976a2a1133f14eef841c27beaa51a844d53c56a09d"
+        },
+        {
+          "path": "web/vendor/rough.esm.js",
+          "sha256": "e921535f216ebc93d422489d614da955b5286812220b3149fc70978f4cb5bd45"
+        },
+        {
+          "path": "campus/vendor/LICENSE-rough.js",
+          "sha256": "dca9a392272606ac748ac0976a2a1133f14eef841c27beaa51a844d53c56a09d"
+        },
+        {
+          "path": "campus/vendor/rough.esm.js",
+          "sha256": "e921535f216ebc93d422489d614da955b5286812220b3149fc70978f4cb5bd45"
+        }
+      ]
+    },
+    {
+      "name": "canvas-confetti",
+      "version": "1.9.4",
+      "licence": "ISC",
+      "url": "https://github.com/catdad/canvas-confetti",
+      "licence_file": "web/vendor/LICENSE-canvas-confetti",
+      "files": [
+        {
+          "path": "web/vendor/LICENSE-canvas-confetti",
+          "sha256": "fd44477c30a832a1dee9ef0b6cfb34677fbe5ef58c0cf655d27c646f11bb2f7a"
+        },
+        {
+          "path": "web/vendor/confetti.module.mjs",
+          "sha256": "d29dc7b2dae5d04baf55666e4f677bbf7f8b0bf587e1ace6098823c4363e7589"
+        },
+        {
+          "path": "campus/vendor/LICENSE-canvas-confetti",
+          "sha256": "fd44477c30a832a1dee9ef0b6cfb34677fbe5ef58c0cf655d27c646f11bb2f7a"
+        },
+        {
+          "path": "campus/vendor/confetti.module.mjs",
+          "sha256": "d29dc7b2dae5d04baf55666e4f677bbf7f8b0bf587e1ace6098823c4363e7589"
+        }
+      ]
+    }
+  ]
+}

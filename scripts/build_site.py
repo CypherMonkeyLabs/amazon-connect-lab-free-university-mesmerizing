@@ -1078,6 +1078,7 @@ def write_hubs(grouped, known, room_meta, diagram_files, flow_files, quiz_pool):
 {game("Ports", "The network lesson names the instance on TCP 443 and TurnNlb on UDP 3478. Opening only 443 is the mistake in that room.", [("UDP 3478 to TurnNlb", 0), ("TCP 443 is enough for softphone media", 1)], 0, "rooms/foundations-network.html")}
 {game("Skills", "The proficiency page says routing criteria run after the contact is enqueued. Queues stay necessary.", [("Transfer to queue, then the steps run", 0), ("A proficiency replaces the queue", 1)], 0, "rooms/route-skills.html")}
 {game("Forecast", "The interval page says you choose 15 or 30 minutes once, before forecast groups, and you cannot change it.", [("Set it once, before forecast groups", 0), ("Switch it after the first forecast", 1)], 0, "rooms/wfm-interval.html")}
+<p>The <a href="sim.html">routing desk</a> is a separate simulation. You set hours, a queue, a profile, and a Lambda wait, and the page shows the branch. It does not call Amazon Connect.</p>
 </div>'''
     page(ROOT / "play.html", "Play · Connect Lab", "Short drills cited to the rooms.", 0, "play", games, '<script src="assets/js/play.js" defer></script>')
 

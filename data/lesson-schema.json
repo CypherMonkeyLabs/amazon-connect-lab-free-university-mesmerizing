@@ -1,0 +1,15 @@
+{
+  "$comment": "Front matter for rooms (connect-lesson-map/1). Rooms stay HTML. data/lesson-map.json is the catalog checked by scripts/validate_lessons.mjs.",
+  "required": ["key", "title", "level", "minutes", "outcomes", "sources", "has_exercise", "last_verified", "href"],
+  "properties": {
+    "key": "string, '<track>/<room id>', and rooms/<room id>.html must exist",
+    "title": "string, must equal the room h1",
+    "level": "integer 0-10",
+    "minutes": "integer",
+    "outcomes": "array of at least one phrase from the room, each at least 8 characters",
+    "sources": "array of at least one id from data/sources.json",
+    "has_exercise": "boolean",
+    "last_verified": "null or YYYY-MM-DD. null means a human has not re-checked this row in this wave",
+    "href": "path to the room page"
+  }
+}

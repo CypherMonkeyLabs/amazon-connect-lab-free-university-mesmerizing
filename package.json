@@ -1,0 +1,13 @@
+{
+  "name": "amazon-connect-lab",
+  "private": true,
+  "scripts": {
+    "start": "python3 -m http.server 41732 --bind 127.0.0.1",
+    "test": "playwright test",
+    "index:bot": "node pipeline/build_connectbot_index.mjs",
+    "eval:bot": "node tests/connectbot-heldout.mjs --spec ./connectbot-dev.json --out ./connectbot-dev-report.json"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}
